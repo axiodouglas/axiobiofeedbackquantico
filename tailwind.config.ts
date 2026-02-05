@@ -57,15 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // A.X.I.O. Custom Colors
-        gold: {
-          DEFAULT: "hsl(var(--gold))",
-          light: "hsl(var(--gold-light))",
-          dark: "hsl(var(--gold-dark))",
-          glow: "hsl(var(--gold-glow))",
+        // A.X.I.O. Custom Colors - Cyan Theme
+        cyan: {
+          DEFAULT: "hsl(var(--cyan))",
+          light: "hsl(var(--cyan-light))",
+          dark: "hsl(var(--cyan-dark))",
+          glow: "hsl(var(--cyan-glow))",
         },
         axio: {
-          financial: "hsl(var(--financial-gold))",
+          financial: "hsl(var(--financial-cyan))",
           relationship: "hsl(var(--relationship-rose))",
           health: "hsl(var(--health-teal))",
           family: "hsl(var(--family-purple))",
@@ -101,8 +101,8 @@ export default {
           "100%": { opacity: "1", transform: "scale(1)" },
         },
         glow: {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(43, 65%, 50%, 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(43, 65%, 50%, 0.6)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(175, 70%, 50%, 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(175, 70%, 50%, 0.6)" },
         },
       },
       animation: {
@@ -114,9 +114,9 @@ export default {
         glow: "glow 2s ease-in-out infinite",
       },
       backgroundImage: {
-        "gradient-gold": "linear-gradient(135deg, hsl(43, 65%, 58%) 0%, hsl(35, 70%, 45%) 100%)",
-        "gradient-dark": "linear-gradient(180deg, hsl(240, 10%, 6%) 0%, hsl(240, 10%, 4%) 100%)",
-        "gradient-radial-gold": "radial-gradient(ellipse at center, hsl(43, 65%, 30%, 0.3) 0%, transparent 70%)",
+        "gradient-cyan": "linear-gradient(135deg, hsl(175, 70%, 50%) 0%, hsl(185, 75%, 40%) 100%)",
+        "gradient-dark": "linear-gradient(180deg, hsl(220, 15%, 6%) 0%, hsl(220, 15%, 4%) 100%)",
+        "gradient-radial-cyan": "radial-gradient(ellipse at center, hsl(175, 70%, 30%, 0.3) 0%, transparent 70%)",
       },
     },
   },

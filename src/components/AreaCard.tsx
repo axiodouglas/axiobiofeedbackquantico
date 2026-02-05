@@ -25,7 +25,7 @@ export const AreaCard = ({
       onClick={onClick}
       className={cn(
         "group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all duration-300 cursor-pointer",
-        "hover:border-primary/40 hover:shadow-[0_0_30px_hsl(43,65%,50%,0.15)]",
+        "hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)]",
         isLocked && "opacity-80"
       )}
     >

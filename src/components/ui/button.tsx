@@ -15,10 +15,10 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        // A.X.I.O. Custom Variants
-        gold: "bg-gradient-to-r from-[hsl(43,65%,58%)] to-[hsl(35,70%,45%)] text-[hsl(240,10%,4%)] font-semibold shadow-[0_4px_20px_hsl(43,65%,50%,0.35)] hover:shadow-[0_6px_30px_hsl(43,65%,50%,0.5)] hover:-translate-y-0.5 active:translate-y-0",
-        goldOutline: "border-2 border-primary text-primary bg-transparent hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(43,65%,50%,0.2)]",
-        premium: "bg-gradient-to-r from-[hsl(43,65%,58%)] via-[hsl(40,70%,55%)] to-[hsl(35,70%,45%)] text-[hsl(240,10%,4%)] font-bold shadow-[0_4px_25px_hsl(43,65%,50%,0.4)] hover:shadow-[0_8px_35px_hsl(43,65%,50%,0.6)] hover:-translate-y-1 active:translate-y-0",
+        // A.X.I.O. Custom Variants - Cyan Theme
+        cyan: "bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(185,75%,40%)] text-[hsl(220,15%,4%)] font-semibold shadow-[0_4px_20px_hsl(175,70%,50%,0.35)] hover:shadow-[0_6px_30px_hsl(175,70%,50%,0.5)] hover:-translate-y-0.5 active:translate-y-0",
+        cyanOutline: "border-2 border-primary text-primary bg-transparent hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(175,70%,50%,0.2)]",
+        premium: "bg-gradient-to-r from-[hsl(175,70%,50%)] via-[hsl(180,75%,48%)] to-[hsl(185,75%,40%)] text-[hsl(220,15%,4%)] font-bold shadow-[0_4px_25px_hsl(175,70%,50%,0.4)] hover:shadow-[0_8px_35px_hsl(175,70%,50%,0.6)] hover:-translate-y-1 active:translate-y-0",
       },
       size: {
         default: "h-10 px-4 py-2",
