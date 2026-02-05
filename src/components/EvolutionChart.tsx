@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, Area, AreaChart } from "recharts";
+import { XAxis, YAxis, ResponsiveContainer, Tooltip, Area, AreaChart } from "recharts";
 
 const mockData = [
   { month: "Jan", frequency: 200 },
@@ -14,13 +14,13 @@ const mockData = [
 export const EvolutionChart = () => {
   const gradient = useMemo(() => (
     <defs>
-      <linearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="hsl(43, 65%, 58%)" stopOpacity={0.4} />
-        <stop offset="100%" stopColor="hsl(43, 65%, 58%)" stopOpacity={0} />
+      <linearGradient id="cyanGradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="hsl(175, 70%, 50%)" stopOpacity={0.4} />
+        <stop offset="100%" stopColor="hsl(175, 70%, 50%)" stopOpacity={0} />
       </linearGradient>
       <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="hsl(43, 65%, 58%)" />
-        <stop offset="100%" stopColor="hsl(43, 70%, 70%)" />
+        <stop offset="0%" stopColor="hsl(175, 70%, 50%)" />
+        <stop offset="100%" stopColor="hsl(175, 75%, 65%)" />
       </linearGradient>
     </defs>
   ), []);
@@ -46,28 +46,28 @@ export const EvolutionChart = () => {
               dataKey="month" 
               axisLine={false} 
               tickLine={false}
-              tick={{ fill: 'hsl(240, 5%, 55%)', fontSize: 12 }}
+              tick={{ fill: 'hsl(220, 8%, 55%)', fontSize: 12 }}
             />
             <YAxis 
               axisLine={false} 
               tickLine={false}
-              tick={{ fill: 'hsl(240, 5%, 55%)', fontSize: 12 }}
+              tick={{ fill: 'hsl(220, 8%, 55%)', fontSize: 12 }}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: 'hsl(240, 8%, 8%)',
-                border: '1px solid hsl(240, 6%, 20%)',
+                backgroundColor: 'hsl(220, 12%, 8%)',
+                border: '1px solid hsl(220, 10%, 20%)',
                 borderRadius: '8px',
-                color: 'hsl(45, 30%, 96%)',
+                color: 'hsl(180, 30%, 96%)',
               }}
-              labelStyle={{ color: 'hsl(43, 65%, 58%)' }}
+              labelStyle={{ color: 'hsl(175, 70%, 50%)' }}
             />
             <Area
               type="monotone"
               dataKey="frequency"
               stroke="url(#lineGradient)"
               strokeWidth={3}
-              fill="url(#goldGradient)"
+              fill="url(#cyanGradient)"
             />
           </AreaChart>
         </ResponsiveContainer>

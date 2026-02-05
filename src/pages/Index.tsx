@@ -3,9 +3,12 @@ import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import { EvolutionChart } from "@/components/EvolutionChart";
 import { HawkinsScale } from "@/components/HawkinsScale";
-import neuralWavesHero from "@/assets/neural-waves-hero.png";
+import { useNavigate } from "react-router-dom";
+import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 
 const Index = () => {
+  const navigate = useNavigate();
+
   const areas = [
     {
       title: "Financeiro",
@@ -14,6 +17,7 @@ const Index = () => {
       iconColor: "bg-primary/20 text-primary",
       isPremium: false,
       isLocked: false,
+      onClick: () => navigate("/recording?area=financeiro"),
     },
     {
       title: "Relacionamento",
@@ -22,6 +26,7 @@ const Index = () => {
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: true,
       isLocked: true,
+      onClick: () => navigate("/checkout"),
     },
     {
       title: "Saúde",
@@ -30,6 +35,7 @@ const Index = () => {
       iconColor: "bg-axio-health/20 text-axio-health",
       isPremium: true,
       isLocked: true,
+      onClick: () => navigate("/checkout"),
     },
     {
       title: "Familiar",
@@ -38,6 +44,7 @@ const Index = () => {
       iconColor: "bg-axio-family/20 text-axio-family",
       isPremium: true,
       isLocked: true,
+      onClick: () => navigate("/checkout"),
     },
   ];
 
@@ -48,7 +55,7 @@ const Index = () => {
         {/* Neural waves background */}
         <div className="absolute inset-0 w-full">
           <img
-            src={neuralWavesHero}
+            src={neuralWavesCyan}
             alt="Neural waves"
             className="w-full h-[400px] object-cover object-center opacity-70"
           />
@@ -66,7 +73,7 @@ const Index = () => {
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
               <span className="text-foreground">Bem-vindo ao </span>
-              <span className="text-gradient-gold">A.X.I.O.</span>
+              <span className="text-gradient-cyan">A.X.I.O.</span>
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
@@ -75,7 +82,12 @@ const Index = () => {
             </p>
 
             {/* CTA Button */}
-            <Button variant="gold" size="xl" className="group">
+            <Button 
+              variant="cyan" 
+              size="xl" 
+              className="group"
+              onClick={() => navigate("/recording?area=financeiro")}
+            >
               <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
               Iniciar Diagnóstico Gratuito
             </Button>
@@ -95,8 +107,8 @@ const Index = () => {
           <p className="text-muted-foreground">Escolha uma área para iniciar sua análise de frequência</p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        {/* Cards Grid - 2x2 Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
           {areas.map((area) => (
             <AreaCard
               key={area.title}
@@ -106,6 +118,7 @@ const Index = () => {
               iconColor={area.iconColor}
               isPremium={area.isPremium}
               isLocked={area.isLocked}
+              onClick={area.onClick}
             />
           ))}
         </div>
@@ -154,7 +167,7 @@ const Index = () => {
             </div>
           </div>
 
-          <Button variant="premium" size="lg">
+          <Button variant="premium" size="lg" onClick={() => navigate("/checkout")}>
             <Sparkles className="h-5 w-5" />
             Desbloquear Premium
           </Button>
@@ -164,7 +177,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-border bg-card/50 py-8 mt-12">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-gradient-gold font-semibold text-lg mb-2">A.X.I.O.</p>
+          <p className="text-gradient-cyan font-semibold text-lg mb-2">A.X.I.O.</p>
           <p className="text-sm text-muted-foreground">
             Análise do Fator X do Inconsciente de Origem
           </p>
