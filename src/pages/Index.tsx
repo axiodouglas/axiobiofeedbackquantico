@@ -109,7 +109,7 @@ const Index = () => {
         </div>
 
         {/* Cards Grid - 2x2 Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
+        <div className="grid grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
           {areas.map((area) => (
             <AreaCard
               key={area.title}

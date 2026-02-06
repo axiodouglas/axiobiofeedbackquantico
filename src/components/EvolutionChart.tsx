@@ -1,77 +1,70 @@
 import { useMemo } from "react";
-import { XAxis, YAxis, ResponsiveContainer, Tooltip, Area, AreaChart } from "recharts";
 
-const mockData = [
-  { month: "Jan", frequency: 200 },
-  { month: "Fev", frequency: 250 },
-  { month: "Mar", frequency: 220 },
-  { month: "Abr", frequency: 310 },
-  { month: "Mai", frequency: 380 },
-  { month: "Jun", frequency: 420 },
-  { month: "Jul", frequency: 480 },
+interface SentimentWeek {
+  week: string;
+  sentiment: string;
+  intensity: number;
+  color: string;
+}
+
+const mockWeeklyData: SentimentWeek[] = [
+  { week: "Sem 1", sentiment: "Medo", intensity: 75, color: "hsl(0, 70%, 55%)" },
+  { week: "Sem 2", sentiment: "Ansiedade", intensity: 60, color: "hsl(30, 80%, 55%)" },
+  { week: "Sem 3", sentiment: "Esperança", intensity: 50, color: "hsl(50, 70%, 55%)" },
+  { week: "Sem 4", sentiment: "Coragem", intensity: 65, color: "hsl(175, 70%, 50%)" },
 ];
 
-export const EvolutionChart = () => {
-  const gradient = useMemo(() => (
-    <defs>
-      <linearGradient id="cyanGradient" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="hsl(175, 70%, 50%)" stopOpacity={0.4} />
-        <stop offset="100%" stopColor="hsl(175, 70%, 50%)" stopOpacity={0} />
-      </linearGradient>
-      <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stopColor="hsl(175, 70%, 50%)" />
-        <stop offset="100%" stopColor="hsl(175, 75%, 65%)" />
-      </linearGradient>
-    </defs>
-  ), []);
+const predominant = mockWeeklyData.reduce((prev, curr) =>
+  curr.intensity > prev.intensity ? curr : prev
+);
 
+export const EvolutionChart = () => {
   return (
     <div className="rounded-xl border border-border bg-card p-6">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-foreground">Evolução Vibracional</h3>
-          <p className="text-sm text-muted-foreground">Sua frequência ao longo do tempo</p>
+          <h3 className="text-lg font-semibold text-foreground">Sentimentos Predominantes</h3>
+          <p className="text-sm text-muted-foreground">Análise semanal baseada nos seus áudios</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-sm font-medium text-primary">+42%</span>
+          <div className="h-2 w-2 rounded-full animate-pulse" style={{ backgroundColor: predominant.color }} />
+          <span className="text-sm font-semibold" style={{ color: predominant.color }}>
+            {predominant.sentiment}
+          </span>
         </div>
       </div>
 
-      <div className="h-48">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={mockData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
-            {gradient}
-            <XAxis 
-              dataKey="month" 
-              axisLine={false} 
-              tickLine={false}
-              tick={{ fill: 'hsl(220, 8%, 55%)', fontSize: 12 }}
-            />
-            <YAxis 
-              axisLine={false} 
-              tickLine={false}
-              tick={{ fill: 'hsl(220, 8%, 55%)', fontSize: 12 }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: 'hsl(220, 12%, 8%)',
-                border: '1px solid hsl(220, 10%, 20%)',
-                borderRadius: '8px',
-                color: 'hsl(180, 30%, 96%)',
-              }}
-              labelStyle={{ color: 'hsl(175, 70%, 50%)' }}
-            />
-            <Area
-              type="monotone"
-              dataKey="frequency"
-              stroke="url(#lineGradient)"
-              strokeWidth={3}
-              fill="url(#cyanGradient)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+      {/* Sentiment bars */}
+      <div className="space-y-4">
+        {mockWeeklyData.map((week) => (
+          <div key={week.week} className="space-y-1.5">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">{week.week}</span>
+              <span
+                className={`font-medium ${week.sentiment === predominant.sentiment ? "text-base font-bold" : ""}`}
+                style={{ color: week.color }}
+              >
+                {week.sentiment}
+                {week.sentiment === predominant.sentiment && " ★"}
+              </span>
+            </div>
+            <div className="w-full bg-muted rounded-full h-2.5">
+              <div
+                className="h-2.5 rounded-full transition-all duration-500"
+                style={{
+                  width: `${week.intensity}%`,
+                  backgroundColor: week.color,
+                  opacity: week.sentiment === predominant.sentiment ? 1 : 0.6,
+                }}
+              />
+            </div>
+          </div>
+        ))}
       </div>
+
+      <p className="mt-4 text-xs text-muted-foreground italic">
+        Atualizado semanalmente com base na análise dos seus áudios e relatórios.
+      </p>
     </div>
   );
 };
