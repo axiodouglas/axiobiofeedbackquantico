@@ -8,6 +8,7 @@ interface AreaCardProps {
   iconColor: string;
   isPremium?: boolean;
   isLocked?: boolean;
+  badge?: string;
   onClick?: () => void;
 }
 
@@ -18,6 +19,7 @@ export const AreaCard = ({
   iconColor,
   isPremium = false,
   isLocked = false,
+  badge,
   onClick,
 }: AreaCardProps) => {
   return (
@@ -51,6 +53,13 @@ export const AreaCard = ({
         <div className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-primary/20 px-2.5 py-1">
           <Lock className="h-3.5 w-3.5 text-primary" />
           <span className="text-xs font-medium text-primary">Premium</span>
+        </div>
+      )}
+
+      {/* Free badge */}
+      {badge && !isLocked && (
+        <div className="absolute right-4 top-4 rounded-full bg-primary/20 px-2.5 py-1">
+          <span className="text-xs font-medium text-primary">{badge}</span>
         </div>
       )}
 
