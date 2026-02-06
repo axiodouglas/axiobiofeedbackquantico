@@ -1,4 +1,4 @@
-import { DollarSign, Heart, Dna, Users, Sparkles, Mic } from "lucide-react";
+import { DollarSign, Heart, Dna, Users, Sparkles, Mic, Brain, AlertTriangle, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import { EvolutionChart } from "@/components/EvolutionChart";
@@ -11,20 +11,48 @@ const Index = () => {
 
   const areas = [
     {
+      title: "Pai",
+      description: "Analise padrões herdados da linhagem paterna.",
+      icon: <UserCheck className="h-7 w-7" />,
+      iconColor: "bg-primary/20 text-primary",
+      isPremium: false,
+      isLocked: false,
+      badge: "Gratuito",
+      onClick: () => navigate("/recording?area=pai"),
+    },
+    {
+      title: "Mãe",
+      description: "Analise padrões herdados da linhagem materna.",
+      icon: <Heart className="h-7 w-7" />,
+      iconColor: "bg-axio-relationship/20 text-axio-relationship",
+      isPremium: false,
+      isLocked: false,
+      badge: "Gratuito",
+      onClick: () => navigate("/recording?area=mae"),
+    },
+    {
+      title: "Ansiedade",
+      description: "Identifique gatilhos e reprograme padrões ansiosos.",
+      icon: <Brain className="h-7 w-7" />,
+      iconColor: "bg-axio-health/20 text-axio-health",
+      isPremium: true,
+      isLocked: true,
+      onClick: () => navigate("/checkout"),
+    },
+    {
+      title: "Medo",
+      description: "Dissolva bloqueios e supere medos limitantes.",
+      icon: <AlertTriangle className="h-7 w-7" />,
+      iconColor: "bg-axio-family/20 text-axio-family",
+      isPremium: true,
+      isLocked: true,
+      onClick: () => navigate("/checkout"),
+    },
+    {
       title: "Financeiro",
       description: "Reprograme crenças de escassez e desbloqueie abundância.",
       icon: <DollarSign className="h-7 w-7" />,
       iconColor: "bg-primary/20 text-primary",
-      isPremium: false,
-      isLocked: false,
-      badge: "Teste Gratuito",
-      onClick: () => navigate("/recording?area=financeiro"),
-    },
-    {
-      title: "Relacionamento",
-      description: "Cure padrões emocionais e atraia conexões saudáveis.",
-      icon: <Heart className="h-7 w-7" />,
-      iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: true,
       isLocked: true,
       onClick: () => navigate("/checkout"),
@@ -34,15 +62,6 @@ const Index = () => {
       description: "Equilibre sua energia vital e ative a autocura.",
       icon: <Dna className="h-7 w-7" />,
       iconColor: "bg-axio-health/20 text-axio-health",
-      isPremium: true,
-      isLocked: true,
-      onClick: () => navigate("/checkout"),
-    },
-    {
-      title: "Familiar",
-      description: "Dissolva traumas hereditários e cure a linhagem.",
-      icon: <Users className="h-7 w-7" />,
-      iconColor: "bg-axio-family/20 text-axio-family",
       isPremium: true,
       isLocked: true,
       onClick: () => navigate("/checkout"),
@@ -87,7 +106,7 @@ const Index = () => {
               variant="cyan" 
               size="xl" 
               className="group"
-              onClick={() => navigate("/recording?area=financeiro")}
+              onClick={() => navigate("/recording?area=pai")}
             >
               <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
               Iniciar Diagnóstico Gratuito
