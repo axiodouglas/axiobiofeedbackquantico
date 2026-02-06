@@ -14,7 +14,134 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      diagnoses: {
+        Row: {
+          area: string
+          audio_url: string | null
+          created_at: string
+          diagnosis_result: Json | null
+          frequency_score: number | null
+          id: string
+          transcription: string | null
+          user_id: string
+        }
+        Insert: {
+          area: string
+          audio_url?: string | null
+          created_at?: string
+          diagnosis_result?: Json | null
+          frequency_score?: number | null
+          id?: string
+          transcription?: string | null
+          user_id: string
+        }
+        Update: {
+          area?: string
+          audio_url?: string | null
+          created_at?: string
+          diagnosis_result?: Json | null
+          frequency_score?: number | null
+          id?: string
+          transcription?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      free_diagnosis_usage: {
+        Row: {
+          area: string
+          device_fingerprint: string
+          id: string
+          ip_address: string | null
+          used_at: string
+        }
+        Insert: {
+          area?: string
+          device_fingerprint: string
+          id?: string
+          ip_address?: string | null
+          used_at?: string
+        }
+        Update: {
+          area?: string
+          device_fingerprint?: string
+          id?: string
+          ip_address?: string | null
+          used_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          is_premium: boolean | null
+          subscription_expires_at: string | null
+          subscription_type: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          is_premium?: boolean | null
+          subscription_expires_at?: string | null
+          subscription_type?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          is_premium?: boolean | null
+          subscription_expires_at?: string | null
+          subscription_type?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      quantum_commands: {
+        Row: {
+          command_text: string
+          command_type: string | null
+          created_at: string
+          diagnosis_id: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          command_text: string
+          command_type?: string | null
+          created_at?: string
+          diagnosis_id?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          command_text?: string
+          command_type?: string | null
+          created_at?: string
+          diagnosis_id?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quantum_commands_diagnosis_id_fkey"
+            columns: ["diagnosis_id"]
+            isOneToOne: false
+            referencedRelation: "diagnoses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
