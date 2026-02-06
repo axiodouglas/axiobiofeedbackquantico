@@ -64,10 +64,10 @@ const Index = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 pt-32 pb-12">
+        <div className="relative z-10 container mx-auto px-4 pt-6 pb-12">
           <div className="max-w-3xl mx-auto text-center">
             {/* Logo/Title */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
+            <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
               <Sparkles className="h-4 w-4 text-primary animate-pulse" />
               <span className="text-sm font-medium text-primary">Biofeedback Quântico</span>
             </div>
