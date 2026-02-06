@@ -17,6 +17,7 @@ const Index = () => {
       iconColor: "bg-primary/20 text-primary",
       isPremium: false,
       isLocked: false,
+      badge: "Teste Gratuito",
       onClick: () => navigate("/recording?area=financeiro"),
     },
     {
@@ -93,7 +94,7 @@ const Index = () => {
             </Button>
 
             <p className="mt-4 text-sm text-muted-foreground">
-              Área Financeira • Sem cartão de crédito
+              Descubra sua trava financeira
             </p>
           </div>
         </div>
@@ -118,6 +119,7 @@ const Index = () => {
               iconColor={area.iconColor}
               isPremium={area.isPremium}
               isLocked={area.isLocked}
+              badge={area.badge}
               onClick={area.onClick}
             />
           ))}
