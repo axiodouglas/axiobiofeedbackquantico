@@ -64,7 +64,7 @@ const Index = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 pt-20 pb-12">
+        <div className="relative z-10 container mx-auto px-4 pt-32 pb-12">
           <div className="max-w-3xl mx-auto text-center">
             {/* Logo/Title */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
@@ -77,7 +77,7 @@ const Index = () => {
               <span className="text-gradient-cyan">A.X.I.O.</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 leading-relaxed">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
               Analise sua frequência vibracional e eleve sua consciência.
             </p>
