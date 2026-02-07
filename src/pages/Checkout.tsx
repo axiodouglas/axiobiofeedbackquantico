@@ -10,47 +10,51 @@ const plans = [
     period: "/mês",
     description: "Acesso completo mensal",
     popular: false,
+    discount: null,
     features: [
-      "Acesso às 4 áreas de diagnóstico",
-      "Comandos de reprogramação ilimitados",
-      "Relatórios mensais de evolução",
-      "Suporte por email",
+      "Relatório semanal",
+      "Comandos quânticos",
+      "Meditação quântica semanal",
+      "Relatórios de sentimentos predominantes",
+      "Acesso à comunidade de elevação de frequência",
     ],
-    stripeLink: "#", // Replace with actual Stripe link
+    stripeLink: "#",
   },
   {
-    id: "annual",
-    name: "Anual",
-    price: "R$ 19,90",
+    id: "quarterly",
+    name: "Trimestral",
+    price: "R$ 24,99",
     period: "/mês",
-    totalPrice: "R$ 238,80/ano",
-    description: "Economize 33%",
-    popular: true,
+    totalPrice: "R$ 74,97/trimestre",
+    description: "Economia garantida",
+    popular: false,
+    discount: "17% OFF",
     features: [
-      "Tudo do plano Mensal",
-      "Economia de R$ 120/ano",
-      "Relatórios semanais detalhados",
-      "Suporte prioritário",
-      "Bônus: Meditações exclusivas",
+      "Relatório semanal",
+      "Comandos quânticos",
+      "Meditação quântica semanal",
+      "Relatórios de sentimentos predominantes",
+      "Acesso à comunidade de elevação de frequência",
     ],
-    stripeLink: "#", // Replace with actual Stripe link
+    stripeLink: "#",
   },
   {
-    id: "lifetime",
-    name: "Vitalício",
-    price: "R$ 399,90",
-    period: " único",
-    description: "Acesso para sempre",
-    popular: false,
+    id: "semiannual",
+    name: "Semestral",
+    price: "R$ 19,99",
+    period: "/mês",
+    totalPrice: "R$ 119,94/semestre",
+    description: "Melhor custo-benefício",
+    popular: true,
+    discount: "33% OFF",
     features: [
-      "Tudo do plano Anual",
-      "Pagamento único",
-      "Acesso vitalício garantido",
-      "Todas as atualizações futuras",
-      "Suporte VIP",
-      "Sessão de consultoria",
+      "Relatório semanal",
+      "Comandos quânticos",
+      "Meditação quântica semanal",
+      "Relatórios de sentimentos predominantes",
+      "Acesso à comunidade de elevação de frequência",
     ],
-    stripeLink: "#", // Replace with actual Stripe link
+    stripeLink: "#",
   },
 ];
 
@@ -58,7 +62,6 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const handleSelectPlan = (stripeLink: string) => {
-    // TODO: Redirect to Stripe checkout
     if (stripeLink !== "#") {
       window.location.href = stripeLink;
     } else {
@@ -68,21 +71,19 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen bg-background noise">
-      {/* Header */}
+      {/* Header with Terms */}
       <header className="border-b border-border bg-card/50 py-4">
-        <div className="container mx-auto px-4">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate("/")}
-            className="gap-2"
-          >
+        <div className="container mx-auto px-4 flex items-center justify-between">
+          <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">
             <ArrowLeft className="h-4 w-4" />
             Voltar
+          </Button>
+          <Button variant="ghost" onClick={() => navigate("/terms")} className="text-sm text-muted-foreground">
+            Termos e Obrigações
           </Button>
         </div>
       </header>
 
-      {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
@@ -136,8 +137,15 @@ const Checkout = () => {
                   </div>
                 )}
 
+                {/* Discount Badge */}
+                {plan.discount && (
+                  <div className="absolute -top-3 right-4 rounded-full bg-destructive px-3 py-1 text-xs font-bold text-destructive-foreground">
+                    {plan.discount}
+                  </div>
+                )}
+
                 {/* Plan Header */}
-                <div className="text-center mb-6">
+                <div className="text-center mb-6 mt-2">
                   <h3 className="text-xl font-bold text-foreground mb-2">{plan.name}</h3>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-4xl font-bold text-foreground">{plan.price}</span>
