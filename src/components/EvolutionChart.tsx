@@ -8,10 +8,10 @@ interface SentimentWeek {
 }
 
 const mockWeeklyData: SentimentWeek[] = [
-  { week: "Sem 1", sentiment: "Medo", intensity: 75, color: "hsl(0, 70%, 55%)" },
-  { week: "Sem 2", sentiment: "Ansiedade", intensity: 60, color: "hsl(30, 80%, 55%)" },
-  { week: "Sem 3", sentiment: "Esperança", intensity: 50, color: "hsl(50, 70%, 55%)" },
-  { week: "Sem 4", sentiment: "Coragem", intensity: 65, color: "hsl(175, 70%, 50%)" },
+  { week: "01/01 - 07/01", sentiment: "Medo", intensity: 75, color: "hsl(0, 70%, 55%)" },
+  { week: "08/01 - 14/01", sentiment: "Ansiedade", intensity: 60, color: "hsl(30, 80%, 55%)" },
+  { week: "15/01 - 21/01", sentiment: "Esperança", intensity: 50, color: "hsl(50, 70%, 55%)" },
+  { week: "22/01 - 28/01", sentiment: "Coragem", intensity: 65, color: "hsl(175, 70%, 50%)" },
 ];
 
 const predominant = mockWeeklyData.reduce((prev, curr) =>
