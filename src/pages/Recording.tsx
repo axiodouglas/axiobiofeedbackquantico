@@ -3,13 +3,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Mic, Square, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useAxioAnalysis } from "@/hooks/use-axio-analysis";
 
-const MAX_RECORDING_TIME = 120; // 2 minutes
+const MAX_RECORDING_TIME = 120;
 
 const Recording = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const area = searchParams.get("area") || "financeiro";
+  const area = searchParams.get("area") || "pai";
 
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -21,22 +22,17 @@ const Recording = () => {
   const audioChunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const { analyzeAudio, isAnalyzing } = useAxioAnalysis();
+
   const areaNames: Record<string, string> = {
-    pai: "Pai",
-    mae: "Mãe",
-    financeiro: "Financeiro",
-    relacionamento: "Relacionamento",
-    saude: "Saúde",
-    familiar: "Familiar",
-    ansiedade: "Ansiedade",
-    medo: "Medo",
+    pai: "Pai", mae: "Mãe", financeiro: "Financeiro",
+    relacionamento: "Relacionamento", saude: "Saúde",
+    familiar: "Familiar", ansiedade: "Ansiedade", medo: "Medo",
   };
 
   useEffect(() => {
     return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
+      if (timerRef.current) clearInterval(timerRef.current);
     };
   }, []);
 
@@ -48,14 +44,12 @@ const Recording = () => {
       audioChunksRef.current = [];
 
       mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
-        }
+        if (event.data.size > 0) audioChunksRef.current.push(event.data);
       };
 
       mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-        setAudioBlob(audioBlob);
+        const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+        setAudioBlob(blob);
         stream.getTracks().forEach((track) => track.stop());
       };
 
@@ -93,28 +87,19 @@ const Recording = () => {
     if (!audioBlob) return;
 
     setIsUploading(true);
-    
-    // Simulate upload progress
-    const progressInterval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev >= 95) {
-          clearInterval(progressInterval);
-          return 95;
-        }
-        return prev + 5;
-      });
-    }, 100);
+    setUploadProgress(10);
 
-    // Simulate processing time
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    
-    setUploadProgress(100);
-    clearInterval(progressInterval);
-
-    // Navigate to processing screen
-    setTimeout(() => {
+    // Navigate to processing with a pending state
+    // Store the audio blob in sessionStorage as base64 for the processing page
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result as string;
+      sessionStorage.setItem("axio_audio", base64);
+      sessionStorage.setItem("axio_area", area);
+      setUploadProgress(100);
       navigate(`/processing?area=${area}`);
-    }, 500);
+    };
+    reader.readAsDataURL(audioBlob);
   };
 
   const formatTime = (seconds: number) => {
@@ -127,54 +112,39 @@ const Recording = () => {
 
   return (
     <div className="min-h-screen bg-background noise flex flex-col">
-      {/* Header */}
       <header className="border-b border-border bg-card/50 py-4">
         <div className="container mx-auto px-4">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate("/")}
-            className="gap-2"
-          >
+          <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">
             <ArrowLeft className="h-4 w-4" />
             Voltar
           </Button>
         </div>
       </header>
 
-      {/* Main Content */}
       <div className="flex-1 container mx-auto px-4 py-12 flex flex-col items-center justify-center">
         <div className="max-w-md w-full text-center">
-          {/* Area Badge */}
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
             <span className="text-sm font-medium text-primary">
               Diagnóstico {areaNames[area]}
             </span>
           </div>
 
-          <h1 className="text-3xl font-bold mb-4 text-foreground">
-            Grave seu Áudio
-          </h1>
+          <h1 className="text-3xl font-bold mb-4 text-foreground">Grave seu Áudio</h1>
           <p className="text-muted-foreground mb-8">
-            Fale sobre sua situação atual na área {areaNames[area]?.toLowerCase()}. 
+            Fale sobre sua situação atual na área {areaNames[area]?.toLowerCase()}.
             O que você sente? Quais são seus desafios?
           </p>
 
-          {/* Recording Interface */}
           <div className="bg-card border border-border rounded-2xl p-8 mb-6">
-            {/* Timer */}
             <div className="text-5xl font-mono font-bold text-foreground mb-4">
               {formatTime(recordingTime)}
             </div>
-            <div className="text-sm text-muted-foreground mb-6">
-              Máximo: 2 minutos
-            </div>
+            <div className="text-sm text-muted-foreground mb-6">Máximo: 2 minutos</div>
 
-            {/* Progress Bar */}
             <div className="mb-8">
               <Progress value={progressPercent} className="h-2" />
             </div>
 
-            {/* Recording Button */}
             {!audioBlob ? (
               <Button
                 variant={isRecording ? "destructive" : "cyan"}
@@ -196,11 +166,9 @@ const Recording = () => {
               </Button>
             ) : (
               <div className="space-y-4">
-                <p className="text-sm text-primary font-medium">
-                  ✓ Áudio gravado com sucesso!
-                </p>
-                
-                {isUploading ? (
+                <p className="text-sm text-primary font-medium">✓ Áudio gravado com sucesso!</p>
+
+                {isUploading || isAnalyzing ? (
                   <div className="space-y-2">
                     <Progress value={uploadProgress} className="h-2" />
                     <p className="text-sm text-muted-foreground">
@@ -219,11 +187,7 @@ const Recording = () => {
                     >
                       Gravar Novamente
                     </Button>
-                    <Button
-                      variant="cyan"
-                      className="flex-1"
-                      onClick={handleSubmit}
-                    >
+                    <Button variant="cyan" className="flex-1" onClick={handleSubmit}>
                       Enviar Áudio
                     </Button>
                   </div>
@@ -232,7 +196,6 @@ const Recording = () => {
             )}
           </div>
 
-          {/* Tips */}
           <div className="text-left bg-card/50 border border-border rounded-xl p-4">
             <h3 className="font-semibold text-foreground mb-2">Dicas para um bom diagnóstico:</h3>
             <ul className="text-sm text-muted-foreground space-y-1">
