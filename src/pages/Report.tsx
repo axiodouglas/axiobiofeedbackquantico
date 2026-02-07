@@ -1,7 +1,9 @@
+import { useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, AlertTriangle, Brain, Lock, Sparkles, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
+import type { DiagnosisResult } from "@/hooks/use-axio-analysis";
 
 const mockDiagnostics: Record<string, { title: string; blocks: { name: string; description: string; origin: string }[]; summary: string }> = {
   pai: {
@@ -123,8 +125,34 @@ const Report = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const area = searchParams.get("area") || "pai";
-  
-  const diagnostic = mockDiagnostics[area] || mockDiagnostics.pai;
+
+  // Try to load AI-generated diagnosis from sessionStorage
+  const aiDiagnosis = useMemo(() => {
+    try {
+      const stored = sessionStorage.getItem("axio_result");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        return parsed.diagnosis as DiagnosisResult;
+      }
+    } catch {}
+    return null;
+  }, []);
+
+  const diagnostic = aiDiagnosis
+    ? {
+        title: aiDiagnosis.title,
+        blocks: aiDiagnosis.blocks,
+        summary: aiDiagnosis.summary,
+        frequencyScore: aiDiagnosis.frequency_score,
+        rootWound: aiDiagnosis.root_wound,
+        ctaMessage: aiDiagnosis.cta_message,
+      }
+    : {
+        ...(mockDiagnostics[area] || mockDiagnostics.pai),
+        frequencyScore: 35,
+        rootWound: undefined,
+        ctaMessage: undefined,
+      };
 
   return (
     <div className="min-h-screen bg-background noise">
@@ -186,7 +214,7 @@ const Report = () => {
                 <div className="w-full bg-muted rounded-full h-3">
                   <div 
                     className="bg-gradient-to-r from-destructive via-yellow-500 to-primary h-3 rounded-full"
-                    style={{ width: "35%" }}
+                    style={{ width: `${diagnostic.frequencyScore || 35}%` }}
                   />
                 </div>
                 <div className="flex justify-between text-xs text-muted-foreground mt-2">
@@ -221,6 +249,14 @@ const Report = () => {
                 ))}
               </div>
 
+              {/* Root Wound - AI Generated */}
+              {diagnostic.rootWound && (
+                <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-5 mb-10">
+                  <h3 className="font-semibold text-foreground text-sm mb-2">🔍 Ferida Raiz Identificada</h3>
+                  <p className="text-sm text-muted-foreground italic">"{diagnostic.rootWound}"</p>
+                </div>
+              )}
+
               {/* CTA - Premium Unlock */}
               <div className="bg-gradient-to-br from-primary/15 via-card to-card border-2 border-primary/40 rounded-xl p-6 text-center mb-8">
                 <div className="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/20">
@@ -232,10 +268,14 @@ const Report = () => {
                 </h2>
 
                 <p className="text-sm text-muted-foreground mb-5 max-w-xl mx-auto">
-                  Para <strong className="text-foreground">reprogramar sua mente antes de dormir</strong>, 
-                  receber orientações sobre como <strong className="text-foreground">perdoar padrões familiares</strong> e 
-                  <strong className="text-foreground"> mudar sua visão sobre o dinheiro</strong>, 
-                  assine o <span className="text-primary font-semibold">Plano Premium</span>.
+                  {diagnostic.ctaMessage || (
+                    <>
+                      Este diagnóstico é apenas a ponta do iceberg. Para adquirir os{" "}
+                      <strong className="text-foreground">Comandos Quânticos</strong> para ressignificar sua mente
+                      e ter acesso a <strong className="text-foreground">Meditações Únicas</strong> feitas
+                      semanalmente, assine o <span className="text-primary font-semibold">Plano Premium</span>.
+                    </>
+                  )}
                 </p>
 
                 <div className="bg-secondary/30 rounded-lg p-4 mb-5">
