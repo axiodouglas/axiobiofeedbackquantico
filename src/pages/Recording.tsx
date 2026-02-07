@@ -22,10 +22,14 @@ const Recording = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const areaNames: Record<string, string> = {
+    pai: "Pai",
+    mae: "Mãe",
     financeiro: "Financeiro",
     relacionamento: "Relacionamento",
     saude: "Saúde",
     familiar: "Familiar",
+    ansiedade: "Ansiedade",
+    medo: "Medo",
   };
 
   useEffect(() => {
