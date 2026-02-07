@@ -12,7 +12,7 @@ const Index = () => {
   const areas = [
     {
       title: "Pai",
-      description: "Analise padrões herdados da linhagem paterna.",
+      description: "Descubra os bloqueios relacionados ao Pai.",
       icon: <UserCheck className="h-7 w-7" />,
       iconColor: "bg-primary/20 text-primary",
       isPremium: false,
@@ -22,7 +22,7 @@ const Index = () => {
     },
     {
       title: "Mãe",
-      description: "Analise padrões herdados da linhagem materna.",
+      description: "Descubra os bloqueios relacionados à Mãe.",
       icon: <Heart className="h-7 w-7" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: false,
@@ -32,7 +32,7 @@ const Index = () => {
     },
     {
       title: "Ansiedade",
-      description: "Identifique gatilhos e reprograme padrões ansiosos.",
+      description: "Descubra os bloqueios relacionados à Ansiedade.",
       icon: <Brain className="h-7 w-7" />,
       iconColor: "bg-axio-health/20 text-axio-health",
       isPremium: true,
@@ -41,7 +41,7 @@ const Index = () => {
     },
     {
       title: "Medo",
-      description: "Dissolva bloqueios e supere medos limitantes.",
+      description: "Descubra os bloqueios relacionados ao Medo.",
       icon: <AlertTriangle className="h-7 w-7" />,
       iconColor: "bg-axio-family/20 text-axio-family",
       isPremium: true,
@@ -50,7 +50,7 @@ const Index = () => {
     },
     {
       title: "Financeiro",
-      description: "Reprograme crenças de escassez e desbloqueie abundância.",
+      description: "Descubra os bloqueios relacionados ao Financeiro.",
       icon: <DollarSign className="h-7 w-7" />,
       iconColor: "bg-primary/20 text-primary",
       isPremium: true,
@@ -59,9 +59,18 @@ const Index = () => {
     },
     {
       title: "Saúde",
-      description: "Equilibre sua energia vital e ative a autocura.",
+      description: "Descubra os bloqueios relacionados à Saúde.",
       icon: <Dna className="h-7 w-7" />,
       iconColor: "bg-axio-health/20 text-axio-health",
+      isPremium: true,
+      isLocked: true,
+      onClick: () => navigate("/checkout"),
+    },
+    {
+      title: "Relacionamento",
+      description: "Descubra os bloqueios relacionados ao Relacionamento.",
+      icon: <Users className="h-7 w-7" />,
+      iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: true,
       isLocked: true,
       onClick: () => navigate("/checkout"),
