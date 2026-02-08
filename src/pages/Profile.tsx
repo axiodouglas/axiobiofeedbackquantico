@@ -188,13 +188,13 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        {/* Diagnoses History - Folder Tree */}
-        <Card>
+        {/* Relatórios - Premium Only */}
+        <Card className={!subscriptionActive ? "border-primary/20" : ""}>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
               <FolderTree className="h-5 w-5 text-primary" />
-              Histórico de Diagnósticos
-              {diagnoses.length > 0 && (
+              Meus Relatórios
+              {subscriptionActive && diagnoses.length > 0 && (
                 <Badge variant="secondary" className="text-xs ml-auto">
                   {diagnoses.length}
                 </Badge>
@@ -202,12 +202,23 @@ const Profile = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {loadingDiagnoses ? (
+            {!subscriptionActive ? (
+              <div className="text-center py-8 space-y-3">
+                <Crown className="h-10 w-10 text-primary/40 mx-auto" />
+                <p className="text-sm text-muted-foreground">
+                  Assine o plano Premium para acessar seus relatórios, comandos quânticos e meditações.
+                </p>
+                <Button variant="cyan" size="sm" onClick={() => navigate("/checkout")} className="gap-1.5">
+                  <Sparkles className="h-4 w-4" />
+                  Assinar Premium
+                </Button>
+              </div>
+            ) : loadingDiagnoses ? (
               <p className="text-sm text-muted-foreground animate-pulse">Carregando...</p>
             ) : diagnoses.length === 0 ? (
               <div className="text-center py-8 space-y-3">
                 <Activity className="h-10 w-10 text-muted-foreground/40 mx-auto" />
-                <p className="text-sm text-muted-foreground">Nenhum diagnóstico realizado ainda.</p>
+                <p className="text-sm text-muted-foreground">Nenhum relatório gerado ainda.</p>
                 <Button variant="cyan" size="sm" onClick={() => navigate("/area-selection")}>
                   Iniciar Diagnóstico
                 </Button>
@@ -218,7 +229,7 @@ const Profile = () => {
                   <DiagnosisFolder
                     key={d.id}
                     diagnosis={d}
-                    isPremium={!!subscriptionActive}
+                    isPremium={true}
                     userId={user!.id}
                   />
                 ))}
