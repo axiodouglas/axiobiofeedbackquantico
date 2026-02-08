@@ -1,4 +1,4 @@
-import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HelpCircle } from "lucide-react";
+import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HelpCircle, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -33,6 +33,15 @@ const Index = () => {
       description: "Bullying, acidentes, perdas e abusos externos à família.",
       icon: <Flame className="h-7 w-7" />,
       iconColor: "bg-axio-family/20 text-axio-family",
+      isPremium: true,
+      isLocked: true,
+      onClick: () => navigate("/checkout"),
+    },
+    {
+      title: "Relacionamentos",
+      description: "Descubra as projeções de Pai e Mãe no seu parceiro.",
+      icon: <HeartHandshake className="h-7 w-7" />,
+      iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: true,
       isLocked: true,
       onClick: () => navigate("/checkout"),

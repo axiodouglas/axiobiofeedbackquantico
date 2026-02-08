@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, UserCheck, Flame, Lock } from "lucide-react";
+import { ArrowLeft, Heart, UserCheck, Flame, Lock, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const areas = [
@@ -25,6 +25,14 @@ const areas = [
     description: "Bullying, acidentes, perdas e abusos externos.",
     icon: <Flame className="h-8 w-8" />,
     iconColor: "bg-axio-family/20 text-axio-family",
+    isFree: true,
+  },
+  {
+    id: "relacionamentos",
+    title: "Relacionamentos",
+    description: "Descubra as projeções de Pai e Mãe no seu parceiro.",
+    icon: <HeartHandshake className="h-8 w-8" />,
+    iconColor: "bg-axio-relationship/20 text-axio-relationship",
     isFree: true,
   },
 ];
