@@ -21,11 +21,12 @@ const Recording = () => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const isRecordingRef = useRef(false);
 
   const { analyzeAudio, isAnalyzing } = useAxioAnalysis();
 
   const areaNames: Record<string, string> = {
-    pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais",
+    pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamentos: "Relacionamentos",
   };
 
   useEffect(() => {
@@ -59,12 +60,22 @@ const Recording = () => {
 
       mediaRecorder.start(1000);
       setIsRecording(true);
+      isRecordingRef.current = true;
       setRecordingTime(0);
 
       timerRef.current = setInterval(() => {
         setRecordingTime((prev) => {
           if (prev >= MAX_RECORDING_TIME - 1) {
-            stopRecording();
+            // Use ref-based stop to avoid stale closure
+            if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+              mediaRecorderRef.current.stop();
+              isRecordingRef.current = false;
+              if (timerRef.current) {
+                clearInterval(timerRef.current);
+                timerRef.current = null;
+              }
+            }
+            setIsRecording(false);
             return MAX_RECORDING_TIME;
           }
           return prev + 1;
@@ -77,9 +88,10 @@ const Recording = () => {
   };
 
   const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
+    if (mediaRecorderRef.current && (isRecordingRef.current || mediaRecorderRef.current.state === "recording")) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
+      isRecordingRef.current = false;
       if (timerRef.current) {
         clearInterval(timerRef.current);
         timerRef.current = null;

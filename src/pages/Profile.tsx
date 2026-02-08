@@ -188,54 +188,7 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        {/* Meus Relatórios - Acesso Total */}
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <FolderTree className="h-5 w-5 text-primary" />
-              Meus Relatórios
-              {diagnoses.length > 0 && (
-                <Badge variant="secondary" className="text-xs ml-auto">
-                  {diagnoses.length}
-                </Badge>
-              )}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {loadingDiagnoses ? (
-              <p className="text-sm text-muted-foreground animate-pulse">Carregando...</p>
-            ) : diagnoses.length === 0 ? (
-              <div className="text-center py-8 space-y-3">
-                <Activity className="h-10 w-10 text-muted-foreground/40 mx-auto" />
-                <p className="text-sm text-muted-foreground">Nenhum relatório gerado ainda.</p>
-                <Button variant="cyan" size="sm" onClick={() => navigate("/area-selection")}>
-                  Iniciar Diagnóstico
-                </Button>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {diagnoses.map((d) => (
-                  <DiagnosisFolder
-                    key={d.id}
-                    diagnosis={d}
-                    isPremium={true}
-                    userId={user!.id}
-                  />
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Expiration Notice */}
-        {diagnoses.length > 0 && (
-          <Alert className="border-yellow-500/30 bg-yellow-500/5">
-            <AlertTriangle className="h-4 w-4 text-yellow-500" />
-            <AlertDescription className="text-xs text-muted-foreground">
-              Atenção: Para garantir a fluidez do sistema e a atualização da sua jornada, os relatórios e comandos são apagados automaticamente a cada 3 meses.
-            </AlertDescription>
-          </Alert>
-        )}
+        {/* Relatórios serão re-implementados em breve */}
       </div>
     </div>
   );
