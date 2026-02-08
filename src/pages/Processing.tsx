@@ -80,11 +80,11 @@ const Processing = () => {
           return;
         }
 
-        // Graceful handling: Focus validation failed = redirect to recording (expected flow event)
+        // Focus validation failed = show Diagnóstico Interrompido screen with the AI's message
         if (data?.diagnosis?.focus_valid === false) {
-          sessionStorage.setItem("axio_focus_error", data.diagnosis.focus_message || "");
-          cleanupAttempt();
-          navigate(`/recording?area=${area}&focus_error=true`);
+          const focusMsg = data.diagnosis.focus_message || 
+            "O áudio enviado não está relacionado ao tema deste card. Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.";
+          handleGracefulFailure(focusMsg);
           return;
         }
 

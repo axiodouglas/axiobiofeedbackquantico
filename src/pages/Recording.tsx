@@ -36,7 +36,13 @@ const Recording = () => {
 
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          sampleRate: 44100,
+        },
+      });
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -84,18 +90,35 @@ const Recording = () => {
   const handleSubmit = async () => {
     if (!audioBlob) return;
 
+    if (recordingTime < 10) {
+      alert("Grave pelo menos 10 segundos para um diagnóstico válido.");
+      return;
+    }
+
     setIsUploading(true);
     setUploadProgress(10);
 
-    // Navigate to processing with a pending state
-    // Store the audio blob in sessionStorage as base64 for the processing page
     const reader = new FileReader();
+    reader.onerror = () => {
+      setIsUploading(false);
+      setUploadProgress(0);
+      alert("Erro ao enviar áudio. Verifique sua conexão.");
+    };
     reader.onloadend = () => {
-      const base64 = reader.result as string;
-      sessionStorage.setItem("axio_audio", base64);
-      sessionStorage.setItem("axio_area", area);
-      setUploadProgress(100);
-      navigate(`/processing?area=${area}`);
+      try {
+        const base64 = reader.result as string;
+        if (!base64 || base64.length < 100) {
+          throw new Error("Audio data too small");
+        }
+        sessionStorage.setItem("axio_audio", base64);
+        sessionStorage.setItem("axio_area", area);
+        setUploadProgress(100);
+        navigate(`/processing?area=${area}`);
+      } catch {
+        setIsUploading(false);
+        setUploadProgress(0);
+        alert("Erro ao enviar áudio. Verifique sua conexão.");
+      }
     };
     reader.readAsDataURL(audioBlob);
   };
