@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Brain, Mail, Lock, User, ArrowLeft, Sparkles, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAuth } from "@/hooks/use-auth";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 
@@ -16,6 +19,8 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,12 +133,33 @@ const Auth = () => {
                 </div>
               )}
 
+              {!isLogin && (
+                <div className="flex items-start gap-2">
+                  <Checkbox
+                    id="terms"
+                    checked={acceptedTerms}
+                    onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
+                    className="mt-0.5"
+                  />
+                  <label htmlFor="terms" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
+                    Li e aceito os{" "}
+                    <button
+                      type="button"
+                      onClick={(e) => { e.preventDefault(); setTermsOpen(true); }}
+                      className="text-primary underline hover:text-primary/80 transition-colors"
+                    >
+                      Termos de Uso e Segurança de Dados
+                    </button>
+                  </label>
+                </div>
+              )}
+
               <Button
                 type="submit"
                 variant="cyan"
                 size="lg"
                 className="w-full"
-                disabled={loading}
+                disabled={loading || (!isLogin && !acceptedTerms)}
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
@@ -151,6 +177,7 @@ const Auth = () => {
                   setIsLogin(!isLogin);
                   setError(null);
                   setSuccessMessage(null);
+                  setAcceptedTerms(false);
                 }}
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
@@ -164,6 +191,50 @@ const Auth = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal de Termos */}
+      <Dialog open={termsOpen} onOpenChange={setTermsOpen}>
+        <DialogContent className="max-w-lg bg-card border-border">
+          <DialogHeader>
+            <DialogTitle className="text-foreground">Termos de Uso e Segurança de Dados</DialogTitle>
+          </DialogHeader>
+          <ScrollArea className="max-h-[60vh] pr-4">
+            <div className="space-y-6 text-sm text-muted-foreground leading-relaxed">
+              <section>
+                <h3 className="text-foreground font-semibold mb-2">1. Natureza do Serviço</h3>
+                <p>
+                  O A.X.I.O. — Análise do Fator X do Inconsciente de Origem — é uma ferramenta de autoconhecimento
+                  e desenvolvimento pessoal baseada em inteligência artificial. Os diagnósticos e comandos de
+                  reprogramação gerados pela plataforma têm caráter exclusivamente informativo e educacional,
+                  <strong className="text-foreground"> não substituindo tratamento médico, psicológico ou psiquiátrico profissional</strong>.
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-foreground font-semibold mb-2">2. Armazenamento e Segurança de Dados</h3>
+                <p>
+                  Todos os dados pessoais, áudios e transcrições são processados e armazenados em infraestrutura
+                  de nuvem segura com banco de dados PostgreSQL criptografado. Os áudios são processados de forma
+                  anônima pela IA e não são compartilhados com terceiros, em conformidade com a LGPD.
+                </p>
+              </section>
+
+              <section>
+                <h3 className="text-foreground font-semibold mb-2">3. Isenção de Responsabilidade</h3>
+                <p>
+                  Ao aceitar estes termos, o usuário reconhece e concorda que o A.X.I.O. se isenta de qualquer
+                  responsabilidade civil ou criminal nos seguintes cenários:
+                </p>
+                <ul className="list-disc pl-5 mt-2 space-y-1">
+                  <li>Invasões cibernéticas (hacks) em larga escala que comprometam os provedores de infraestrutura de nuvem utilizados pela plataforma;</li>
+                  <li>Má custódia de senhas e credenciais de acesso pelo próprio usuário;</li>
+                  <li>Uso inadequado dos diagnósticos como substituto a orientação profissional de saúde.</li>
+                </ul>
+              </section>
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
