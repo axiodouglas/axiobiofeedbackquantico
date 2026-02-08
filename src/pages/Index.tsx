@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import { EvolutionChart } from "@/components/EvolutionChart";
 import { HawkinsScale } from "@/components/HawkinsScale";
+import UserMenu from "@/components/UserMenu";
 import { useNavigate } from "react-router-dom";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 
@@ -79,6 +80,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background noise">
+      {/* Top Navigation */}
+      <nav className="absolute top-0 left-0 right-0 z-20 py-4">
+        <div className="container mx-auto px-4 flex items-center justify-between">
+          <span className="text-gradient-cyan font-bold text-lg">A.X.I.O.</span>
+          <UserMenu />
+        </div>
+      </nav>
+
       {/* Hero Section with Neural Waves */}
       <div className="relative overflow-hidden">
         {/* Neural waves background */}

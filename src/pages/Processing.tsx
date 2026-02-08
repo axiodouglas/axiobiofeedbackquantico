@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Brain, Dna, Sparkles, Activity, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 const processingSteps = [
   { icon: Brain, text: "Analisando padrões de fala..." },
@@ -15,6 +16,7 @@ const Processing = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const area = searchParams.get("area") || "pai";
+  const { user } = useAuth();
 
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -92,7 +94,20 @@ const Processing = () => {
           return;
         }
 
-        // SUCCESS: Valid diagnosis - save and navigate
+        // SUCCESS: Valid diagnosis - save to DB if authenticated, then navigate
+        if (user) {
+          try {
+            await supabase.from("diagnoses").insert({
+              user_id: user.id,
+              area,
+              transcription: data.transcription || null,
+              diagnosis_result: data.diagnosis,
+              frequency_score: data.diagnosis.frequency_score || null,
+            });
+          } catch {
+            // Silent — don't block report if DB save fails
+          }
+        }
         sessionStorage.setItem("axio_result", JSON.stringify(data));
         sessionStorage.removeItem("axio_audio");
         setProgress(100);
