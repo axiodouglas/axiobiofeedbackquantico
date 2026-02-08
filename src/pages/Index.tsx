@@ -101,7 +101,7 @@ const Index = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 pt-6 pb-12">
+        <div className="relative z-10 container mx-auto px-4 pt-10 pb-12">
           <div className="max-w-3xl mx-auto text-center">
             {/* Logo/Title */}
             <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
