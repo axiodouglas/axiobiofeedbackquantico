@@ -5,154 +5,41 @@ import { Button } from "@/components/ui/button";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import type { DiagnosisResult } from "@/hooks/use-axio-analysis";
 
-const mockDiagnostics: Record<string, { title: string; blocks: { name: string; description: string; origin: string }[]; summary: string }> = {
-  pai: {
-    title: "Diagnóstico da Área Pai",
-    blocks: [
-      {
-        name: "Padrão de Autoridade Reprimida",
-        description: "Identificamos um padrão onde a figura paterna exerceu autoridade excessiva ou ausente, criando um conflito interno entre submissão e rebeldia que afeta suas decisões.",
-        origin: "Origem: Linhagem paterna, dinâmica de controle ou abandono emocional.",
-      },
-      {
-        name: "Bloqueio de Reconhecimento",
-        description: "Sua fala revela uma busca constante por validação externa, conectada à falta de aprovação da figura paterna. Esse padrão se reflete em insegurança profissional e pessoal.",
-        origin: "Origem: Ausência de reconhecimento emocional na infância.",
-      },
-      {
-        name: "Lealdade Invisível ao Fracasso",
-        description: "Detectamos uma identificação inconsciente com limitações do pai, criando uma lealdade invisível que sabota seu crescimento para não 'superar' a figura paterna.",
-        origin: "Origem: Dinâmica sistêmica de pertencimento familiar.",
-      },
-    ],
-    summary: "A análise revelou 3 bloqueios principais relacionados à linhagem paterna que estão influenciando seus padrões de comportamento e decisão.",
-  },
-  mae: {
-    title: "Diagnóstico da Área Mãe",
-    blocks: [
-      {
-        name: "Padrão de Proteção Excessiva",
-        description: "Identificamos um padrão de superproteção materna que gerou dificuldade em lidar com situações de risco e tomada de decisão independente.",
-        origin: "Origem: Medo materno transmitido de forma inconsciente na criação.",
-      },
-      {
-        name: "Bloqueio de Autonomia Emocional",
-        description: "Sua fala revela dependência emocional conectada ao vínculo materno, gerando dificuldade em estabelecer limites saudáveis nos relacionamentos.",
-        origin: "Origem: Fusão emocional com a figura materna na primeira infância.",
-      },
-    ],
-    summary: "A análise revelou 2 bloqueios principais relacionados à linhagem materna que estão afetando sua autonomia emocional.",
-  },
-  financeiro: {
-    title: "Diagnóstico da Área Financeira",
-    blocks: [
-      {
-        name: "Crença de Escassez Hereditária",
-        description: "Identificamos um padrão de pensamento de escassez que foi transmitido através de gerações. Frases como 'dinheiro não dá em árvore' criaram uma programação neural que associa abundância a algo negativo.",
-        origin: "Origem: Linhagem paterna, gerações que passaram por dificuldade financeira.",
-      },
-      {
-        name: "Bloqueio de Merecimento",
-        description: "Existe uma programação inconsciente que sabota suas conquistas financeiras através de comportamentos auto-destrutivos com dinheiro.",
-        origin: "Origem: Dinâmica familiar onde o sucesso era visto com desconfiança.",
-      },
-      {
-        name: "Padrão de Autossabotagem",
-        description: "Detectamos ciclos repetitivos onde você se aproxima de uma conquista financeira e, inconscientemente, cria situações que a afastam.",
-        origin: "Origem: Identificação inconsciente com figuras familiares que fracassaram financeiramente.",
-      },
-    ],
-    summary: "Sua frequência vibracional indica um campo comprometido por padrões hereditários de escassez. A análise revelou 3 bloqueios principais.",
-  },
-  relacionamento: {
-    title: "Diagnóstico da Área de Relacionamento",
-    blocks: [
-      {
-        name: "Padrão de Abandono",
-        description: "Identificamos um medo profundo de abandono que gera comportamentos de controle ou distanciamento emocional nos relacionamentos.",
-        origin: "Origem: Experiências da primeira infância relacionadas à figura materna ou paterna.",
-      },
-    ],
-    summary: "Seus padrões de relacionamento estão sendo influenciados por traumas não resolvidos da linhagem familiar.",
-  },
-  saude: {
-    title: "Diagnóstico da Área de Saúde",
-    blocks: [
-      {
-        name: "Somatização Emocional",
-        description: "Emoções não processadas estão se manifestando como sintomas físicos em seu corpo.",
-        origin: "Origem: Padrão familiar de repressão emocional.",
-      },
-    ],
-    summary: "Sua saúde física está sendo impactada por bloqueios emocionais hereditários.",
-  },
-  ansiedade: {
-    title: "Diagnóstico da Área de Ansiedade",
-    blocks: [
-      {
-        name: "Hipervigilância Herdada",
-        description: "Identificamos um estado constante de alerta que foi transmitido por gerações, mantendo seu sistema nervoso em modo de sobrevivência.",
-        origin: "Origem: Ancestrais que viveram em ambientes de instabilidade e perigo.",
-      },
-    ],
-    summary: "Seus padrões de ansiedade têm raízes profundas na história familiar.",
-  },
-  medo: {
-    title: "Diagnóstico da Área de Medo",
-    blocks: [
-      {
-        name: "Medo de Exposição",
-        description: "Detectamos um medo profundo de ser visto e julgado, conectado a experiências de humilhação ou rejeição na linhagem familiar.",
-        origin: "Origem: Eventos traumáticos de exposição social em gerações anteriores.",
-      },
-    ],
-    summary: "Seus medos limitantes estão conectados a memórias transgeracionais.",
-  },
-  familiar: {
-    title: "Diagnóstico da Área Familiar",
-    blocks: [
-      {
-        name: "Emaranhamento Sistêmico",
-        description: "Você está carregando emoções e destinos que não são seus, mas de membros anteriores da família.",
-        origin: "Origem: Exclusões ou traumas não reconhecidos no sistema familiar.",
-      },
-    ],
-    summary: "O campo familiar revela dinâmicas que estão afetando sua vida atual.",
-  },
-};
-
 const Report = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const area = searchParams.get("area") || "pai";
 
-  // Try to load AI-generated diagnosis from sessionStorage
+  // HARD STOP: Only load validated AI diagnosis — no mocks, no placeholders
   const aiDiagnosis = useMemo(() => {
     try {
       const stored = sessionStorage.getItem("axio_result");
       if (stored) {
         const parsed = JSON.parse(stored);
-        return parsed.diagnosis as DiagnosisResult;
+        const diagnosis = parsed.diagnosis as DiagnosisResult;
+        // Validate essential fields exist
+        if (diagnosis?.title && diagnosis?.blocks?.length > 0 && diagnosis?.summary) {
+          return diagnosis;
+        }
       }
     } catch {}
     return null;
   }, []);
 
-  const diagnostic = aiDiagnosis
-    ? {
-        title: aiDiagnosis.title,
-        blocks: aiDiagnosis.blocks,
-        summary: aiDiagnosis.summary,
-        frequencyScore: aiDiagnosis.frequency_score,
-        rootWound: aiDiagnosis.root_wound,
-        ctaMessage: aiDiagnosis.cta_message,
-      }
-    : {
-        ...(mockDiagnostics[area] || mockDiagnostics.pai),
-        frequencyScore: 35,
-        rootWound: undefined,
-        ctaMessage: undefined,
-      };
+  // HARD STOP: No valid AI data = redirect to recording, never show empty/mock report
+  useEffect(() => {
+    if (!aiDiagnosis) {
+      // Cleanup any stale data
+      sessionStorage.removeItem("axio_result");
+      sessionStorage.removeItem("axio_audio");
+      navigate(`/recording?area=${area}`, { replace: true });
+    }
+  }, [aiDiagnosis, area, navigate]);
+
+  // Don't render anything while redirecting
+  if (!aiDiagnosis) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background noise">
@@ -166,19 +53,14 @@ const Report = () => {
         </div>
       </header>
 
-      {/* Report Content - styled as a "page/image" */}
+      {/* Report Content */}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
-          {/* Report Card - looks like a document/image */}
           <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[0_0_40px_hsl(175,70%,50%,0.1)]">
             
             {/* Wave Header */}
             <div className="relative h-32 overflow-hidden">
-              <img
-                src={neuralWavesCyan}
-                alt=""
-                className="w-full h-full object-cover opacity-50"
-              />
+              <img src={neuralWavesCyan} alt="" className="w-full h-full object-cover opacity-50" />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-card" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
@@ -195,10 +77,10 @@ const Report = () => {
               {/* Title */}
               <div className="text-center mb-8 -mt-2">
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
-                  {diagnostic.title}
+                  {aiDiagnosis.title}
                 </h1>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  {diagnostic.summary}
+                  {aiDiagnosis.summary}
                 </p>
               </div>
 
@@ -214,7 +96,7 @@ const Report = () => {
                 <div className="w-full bg-muted rounded-full h-3">
                   <div 
                     className="bg-gradient-to-r from-destructive via-yellow-500 to-primary h-3 rounded-full"
-                    style={{ width: `${diagnostic.frequencyScore || 35}%` }}
+                    style={{ width: `${aiDiagnosis.frequency_score || 35}%` }}
                   />
                 </div>
                 <div className="flex justify-between text-xs text-muted-foreground mt-2">
@@ -231,11 +113,8 @@ const Report = () => {
                   Bloqueios Identificados
                 </h2>
 
-                {diagnostic.blocks.map((block, index) => (
-                  <div 
-                    key={index}
-                    className="bg-secondary/30 border border-border rounded-xl p-5"
-                  >
+                {aiDiagnosis.blocks.map((block, index) => (
+                  <div key={index} className="bg-secondary/30 border border-border rounded-xl p-5">
                     <h3 className="text-base font-semibold text-foreground mb-2">
                       {index + 1}. {block.name}
                     </h3>
@@ -249,11 +128,11 @@ const Report = () => {
                 ))}
               </div>
 
-              {/* Root Wound - AI Generated */}
-              {diagnostic.rootWound && (
+              {/* Root Wound */}
+              {aiDiagnosis.root_wound && (
                 <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-5 mb-10">
                   <h3 className="font-semibold text-foreground text-sm mb-2">🔍 Ferida Raiz Identificada</h3>
-                  <p className="text-sm text-muted-foreground italic">"{diagnostic.rootWound}"</p>
+                  <p className="text-sm text-muted-foreground italic">"{aiDiagnosis.root_wound}"</p>
                 </div>
               )}
 
@@ -268,7 +147,7 @@ const Report = () => {
                 </h2>
 
                 <p className="text-sm text-muted-foreground mb-5 max-w-xl mx-auto">
-                  {diagnostic.ctaMessage || (
+                  {aiDiagnosis.cta_message || (
                     <>
                       Este diagnóstico é apenas a ponta do iceberg. Para adquirir os{" "}
                       <strong className="text-foreground">Comandos Quânticos</strong> para ressignificar sua mente

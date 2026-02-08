@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Brain, Dna, Sparkles, Activity } from "lucide-react";
+import { Brain, Dna, Sparkles, Activity, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
 const processingSteps = [
@@ -18,9 +19,12 @@ const Processing = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [hasFailed, setHasFailed] = useState(false);
   const analysisStarted = useRef(false);
 
   useEffect(() => {
+    if (hasFailed) return;
+
     const progressInterval = setInterval(() => {
       setProgress((prev) => (prev >= 95 ? 95 : prev + 0.5));
     }, 100);
@@ -33,7 +37,7 @@ const Processing = () => {
       clearInterval(progressInterval);
       clearInterval(stepInterval);
     };
-  }, []);
+  }, [hasFailed]);
 
   useEffect(() => {
     if (analysisStarted.current) return;
@@ -42,57 +46,115 @@ const Processing = () => {
     const runAnalysis = async () => {
       const audioBase64 = sessionStorage.getItem("axio_audio");
 
+      // HARD STOP: No audio = no report
+      if (!audioBase64) {
+        handleFatalError("Nenhum áudio foi encontrado para análise.");
+        return;
+      }
+
       try {
-        if (audioBase64) {
-          // Convert base64 data URL back to blob
-          const res = await fetch(audioBase64);
-          const blob = await res.blob();
+        // Convert base64 data URL back to blob
+        const res = await fetch(audioBase64);
+        const blob = await res.blob();
 
-          const formData = new FormData();
-          formData.append("audio", blob, "recording.webm");
-          formData.append("area", area);
-          formData.append("is_premium", "false");
+        const formData = new FormData();
+        formData.append("audio", blob, "recording.webm");
+        formData.append("area", area);
+        formData.append("is_premium", "false");
 
-          const { data, error } = await supabase.functions.invoke("axio-transcribe", {
-            body: formData,
-          });
+        const { data, error } = await supabase.functions.invoke("axio-transcribe", {
+          body: formData,
+        });
 
-          if (error) throw error;
-          if (data?.error) throw new Error(data.error);
-
-          // Check focus validation
-          if (data?.diagnosis?.focus_valid === false) {
-            sessionStorage.setItem("axio_focus_error", data.diagnosis.focus_message || "");
-            sessionStorage.removeItem("axio_audio");
-            navigate(`/recording?area=${area}&focus_error=true`);
-            return;
-          }
-
-          sessionStorage.setItem("axio_result", JSON.stringify(data));
-          sessionStorage.removeItem("axio_audio");
-          setProgress(100);
-
-          setTimeout(() => navigate(`/report?area=${area}`), 800);
-        } else {
-          // No audio - use mock fallback (navigate after animation)
-          setTimeout(() => {
-            setProgress(100);
-            setTimeout(() => navigate(`/report?area=${area}`), 800);
-          }, 5000);
+        // HARD STOP: Edge function error = no report
+        if (error) {
+          handleFatalError("Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
+          return;
         }
+
+        // HARD STOP: API returned error = no report
+        if (data?.error) {
+          handleFatalError("Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
+          return;
+        }
+
+        // HARD STOP: Focus validation failed = redirect to recording
+        if (data?.diagnosis?.focus_valid === false) {
+          sessionStorage.setItem("axio_focus_error", data.diagnosis.focus_message || "");
+          cleanupAttempt();
+          navigate(`/recording?area=${area}&focus_error=true`);
+          return;
+        }
+
+        // HARD STOP: No valid diagnosis data = no report
+        if (!data?.diagnosis || !data?.diagnosis?.title || !data?.diagnosis?.blocks?.length) {
+          handleFatalError("Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
+          return;
+        }
+
+        // SUCCESS: Valid diagnosis - save and navigate
+        sessionStorage.setItem("axio_result", JSON.stringify(data));
+        sessionStorage.removeItem("axio_audio");
+        setProgress(100);
+        setTimeout(() => navigate(`/report?area=${area}`), 800);
       } catch (err: any) {
         console.error("Processing error:", err);
-        setErrorMsg(err?.message || "Erro no processamento");
-        // Fallback to mock report after error
-        setTimeout(() => {
-          setProgress(100);
-          setTimeout(() => navigate(`/report?area=${area}`), 800);
-        }, 2000);
+        handleFatalError("Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
       }
     };
 
     runAnalysis();
   }, [area, navigate]);
+
+  const handleFatalError = (message: string) => {
+    cleanupAttempt();
+    setHasFailed(true);
+    setErrorMsg(message);
+  };
+
+  const cleanupAttempt = () => {
+    sessionStorage.removeItem("axio_audio");
+    sessionStorage.removeItem("axio_result");
+    sessionStorage.removeItem("axio_area");
+    sessionStorage.removeItem("axio_focus_error");
+  };
+
+  const handleRetry = () => {
+    cleanupAttempt();
+    navigate(`/recording?area=${area}`);
+  };
+
+  // ERROR STATE - Hard stop, no report generated
+  if (hasFailed) {
+    return (
+      <div className="min-h-screen bg-background noise flex items-center justify-center">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-md mx-auto">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-destructive/20 flex items-center justify-center">
+              <AlertCircle className="h-10 w-10 text-destructive" />
+            </div>
+
+            <h2 className="text-xl font-bold text-foreground mb-4">
+              Análise não concluída
+            </h2>
+
+            <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
+              {errorMsg}
+            </p>
+
+            <div className="flex flex-col gap-3">
+              <Button variant="cyan" size="lg" onClick={handleRetry}>
+                Tentar Novamente
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => { cleanupAttempt(); navigate("/"); }}>
+                Voltar ao Início
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background noise flex items-center justify-center">
@@ -150,9 +212,7 @@ const Processing = () => {
           </div>
 
           <p className="text-muted-foreground text-sm">
-            {errorMsg
-              ? `⚠️ ${errorMsg} — Usando análise padrão...`
-              : `Processando análise quântica... ${Math.round(progress)}%`}
+            Processando análise quântica... {Math.round(progress)}%
           </p>
         </div>
       </div>
