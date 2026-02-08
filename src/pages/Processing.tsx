@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Brain, Dna, Sparkles, Activity, AlertCircle } from "lucide-react";
+import { Brain, Dna, Sparkles, Activity, AlertCircle, CloudUpload, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
@@ -12,6 +12,8 @@ const processingSteps = [
   { icon: Sparkles, text: "Gerando diagnóstico quântico..." },
 ];
 
+type Phase = "analyzing" | "saving" | "saved" | "error";
+
 const Processing = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -21,11 +23,14 @@ const Processing = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [hasFailed, setHasFailed] = useState(false);
+  const [phase, setPhase] = useState<Phase>("analyzing");
+  const [saveRetries, setSaveRetries] = useState(0);
   const analysisStarted = useRef(false);
+  const analysisDataRef = useRef<any>(null);
 
+  // Progress animation (only during analyzing phase)
   useEffect(() => {
-    if (hasFailed) return;
+    if (phase !== "analyzing") return;
 
     const progressInterval = setInterval(() => {
       setProgress((prev) => (prev >= 95 ? 95 : prev + 0.5));
@@ -39,8 +44,49 @@ const Processing = () => {
       clearInterval(progressInterval);
       clearInterval(stepInterval);
     };
-  }, [hasFailed]);
+  }, [phase]);
 
+  const cleanupAttempt = useCallback(() => {
+    sessionStorage.removeItem("axio_audio");
+    sessionStorage.removeItem("axio_result");
+    sessionStorage.removeItem("axio_area");
+    sessionStorage.removeItem("axio_focus_error");
+  }, []);
+
+  const handleGracefulFailure = useCallback((message?: string) => {
+    cleanupAttempt();
+    setPhase("error");
+    setErrorMsg(message || "O áudio enviado não foi audível ou o assunto está fora do tema deste card. Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.");
+  }, [cleanupAttempt]);
+
+  // Save to database with retry
+  const saveToDB = useCallback(async (data: any): Promise<boolean> => {
+    if (!user) {
+      // Not authenticated — skip DB save, go straight to report
+      return true;
+    }
+
+    try {
+      const { error } = await supabase.from("diagnoses").insert({
+        user_id: user.id,
+        area,
+        transcription: data.transcription || null,
+        diagnosis_result: data.diagnosis,
+        frequency_score: data.diagnosis.frequency_score || null,
+      });
+
+      if (error) {
+        console.error("DB save error:", error.message);
+        return false;
+      }
+      return true;
+    } catch (err) {
+      console.error("DB save exception:", err);
+      return false;
+    }
+  }, [user, area]);
+
+  // Main analysis effect
   useEffect(() => {
     if (analysisStarted.current) return;
     analysisStarted.current = true;
@@ -48,14 +94,12 @@ const Processing = () => {
     const runAnalysis = async () => {
       const audioBase64 = sessionStorage.getItem("axio_audio");
 
-      // HARD STOP: No audio = no report
       if (!audioBase64) {
         handleGracefulFailure("Nenhum áudio foi encontrado para análise.");
         return;
       }
 
       try {
-        // Convert base64 data URL back to blob
         const res = await fetch(audioBase64);
         const blob = await res.blob();
 
@@ -68,70 +112,63 @@ const Processing = () => {
           body: formData,
         });
 
-        // HARD STOP: Edge function error = no report (silent, graceful)
-        if (error) {
+        if (error || data?.error) {
           handleGracefulFailure();
           return;
         }
 
-        // HARD STOP: API returned error = no report (silent, graceful)
-        if (data?.error) {
-          handleGracefulFailure();
-          return;
-        }
-
-        // Focus validation failed = show Diagnóstico Interrompido screen with the AI's message
         if (data?.diagnosis?.focus_valid === false) {
-          const focusMsg = data.diagnosis.focus_message || 
+          const focusMsg = data.diagnosis.focus_message ||
             "O áudio enviado não está relacionado ao tema deste card. Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.";
           handleGracefulFailure(focusMsg);
           return;
         }
 
-        // HARD STOP: No valid diagnosis data = no report (silent, graceful)
-        if (!data?.diagnosis || !data?.diagnosis?.title || !data?.diagnosis?.blocks?.length) {
+        if (!data?.diagnosis?.title || !data?.diagnosis?.blocks?.length) {
           handleGracefulFailure();
           return;
         }
 
-        // SUCCESS: Valid diagnosis - save to DB if authenticated, then navigate
-        if (user) {
-          try {
-            await supabase.from("diagnoses").insert({
-              user_id: user.id,
-              area,
-              transcription: data.transcription || null,
-              diagnosis_result: data.diagnosis,
-              frequency_score: data.diagnosis.frequency_score || null,
-            });
-          } catch {
-            // Silent — don't block report if DB save fails
-          }
-        }
+        // Analysis succeeded — move to saving phase
+        analysisDataRef.current = data;
         sessionStorage.setItem("axio_result", JSON.stringify(data));
-        sessionStorage.removeItem("axio_audio");
         setProgress(100);
-        setTimeout(() => navigate(`/report?area=${area}`), 800);
+        setPhase("saving");
+
+        // Attempt DB save
+        const saved = await saveToDB(data);
+        if (saved) {
+          sessionStorage.removeItem("axio_audio");
+          setPhase("saved");
+        } else {
+          setSaveRetries(1);
+          setPhase("error");
+          setErrorMsg("Erro ao salvar o diagnóstico na nuvem. Tente novamente.");
+        }
       } catch {
-        // Silent catch — treated as graceful failure, not a system error
         handleGracefulFailure();
       }
     };
 
     runAnalysis();
-  }, [area, navigate]);
+  }, [area, handleGracefulFailure, saveToDB]);
 
-  const handleGracefulFailure = (message?: string) => {
-    cleanupAttempt();
-    setHasFailed(true);
-    setErrorMsg(message || "O áudio enviado não foi audível ou o assunto está fora do tema deste card. Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.");
-  };
-
-  const cleanupAttempt = () => {
-    sessionStorage.removeItem("axio_audio");
-    sessionStorage.removeItem("axio_result");
-    sessionStorage.removeItem("axio_area");
-    sessionStorage.removeItem("axio_focus_error");
+  const handleRetrySave = async () => {
+    if (!analysisDataRef.current) return;
+    setPhase("saving");
+    const saved = await saveToDB(analysisDataRef.current);
+    if (saved) {
+      sessionStorage.removeItem("axio_audio");
+      setPhase("saved");
+    } else {
+      setSaveRetries((r) => r + 1);
+      setPhase("error");
+      setErrorMsg(
+        saveRetries >= 2
+          ? "Falha persistente ao salvar. O relatório está disponível, mas pode não aparecer no seu histórico."
+          : "Erro ao salvar o diagnóstico na nuvem. Tentando novamente..."
+      );
+    }
   };
 
   const handleRetry = () => {
@@ -144,8 +181,58 @@ const Processing = () => {
     navigate("/area-selection");
   };
 
-  // ERROR STATE - Hard stop, no report generated
-  if (hasFailed) {
+  const handleFinish = () => {
+    navigate(`/report?area=${area}`);
+  };
+
+  // SAVING STATE
+  if (phase === "saving") {
+    return (
+      <div className="min-h-screen bg-background noise flex items-center justify-center">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-md mx-auto">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
+              <CloudUpload className="h-10 w-10 text-primary animate-pulse" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground mb-4">
+              Salvando seu diagnóstico na nuvem...
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              Aguarde enquanto salvamos seus resultados com segurança.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // SAVED STATE — show "Finish" button
+  if (phase === "saved") {
+    return (
+      <div className="min-h-screen bg-background noise flex items-center justify-center">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-md mx-auto">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center">
+              <CheckCircle2 className="h-10 w-10 text-primary" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground mb-4">
+              Diagnóstico salvo com sucesso!
+            </h2>
+            <p className="text-muted-foreground text-sm mb-8">
+              Seu relatório está pronto e disponível no seu histórico.
+            </p>
+            <Button variant="cyan" size="lg" onClick={handleFinish}>
+              Finalizar e Ver Relatório
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ERROR STATE
+  if (phase === "error") {
+    const isSaveError = !!analysisDataRef.current;
     return (
       <div className="min-h-screen bg-background noise flex items-center justify-center">
         <div className="container mx-auto px-4 text-center">
@@ -155,7 +242,7 @@ const Processing = () => {
             </div>
 
             <h2 className="text-xl font-bold text-foreground mb-4">
-              Diagnóstico Interrompido
+              {isSaveError ? "Erro ao Salvar" : "Diagnóstico Interrompido"}
             </h2>
 
             <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
@@ -163,9 +250,22 @@ const Processing = () => {
             </p>
 
             <div className="flex flex-col gap-3">
-              <Button variant="cyan" size="lg" onClick={handleRetry}>
-                Tentar Novamente
-              </Button>
+              {isSaveError ? (
+                <>
+                  <Button variant="cyan" size="lg" onClick={handleRetrySave}>
+                    Tentar Salvar Novamente
+                  </Button>
+                  {saveRetries >= 2 && (
+                    <Button variant="cyanOutline" size="sm" onClick={handleFinish}>
+                      Ver Relatório Mesmo Assim
+                    </Button>
+                  )}
+                </>
+              ) : (
+                <Button variant="cyan" size="lg" onClick={handleRetry}>
+                  Tentar Novamente
+                </Button>
+              )}
               <Button variant="ghost" size="sm" onClick={handleGoHome}>
                 Voltar ao Início
               </Button>
@@ -176,6 +276,7 @@ const Processing = () => {
     );
   }
 
+  // ANALYZING STATE
   return (
     <div className="min-h-screen bg-background noise flex items-center justify-center">
       <div className="container mx-auto px-4 text-center">
