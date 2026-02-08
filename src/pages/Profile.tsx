@@ -7,8 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sparkles, ArrowLeft, FileText, Calendar, Activity, Crown, Pencil, Check, X, AlertTriangle } from "lucide-react";
+import { Sparkles, ArrowLeft, FileText, Calendar, Activity, Crown, Pencil, Check, X, AlertTriangle, FolderTree } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import DiagnosisFolder from "@/components/DiagnosisFolder";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
@@ -187,11 +188,11 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        {/* Diagnoses History */}
+        {/* Diagnoses History - Folder Tree */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
-              <FileText className="h-5 w-5 text-primary" />
+              <FolderTree className="h-5 w-5 text-primary" />
               Histórico de Diagnósticos
               {diagnoses.length > 0 && (
                 <Badge variant="secondary" className="text-xs ml-auto">
@@ -212,25 +213,14 @@ const Profile = () => {
                 </Button>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {diagnoses.map((d) => (
-                  <div
+                  <DiagnosisFolder
                     key={d.id}
-                    className="flex items-center justify-between rounded-lg border border-border bg-secondary/30 px-4 py-3 hover:border-primary/30 transition-colors cursor-pointer"
-                    onClick={() => navigate(`/diagnosis/${d.id}`)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div>
-                        <p className="text-sm font-medium text-foreground">
-                          {areaLabels[d.area] || d.area}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {format(new Date(d.created_at), "dd/MM/yyyy", { locale: ptBR })}
-                        </p>
-                      </div>
-                    </div>
-                    <ArrowLeft className="h-4 w-4 text-muted-foreground rotate-180" />
-                  </div>
+                    diagnosis={d}
+                    isPremium={!!subscriptionActive}
+                    userId={user!.id}
+                  />
                 ))}
               </div>
             )}
