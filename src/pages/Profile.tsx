@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sparkles, ArrowLeft, FileText, Calendar, Activity, Crown, Pencil, Check, X } from "lucide-react";
+import { Sparkles, ArrowLeft, FileText, Calendar, Activity, Crown, Pencil, Check, X, AlertTriangle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
@@ -228,6 +229,14 @@ const Profile = () => {
                         </p>
                         <p className="text-xs text-muted-foreground">
                           {format(new Date(d.created_at), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
+                          {" · "}
+                          {(() => {
+                            const expiresAt = new Date(new Date(d.created_at).getTime() + 90 * 24 * 60 * 60 * 1000);
+                            const daysLeft = Math.max(0, Math.ceil((expiresAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
+                            return daysLeft <= 7
+                              ? <span className="text-destructive font-medium">expira em {daysLeft}d</span>
+                              : <span>expira em {daysLeft}d</span>;
+                          })()}
                         </p>
                       </div>
                     </div>
@@ -238,6 +247,16 @@ const Profile = () => {
             )}
           </CardContent>
         </Card>
+
+        {/* Expiration Notice */}
+        {diagnoses.length > 0 && (
+          <Alert className="border-yellow-500/30 bg-yellow-500/5">
+            <AlertTriangle className="h-4 w-4 text-yellow-500" />
+            <AlertDescription className="text-xs text-muted-foreground">
+              Atenção: Para garantir a fluidez do sistema e a atualização da sua jornada, os relatórios e comandos são apagados automaticamente a cada 3 meses.
+            </AlertDescription>
+          </Alert>
+        )}
       </div>
     </div>
   );
