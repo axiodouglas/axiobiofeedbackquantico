@@ -15,6 +15,7 @@ import Checkout from "./pages/Checkout";
 import AreaSelection from "./pages/AreaSelection";
 import Community from "./pages/Community";
 import Terms from "./pages/Terms";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
                   <Community />
                 </ProtectedRoute>
               } />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/terms" element={<Terms />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
