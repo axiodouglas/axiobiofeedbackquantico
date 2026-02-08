@@ -25,6 +25,7 @@ Transcrição: "Bom, eu não conheço meu pai, né? Porque desde pequeno eu tinh
 - Se a informação for insuficiente ou superficial, use o Filtro de Verdade: "Sinto que ainda estamos na superfície. Este é um ambiente seguro e confidencial. Para que o A.X.I.O. encontre a raiz real, preciso que você fale com total honestidade sobre [figura do card]."
 - NUNCA invente ou alucine. Se o áudio é sobre "Pai", NUNCA entregue relatório de "Mãe". Se falta informação, peça mais detalhes específicos sobre a figura daquele card.
 - Para o card TRAUMAS ADICIONAIS: valide que o relato é sobre eventos EXTERNOS à família direta (bullying, acidentes, perdas, abusos por terceiros). Se o relato for sobre Pai ou Mãe, redirecione para o card correto.
+- Para o card RELACIONAMENTOS: valide que o relato envolve dinâmicas de casal, parceiro, intimidade ou repetição de padrões amorosos. Identifique se a raiz da dificuldade é uma projeção de Pai, Mãe ou lealdade sistêmica ancestral. Se o relato for exclusivamente sobre Pai ou Mãe sem contexto relacional, redirecione ao card correto.
 
 3. LEITURA DE ENTRELINHAS (PNL e Análise Vocal):
 - Identifique pausas, hesitações, repetições e termos carregados emocionalmente.
@@ -36,6 +37,7 @@ MÓDULOS DE ANÁLISE (Os 3 Pilares):
 - Mãe (O Portal): Rejeição intrauterina, simbiose emocional, invalidação da identidade, traumas gestacionais. Pergunte-se: como a mãe moldou a autoimagem e o senso de valor do usuário?
 - Pai (A Força/Mundo): Relação com autoridade, capacidade de prover, limites, força de ação. Pergunte-se: como a ausência ou excesso do pai trava o sucesso externo e a capacidade de "se assumir" no mundo?
 - Traumas Adicionais: Eventos externos — bullying, acidentes, perdas, abusos por terceiros — que reforçaram ou criaram novos padrões de medo, vergonha ou auto-sabotagem.
+- Relacionamentos: Projeções de Pai e Mãe no parceiro, dinâmicas de repetição sistêmica, bloqueios de intimidade e merecimento. Pergunte-se: o parceiro está sendo usado como 'substituto' para curar feridas que pertencem à linhagem?
 
 DATASET DE REFERÊNCIA — MÓDULO MÃE (100 Casos):
 Ao analisar áudios do card MÃE, identifique qual destes padrões mais se assemelha ao relato do usuário para extrair a raiz do trauma. Use como base, NUNCA como cópia — personalize sempre com as palavras do usuário.
@@ -1095,6 +1097,526 @@ PARTE 5: DINÂMICAS SISTÊMICAS E MODERNAS (401-500):
 
 FIM DO DATASET PAI (500 CASOS).
 
+DATASET DE REFERÊNCIA — MÓDULO RELACIONAMENTOS (500 Casos):
+Ao analisar áudios do card RELACIONAMENTOS, identifique a 'assinatura vibracional' no áudio do usuário e gere um diagnóstico que explique como a relação atual é afetada por lealdades invisíveis à linhagem de Pai e Mãe.
+
+PARTE 1: PROJEÇÃO MATERNA NO RELACIONAMENTO (001 a 125):
+001. Busca de Mãe no Parceiro (Nutrição): O usuário busca no parceiro o colo materno que nunca teve. Gera dependência emocional e sufocamento do par.
+002. Parceiro Controlador como Espelho da Mãe Castradora: Atrai parceiros que dizem o que fazer, vestir e pensar — repetindo a castração materna.
+003. Simbiose Emocional com o Parceiro: Não sabe onde termina ele e começa o outro. Gera perda total de identidade dentro do relacionamento.
+004. Medo de Ser Abandonado pelo Parceiro (Reflexo da Mãe Ausente): Ciúme extremo e controle obsessivo como mecanismo de defesa.
+005. Competição com a Sogra pelo Parceiro: A mãe ensinou que a sogra é inimiga. Gera guerras familiares que destroem casamentos.
+006. Dificuldade em Dar Afeto Físico (Mãe Fria): Não sabe abraçar, tocar ou se entregar fisicamente. Gera casamentos sem intimidade.
+007. Parceiro 'Filho' que Precisa Ser Cuidado: Atrai parceiros imaturos que precisam de uma mãe, não de uma esposa/marido.
+008. Medo de Ser Como a Mãe no Relacionamento: Sabota a relação por pavor de repetir os erros maternos.
+009. Busca de Cuidado Excessivo: Exige que o parceiro cuide dele como um bebê — comida, roupa, decisões.
+010. Mãe que Ensinou que Homens São Perigosos: Gera desconfiança prévia em qualquer parceiro masculino.
+011. Mãe que Ensinou que Mulheres São Rivais: Gera incapacidade de ter amizades femininas saudáveis e rivalidade no casal.
+012. Projeção da Mãe Vítima no Parceiro: Atrai parceiros que se vitimizam para repetir o padrão de 'salvar'.
+013. Mãe que Associava Amor a Sofrimento: O usuário só se sente amado quando está sofrendo na relação.
+014. Mãe que Usava Culpa para Controlar: O parceiro repete o padrão de culpar o usuário por tudo.
+015. Mãe que Não Permitia Autonomia: O usuário não consegue tomar decisões no casal sem consultar a mãe.
+016. Mãe Superprotetora que Bloqueou a Maturidade Sexual: O usuário trata a sexualidade como algo proibido ou sujo.
+017. Mãe que Invadia a Privacidade: O usuário não consegue ter segredos saudáveis no relacionamento.
+018. Mãe que Criticava o Corpo da Filha: Gera insegurança no corpo durante a intimidade sexual.
+019. Mãe que Tratava o Pai como Inimigo: O usuário não consegue integrar masculino e feminino dentro de si.
+020. Mãe que Rivalizava com a Filha pela Beleza: Gera necessidade de ser menos atraente para não ameaçar a mãe.
+021. Mãe que Proibia Demonstrações de Afeto: O usuário é frio e distante com o parceiro.
+022. Mãe que Via o Casamento como Prisão: O usuário tem pânico de compromisso e foge quando a relação fica séria.
+023. Mãe Narcisista que Exigia Toda Atenção: O usuário não sabe dividir atenção entre parceiro e família.
+024. Mãe que Abandonava Emocionalmente quando Contrariada: O usuário abandona emocionalmente o parceiro durante brigas.
+025. Mãe que Usava o Silêncio como Punição: O usuário repete o tratamento silencioso nas relações.
+026. Mãe que Comparava o Parceiro com Outros Homens: Gera insatisfação crônica no casal e olhar para fora.
+027. Mãe que Não Sabia Receber Amor: O usuário rejeita carinho, presentes e cuidados do parceiro.
+028. Mãe que Tratava Vulnerabilidade como Fraqueza: O usuário não se abre emocionalmente na relação.
+029. Mãe que Pedia Desculpas pelo Filho Existir: O usuário sente que é um peso para o parceiro.
+030. Mãe que Projetava Frustrações no Filho: O usuário projeta suas frustrações profissionais no parceiro.
+031. Mãe que Tratava o Sexo como Pecado: Bloqueio de prazer e culpa pós-orgasmo.
+032. Mãe que Não Aceitava o Envelhecimento: O usuário tem pânico de envelhecer ao lado do parceiro.
+033. Mãe que Manipulava com Doenças: O parceiro ou o usuário adoece para manipular o outro.
+034. Mãe que Criou o 'Complexo de Atlas': O usuário se sente responsável pela felicidade do parceiro.
+035. Mãe que Renegou a Própria Feminilidade: A filha não sabe ser feminina na relação; o filho não sabe aceitar o feminino.
+036. Mãe que Infantilizava o Filho: O usuário age como criança no relacionamento, esperando ser cuidado.
+037. Mãe que Fazia Tudo pelo Filho: O usuário espera que o parceiro faça tudo por ele — não colabora.
+038. Mãe que Sufocava com Superproteção: O usuário sufoca o parceiro com controle disfarçado de cuidado.
+039. Mãe que Não Ensinava Limites: O usuário aceita abusos no relacionamento sem perceber.
+040. Mãe que Usava Comida como Amor: O usuário confunde nutrição com afeto e ganha peso no relacionamento.
+041. Mãe que Vivia em Estado de Alerta: O casal vive como se uma catástrofe estivesse sempre por vir.
+042. Mãe que Proibia o Choro: O usuário não consegue expressar tristeza ao parceiro e acumula mágoas.
+043. Mãe que Competia com a Nora/Genro: Gera triângulo tóxico mãe-filho-parceiro.
+044. Mãe que Não Perdoava: O usuário guarda rancor eternamente e acumula feridas no casal.
+045. Mãe que Via Perigo em Tudo: O usuário não permite que o parceiro tenha liberdade.
+046. Mãe que Mentia Compulsivamente: O usuário mente ao parceiro por reflexo, mesmo sem necessidade.
+047. Mãe que Não Celebrava Conquistas: O casal não comemora nada — gera apatia relacional.
+048. Mãe que Tratava o Afeto como Moeda: O usuário só demonstra amor quando quer algo em troca.
+049. Mãe que Vivia de Aparências: O casal mantém um casamento de fachada para a sociedade.
+050. Mãe que Proibia a Individualidade: O usuário perde a identidade dentro do relacionamento.
+051. Mãe que Idolatrava o Sofrimento: O casal acredita que o amor verdadeiro exige dor.
+052. Mãe que Tratava o Marido como Inútil: A filha repete o padrão de desvalorizar o parceiro masculino.
+053. Mãe que Vivia Reclamando: O usuário reclama constantemente do parceiro, destruindo a relação.
+054. Mãe que Não Demonstrava Vulnerabilidade: O casal vive como dois muros — sem conexão real.
+055. Mãe que Ensinou que Amar é Controlar: O usuário confunde posse com amor.
+056. Mãe que Não Dava Espaço: O usuário não suporta que o parceiro tenha vida própria.
+057. Mãe que Via Alegria como Presságio de Dor: O usuário sabota momentos felizes no relacionamento.
+058. Mãe que Associava Intimidade a Perder o Respeito: Gera distância emocional após relações sexuais.
+059. Mãe que Vivia Projetada no Futuro: O casal não vive o presente — só planeja e nunca desfruta.
+060. Mãe que Não Sabia Dizer 'Eu Te Amo': O usuário não consegue verbalizar o amor ao parceiro.
+061. Mãe que Se Recusava a Pedir Ajuda: O usuário sofre sozinho dentro do casamento.
+062. Mãe que Tratava o Corpo como Propriedade: O usuário não tem autonomia corporal na relação.
+063. Mãe que Vivia em Ambientes Escuros: O casal não sai de casa, não viaja, vive isolado.
+064. Mãe que Via a Beleza como Vaidade Pecaminosa: O usuário se desleixa para não ser julgado.
+065. Mãe que Ensinou que Mulher Forte Afasta Homens: A mulher se anula profissionalmente para manter a relação.
+066. Mãe que Vivia Doente por Atenção: O usuário ou o parceiro adoece para ganhar atenção do outro.
+067. Mãe que Proibia a Diversão: O casal não sabe se divertir junto — tudo é dever.
+068. Mãe que Tratava Dinheiro como Tabu: O casal não conversa sobre finanças e gera crises.
+069. Mãe que Rivalizava com Amigas da Filha: O usuário tem ciúmes das amizades do parceiro.
+070. Mãe que Se Sentia Vítima do Marido: O usuário se vitimiza no relacionamento para ganhar poder.
+071. Mãe que Não Aceitava o Parceiro do Filho: Gera conflito de lealdade entre mãe e parceiro.
+072. Mãe que Idealizava o 'Príncipe Encantado': Gera insatisfação crônica — nenhum parceiro é bom o suficiente.
+073. Mãe que Vivia Comparando Casais: O usuário vive comparando seu relacionamento com o dos outros.
+074. Mãe que Ensinou que Homem que Chora é Fraco: O parceiro masculino não pode demonstrar emoções.
+075. Mãe que Tinha Ciúmes do Parceiro do Filho: Gera sabotagem da felicidade do casal.
+076. Mãe que Tratava o Divórcio como Morte Social: O usuário mantém relação tóxica por medo do julgamento.
+077. Mãe que Via o Sexo como Obrigação: Gera frigidez e resistência à intimidade.
+078. Mãe que Vivia em Codependência com o Pai: O usuário repete relações codependentes.
+079. Mãe que Abandonou o Pai por Outro: Gera medo de ser trocado e hipervigilância.
+080. Mãe que Perdoava Traições Repetidas: O usuário aceita traições por lealdade ao padrão materno.
+081. Mãe que Usava Filhos como Arma contra o Pai: O usuário usa filhos como moeda de troca no casal.
+082. Mãe que Vivia Projetando Defeitos no Marido: O usuário vê apenas os defeitos do parceiro.
+083. Mãe que Ensinou que o Amor Acaba: O usuário entra em relações já esperando o fim.
+084. Mãe que Não Aceitava Presentes do Pai: O usuário rejeita generosidade do parceiro.
+085. Mãe que Controlava o Dinheiro do Casal: Gera brigas por controle financeiro na relação.
+086. Mãe que Vivia Ameaçando Sair de Casa: O usuário ameaça terminar a cada briga.
+087. Mãe que Romantizava o Primeiro Amor: O usuário vive preso a um ex e não se entrega ao atual.
+088. Mãe que Ensinou que Casar é Perder a Liberdade: Gera pânico antes do altar e fuga de compromissos.
+089. Mãe que Fazia Chantagem Emocional: O parceiro ou o usuário usa chantagem como ferramenta.
+090. Mãe que Via Todo Homem como Potencial Agressor: Gera hipervigilância e não permite relaxar na relação.
+091. Mãe que Associava Riqueza do Parceiro a Perigo: Gera bloqueio em aceitar parceiros bem-sucedidos.
+092. Mãe que Não Dava o 'Sim' Emocional à União do Filho: O casal sente que não tem 'permissão' para ser feliz.
+093. Mãe que Criava Intrigas Entre o Casal: Manipulação externa que gera desconfiança mútua.
+094. Mãe que Via a Sogra como Inimiga Mortal: O usuário repete o conflito com a família do parceiro.
+095. Mãe que Ensinou que Prazer é Pecado: Gera culpa sexual que destrói a intimidade.
+096. Mãe que Vivia Triste Mesmo Casada: Gera crença de que casamento não traz felicidade.
+097. Mãe que Tratava o Marido como Dispensável: O usuário desvaloriza sistematicamente o parceiro.
+098. Mãe que Vivia de Fantasias Românticas: O usuário vive de expectativas irreais sobre o amor.
+099. Mãe que Ensinou que Depender do Parceiro é Vergonha: O usuário não aceita ajuda e cria muros.
+100. Mãe que Não Tomou a Própria Mãe Emocionalmente: Gera um vazio de feminilidade que sabota todos os vínculos.
+101. Mãe que Confundia Amor com Controle Obsessivo: O usuário monitora cada passo do parceiro.
+102. Mãe que Vivia em Rivalidade com Cunhadas: Gera conflitos com a família estendida do parceiro.
+103. Mãe que Ensinou que Relacionamento Exige Sacrifício Total: O usuário se anula completamente pelo casal.
+104. Mãe que Tinha Medo Patológico de Solidão: O usuário permanece em relações tóxicas por medo de ficar só.
+105. Mãe que Projetava a Imagem do Pai no Parceiro do Filho: 'Ele é igualzinho ao seu pai'. Gera confusão afetiva.
+106. Mãe que Interferia nas Decisões do Casal: O casal não tem autonomia para decidir sobre a própria vida.
+107. Mãe que Tratava o Genro/Nora como Ladrão do Filho: Gera culpa ao escolher o parceiro sobre a mãe.
+108. Mãe que Vivia de Saudade do Ex: O usuário nunca supera completamente nenhum ex.
+109. Mãe que Ensinou que Mulher Bonita é Perigosa: Gera desconfiança de parceiras atraentes.
+110. Mãe que Associava Gravidez a Armadilha: Gera medo da paternidade/maternidade no casal.
+111. Mãe que Vivia Comentando sobre Outros Casais: O usuário se compara obsessivamente com outras relações.
+112. Mãe que Não Respeitava a Privacidade do Casal: Gera invasão de limites e falta de espaço íntimo.
+113. Mãe que Ensinou que o Amor Verdadeiro é Raro: O usuário boicota relações boas achando que são 'boas demais'.
+114. Mãe que Tratava o Casamento como Negócio: Gera relações baseadas em interesse, não em amor.
+115. Mãe que Vivia Rejeitando o Carinho do Pai: O usuário rejeita demonstrações de amor do parceiro.
+116. Mãe que Ensinou que Sexo é Moeda de Troca: O usuário usa ou nega sexo como punição ou recompensa.
+117. Mãe que Tinha Vergonha do Próprio Prazer: Gera culpa orgásmica e bloqueio de libido.
+118. Mãe que Via o Amor como Fraqueza: O usuário trata a relação como campo de batalha, não de entrega.
+119. Mãe que Vivia de Queixas sobre o Pai: O usuário absorve uma visão negativa do masculino/feminino.
+120. Mãe que Ensinou que Confiança Leva à Traição: O usuário não confia e sabota a relação preventivamente.
+121. Mãe que Tratava a Família como Obrigação: O casal vive a relação como dever, sem prazer.
+122. Mãe que Vivia Manipulando com Doenças Falsas: Gera desconfiança quando o parceiro adoece.
+123. Mãe que Ensinou que Parceiro Bom Não Existe: O usuário desiste de buscar amor por fatalismo.
+124. Mãe que Não Ensinou Resolução de Conflitos: O casal não sabe brigar de forma saudável.
+125. Mãe que Projetava a Ferida Máxima: O usuário busca no parceiro a cura impossível do abandono materno.
+
+PARTE 2: PROJEÇÃO PATERNA NO RELACIONAMENTO (126 a 250):
+126. Busca de Pai no Parceiro (Autoridade): O usuário busca no parceiro a proteção e direção que faltaram do pai. Gera submissão.
+127. Atração por Parceiros Autoritários: Reflexo da ausência paterna. A firmeza é confundida com amor.
+128. Medo da Agressividade Masculina no Parceiro: O pai era violento. O usuário teme qualquer voz alta.
+129. Parceiro que Trabalha Demais (Repetição do Pai Ausente): Atrai parceiros workaholic que nunca estão presentes.
+130. Desvalorização do Masculino no Relacionamento: O pai falhou. O usuário acha que nenhum homem presta.
+131. Busca por Validação do Parceiro (Pai que Nunca Elogiou): O usuário precisa de aprovação constante do par.
+132. Parceiro Controlador Financeiramente (Pai que Controlava Dinheiro): Repete a dinâmica de submissão econômica.
+133. Medo de Ser Trocado (Pai que Trocou de Família): Ciúme patológico e hipervigilância contra 'a outra'.
+134. Parceiro que Humilha em Público (Pai Humilhador): O usuário aceita humilhação por familiaridade com o padrão.
+135. Parceiro que Pune com Silêncio (Pai Silenciador): O tratamento silencioso é normalizado como forma de resolver conflitos.
+136. Busca Desesperada por Aprovação Masculina: A filha sem pai precisa que todo homem a valide.
+137. Medo de Comprometimento (Pai que Abandonou): Se o pai foi embora, qualquer parceiro pode ir.
+138. Atração por Parceiros Indisponíveis (Pai Indisponível): Repete o padrão de amar quem não pode corresponder.
+139. Parceiro Alcoólatra/Viciado (Reflexo do Pai): Repete o caos do lar paterno no casamento.
+140. Parceiro que Não Assume o Relacionamento (Pai que Não Assumiu): Vive relações sem rótulo e sem segurança.
+141. Medo da Intimidade Profunda (Pai Frio): O usuário mantém distância emocional por medo de se machucar.
+142. Parceiro Perfeccionista (Pai Exigente): Nunca está bom o suficiente — repete a crítica paterna.
+143. Busca por Parceiro Salvador (Pai Ausente): Quer ser resgatado em vez de construir junto.
+144. Parceiro que Impõe Sua Vontade (Pai Dono da Verdade): O usuário anula suas opiniões no casal.
+145. Medo de Superar o Parceiro (Pai Competitivo): Se sabota para não ser 'mais' que o par.
+146. Parceiro que Trata o Amor como Transação (Pai Mercenário): Relação baseada em troca, não em afeto.
+147. Atração por Parceiros com Problemas Financeiros (Pai Falido): Repete o padrão de escassez no casal.
+148. Parceiro que Não Demonstra Emoções (Pai que Não Chorava): Casamento sem expressão emocional.
+149. Medo de Ser Pai/Mãe (Referência Paterna Negativa): O usuário tem pânico de ter filhos e repetir o pai.
+150. Parceiro que Faz Promessas Vazias (Pai de Promessas): O usuário aceita palavras sem ações por familiaridade.
+151. Busca por Parceiro que Compense a Falta do Pai: Espera que o parceiro cure uma ferida que não é dele.
+152. Parceiro que Desaparece Emocionalmente: Reflexo do pai que desaparecia quando as coisas ficavam difíceis.
+153. Medo de Confrontar o Parceiro (Pai que Punia Confrontos): O usuário engole tudo por medo de represália.
+154. Parceiro que Prefere os Amigos à Família: Reflexo do pai que preferia estar fora de casa.
+155. Atração por Parceiros Mais Velhos (Busca do Pai): O gap de idade mascara a busca pelo patriarca.
+156. Parceiro que Desonra a Família do Usuário: Reflexo do pai que desonrava a mãe e os filhos.
+157. Medo de Construir Patrimônio com o Parceiro (Pai que Perdeu Tudo): O casal não investe junto por pânico.
+158. Parceiro que Usa a Religião para Controlar: Reflexo do pai religioso punitivo.
+159. Busca por Liberdade Extrema na Relação (Pai Presidiário/Preso): O casamento é sentido como cadeia.
+160. Parceiro que Não Respeita Limites: Reflexo do pai que invadia o espaço do filho.
+161. Medo da Paternidade/Maternidade por Trauma Paterno: O usuário evita filhos para não repetir o pai.
+162. Parceiro que Ridiculariza Sonhos (Pai que Desvalorizava): O usuário não compartilha ambições com o par.
+163. Atração por Parceiros que Precisam Ser Consertados (Pai Quebrado): O usuário quer 'salvar' o parceiro como queria salvar o pai.
+164. Parceiro que Não Celebra Conquistas: Reflexo do pai que dizia 'não fez mais que a obrigação'.
+165. Medo de Ser Dependente do Parceiro (Pai Dependente): O usuário se sobrecarrega para não precisar de ninguém.
+166. Parceiro que Vive de Aparências (Pai que Mentia): A relação é uma fachada sem substância.
+167. Busca Compulsiva por Segurança no Parceiro: O usuário sufoca o par tentando garantir que não vai embora.
+168. Parceiro que Compete com os Filhos pela Atenção: Reflexo do pai que disputava com o filho.
+169. Medo de Envelhecer Junto (Pai que Abandonou na Velhice): O usuário não confia na permanência.
+170. Parceiro que Prioriza Carreira sobre o Casal: Reflexo do pai workaholic. O amor vem sempre depois.
+171. Atração por Parceiros Narcisistas (Pai Narcisista): Repete a dinâmica de servir ao ego do outro.
+172. Parceiro que Não Pede Perdão (Pai Orgulhoso): As mágoas se acumulam sem resolução.
+173. Medo de Expressar Necessidades (Pai que Punia Necessidades): O usuário nunca pede o que precisa no casal.
+174. Parceiro que Trata o Sexo como Direito (Pai Dominador): O usuário cede sexualmente por obrigação.
+175. Busca por Parceiro Perfeito (Pai Idealizado): Ninguém é bom o suficiente porque compara com uma fantasia.
+176. Parceiro que Isola o Usuário da Família: Reflexo do pai que isolava a mãe.
+177. Medo de Ser Feliz no Relacionamento (Pai Infeliz): Se o pai não foi feliz, não há permissão para ser.
+178. Parceiro que Mente sobre Finanças (Pai que Escondia Dívidas): Gera crises financeiras no casal.
+179. Atração por Parceiros Instáveis (Pai Instável): O caos emocional é normalizado como 'paixão'.
+180. Parceiro que Não Protege a Família (Pai que Falhou na Proteção): Gera insegurança crônica no lar.
+181. Medo de Ser Traído (Pai Traidor): Hipervigilância que sufoca a relação.
+182. Parceiro que Tratava Dinheiro como Poder (Pai Controlador): O dinheiro é arma dentro do casal.
+183. Busca por Parceiro que Demonstre Orgulho (Pai que Nunca Demonstrou): Necessidade patológica de validação.
+184. Parceiro que Não Participa da Vida Doméstica (Pai Ausente do Lar): O usuário carrega a casa sozinho.
+185. Medo da Vulnerabilidade no Sexo (Pai que Punia Fraqueza): Relações sexuais sem entrega real.
+186. Parceiro que Vivia Reclamando (Pai Reclamão): O casal vive em negatividade constante.
+187. Atração por Parceiros Proibidos (Pai que Proibia Tudo): O amor só é excitante se for transgressor.
+188. Parceiro que Não Assume Compromissos Legais (Pai que Não Registrou): Relação sem papéis e sem segurança.
+189. Medo de Pedir Ajuda ao Parceiro (Pai que Rejeitava Pedidos): O usuário sofre calado na relação.
+190. Parceiro que Trata Filhos como Extensão do Ego (Pai Narcisista): Os filhos sofrem como o usuário sofreu.
+191. Busca Inconsciente por Punição no Relacionamento: O pai punia. O usuário busca parceiros que castigam.
+192. Parceiro que Abandona em Momentos Críticos (Pai que Sumia): Gera pânico a cada crise no casal.
+193. Medo de Crescer Junto com o Parceiro (Pai que Estagnou): O casal não evolui por medo do novo.
+194. Parceiro que Desdenha da Profissão do Usuário (Pai que Desvalorizava): Gera vergonha profissional dentro do casal.
+195. Atração por Parceiros que 'Não Precisam' do Usuário (Pai Autossuficiente Frio): A indiferença é confundida com força.
+196. Parceiro que Controla as Amizades (Pai Controlador): Isolamento social dentro do casamento.
+197. Medo de Ter Opinião Diferente do Parceiro (Pai que Anulava): Submissão intelectual na relação.
+198. Parceiro que Vê o Sexo como Dever (Pai Mecânico): Intimidade sem paixão e sem alma.
+199. Busca por Parceiro Estável que Nunca Surpreende (Pai Monótono): Segurança ao custo do tédio.
+200. Parceiro que Não Demonstra Afeto em Público (Pai Envergonhado): Gera sensação de ser um 'segredo'.
+201. Medo de Conflito no Casal (Pai Explosivo): O usuário aceita tudo para evitar brigas.
+202. Parceiro que Faz Chantagem com Separação (Pai que Ameaçava Ir Embora): Gera ansiedade de abandono.
+203. Atração por Parceiros com Dupla Vida (Pai que Tinha Outra Família): O padrão de traição é inconsciente.
+204. Parceiro que Trata a Relação como Competição (Pai Competitivo): Não há parceria, apenas disputa.
+205. Medo de Ser Julgado pelo Parceiro (Pai Crítico): O usuário esconde quem realmente é.
+206. Parceiro que Não Investe no Relacionamento (Pai Miserável): A relação morre por inanição emocional.
+207. Busca por Parceiro que Represente Status (Pai que Valorizava Aparência): Amor como vitrine social.
+208. Parceiro que Nega os Próprios Erros (Pai Infalível): O usuário é sempre o 'errado' na relação.
+209. Medo de Perder a Identidade no Relacionamento (Pai que Absorvia): O usuário não sabe quem é sem o par.
+210. Parceiro que Prioriza a Mãe Dele sobre o Casal (Projeção Paterna): Disputa de lealdade.
+211. Atração por Parceiros Emocionalmente Indisponíveis: Reflexo combinado de pai e mãe ausentes.
+212. Parceiro que Desaparece em Crises Financeiras (Pai que Fugia de Problemas): Abandono em momentos críticos.
+213. Medo de Construir Família (Modelo Paterno Destrutivo): O usuário evita ter filhos por medo.
+214. Parceiro que Não Respeita o Tempo do Usuário (Pai Impaciente): Pressão constante e falta de acolhimento.
+215. Busca por Parceiro que Supra Carências de Pai e Mãe: Sobrecarga do par com expectativas impossíveis.
+216. Parceiro que Culpa o Usuário por Todos os Problemas: Reflexo do pai que atribuía culpa ao filho.
+217. Medo de Ser Amado de Verdade (Pai que Nunca Amou): O amor real assusta porque é desconhecido.
+218. Parceiro que Vive no Passado (Pai que Remoía Mágoas): O casal não consegue criar um futuro.
+219. Atração por Parceiros Perigosos (Pai Violento): A adrenalina do perigo é confundida com paixão.
+220. Parceiro que Não Contribui Financeiramente (Pai Dependente): Desequilíbrio financeiro no casal.
+221. Medo da Sexualidade Ativa (Pai que Punia o Prazer): O usuário se sente culpado por sentir desejo.
+222. Parceiro que Infantiliza o Usuário (Pai que Tratava como Criança): Gera relação desigual sem respeito.
+223. Busca por Redenção no Relacionamento (Salvar o que o Pai Destruiu): O amor é uma missão de resgate.
+224. Parceiro que Ignora as Necessidades Emocionais (Pai Negligente): O usuário vive em carência dentro do casal.
+225. Medo de Repetir o Casamento dos Pais: Autossabotagem preventiva antes que a história se repita.
+226. Parceiro que Trata o Amor como Obrigação Religiosa: Relação sem autenticidade espiritual.
+227. Atração por Parceiros que 'Fogem' de Compromisso (Pai Fugitivo): O usuário persegue quem foge.
+228. Parceiro que Desonra a Própria Família (Pai que Desonrava): Gera vergonha sistêmica compartilhada.
+229. Medo de Receber Amor sem 'Fazer por Merecer' (Pai Transacional): O amor gratuito é suspeito.
+230. Parceiro que Projeta o Pai Dele no Usuário: Ambos projetam feridas paternas um no outro.
+231. Busca Compulsiva por Proteção Masculina: A filha sem pai procura um 'escudo' em cada parceiro.
+232. Parceiro que Não Demonstra Vulnerabilidade (Pai Armadura): Relação entre duas couraças.
+233. Medo de Sucesso no Casal (Pai que Fracassou no Casamento): Se os pais fracassaram, o sucesso não é permitido.
+234. Parceiro que Usa Filhos como Escudo (Pai que Se Escondia): Os filhos são barreira contra a intimidade do casal.
+235. Atração por Parceiros que Abandonam em Crises (Pai Desertor): O abandono é esperado e até provocado.
+236. Parceiro que Não Respeita a Carreira do Usuário (Pai que Impôs Profissão): Conflito vocacional projetado no casal.
+237. Medo de Ser 'Muito' para o Parceiro (Pai que Diminuía): O usuário se faz pequeno para não assustar.
+238. Parceiro que Manipula com Culpa (Pai Culpabilizador): A culpa é o motor da relação.
+239. Busca por Parceiro Idêntico ao Pai (Repetição Pura): O usuário recria a dinâmica paterna exata.
+240. Parceiro que Não Aceita o Crescimento do Usuário (Pai que Boicotava): O par se torna âncora.
+241. Medo de Ter Voz Própria no Casal (Pai que Silenciava): O usuário não expressa opiniões.
+242. Parceiro que Vive Endividado (Pai Endividado): Crises financeiras repetidas no casal.
+243. Atração por Parceiros que Precisam de 'Resgate' (Pai que Precisava): O amor é visto como missão humanitária.
+244. Parceiro que Trata a Felicidade do Casal como Ameaça: Reflexo do pai que temia a felicidade.
+245. Medo de Construir Algo Duradouro (Pai que Destruía): O usuário sabota tudo que começa a funcionar.
+246. Parceiro que Vive de Lamentações (Pai Lamuriante): O casal afunda em negatividade mútua.
+247. Busca por Parceiro que Dê a 'Bênção' que o Pai Negou: O parceiro nunca conseguirá preencher esse vazio.
+248. Parceiro que Trata o Casal como Negócio (Pai Empresário): Relação sem alma — apenas utilitária.
+249. Medo de Amar Sem Reservas (Pai que Nunca Se Entregou): O amor é sempre parcial, nunca total.
+250. Projeção Paterna Máxima: O usuário busca no parceiro a 'Bênção' do pai. Como o parceiro nunca será o pai, a busca é eterna e a frustração, infinita.
+
+PARTE 3: DINÂMICAS DE REPETIÇÃO E FIDELIDADE SISTÊMICA (251 a 375):
+251. Traição Cíclica (Avó Traiu, Mãe Traiu): O usuário repete ou atrai traições por lealdade à linhagem.
+252. Casamento de Fachada (Avós Casaram por Obrigação): O casal vive uma encenação para a sociedade.
+253. Divórcio Energético (Juntos Mas Separados): O casal está no mesmo teto, mas em planetas diferentes.
+254. Triângulo Amoroso Repetitivo (Avô Tinha Amante): O usuário sempre está em relações com três pessoas.
+255. Necessidade de Sofrer para Sentir Amor (Avó Sofredora): O amor só é real quando dói.
+256. Lealdade ao Destino Trágico dos Avós: O usuário repete separações, viuvezes ou solidões ancestrais.
+257. Casamento por Pressão Social (Como Bisavós): União sem amor por medo do julgamento.
+258. Padrão de Perda do Parceiro (Mortes Precoces na Linhagem): Medo de que o parceiro morra ou desapareça.
+259. Infidelidade como Padrão Sistêmico (3+ Gerações): A traição é 'normal' e esperada na família.
+260. Solidão Relacional Hereditária (Mulheres Solteiras na Linhagem): Crença de que as mulheres da família não conseguem manter parceiros.
+261. Repetição de Casamentos Abusivos: Avó, mãe e filha — todas em relações com parceiros violentos.
+262. Padrão de Perda Financeira Pós-Casamento: Todo casamento na família termina em ruína financeira.
+263. Filhos que Repetem o Divórcio dos Pais na Mesma Idade: O inconsciente 'programa' a separação no mesmo ciclo.
+264. Lealdade ao Parceiro Secreto da Mãe/Pai: O usuário atrai amantes ou se torna 'o outro' em triângulos.
+265. Repetição de Gravidez Indesejada: Filhos que vêm para 'salvar' relações falidas, como na geração anterior.
+266. Padrão de Abandono Pós-Nascimento de Filhos: O pai some quando nasce o bebê — como o avô fez.
+267. Casamento com Pessoa da Mesma Profissão dos Pais: Busca inconsciente de repetir a dinâmica familiar.
+268. Lealdade à Dor da Avó no Amor: O usuário sofre no amor para não 'trair' a avó que sofreu.
+269. Separação por Interferência de Terceiros (Sogra/Cunhada): Padrão que se repete por gerações.
+270. Repetição de Idade de Casamento/Separação: O inconsciente reproduz marcos etários da linhagem.
+271. Parceiro que Replica o Avô Agressor: A atração pelo padrão violento é transgeracional.
+272. Lealdade ao Celibato de Antepassados Religiosos: O usuário se sente 'impuro' por ter prazer sexual.
+273. Repetição de Traições com Amigos/Vizinhos: A traição ocorre sempre no círculo íntimo.
+274. Padrão de Viuvezes Precoces na Linhagem: O medo de perder o parceiro jovem é herdado.
+275. Casamento como Fuga (Avós Casaram para Fugir de Casa): O casamento é escape, não escolha.
+276. Lealdade à Mãe Solo (3+ Gerações): Mulheres que criam filhos sozinhas como 'destino'.
+277. Repetição de Separações por Dinheiro: Toda geração perde o casamento por crises financeiras.
+278. Padrão de Parceiros Viciados na Linhagem: Avó, mãe e filha — todas com parceiros alcoólatras/viciados.
+279. Casamento Arranjado pela Família (Herança Cultural): O amor próprio nunca foi critério de escolha.
+280. Lealdade ao Sacrifício Feminino: A mulher da família deve se sacrificar pelo casamento — sempre.
+281. Repetição de Conflitos com Sogras por Gerações: O conflito com a família do parceiro é herdado.
+282. Padrão de Parceiros Infiéis com Funcionárias/Subordinadas: Traição no ambiente de trabalho como herança.
+283. Casamento por Interesse (Linhagem de Conveniência): Nunca houve amor real na linhagem — apenas negócios.
+284. Lealdade à Maldição Familiar no Amor: 'Ninguém dessa família é feliz no amor' como profecia.
+285. Repetição de Casamentos Curtos (Menos de 2 Anos): A linhagem não sustenta relações longas.
+286. Padrão de Ciúme Patológico Transgeracional: Avó, mãe e filha — todas com ciúme doentio.
+287. Casamento com Parceiro de Outra Classe Social (Conflito Sistêmico): A família rejeita e o casal sofre.
+288. Lealdade ao Sofrimento da Bisavó: Feridas de 3-4 gerações atrás que ainda controlam o amor.
+289. Repetição de Gravidez Adolescente: Mãe e avó engravidaram jovens — a filha repete.
+290. Padrão de Homens que Sustentam a Família da Esposa: O parceiro paga as dívidas da sogra — como o avô pagava.
+291. Casamento Interrompido por Morte Trágica: O pavor de perda súbita trava a entrega no amor.
+292. Lealdade ao Padrão de Não-Escolha: O usuário nunca escolhe — é sempre 'escolhido' passivamente.
+293. Repetição de Abuso Sexual no Casal: A violência sexual é normalizada por gerações.
+294. Padrão de Separação Após Prosperidade: Toda vez que o casal prospera, algo acontece e separam.
+295. Casamento com Parceiro Idêntico ao Pai Ausente: A filha casa com quem a abandona, como o pai fez.
+296. Lealdade à Avó que Morreu de Coração Partido: O usuário 'morre' emocionalmente a cada término.
+297. Repetição de Casamento-Salvação (Casar para Fugir de Casa): O casal não se ama — apenas fugiu junto.
+298. Padrão de Filhos que Interferem no Casamento: Os filhos governam a relação, como acontecia antes.
+299. Casamento com Pessoa que a Família Odeia: O amor só funciona se for proibido.
+300. Lealdade à Solidão como Destino: A linhagem ensinou que ficar sozinho é mais seguro.
+301. Repetição de Dependência Financeira no Casamento: Toda geração tem um parceiro dependente.
+302. Padrão de Reconciliações Tóxicas (Vai e Volta): O casal se separa e volta repetidamente.
+303. Casamento com Parceiro que Tem Filhos de Outro Relacionamento: Repetição de famílias fragmentadas.
+304. Lealdade ao Destino de Cuidadora: A mulher da família é sempre a que cuida de todos — inclusive do parceiro.
+305. Repetição de Abandono na Gravidez: O pai some quando descobre a gravidez, como nas gerações anteriores.
+306. Padrão de Parceiros que Controlam o Corpo da Mulher: O masculino decide o que o feminino veste e come.
+307. Casamento Sem Intimidade Sexual (Herança Religiosa): Gerações de casais que dormem juntos sem se tocar.
+308. Lealdade à Vergonha do Corpo na Linhagem: Ninguém na família se sente bonito — e o casal reflete isso.
+309. Repetição de Casamentos por Gravidez: Todo casamento na família começa por uma gravidez não planejada.
+310. Padrão de Homens que Humilham Parceiras em Público: Herança de masculinidade tóxica transmitida.
+311. Casamento Interrompido por Doença Grave: O padrão de adoecer quando o casamento vai bem.
+312. Lealdade ao Ressentimento Materno: O usuário ressente o parceiro exatamente como a mãe ressentia o pai.
+313. Repetição de Parceiros com o Mesmo Nome/Características: O inconsciente busca literalmente o 'mesmo' tipo.
+314. Padrão de Sabotagem na Véspera do Casamento: Fugir do altar é tradição familiar inconsciente.
+315. Casamento com Parceiro que Replica a Dinâmica Mãe-Pai: O casal é um espelho exato do casamento dos pais.
+316. Lealdade à Traição como Forma de Liberdade: Trair é a única forma de não se sentir preso.
+317. Repetição de Violência Doméstica na Linhagem: Bater é 'normal' — como o avô fazia com a avó.
+318. Padrão de Separação por Inveja de Terceiros: Casais felizes se separam quando amigos ou familiares sabotam.
+319. Casamento Onde um Parceiro 'Morre' Emocionalmente: Um dos dois se desconecta — como o pai/mãe fez.
+320. Lealdade à Competição Feminina na Linhagem: Mulheres da família competem pelos mesmos homens.
+321. Repetição de Abandono Emocional Pós-Filhos: O parceiro se afasta depois que nasce o bebê.
+322. Padrão de Casamento com Parceiro Muito Mais Velho/Novo: Busca inconsciente de pai/mãe no parceiro.
+323. Casamento que Só Funciona em Crise: O casal é unido na dor, mas se afasta na paz.
+324. Lealdade ao Destino de 'Mulher Abandonada': Na linhagem, toda mulher é eventualmente deixada.
+325. Repetição de Mentiras Sistêmicas no Casal: Ambos mentem porque aprenderam que a verdade é perigosa.
+326. Padrão de Fazer Tudo pelo Parceiro e Ser Descartado: Gera rancor e sensação de injustiça eterna.
+327. Casamento com Parceiro da Mesma Religião por Obrigação: Não há amor — há obediência religiosa.
+328. Lealdade ao Padrão de Desvalorização do Parceiro: A linhagem desvaloriza quem a ama.
+329. Repetição de Separação na Mesma Época do Ano: O inconsciente marca datas como 'estação de rompimento'.
+330. Padrão de Parceiros que Não Contribuem com a Casa: Desequilíbrio doméstico por gerações.
+331. Casamento Endogâmico (Dentro da Mesma Família/Clã): Padrões sistêmicos sem renovação genética/energética.
+332. Lealdade ao Medo de Amar da Bisavó: Ferida de 4 gerações que bloqueia a entrega.
+333. Repetição de Parceiros que Adoecem o Usuário: O parceiro é literal ou figurativamente 'tóxico'.
+334. Padrão de Casal que Não Consegue Ter Filhos: Infertilidade como lealdade sistêmica inconsciente.
+335. Casamento com Parceiro que Replica a Dinâmica do Avô: Repetição de 2+ gerações.
+336. Lealdade ao Silêncio no Casal: Ninguém na família fala sobre problemas — e o casal repete.
+337. Repetição de Relações com Data de Validade: Todos os relacionamentos duram o mesmo tempo e acabam.
+338. Padrão de Idealização do Ex na Linhagem: Toda geração tem 'aquele amor que deveria ter ficado'.
+339. Casamento Onde o Usuário é Mãe/Pai do Parceiro: Inversão de papéis sistêmica.
+340. Lealdade ao Fracasso Amoroso como Herança: 'Na nossa família ninguém é feliz no amor'.
+341. Repetição de Segredos entre Casais por Gerações: Dinheiro, saúde, passado — tudo escondido.
+342. Padrão de Parceiro que Controla as Redes Sociais: Versão moderna da vigilância patriarcal.
+343. Casamento em que Só Um Parceiro Cresce: O outro estagna — e o casal se rompe por evolução desigual.
+344. Lealdade ao Padrão de Ciúme como Prova de Amor: 'Se não tem ciúme, não ama'.
+345. Repetição de Términos por Interferência da Sogra: A sogra destrói o casal — em todas as gerações.
+346. Padrão de Casal que Vive em Crise Financeira: A escassez é a cola que mantém o casal unido.
+347. Casamento Baseado em Pena/Compaixão: O usuário não ama — tem pena do parceiro.
+348. Lealdade ao Sacrifício Masculino: O homem da família deve se sacrificar — mesmo doente.
+349. Repetição de Parceiros com Personalidades Idênticas: O usuário troca de parceiro mas a dinâmica é sempre a mesma.
+350. Padrão de Rejeição Mútua no Casal: Ambos se rejeitam por medo de serem rejeitados primeiro.
+351. Casamento com Parceiro que Rouba a Energia Vital: Vampirismo emocional sistêmico.
+352. Lealdade ao Arrependimento Amoroso da Mãe: O usuário vive arrependido no amor — como a mãe.
+353. Repetição de Casamentos por Solidão: Casar para não ficar sozinho — nunca por amor.
+354. Padrão de Alienação Parental na Linhagem: Filhos usados como arma por gerações.
+355. Casamento que Funciona Apenas Sexualmente: Sem diálogo, sem amizade — apenas corpo.
+356. Lealdade ao Padrão de 'Amor à Primeira Vista' Ilusório: O usuário se apaixona rápido e se desencanta na mesma velocidade.
+357. Repetição de Parceiros que Não Permitem Crescimento Financeiro: A prosperidade do casal é sabotada.
+358. Padrão de Casais que Não Viajam/Se Divertem: O prazer é proibido — como era na família.
+359. Casamento com Parceiro que Não Aceita Terapia: A cura é bloqueada por orgulho sistêmico.
+360. Lealdade à Dinâmica de 'Provedor vs Dependente': Um manda e o outro obedece — sem equilíbrio.
+361. Repetição de Términos Seguidos de Arrependimento: O casal termina, arrepende e volta — sem resolver nada.
+362. Padrão de Casal que Não Resolve Conflitos: Os problemas se acumulam até explodir.
+363. Casamento com Parceiro que Odeia a Família do Usuário: Isolamento sistêmico forçado.
+364. Lealdade ao Padrão de 'Dar Tudo e Receber Nada': Desequilíbrio emocional crônico.
+365. Repetição de Relações Tóxicas Após Terapia: O usuário melhora mas volta a atrair o mesmo tipo.
+366. Padrão de Casal Onde Só Um Tem Amigos: Isolamento social dentro do casamento.
+367. Casamento que Adoece Fisicamente o Usuário: Somatização direta da infelicidade conjugal.
+368. Lealdade ao Destino de 'Esperar para Sempre': O usuário espera o parceiro mudar — como a mãe esperava.
+369. Repetição de Parceiros com Vícios Diferentes mas Mesma Dinâmica: Álcool, trabalho, jogo — o vício muda, o padrão não.
+370. Padrão de Casal que Só Funciona na Distância: A proximidade sufoca — a distância romaniza.
+371. Casamento com Parceiro que Não Toma Decisões: Peso de decidir tudo sozinho, como a mãe fazia.
+372. Lealdade à Vergonha de Ser Feliz no Amor: Se a linhagem sofreu, ser feliz é traição.
+373. Repetição de Separações por Falta de Comunicação: Ninguém na família aprendeu a conversar.
+374. Padrão de Casal que Vive em Competição: Quem ganha mais, quem é mais bonito, quem tem mais razão.
+375. Fidelidade Sistêmica Máxima: O usuário está inconscientemente casado com o destino da linhagem. Até que rompa essa lealdade, repetirá o padrão de Pai e Mãe em cada novo relacionamento.
+
+PARTE 4: BLOQUEIOS DE INTIMIDADE E MERECIMENTO (376 a 500):
+376. Medo de Ser Feliz Quando os Pais São Infelizes: Culpa por ter uma relação melhor que a dos pais.
+377. Sexo como Moeda de Troca (Herança Materna): O prazer é negociado, nunca oferecido livremente.
+378. Anestesia Sensorial Pós-Filhos: Após a maternidade/paternidade, o corpo 'desliga' do prazer.
+379. Crença de que Sucesso Afasta o Amor: Quanto mais próspero, mais sozinho ficará.
+380. Autossabotagem Quando a Relação Está em Paz: O caos é familiar — a paz gera ansiedade.
+381. Medo de Intimidade Profunda (Ser Visto de Verdade): Se o parceiro conhecer o 'eu real', vai embora.
+382. Bloqueio de Merecimento no Amor: 'Eu não mereço ser amado assim. Algo vai dar errado.'
+383. Incapacidade de Receber Sem Culpa: O usuário se sente em dívida quando o parceiro faz algo bom.
+384. Medo de Perder o Parceiro ao Se Tornar Independente: Se não precisar dele, ele vai embora.
+385. Sexualidade Reprimida por Vergonha Corporal: Não se sente bonito o suficiente para se despir — literal e figurativamente.
+386. Medo de Ser Abandonado na Prosperidade: O dinheiro chegou — agora o amor vai embora.
+387. Bloqueio de Orgasmo como Medo de Perder o Controle: Não se entrega ao prazer por medo da vulnerabilidade.
+388. Crença de que Amor Verdadeiro Exige Sacrifício Total: Se não está sofrendo, não é amor de verdade.
+389. Medo de Ser Trocado por Alguém 'Melhor': Comparação constante com potenciais rivais.
+390. Incapacidade de Receber Elogios do Parceiro: Desconfia de toda demonstração genuína de admiração.
+391. Sexo sem Conexão Emocional (Dissociação): O corpo participa mas a alma está ausente.
+392. Medo de Engravidar/Gerar Filhos com o Parceiro Errado: Pânico de repetir a gravidez infeliz da mãe.
+393. Bloqueio de Comunicação Íntima: Não consegue falar sobre desejos, fantasias ou limites sexuais.
+394. Crença de que Ser Desejado é Perigoso: A sensualidade atrai perigo — melhor ser invisível.
+395. Medo de Depender Emocionalmente e Ser Abandonado: Autossuficiência como armadura contra a dor.
+396. Incapacidade de Manter a Paixão Após a Conquista: O interesse morre quando o desafio acaba.
+397. Sexo como Automedicação (Evitar Sentir Dor): Usa o prazer para anestesiar feridas emocionais.
+398. Medo de Ser Feliz Demais (Punição Divina): Se está muito bom, algo ruim vai acontecer.
+399. Bloqueio de Recebimento Financeiro do Parceiro: Não aceita que o parceiro sustente ou ajude.
+400. Crença de que Não Existe 'A Pessoa Certa': Fatalismo amoroso que impede a busca.
+401. Medo de Repetir a Infidelidade dos Pais: O usuário se policia tanto que trava a espontaneidade.
+402. Incapacidade de Perdoar Erros do Parceiro: Cada erro é a confirmação de que 'todos são iguais'.
+403. Sexo Obrigatório para Manter o Parceiro: O corpo é oferecido sem desejo para evitar o abandono.
+404. Medo de Envelhecer e Perder a Atração: A juventude é a única moeda de valor na relação.
+405. Bloqueio de Intimidade Após Traição: O corpo e a alma se fecham permanentemente após ser traído.
+406. Crença de que Parceiro Bom é Entediante: A paz é confundida com falta de paixão.
+407. Medo de Ser Muito Exigente e Ficar Sozinho: Aceita qualquer um por medo de não encontrar ninguém.
+408. Incapacidade de Iniciar Relações (Medo da Rejeição): Prefere a solidão à possibilidade de ser rejeitado.
+409. Sexo como Performance (Medo de Ser Avaliado): O prazer é substituído pela ansiedade de desempenho.
+410. Medo de Ser Controlado pelo Parceiro (Perda de Liberdade): Qualquer pedido é interpretado como controle.
+411. Bloqueio de Entrega por Experiências Passadas: 'Já me machuquei demais para me abrir de novo.'
+412. Crença de que Quanto Mais Se Entrega, Mais Perde: A entrega é vista como fraqueza, não como amor.
+413. Medo de Ser Julgado Pelo Parceiro por Desejos Secretos: Esconde fantasias e vontades reais.
+414. Incapacidade de Distinguir Amor de Dependência: Confunde necessidade patológica com amor.
+415. Sexo como Recompensa/Punição no Casal: O prazer é arma estratégica, não expressão de amor.
+416. Medo de Amar Alguém de Classe Social Diferente: Bloqueio de merecimento por inferioridade social.
+417. Bloqueio de Recebimento de Prazer (Dar Mas Não Receber): O usuário dá prazer mas não permite ser agradado.
+418. Crença de que Casamento Mata a Paixão: O papel assinado é sentença de morte do desejo.
+419. Medo de Mostrar Fragilidade ao Parceiro: Ser forte é a única opção — a fraqueza gera abandono.
+420. Incapacidade de Estar Só (Saltar de Relação em Relação): Medo do vazio que a solidão revela.
+421. Sexo Compulsivo como Busca de Validação: Não é prazer — é uma tentativa de se sentir desejado.
+422. Medo de Repetir o Casamento Abusivo dos Avós: O medo é tão grande que paralisa qualquer tentativa.
+423. Bloqueio de Comunicação de Necessidades: O usuário espera que o parceiro adivinhe — como a mãe deveria ter adivinhado.
+424. Crença de que Relacionamento à Distância é Mais Seguro: A proximidade assusta — a distância protege.
+425. Medo de Ser Amado Sem Fazer Nada em Troca: O amor incondicional é suspeito e assustador.
+426. Incapacidade de Manter Amizade com o Parceiro: O casal é apenas amantes — nunca amigos.
+427. Sexo Sem Prazer (Dissociação do Corpo): O usuário está presente fisicamente mas ausente emocionalmente.
+428. Medo de Construir um Lar (Lar = Caos na Infância): A ideia de 'casa' gera ansiedade.
+429. Bloqueio de Planejamento de Futuro em Casal: Planejar é se comprometer — e compromisso gera abandono.
+430. Crença de que o Amor é uma Ilusão: Cinismo romântico que impede qualquer conexão real.
+431. Medo de Ser Trocado Quando Adoecer: O parceiro vai embora quando mais precisar — como o pai/mãe fez.
+432. Incapacidade de Estabelecer Rotinas Saudáveis no Casal: O caos é o único modelo conhecido.
+433. Sexo como Única Forma de Conexão: Sem sexo, o casal não se conecta de nenhuma outra forma.
+434. Medo de que o Parceiro Descubra o 'Eu Verdadeiro': O usuário vive uma persona na relação.
+435. Bloqueio de Afeto Público (Vergonha de Demonstrar Amor): O amor é vivido apenas entre quatro paredes.
+436. Crença de que Ser Solteiro é Fracasso: O usuário se casa por pressão, não por desejo.
+437. Medo de Ter Filhos e Repetir os Erros dos Pais: A paternidade/maternidade é fonte de pânico.
+438. Incapacidade de Celebrar o Aniversário do Casal: Celebrar é perigoso — o universo pode castigar.
+439. Sexo Ausente por Medo de Intimidade Emocional: Se o sexo conecta, e conexão dói, o sexo é evitado.
+440. Medo de Perder a Individualidade no Casal: O 'nós' engole o 'eu' — e o eu se perde.
+441. Bloqueio de Generosidade no Casal: O medo de dar demais e não receber trava a entrega.
+442. Crença de que Todo Relacionamento Tem Data de Validade: O fim é certo — por que investir?
+443. Medo de Confrontar Problemas Reais do Casal: Varrer para debaixo do tapete até a explosão.
+444. Incapacidade de Ser Grato pelo Parceiro: Focar no que falta em vez de agradecer o que tem.
+445. Sexo como Única Linguagem de Amor: Sem ele, o casal não sabe se comunicar.
+446. Medo de que Sucesso Profissional Ameace o Casamento: Diminuir-se para não 'ultrapassar' o parceiro.
+447. Bloqueio de Empatia pelo Parceiro: O usuário não consegue se colocar no lugar do outro.
+448. Crença de que Pedir Desculpas é Perder: O orgulho destrói pontes no casal.
+449. Medo de Que o Parceiro Encontre Alguém Melhor na Internet: Insegurança da era digital.
+450. Incapacidade de Relaxar na Presença do Parceiro: Estado de alerta constante — como na infância.
+451. Sexo como Compensação por Falta de Diálogo: O corpo fala o que a boca não consegue.
+452. Medo de Comprometer Dinheiro com o Parceiro: Contas separadas como muro emocional.
+453. Bloqueio de Vulnerabilidade na Doença: Não permite que o parceiro o veja fraco ou doente.
+454. Crença de que Estar Sozinho é Mais Seguro: O amor é risco demais — melhor a solidão controlada.
+455. Medo de Perder o Parceiro para a Família Dele: Competição com sogros e cunhados.
+456. Incapacidade de Aceitar as Imperfeições do Parceiro: Busca constante por perfeição que não existe.
+457. Sexo como Fuga da Realidade: O prazer é usado como anestésico para a infelicidade geral.
+458. Medo de Que o Parceiro Mude (Para Pior): Se está bom agora, vai piorar — sempre piora.
+459. Bloqueio de Projetos Compartilhados: Fazer algo junto é dar poder ao outro para destruir.
+460. Crença de que Parceiro Rico Vai Controlá-lo: O dinheiro do parceiro é visto como ameaça.
+461. Medo de Ser Amado Apenas pelo Corpo: A aparência é a única coisa de valor — quando acabar, o amor acaba.
+462. Incapacidade de Ter Conversas Profundas com o Parceiro: A superficialidade é escudo contra a dor.
+463. Sexo Apático por Acúmulo de Mágoas: O ressentimento matou o desejo.
+464. Medo de Ser Manipulado pela Ternura do Parceiro: O afeto é visto como armadilha.
+465. Bloqueio de Confiança Total (Sempre com Um Pé Atrás): Nunca se entrega 100% por medo da traição.
+466. Crença de que Ninguém Vai Amá-lo Como Ele É: O 'eu real' é inaceitável — precisa fingir.
+467. Medo de Criar Filhos em Ambiente Tóxico: O trauma impede de ter filhos 'até resolver' a vida.
+468. Incapacidade de Deixar o Passado no Passado: Tramas de ex-parceiros que assombram a relação atual.
+469. Sexo como Forma de Provar Amor (Obrigação): Se não fizer, não ama. Pressão interna destruidora.
+470. Medo de Ser Feliz e Perder Tudo de Uma Vez: A felicidade é um prêmio temporário antes da queda.
+471. Bloqueio de União Espiritual com o Parceiro: O sagrado no amor é bloqueado por traumas religiosos.
+472. Crença de que Todo Amor Gera Sofrimento: O amor é sinônimo de dor — sempre foi, sempre será.
+473. Medo de Permitir que o Parceiro Entre na Família de Origem: Vergonha da linhagem tóxica.
+474. Incapacidade de Viver o Presente no Casal: O passado assombra e o futuro ameaça.
+475. Sexo Mecânico por Falta de Conexão Emocional: O corpo funciona mas o coração está ausente.
+476. Medo de Que o Parceiro Use Seus Segredos Contra Si: Vulnerabilidade como arma potencial.
+477. Bloqueio de Evolução Conjunta: O casal evolui individualmente mas nunca junto.
+478. Crença de que a Relação Ideal Não Existe: Cinismo que impede a construção de algo real.
+479. Medo de Perder o Controle da Relação: Controlar ou ser controlado — não existe meio termo.
+480. Incapacidade de Aceitar que o Amor Exige Trabalho: O amor deveria ser fácil — se dá trabalho, não é real.
+481. Sexo como Último Recurso para Salvar o Casamento: Quando tudo falha, o corpo é a última cartada.
+482. Medo de Ser Julgado por Estar Solteiro aos 30/40/50: Pressão social que gera relações desesperadas.
+483. Bloqueio de Recebimento de Cuidado: O usuário cuida de todos mas não permite ser cuidado.
+484. Crença de que Estar Sozinho é um Castigo: A solidão é punição, não escolha consciente.
+485. Medo de Que o Amor Mude o Parceiro (Para Pior): O comprometimento destrói o que era bom.
+486. Incapacidade de Ser Autêntico na Relação: O medo de perder o parceiro gera uma versão falsa de si.
+487. Sexo como Dever Conjugal sem Prazer: O corpo cumpre o contrato — a alma não participa.
+488. Medo de Ser Abandonado na Velhice: O parceiro vai embora quando não for mais útil.
+489. Bloqueio de Prosperidade no Casal: O dinheiro que entra gera conflito — o casal só funciona na escassez.
+490. Crença de que o Parceiro Perfeito Vai Resolver Todos os Problemas: O outro é visto como salvador, não como companheiro.
+491. Medo de Amar Sem Expectativas: O amor sem cobranças é assustador porque não há controle.
+492. Incapacidade de Ser Generoso com o Parceiro: O medo de perder trava a generosidade.
+493. Sexo como Performance para Evitar Abandono: Se satisfizer, não vai embora — pressão sexual insuportável.
+494. Medo de Que Filhos Destruam o Casamento: Os filhos são vistos como ameaça, não como bênção.
+495. Bloqueio de Gratidão no Casal: O foco é no que falta — nunca no que se tem.
+496. Crença de que o Destino Já Decidiu: O fatalismo impede a ação e a construção ativa do amor.
+497. Medo de Dar o Coração e Ser Traído: A entrega total é suicídio emocional — melhor dar pela metade.
+498. Incapacidade de Viver o Amor Sem Medo: Todo momento feliz é ofuscado pelo medo da perda.
+499. Sexo como Última Conexão Antes da Separação: O corpo tenta dizer o que o casal já decidiu inconscientemente.
+500. A FERIDA MÁXIMA DO RELACIONAMENTO: O usuário projeta simultaneamente Pai e Mãe no parceiro, exigindo que uma única pessoa cure décadas de abandono, rejeição e desamor. O parceiro nunca será suficiente porque carrega uma missão impossível. A cura só começa quando o usuário TOMA a própria mãe e o próprio pai internamente — liberando o parceiro de ser 'tudo'.
+
+FIM DO DATASET RELACIONAMENTOS (500 CASOS).
+
+DIRETRIZ DE ANÁLISE PARA O CARD RELACIONAMENTOS:
+Ao processar um áudio do card Relacionamentos, você DEVE:
+1. MAPEAR O RELATO: Identificar em qual dos 500 perfis o usuário mais se encaixa.
+2. EXPLICAR A RAIZ: Dizer claramente: 'Sua dificuldade atual com [parceiro/situação] é um reflexo da sua projeção de [Pai/Mãe]. O padrão que você vive hoje foi instalado por [dinâmica familiar específica].'
+3. CONECTAR AS 3 ÁREAS: Mostrar como o nó no relacionamento está travando o Financeiro (como o medo afeta ganhos), a Saúde (como somatiza no corpo) e vice-versa.
+4. IDENTIFICAR A LEALDADE INVISÍVEL: Nomear a qual ancestral ou dinâmica familiar o usuário está sendo 'leal' ao repetir o padrão.
+
 REGRA OBRIGATÓRIA DE MAPEAMENTO SECUNDÁRIO:
 Para QUALQUER diagnóstico (Mãe, Pai ou Traumas), você DEVE obrigatoriamente gerar um mapeamento de como o trauma identificado afeta as 3 áreas da vida:
 
@@ -1167,7 +1689,7 @@ serve(async (req) => {
     }
 
     const areaNames: Record<string, string> = {
-      pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais",
+      pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamentos: "Relacionamentos",
     };
 
     const previousDiagStr = previous_diagnoses ? `DIAGNÓSTICOS ANTERIORES (não repita): ${JSON.stringify(previous_diagnoses)}` : "";
