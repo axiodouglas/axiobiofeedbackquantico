@@ -1,4 +1,4 @@
-import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, ArrowRight, Brain, Shield, Repeat, MessageSquare } from "lucide-react";
+import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -102,8 +102,8 @@ const Index = () => {
           <p className="text-muted-foreground">Mãe, Pai e Traumas — as sementes de todos os bloqueios</p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-12">
+        {/* Cards Grid 2x2 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
           {areas.map((area) => (
             <AreaCard
               key={area.title}
@@ -117,56 +117,112 @@ const Index = () => {
               onClick={area.onClick}
             />
           ))}
+          {/* Community Card */}
+          <AreaCard
+            title="Comunidade de Elevação de Frequência"
+            description="Relatos reais de transformação para elevar sua frequência"
+            icon={<MessageSquare className="h-7 w-7" />}
+            iconColor="bg-primary/20 text-primary"
+            isPremium={true}
+            isLocked={true}
+            onClick={() => navigate("/community")}
+          />
         </div>
 
-        {/* How it Works CTA */}
-        <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/5 via-card to-card p-8 cursor-pointer hover:border-primary/50 transition-all mb-12" onClick={() => navigate("/como-funciona")}>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
-              <Brain className="h-6 w-6 text-primary" />
+        {/* Como Funciona - Inline */}
+        <div className="max-w-3xl mx-auto mb-12">
+          <div className="text-center mb-8">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
+              <Brain className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium text-primary">O Método</span>
             </div>
-            <div>
-                <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                Como Funciona o A.X.I.O.
-                <ArrowRight className="h-4 w-4 text-primary" />
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Entenda como os traumas de Mãe e Pai travam sua Saúde, Dinheiro e Relacionamentos
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+              Como Funciona o <span className="text-gradient-cyan">A.X.I.O.</span>
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Entenda cada etapa do processo de reprogramação quântica do seu inconsciente de origem.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {/* 1. Gravação */}
+            <div className="bg-card border border-border rounded-2xl p-8 text-center">
+              <div className="flex items-center justify-center mb-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                  <Mic className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-4">1. Gravação do Áudio</h3>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                Você escolhe qual pilar deseja trabalhar — <strong className="text-foreground">Mãe</strong>, <strong className="text-foreground">Pai</strong> ou <strong className="text-foreground">Traumas</strong> — 
+                e grava um áudio de 2 minutos contando sua história. A inteligência do A.X.I.O. analisa seu relato 
+                para localizar as crenças limitantes que estão travando suas 3 áreas da vida: 
+                <strong className="text-foreground"> Relacionamento</strong>, <strong className="text-foreground">Saúde</strong> e <strong className="text-foreground">Financeiro</strong>.
               </p>
             </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Shield className="h-4 w-4 text-primary shrink-0" />
-              <span>Relatório de Impacto nas 3 áreas</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Repeat className="h-4 w-4 text-primary shrink-0" />
-              <span>Comandos com sua própria voz</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Sparkles className="h-4 w-4 text-primary shrink-0" />
-              <span>Meditação inovadora</span>
-            </div>
-          </div>
-        </div>
 
-        {/* Community Card */}
-        <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/5 via-card to-card p-8 cursor-pointer hover:border-primary/50 transition-all mb-12" onClick={() => navigate("/community")}>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
-              <MessageSquare className="h-6 w-6 text-primary" />
+            {/* 2. Relatório */}
+            <div className="bg-card border border-border rounded-2xl p-8 text-center">
+              <div className="flex items-center justify-center mb-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                  <FileText className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-4">2. Relatório Semanal e Comandos Quânticos</h3>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-4">
+                Após a análise, o A.X.I.O. entrega um relatório semanal completo para acompanhamento 
+                da sua evolução, junto com <strong className="text-foreground">Comandos Quânticos</strong> personalizados.
+              </p>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                Os Comandos são frases de reprogramação pensadas e estudadas para agir diretamente 
+                dentro do subconsciente do cliente, utilizando técnicas avançadas de 
+                <strong className="text-foreground"> PNL</strong>, <strong className="text-foreground">Neurociência</strong> e 
+                <strong className="text-foreground"> Física Quântica</strong>.
+              </p>
             </div>
-            <div>
-              <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                Comunidade de Elevação de Frequência
-                <span className="inline-flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">
-                  <Lock className="h-2.5 w-2.5" />
-                  Premium
-                </span>
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Relatos reais de transformação para elevar sua frequência
+
+            {/* 3. Meditação */}
+            <div className="bg-gradient-to-br from-primary/10 via-card to-card border-2 border-primary/40 rounded-2xl p-8 text-center">
+              <div className="flex items-center justify-center mb-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                  <Moon className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-4">3. A Meditação com Sua Própria Voz</h3>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-4">
+                Esta é a inovação criada pelo fundador do A.X.I.O.:
+              </p>
+              <div className="bg-secondary/30 rounded-xl p-5 mb-6 max-w-xl mx-auto">
+                <p className="text-foreground font-medium leading-relaxed">
+                  Você grava os Comandos Quânticos <strong>com a sua própria voz</strong>. 
+                  Isso burla as defesas do cérebro — o <em>fator crítico da mente</em> — porque 
+                  o subconsciente aceita muito mais facilmente a própria voz do que uma voz estranha.
+                </p>
+              </div>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-4">
+                A meditação é montada para ser ouvida à noite, enquanto você dorme, reprogramando 
+                sua mente durante o estado de maior receptividade do subconsciente.
+              </p>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                Enquanto meditações tradicionais usam vozes de terceiros (que o cérebro filtra e resiste), 
+                o método A.X.I.O. utiliza o reconhecimento vocal nativo do sistema límbico para 
+                acelerar a ressignificação em até 3x mais rápido.
+              </p>
+              <p className="text-sm text-primary font-semibold mt-6">
+                "A mente não discute consigo mesma — ela obedece."
+              </p>
+            </div>
+
+            {/* 4. Orientação */}
+            <div className="bg-card border border-border rounded-2xl p-8 text-center">
+              <div className="flex items-center justify-center mb-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                  <HelpCircle className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-4">4. Orientação de Uso do A.X.I.O.</h3>
+              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto">
+                Em breve.
               </p>
             </div>
           </div>
