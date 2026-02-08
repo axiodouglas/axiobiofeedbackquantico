@@ -4,6 +4,7 @@ import { ArrowLeft, AlertTriangle, Brain, Lock, Sparkles, TrendingUp, DollarSign
 import { Button } from "@/components/ui/button";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import type { DiagnosisResult } from "@/hooks/use-axio-analysis";
+import { useAuth } from "@/hooks/use-auth";
 
 interface SecondaryImpacts {
   financeiro?: string;
@@ -19,6 +20,8 @@ const Report = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const area = searchParams.get("area") || "mae";
+  const { profile } = useAuth();
+  const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   const aiDiagnosis = useMemo(() => {
     try {
@@ -181,7 +184,8 @@ const Report = () => {
                 </div>
               )}
 
-              {/* CTA - Premium Unlock */}
+            {/* CTA - Premium Unlock (only for non-premium) */}
+              {!isPremium && (
               <div className="bg-gradient-to-br from-primary/15 via-card to-card border-2 border-primary/40 rounded-xl p-6 text-center mb-8">
                 <div className="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/20">
                   <Lock className="h-6 w-6 text-primary" />
@@ -194,28 +198,6 @@ const Report = () => {
                 <p className="text-sm text-muted-foreground mb-5 max-w-xl mx-auto">
                   Comandos quânticos para cura, meditações exclusivas para o seu caso e acesso à comunidade com depoimentos reais de transformação.
                 </p>
-
-                <div className="bg-secondary/30 rounded-lg p-4 mb-5">
-                  <h4 className="font-semibold text-foreground mb-2 text-sm">O que você vai desbloquear:</h4>
-                  <ul className="text-xs text-muted-foreground space-y-1.5 text-left max-w-md mx-auto">
-                    <li className="flex items-start gap-2">
-                      <Mic className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                      <span>Comandos Quânticos gravados <strong>com sua própria voz</strong></span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Sparkles className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                      <span>Diagnóstico de Pai e Traumas Adicionais</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Sparkles className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                      <span>Meditação inovadora para mentes ansiosas</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Sparkles className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                      <span>Ciclo semanal com entrega diária de comandos</span>
-                    </li>
-                  </ul>
-                </div>
 
                 <Button 
                   variant="premium" 
@@ -231,6 +213,7 @@ const Report = () => {
                   A partir de R$ 19,99/mês • Cancele quando quiser
                 </p>
               </div>
+              )}
 
               {/* A.X.I.O. Footer */}
               <div className="text-center border-t border-border pt-6">
