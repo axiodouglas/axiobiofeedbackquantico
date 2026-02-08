@@ -76,7 +76,8 @@ const Processing = () => {
       });
 
       if (error) {
-        console.error("DB save error:", error.message);
+        console.error("DB save error:", error.message, error.code, error.details);
+        setErrorMsg(`Erro ao salvar: ${error.message} (${error.code || "unknown"})`);
         return false;
       }
       return true;
