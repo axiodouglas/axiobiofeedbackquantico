@@ -48,7 +48,7 @@ const Processing = () => {
 
       // HARD STOP: No audio = no report
       if (!audioBase64) {
-        handleFatalError("Nenhum áudio foi encontrado para análise.");
+        handleGracefulFailure("Nenhum áudio foi encontrado para análise.");
         return;
       }
 
@@ -66,19 +66,19 @@ const Processing = () => {
           body: formData,
         });
 
-        // HARD STOP: Edge function error = no report
+        // HARD STOP: Edge function error = no report (silent, graceful)
         if (error) {
-          handleFatalError("Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
+          handleGracefulFailure();
           return;
         }
 
-        // HARD STOP: API returned error = no report
+        // HARD STOP: API returned error = no report (silent, graceful)
         if (data?.error) {
-          handleFatalError("Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
+          handleGracefulFailure();
           return;
         }
 
-        // HARD STOP: Focus validation failed = redirect to recording
+        // Graceful handling: Focus validation failed = redirect to recording (expected flow event)
         if (data?.diagnosis?.focus_valid === false) {
           sessionStorage.setItem("axio_focus_error", data.diagnosis.focus_message || "");
           cleanupAttempt();
@@ -86,9 +86,9 @@ const Processing = () => {
           return;
         }
 
-        // HARD STOP: No valid diagnosis data = no report
+        // HARD STOP: No valid diagnosis data = no report (silent, graceful)
         if (!data?.diagnosis || !data?.diagnosis?.title || !data?.diagnosis?.blocks?.length) {
-          handleFatalError("Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
+          handleGracefulFailure();
           return;
         }
 
@@ -97,19 +97,19 @@ const Processing = () => {
         sessionStorage.removeItem("axio_audio");
         setProgress(100);
         setTimeout(() => navigate(`/report?area=${area}`), 800);
-      } catch (err: any) {
-        console.error("Processing error:", err);
-        handleFatalError("Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
+      } catch {
+        // Silent catch — treated as graceful failure, not a system error
+        handleGracefulFailure();
       }
     };
 
     runAnalysis();
   }, [area, navigate]);
 
-  const handleFatalError = (message: string) => {
+  const handleGracefulFailure = (message?: string) => {
     cleanupAttempt();
     setHasFailed(true);
-    setErrorMsg(message);
+    setErrorMsg(message || "Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
   };
 
   const cleanupAttempt = () => {
@@ -122,6 +122,11 @@ const Processing = () => {
   const handleRetry = () => {
     cleanupAttempt();
     navigate(`/recording?area=${area}`);
+  };
+
+  const handleGoHome = () => {
+    cleanupAttempt();
+    navigate("/area-selection");
   };
 
   // ERROR STATE - Hard stop, no report generated
@@ -146,7 +151,7 @@ const Processing = () => {
               <Button variant="cyan" size="lg" onClick={handleRetry}>
                 Tentar Novamente
               </Button>
-              <Button variant="ghost" size="sm" onClick={() => { cleanupAttempt(); navigate("/"); }}>
+              <Button variant="ghost" size="sm" onClick={handleGoHome}>
                 Voltar ao Início
               </Button>
             </div>
