@@ -188,13 +188,13 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        {/* Relatórios - Premium Only */}
-        <Card className={!subscriptionActive ? "border-primary/20" : ""}>
+        {/* Meus Relatórios - Acesso Total */}
+        <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
               <FolderTree className="h-5 w-5 text-primary" />
               Meus Relatórios
-              {subscriptionActive && diagnoses.length > 0 && (
+              {diagnoses.length > 0 && (
                 <Badge variant="secondary" className="text-xs ml-auto">
                   {diagnoses.length}
                 </Badge>
@@ -202,18 +202,7 @@ const Profile = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {!subscriptionActive ? (
-              <div className="text-center py-8 space-y-3">
-                <Crown className="h-10 w-10 text-primary/40 mx-auto" />
-                <p className="text-sm text-muted-foreground">
-                  Assine o plano Premium para acessar seus relatórios, comandos quânticos e meditações.
-                </p>
-                <Button variant="cyan" size="sm" onClick={() => navigate("/checkout")} className="gap-1.5">
-                  <Sparkles className="h-4 w-4" />
-                  Assinar Premium
-                </Button>
-              </div>
-            ) : loadingDiagnoses ? (
+            {loadingDiagnoses ? (
               <p className="text-sm text-muted-foreground animate-pulse">Carregando...</p>
             ) : diagnoses.length === 0 ? (
               <div className="text-center py-8 space-y-3">
