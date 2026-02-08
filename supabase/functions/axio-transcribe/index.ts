@@ -23,15 +23,20 @@ serve(async (req) => {
       );
     }
 
-    // Use Lovable AI Gateway for transcription via Gemini (supports audio)
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY not configured");
     }
 
-    // Convert audio to base64
+    // Convert audio to base64 safely (chunk-based to avoid stack overflow)
     const arrayBuffer = await audioFile.arrayBuffer();
-    const base64Audio = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)));
+    const uint8Array = new Uint8Array(arrayBuffer);
+    const chunkSize = 8192;
+    let base64Audio = "";
+    for (let i = 0; i < uint8Array.length; i += chunkSize) {
+      const chunk = uint8Array.subarray(i, i + chunkSize);
+      base64Audio += btoa(String.fromCharCode(...chunk));
+    }
 
     // Use Gemini for audio transcription
     const transcribeResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -68,14 +73,14 @@ serve(async (req) => {
     if (!transcribeResponse.ok) {
       const errorText = await transcribeResponse.text();
       console.error("Transcription error:", errorText);
-      throw new Error(`Transcription failed: ${transcribeResponse.status}`);
+      throw new Error(`Falha na transcrição do áudio`);
     }
 
     const transcribeResult = await transcribeResponse.json();
     const transcription = transcribeResult.choices?.[0]?.message?.content?.trim();
 
     if (!transcription) {
-      throw new Error("No transcription generated");
+      throw new Error("Não foi possível transcrever o áudio. Tente gravar novamente com mais clareza.");
     }
 
     // Now call the analysis function
@@ -98,7 +103,7 @@ serve(async (req) => {
     if (!analyzeResponse.ok) {
       const errorText = await analyzeResponse.text();
       console.error("Analysis error:", errorText);
-      throw new Error(`Analysis failed: ${analyzeResponse.status}`);
+      throw new Error(`Falha na análise do diagnóstico`);
     }
 
     const diagnosis = await analyzeResponse.json();
