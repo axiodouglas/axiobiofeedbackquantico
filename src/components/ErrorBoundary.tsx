@@ -44,11 +44,11 @@ class ErrorBoundary extends Component<Props, State> {
                 <AlertCircle className="h-10 w-10 text-destructive" />
               </div>
               <h2 className="text-xl font-bold text-foreground mb-4">
-                Análise não concluída
+                Diagnóstico Interrompido
               </h2>
               <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
-                Ops! Algo não saiu como esperado. Por favor, tente gravar novamente
-                focando apenas no tema deste card para que seu diagnóstico seja preciso.
+                O áudio enviado não foi audível ou o assunto está fora do tema deste card.
+                Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.
               </p>
               <Button variant="cyan" size="lg" onClick={this.handleReset}>
                 Voltar ao Início

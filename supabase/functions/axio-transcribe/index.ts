@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { encode as base64Encode } from "https://deno.land/std@0.168.0/encoding/base64.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -19,24 +20,22 @@ serve(async (req) => {
     if (!audioFile) {
       return new Response(
         JSON.stringify({ error: "Arquivo de áudio é obrigatório" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY not configured");
+      return new Response(
+        JSON.stringify({ error: "Serviço de IA não configurado" }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
-    // Convert audio to base64 safely (chunk-based to avoid stack overflow)
+    // Convert audio to base64 safely using Deno's standard library
     const arrayBuffer = await audioFile.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
-    const chunkSize = 8192;
-    let base64Audio = "";
-    for (let i = 0; i < uint8Array.length; i += chunkSize) {
-      const chunk = uint8Array.subarray(i, i + chunkSize);
-      base64Audio += btoa(String.fromCharCode(...chunk));
-    }
+    const base64Audio = base64Encode(uint8Array);
 
     // Use Gemini for audio transcription
     const transcribeResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -71,16 +70,21 @@ serve(async (req) => {
     });
 
     if (!transcribeResponse.ok) {
-      const errorText = await transcribeResponse.text();
-      console.error("Transcription error:", errorText);
-      throw new Error(`Falha na transcrição do áudio`);
+      // Graceful failure — return as normal JSON, not a 500 error
+      return new Response(
+        JSON.stringify({ error: "Não foi possível processar o áudio. Tente gravar novamente." }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const transcribeResult = await transcribeResponse.json();
     const transcription = transcribeResult.choices?.[0]?.message?.content?.trim();
 
     if (!transcription) {
-      throw new Error("Não foi possível transcrever o áudio. Tente gravar novamente com mais clareza.");
+      return new Response(
+        JSON.stringify({ error: "Áudio não audível. Tente gravar novamente com mais clareza." }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Now call the analysis function
@@ -101,22 +105,23 @@ serve(async (req) => {
     });
 
     if (!analyzeResponse.ok) {
-      const errorText = await analyzeResponse.text();
-      console.error("Analysis error:", errorText);
-      throw new Error(`Falha na análise do diagnóstico`);
+      return new Response(
+        JSON.stringify({ error: "Não foi possível gerar o diagnóstico. Tente novamente." }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const diagnosis = await analyzeResponse.json();
 
     return new Response(
       JSON.stringify({ transcription, diagnosis }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error("Error in axio-transcribe:", error);
+    // Silent catch — return graceful error, never a 500
     return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({ error: "Erro inesperado. Tente gravar novamente." }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });

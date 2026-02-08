@@ -109,7 +109,7 @@ const Processing = () => {
   const handleGracefulFailure = (message?: string) => {
     cleanupAttempt();
     setHasFailed(true);
-    setErrorMsg(message || "Ops! Algo não saiu como esperado. Por favor, tente gravar novamente focando apenas no tema deste card para que seu diagnóstico seja preciso.");
+    setErrorMsg(message || "O áudio enviado não foi audível ou o assunto está fora do tema deste card. Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.");
   };
 
   const cleanupAttempt = () => {
@@ -140,7 +140,7 @@ const Processing = () => {
             </div>
 
             <h2 className="text-xl font-bold text-foreground mb-4">
-              Análise não concluída
+              Diagnóstico Interrompido
             </h2>
 
             <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
