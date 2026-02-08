@@ -217,26 +217,15 @@ const Profile = () => {
                   <div
                     key={d.id}
                     className="flex items-center justify-between rounded-lg border border-border bg-secondary/30 px-4 py-3 hover:border-primary/30 transition-colors cursor-pointer"
-                    onClick={() => navigate("/report", { state: { diagnosisResult: d.diagnosis_result, frequencyScore: d.frequency_score, area: d.area } })}
+                    onClick={() => navigate(`/diagnosis/${d.id}`)}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/15 text-primary text-xs font-bold">
-                        {d.frequency_score ?? "–"}
-                      </div>
                       <div>
                         <p className="text-sm font-medium text-foreground">
                           {areaLabels[d.area] || d.area}
                         </p>
                         <p className="text-xs text-muted-foreground">
-                          {format(new Date(d.created_at), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
-                          {" · "}
-                          {(() => {
-                            const expiresAt = new Date(new Date(d.created_at).getTime() + 90 * 24 * 60 * 60 * 1000);
-                            const daysLeft = Math.max(0, Math.ceil((expiresAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
-                            return daysLeft <= 7
-                              ? <span className="text-destructive font-medium">expira em {daysLeft}d</span>
-                              : <span>expira em {daysLeft}d</span>;
-                          })()}
+                          {format(new Date(d.created_at), "dd/MM/yyyy", { locale: ptBR })}
                         </p>
                       </div>
                     </div>
