@@ -6,9 +6,11 @@ import UserMenu from "@/components/UserMenu";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Sparkles, ArrowLeft, FileText, Calendar, Activity, Crown } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Sparkles, ArrowLeft, FileText, Calendar, Activity, Crown, Pencil, Check, X } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { useToast } from "@/hooks/use-toast";
 
 interface Diagnosis {
   id: string;
@@ -29,10 +31,14 @@ const areaLabels: Record<string, string> = {
 };
 
 const Profile = () => {
-  const { user, profile, loading } = useAuth();
+  const { user, profile, loading, refreshProfile } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
   const [loadingDiagnoses, setLoadingDiagnoses] = useState(true);
+  const [editingName, setEditingName] = useState(false);
+  const [nameValue, setNameValue] = useState("");
+  const [savingName, setSavingName] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -62,6 +68,23 @@ const Profile = () => {
     );
   }
 
+  const handleSaveName = async () => {
+    if (!user || !nameValue.trim()) return;
+    setSavingName(true);
+    const { error } = await supabase
+      .from("profiles")
+      .update({ full_name: nameValue.trim() })
+      .eq("user_id", user.id);
+    setSavingName(false);
+    if (error) {
+      toast({ title: "Erro ao salvar", description: "Tente novamente.", variant: "destructive" });
+    } else {
+      toast({ title: "Nome atualizado!" });
+      await refreshProfile();
+      setEditingName(false);
+    }
+  };
+
   const subscriptionActive =
     profile?.is_premium &&
     (!profile.subscription_expires_at ||
@@ -83,13 +106,45 @@ const Profile = () => {
       <div className="container mx-auto px-4 py-8 max-w-3xl space-y-6">
         {/* Profile Header */}
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 text-primary text-xl font-bold">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 text-primary text-xl font-bold shrink-0">
             {(profile?.full_name?.[0] || user?.email?.[0] || "U").toUpperCase()}
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">
-              {profile?.full_name || user?.email?.split("@")[0]}
-            </h1>
+          <div className="min-w-0 flex-1">
+            {editingName ? (
+              <div className="flex items-center gap-2">
+                <Input
+                  value={nameValue}
+                  onChange={(e) => setNameValue(e.target.value)}
+                  className="h-9 text-sm max-w-[200px]"
+                  placeholder="Seu nome completo"
+                  autoFocus
+                  onKeyDown={(e) => e.key === "Enter" && handleSaveName()}
+                />
+                <Button variant="ghost" size="icon" className="h-8 w-8 text-primary" onClick={handleSaveName} disabled={savingName}>
+                  <Check className="h-4 w-4" />
+                </Button>
+                <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground" onClick={() => setEditingName(false)}>
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-bold text-foreground truncate">
+                  {profile?.full_name || user?.email?.split("@")[0]}
+                </h1>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 text-muted-foreground hover:text-primary shrink-0"
+                  onClick={() => {
+                    setNameValue(profile?.full_name || "");
+                    setEditingName(true);
+                  }}
+                >
+                  <Pencil className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            )}
             <p className="text-sm text-muted-foreground">{user?.email}</p>
           </div>
         </div>
