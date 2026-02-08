@@ -84,7 +84,7 @@ const Index = () => {
               onClick={() => navigate("/recording?area=mae")}
             >
               <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
-              Iniciar Diagnóstico Gratuito — Mãe
+              Iniciar Diagnóstico Gratuito
             </Button>
 
             <p className="mt-4 text-sm text-muted-foreground">
@@ -97,7 +97,7 @@ const Index = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
         {/* Section Title */}
-        <div className="mb-8">
+        <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-foreground mb-2">Os 3 Pilares do Diagnóstico</h2>
           <p className="text-muted-foreground">Mãe, Pai e Traumas — as sementes de todos os bloqueios</p>
         </div>
@@ -126,8 +126,8 @@ const Index = () => {
               <Brain className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                O Processo de Cura A.X.I.O.
+                <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                Como Funciona o A.X.I.O.
                 <ArrowRight className="h-4 w-4 text-primary" />
               </h3>
               <p className="text-sm text-muted-foreground">
