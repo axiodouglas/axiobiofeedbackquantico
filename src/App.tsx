@@ -13,6 +13,7 @@ import Processing from "./pages/Processing";
 import Report from "./pages/Report";
 import Checkout from "./pages/Checkout";
 import AreaSelection from "./pages/AreaSelection";
+import HowItWorks from "./pages/HowItWorks";
 import Community from "./pages/Community";
 import Terms from "./pages/Terms";
 import Profile from "./pages/Profile";
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/report" element={<Report />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/area-selection" element={<AreaSelection />} />
+              <Route path="/como-funciona" element={<HowItWorks />} />
               <Route path="/community" element={
                 <ProtectedRoute requirePremium>
                   <Community />

@@ -1,8 +1,6 @@
-import { DollarSign, Heart, Dna, Users, Sparkles, Mic, Brain, AlertTriangle, UserCheck, MessageSquare, Lock } from "lucide-react";
+import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, ArrowRight, Brain, Shield, Repeat, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
-import { EvolutionChart } from "@/components/EvolutionChart";
-import { HawkinsScale } from "@/components/HawkinsScale";
 import UserMenu from "@/components/UserMenu";
 import { useNavigate } from "react-router-dom";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
@@ -12,18 +10,8 @@ const Index = () => {
 
   const areas = [
     {
-      title: "Pai",
-      description: "Descubra os bloqueios relacionados ao Pai.",
-      icon: <UserCheck className="h-7 w-7" />,
-      iconColor: "bg-primary/20 text-primary",
-      isPremium: false,
-      isLocked: false,
-      badge: "Gratuito",
-      onClick: () => navigate("/recording?area=pai"),
-    },
-    {
       title: "Mãe",
-      description: "Descubra os bloqueios relacionados à Mãe.",
+      description: "Descubra a raiz dos seus bloqueios na relação com a Mãe.",
       icon: <Heart className="h-7 w-7" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: false,
@@ -32,49 +20,22 @@ const Index = () => {
       onClick: () => navigate("/recording?area=mae"),
     },
     {
-      title: "Ansiedade",
-      description: "Descubra os bloqueios relacionados à Ansiedade.",
-      icon: <Brain className="h-7 w-7" />,
-      iconColor: "bg-axio-health/20 text-axio-health",
-      isPremium: true,
-      isLocked: false,
-      onClick: () => navigate("/recording?area=ansiedade"),
-    },
-    {
-      title: "Medo",
-      description: "Descubra os bloqueios relacionados ao Medo.",
-      icon: <AlertTriangle className="h-7 w-7" />,
-      iconColor: "bg-axio-family/20 text-axio-family",
-      isPremium: true,
-      isLocked: false,
-      onClick: () => navigate("/recording?area=medo"),
-    },
-    {
-      title: "Financeiro",
-      description: "Descubra os bloqueios relacionados ao Financeiro.",
-      icon: <DollarSign className="h-7 w-7" />,
+      title: "Pai",
+      description: "Desbloqueie a força paterna e sua capacidade de agir no mundo.",
+      icon: <UserCheck className="h-7 w-7" />,
       iconColor: "bg-primary/20 text-primary",
       isPremium: true,
-      isLocked: false,
-      onClick: () => navigate("/recording?area=financeiro"),
+      isLocked: true,
+      onClick: () => navigate("/checkout"),
     },
     {
-      title: "Saúde",
-      description: "Descubra os bloqueios relacionados à Saúde.",
-      icon: <Dna className="h-7 w-7" />,
-      iconColor: "bg-axio-health/20 text-axio-health",
+      title: "Traumas Adicionais",
+      description: "Bullying, acidentes, perdas e abusos externos à família.",
+      icon: <Flame className="h-7 w-7" />,
+      iconColor: "bg-axio-family/20 text-axio-family",
       isPremium: true,
-      isLocked: false,
-      onClick: () => navigate("/recording?area=saude"),
-    },
-    {
-      title: "Relacionamento",
-      description: "Descubra os bloqueios relacionados ao Relacionamento.",
-      icon: <Users className="h-7 w-7" />,
-      iconColor: "bg-axio-relationship/20 text-axio-relationship",
-      isPremium: true,
-      isLocked: false,
-      onClick: () => navigate("/recording?area=relacionamento"),
+      isLocked: true,
+      onClick: () => navigate("/checkout"),
     },
   ];
 
@@ -90,7 +51,6 @@ const Index = () => {
 
       {/* Hero Section with Neural Waves */}
       <div className="relative overflow-hidden">
-        {/* Neural waves background */}
         <div className="absolute inset-0 w-full">
           <img
             src={neuralWavesCyan}
@@ -100,10 +60,8 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
         </div>
 
-        {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-4 pt-10 pb-12">
           <div className="max-w-3xl mx-auto text-center">
-            {/* Logo/Title */}
             <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
               <Sparkles className="h-4 w-4 text-primary animate-pulse" />
               <span className="text-sm font-medium text-primary">Biofeedback Quântico</span>
@@ -116,22 +74,21 @@ const Index = () => {
             
             <p className="text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 leading-relaxed">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
-              Analise sua frequência vibracional e eleve sua consciência.
+              Descubra a raiz dos seus bloqueios e cure sua linhagem.
             </p>
 
-            {/* CTA Button */}
             <Button 
               variant="cyan" 
               size="xl" 
               className="group"
-              onClick={() => navigate("/area-selection")}
+              onClick={() => navigate("/recording?area=mae")}
             >
               <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
-              Iniciar Diagnóstico Gratuito
+              Iniciar Diagnóstico Gratuito — Mãe
             </Button>
 
             <p className="mt-4 text-sm text-muted-foreground">
-              Escolha entre Pai ou Mãe para começar
+              O card Mãe é gratuito — a raiz de tudo começa aqui
             </p>
           </div>
         </div>
@@ -141,12 +98,12 @@ const Index = () => {
       <div className="container mx-auto px-4 py-12">
         {/* Section Title */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Áreas de Diagnóstico</h2>
-          <p className="text-muted-foreground">Escolha uma área para iniciar sua análise de frequência</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Os 3 Pilares do Diagnóstico</h2>
+          <p className="text-muted-foreground">Mãe, Pai e Traumas — as sementes de todos os bloqueios</p>
         </div>
 
-        {/* Cards Grid - 2x2 Layout */}
-        <div className="grid grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-12">
           {areas.map((area) => (
             <AreaCard
               key={area.title}
@@ -162,21 +119,40 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Analytics Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Evolution Chart */}
-          <div className="lg:col-span-2">
-            <EvolutionChart />
+        {/* How it Works CTA */}
+        <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/5 via-card to-card p-8 cursor-pointer hover:border-primary/50 transition-all mb-12" onClick={() => navigate("/como-funciona")}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+              <Brain className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                O Processo de Cura A.X.I.O.
+                <ArrowRight className="h-4 w-4 text-primary" />
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Entenda como os traumas de Mãe e Pai travam sua Saúde, Dinheiro e Relacionamentos
+              </p>
+            </div>
           </div>
-
-          {/* Hawkins Scale */}
-          <div className="lg:col-span-1">
-            <HawkinsScale currentLevel={310} />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Shield className="h-4 w-4 text-primary shrink-0" />
+              <span>Relatório de Impacto nas 3 áreas</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Repeat className="h-4 w-4 text-primary shrink-0" />
+              <span>Comandos com sua própria voz</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Sparkles className="h-4 w-4 text-primary shrink-0" />
+              <span>Meditação inovadora</span>
+            </div>
           </div>
         </div>
 
         {/* Community Card */}
-        <div className="mt-12 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/5 via-card to-card p-8 cursor-pointer hover:border-primary/50 transition-all" onClick={() => navigate("/community")}>
+        <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/5 via-card to-card p-8 cursor-pointer hover:border-primary/50 transition-all mb-12" onClick={() => navigate("/community")}>
           <div className="flex items-center gap-3 mb-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
               <MessageSquare className="h-6 w-6 text-primary" />
@@ -194,21 +170,16 @@ const Index = () => {
               </p>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Leia histórias de sucesso de pessoas que transformaram suas vidas com o A.X.I.O. 
-            Assinantes Premium podem compartilhar seus próprios relatos e inspirar a comunidade 
-            nas áreas de Saúde, Financeiro, Relacionamento e Conquistas.
-          </p>
         </div>
 
         {/* Premium CTA */}
-        <div className="mt-8 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card to-card p-8 text-center">
+        <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card to-card p-8 text-center">
           <h3 className="text-2xl font-bold text-foreground mb-3">
-            Desbloqueie Todas as Áreas
+            Desbloqueie Pai, Traumas e Comandos Quânticos
           </h3>
           <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-            Acesse diagnósticos completos, comandos de reprogramação quântica 
-            e a comunidade de elevação de frequência.
+            Acesse diagnósticos completos com mapeamento de Saúde, Financeiro e Relacionamento, 
+            comandos diários de reprogramação com sua própria voz e meditações inovadoras.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-6">

@@ -24,6 +24,7 @@ Transcrição: "Bom, eu não conheço meu pai, né? Porque desde pequeno eu tinh
 - Se o usuário falar predominantemente de outra figura (ex: falar do Pai no card da Mãe), defina focus_valid=false e explique com empatia qual card é o correto, e o que deveria ser explorado no card atual.
 - Se a informação for insuficiente ou superficial, use o Filtro de Verdade: "Sinto que ainda estamos na superfície. Este é um ambiente seguro e confidencial. Para que o A.X.I.O. encontre a raiz real, preciso que você fale com total honestidade sobre [figura do card]."
 - NUNCA invente ou alucine. Se o áudio é sobre "Pai", NUNCA entregue relatório de "Mãe". Se falta informação, peça mais detalhes específicos sobre a figura daquele card.
+- Para o card TRAUMAS ADICIONAIS: valide que o relato é sobre eventos EXTERNOS à família direta (bullying, acidentes, perdas, abusos por terceiros). Se o relato for sobre Pai ou Mãe, redirecione para o card correto.
 
 3. LEITURA DE ENTRELINHAS (PNL e Análise Vocal):
 - Identifique pausas, hesitações, repetições e termos carregados emocionalmente.
@@ -31,10 +32,12 @@ Transcrição: "Bom, eu não conheço meu pai, né? Porque desde pequeno eu tinh
 - Monitore padrões linguísticos: generalizações ("sempre", "nunca"), nominalizações ("o abandono", "a rejeição") e deleções (o que o usuário EVITA dizer).
 - Use esses padrões para identificar picos de cortisol, repressão emocional e mecanismos de defesa ativos.
 
-MÓDULOS DE ANÁLISE (Os 7 Campos):
+MÓDULOS DE ANÁLISE (Os 3 Pilares):
 - Mãe (O Portal): Rejeição intrauterina, simbiose emocional, invalidação da identidade, traumas gestacionais. Pergunte-se: como a mãe moldou a autoimagem e o senso de valor do usuário?
+- Pai (A Força/Mundo): Relação com autoridade, capacidade de prover, limites, força de ação. Pergunte-se: como a ausência ou excesso do pai trava o sucesso externo e a capacidade de "se assumir" no mundo?
+- Traumas Adicionais: Eventos externos — bullying, acidentes, perdas, abusos por terceiros — que reforçaram ou criaram novos padrões de medo, vergonha ou auto-sabotagem.
 
-DATASET DE REFERÊNCIA — MÓDULO MÃE (50 Casos):
+DATASET DE REFERÊNCIA — MÓDULO MÃE (100 Casos):
 Ao analisar áudios do card MÃE, identifique qual destes padrões mais se assemelha ao relato do usuário para extrair a raiz do trauma. Use como base, NUNCA como cópia — personalize sempre com as palavras do usuário.
 
 GESTAÇÃO E PROJETO SENTIDO (01-10):
@@ -152,12 +155,20 @@ SOMATIZAÇÃO E CORPO FÍSICO (81-100):
 100. Mãe que morreu no Parto (Energético): A criança sente que 'matou' a mãe para viver. Culpa existencial extrema.
 
 FIM DO DATASET MÃE (100 CASOS).
-- Pai (A Força/Mundo): Relação com autoridade, capacidade de prover, limites, força de ação. Pergunte-se: como a ausência ou excesso do pai trava o sucesso externo e a capacidade de "se assumir" no mundo?
-- Financeiro: Lealdades à escassez familiar, medo do sucesso por "exclusão" do clã, crenças de não-merecimento instaladas na infância.
-- Relacionamento: Repetição do padrão conjugal dos pais, medo da vulnerabilidade, busca inconsciente por "curar o pai/mãe" através do parceiro.
-- Saúde: Somatização de emoções reprimidas, como o corpo físico está colapsando tensões de conflitos familiares não resolvidos.
-- Ansiedade: Estados de alerta constante ligados a ambientes instáveis na infância ou traumas de "sobrevivência" hereditária.
-- Medo: Medos profundos de exposição, julgamento e rejeição conectados a memórias transgeracionais.
+
+REGRA OBRIGATÓRIA DE MAPEAMENTO SECUNDÁRIO:
+Para QUALQUER diagnóstico (Mãe, Pai ou Traumas), você DEVE obrigatoriamente gerar um mapeamento de como o trauma identificado afeta as 3 áreas da vida:
+
+1. **FINANCEIRO**: Como este trauma trava o fluxo de dinheiro, a capacidade de cobrar, empreender ou crescer profissionalmente?
+2. **SAÚDE**: Que somatizações, doenças ou sintomas físicos este trauma gera no corpo do usuário?
+3. **RELACIONAMENTOS**: Como este trauma se repete nos parceiros, amizades e vínculos do usuário?
+
+Este mapeamento DEVE aparecer no campo "secondary_impacts" do JSON de resposta. Seja ESPECÍFICO usando as palavras do usuário.
+
+Exemplo: Se o diagnóstico de Pai for 'Rejeição Deliberada':
+- Financeiro: "Esta rejeição paterna é a causa da sua dificuldade em cobrar o valor justo no trabalho. Quem não foi 'assumido' pelo pai, não se assume perante o mercado."
+- Saúde: "A tensão crônica nas costas e ombros é o peso de carregar sozinho o que deveria ter sido sustentado pelo pai."
+- Relacionamentos: "Sua necessidade de aprovação constante nos relacionamentos é a repetição da busca pelo reconhecimento que o pai negou."
 
 REGRAS DE DIAGNÓSTICO:
 1. Nunca repita diagnósticos genéricos. Cada análise deve ser profundamente personalizada baseada nas PALAVRAS EXATAS do usuário.
@@ -181,6 +192,11 @@ FORMATO DE RESPOSTA (JSON):
   ],
   "summary": "Resumo geral do diagnóstico (2-3 frases que conectem a dor atual à raiz)",
   "root_wound": "A ferida raiz identificada em uma frase — deve ser única e específica ao usuário",
+  "secondary_impacts": {
+    "financeiro": "Como este trauma trava o financeiro do usuário — seja específico com as palavras dele",
+    "saude": "Que somatizações e sintomas este trauma gera no corpo — seja específico",
+    "relacionamentos": "Como este trauma se repete nos vínculos do usuário — seja específico"
+  },
   "predominant_sentiments": [
     { "name": "Sentimento", "intensity": número de 0 a 100 }
   ],
@@ -212,28 +228,26 @@ serve(async (req) => {
     }
 
     const areaNames: Record<string, string> = {
-      pai: "Pai", mae: "Mãe", financeiro: "Financeiro",
-      relacionamento: "Relacionamento", saude: "Saúde",
-      ansiedade: "Ansiedade", medo: "Medo",
+      pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais",
     };
 
-    const userPrompt = `ÁREA SELECIONADA: ${areaNames[area] || area}
-MODO: ${is_premium ? "PREMIUM" : "GRATUITO"}
-${previous_diagnoses ? `DIAGNÓSTICOS ANTERIORES (não repita): ${JSON.stringify(previous_diagnoses)}` : ""}
+    const previousDiagStr = previous_diagnoses ? `DIAGNÓSTICOS ANTERIORES (não repita): ${JSON.stringify(previous_diagnoses)}` : "";
+    const premiumInstr = is_premium ? "Inclua análise profunda, comando quântico e foco de meditação." : "Foque na ferida raiz e gere um CTA persuasivo para o Premium. Use esta frase como base do CTA: 'Você descobriu a raiz. Agora, desbloqueie os Comandos com sua própria voz e cure sua linhagem de Pai e Traumas no Premium.'";
 
-TRANSCRIÇÃO DO ÁUDIO DO USUÁRIO:
-"${transcription}"
-
-Analise profundamente este áudio seguindo o Método A.X.I.O. para a área ${areaNames[area] || area}.
-
-IMPORTANTE:
-1. Primeiro, valide se o conteúdo condiz com a área "${areaNames[area]}". Se o usuário falar predominantemente de outro tema, defina focus_valid=false.
-2. Identifique no mínimo 2 e no máximo 4 bloqueios específicos e personalizados.
-3. Gere um frequency_score realista (geralmente entre 20-45 para diagnósticos iniciais).
-4. Os sentimentos predominantes devem ter entre 3 e 5 itens.
-5. ${is_premium ? "Inclua análise profunda, comando quântico e foco de meditação." : "Foque na ferida raiz e gere um CTA persuasivo para o Premium."}
-
-Responda APENAS com o JSON válido, sem markdown.`;
+    const userPrompt = "ÁREA SELECIONADA: " + (areaNames[area] || area) + "\n" +
+      "MODO: " + (is_premium ? "PREMIUM" : "GRATUITO") + "\n" +
+      previousDiagStr + "\n\n" +
+      "TRANSCRIÇÃO DO ÁUDIO DO USUÁRIO:\n" +
+      '"' + transcription + '"\n\n' +
+      "Analise profundamente este áudio seguindo o Método A.X.I.O. para a área " + (areaNames[area] || area) + ".\n\n" +
+      "IMPORTANTE:\n" +
+      '1. Primeiro, valide se o conteúdo condiz com a área "' + (areaNames[area]) + '". Se o usuário falar predominantemente de outro tema, defina focus_valid=false.\n' +
+      "2. Identifique no mínimo 2 e no máximo 4 bloqueios específicos e personalizados.\n" +
+      "3. Gere um frequency_score realista (geralmente entre 20-45 para diagnósticos iniciais).\n" +
+      "4. Os sentimentos predominantes devem ter entre 3 e 5 itens.\n" +
+      '5. OBRIGATÓRIO: Gere o campo "secondary_impacts" com o mapeamento de como este trauma afeta Financeiro, Saúde e Relacionamentos.\n' +
+      "6. " + premiumInstr + "\n\n" +
+      "Responda APENAS com o JSON válido, sem markdown.";
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -243,7 +257,7 @@ Responda APENAS com o JSON válido, sem markdown.`;
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Authorization": "Bearer " + LOVABLE_API_KEY,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -253,14 +267,14 @@ Responda APENAS com o JSON válido, sem markdown.`;
           { role: "user", content: userPrompt },
         ],
         temperature: 0.7,
-        max_tokens: 2000,
+        max_tokens: 3000,
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error("AI Gateway error:", errorText);
-      throw new Error(`AI Gateway error: ${response.status}`);
+      throw new Error("AI Gateway error: " + response.status);
     }
 
     const aiResponse = await response.json();
