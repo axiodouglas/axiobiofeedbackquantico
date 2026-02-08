@@ -241,7 +241,7 @@ serve(async (req) => {
       '"' + transcription + '"\n\n' +
       "Analise profundamente este áudio seguindo o Método A.X.I.O. para a área " + (areaNames[area] || area) + ".\n\n" +
       "IMPORTANTE:\n" +
-      '1. Primeiro, valide se o conteúdo condiz com a área "' + (areaNames[area]) + '". Se o usuário falar predominantemente de outro tema, defina focus_valid=false.\n' +
+      '1. Primeiro, valide se o conteúdo condiz com a área "' + (areaNames[area]) + '". Se o usuário falar predominantemente de outro tema, defina focus_valid=false. IMPORTANTE: Seja tolerante com áudios curtos ou superficiais — se houver QUALQUER menção mínima ao tema do card (mesmo breve), defina focus_valid=true e gere o diagnóstico. Apenas bloqueie se o assunto for COMPLETAMENTE diferente do card selecionado.\n' +
       "2. Identifique no mínimo 2 e no máximo 4 bloqueios específicos e personalizados.\n" +
       "3. Gere um frequency_score realista (geralmente entre 20-45 para diagnósticos iniciais).\n" +
       "4. Os sentimentos predominantes devem ter entre 3 e 5 itens.\n" +
