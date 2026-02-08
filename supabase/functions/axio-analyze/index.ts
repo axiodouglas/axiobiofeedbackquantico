@@ -33,6 +33,69 @@ Transcrição: "Bom, eu não conheço meu pai, né? Porque desde pequeno eu tinh
 
 MÓDULOS DE ANÁLISE (Os 7 Campos):
 - Mãe (O Portal): Rejeição intrauterina, simbiose emocional, invalidação da identidade, traumas gestacionais. Pergunte-se: como a mãe moldou a autoimagem e o senso de valor do usuário?
+
+DATASET DE REFERÊNCIA — MÓDULO MÃE (50 Casos):
+Ao analisar áudios do card MÃE, identifique qual destes padrões mais se assemelha ao relato do usuário para extrair a raiz do trauma. Use como base, NUNCA como cópia — personalize sempre com as palavras do usuário.
+
+GESTAÇÃO E PROJETO SENTIDO (01-10):
+01. Tentativa de Aborto: Sentimento de 'não ter direito à vida'. Gera medo de ser visto e auto-sabotagem extrema.
+02. Gravidez Indesejada: Crença de ser um fardo. Sentimento predominante: Rejeição.
+03. Mãe em Luto na Gestação: A criança nasce para 'substituir' alguém. Perda de identidade e destino próprio.
+04. Mãe com Depressão Gestacional: O mundo é sentido como um lugar frio. Gera desamparo e tristeza crônica.
+05. Desejo de Sexo Oposto: Frustração materna pelo sexo do bebê. Gera negação da própria força e identidade.
+06. Violência na Gestação: Estado de alerta máximo. Gera ansiedade generalizada e pânico.
+07. Escassez na Gestação: Instala o medo visceral da falta. Bloqueio total do fluxo financeiro.
+08. Mãe 'Criança': Mãe que não assume o papel. Filho cresce sentindo que precisa salvar os pais.
+09. Parto por Cesárea de Emergência: Sensação de interrupção. Dificuldade em concluir projetos sozinho.
+10. Parto Fórceps/Violento: Registro de que 'vencer na vida dói' ou que o mundo é agressivo.
+
+COMPORTAMENTO E DINÂMICA DE CRIAÇÃO (11-20):
+11. Mãe Castradora: Invalida as vontades do filho. Gera adultos sem iniciativa e com medo de agir.
+12. Mãe Superprotetora: Impede o amadurecimento. Gera dependência financeira e insegurança.
+13. Mãe Vítima: Usa a doença ou tristeza para manipular. O filho carrega a culpa da infelicidade dela.
+14. Mãe Ausente (Física ou Emocional): Gera carência afetiva extrema e busca incessante por aprovação.
+15. Mãe Crítica/Perfeccionista: Instala um juiz interno cruel. Sentimento: Insuficiência constante.
+16. Mãe Competitiva: Disputa beleza ou atenção com a filha. Gera invalidação da feminilidade.
+17. Mãe Instável (Bipolar/Explosiva): Lar inseguro. Gera vigilância constante e esgotamento mental.
+18. Mãe Narcisista: O filho é um acessório da imagem dela. Gera vazio existencial profundo.
+19. Mãe Preferencial: Privilegia um irmão. Gera sentimento de injustiça e comparação eterna.
+20. Mãe Fria: Sem contato físico. Gera dificuldade em criar vínculos íntimos e dar afeto.
+
+HERANÇAS E LEALDADES SISTÊMICAS (21-35):
+21. Mãe Traída pelo Pai: Filha toma as dores da mãe e bloqueia o sucesso com os homens.
+22. Mãe que Perdeu Tudo: Transmite o pavor do investimento. Lealdade à escassez familiar.
+23. Mãe Doente Crônica: O filho sacrifica o próprio brilho para 'compensar' a dor dela.
+24. Mãe Religiosa Extremista: Repressão sexual e medo constante de julgamento divino ou punição.
+25. Mãe que Odeia o Dinheiro: Crença de que a riqueza afasta as pessoas de Deus ou da família.
+26. Mãe Migrante/Desenraizada: Sentimento de não pertencer ao mundo ou a nenhum lugar.
+27. Mãe com Remorso Profundo: O filho carrega o peso do que ela não perdoou em si mesma.
+28. Mãe Frustrada com a Carreira: Filho sente culpa ao ganhar mais do que ela.
+29. Mãe Oculta/Envergonhada: Vergonha da origem materna. Bloqueia o reconhecimento social.
+30. Mãe Guerreira Exausta: Transmite o padrão de que 'viver é uma luta insuportável'.
+31. Mãe Divorciada Vingativa: Alienação parental. O filho odeia o pai para ser aceito pela mãe.
+32. Mãe que Enterrou Sonhos: O filho se sabota para não 'humilhar' o fracasso da mãe.
+33. Mãe Dependente Financeira: Filho sente que ganhar dinheiro serve apenas para sustentar o clã.
+34. Mãe com Vício (Álcool/Jogos): Gera insegurança material e medo do futuro.
+35. Mãe Silenciosa/Submissa: Filha repete o padrão de aceitar abusos em relacionamentos.
+
+CONFLITOS MODERNOS E PSIQUE (36-50):
+36. Mãe Workaholic: Sentimento de que o trabalho é mais importante que o amor.
+37. Mãe Obsessiva por Saúde: Gera hipocondria ou medo constante de morrer no usuário.
+38. Mãe que não se cuida: Filho sente vergonha da aparência da mãe. Gera baixa autoestima.
+39. Mãe Solteira Heroína: Filho sente que não pode errar, pois deve 'tudo' a ela.
+40. Mãe Comparadora: 'O filho da vizinha é melhor'. Gera sentimento crônico de derrota.
+41. Mãe Infiel: Filho perde a base de confiança no mundo e nos parceiros.
+42. Mãe Fofoqueira/Intrometida: Invasão de privacidade que gera bloqueio de expressão.
+43. Mãe que Odeia o Próprio Corpo: Transmite a desonra ao sagrado feminino ou masculino.
+44. Mãe com Medo do Sucesso: Freia o crescimento do filho para 'protegê-lo' do mundo.
+45. Mãe Excessivamente Lógica: Anestesia emocional. O filho não sabe sentir ou chorar.
+46. Mãe Hipocondríaca: Transfere a doença como forma de ganhar atenção.
+47. Mãe Desorganizada: Caos no lar que gera desordem financeira e mental.
+48. Mãe Melancólica: Filho tenta 'fazer rir' uma mãe que nunca se alegra. Exaustão emocional.
+49. Mãe que foi 'Mãe da própria Mãe': Inversão de hierarquia que se repete no usuário.
+50. Mãe de 'Substituição': Criada por avó/tia. Gera ferida de abandono profundo pela mãe biológica.
+
+FIM DO DATASET MÃE.
 - Pai (A Força/Mundo): Relação com autoridade, capacidade de prover, limites, força de ação. Pergunte-se: como a ausência ou excesso do pai trava o sucesso externo e a capacidade de "se assumir" no mundo?
 - Financeiro: Lealdades à escassez familiar, medo do sucesso por "exclusão" do clã, crenças de não-merecimento instaladas na infância.
 - Relacionamento: Repetição do padrão conjugal dos pais, medo da vulnerabilidade, busca inconsciente por "curar o pai/mãe" através do parceiro.
