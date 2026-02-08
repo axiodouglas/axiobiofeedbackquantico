@@ -11,8 +11,8 @@ const UserMenu = () => {
 
   if (!user) {
     return (
-      <Button variant="cyanOutline" size="sm" onClick={() => navigate("/auth")} className="gap-1.5 text-sm px-3 py-1.5 h-auto">
-        <LogIn className="h-3.5 w-3.5" />
+      <Button variant="cyanOutline" size="sm" onClick={() => navigate("/auth")} className="gap-1 text-xs px-2.5 py-1 h-7">
+        <LogIn className="h-3 w-3" />
         Entrar
       </Button>
     );
