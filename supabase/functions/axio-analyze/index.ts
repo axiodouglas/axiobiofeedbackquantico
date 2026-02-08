@@ -95,7 +95,63 @@ CONFLITOS MODERNOS E PSIQUE (36-50):
 49. Mãe que foi 'Mãe da própria Mãe': Inversão de hierarquia que se repete no usuário.
 50. Mãe de 'Substituição': Criada por avó/tia. Gera ferida de abandono profundo pela mãe biológica.
 
-FIM DO DATASET MÃE.
+DINÂMICAS DE EXCLUSÃO E SEGREDOS (51-65):
+51. Filho de 'Pai Diferente': Mãe que esconde ou diferencia o tratamento por causa da origem do pai. Gera crise de identidade profunda.
+52. Mãe que Abortou antes deste Filho: O 'filho substituto' carrega a tristeza do irmão que não nasceu. Sentimento: Melancolia sem causa.
+53. Mãe que foi Excluída pela própria Família: Transmite o medo de ser 'expulso' de grupos ou demitido de empregos.
+54. Mãe com Segredo de Traição: O filho sente que 'esconde algo', gerando desonestidade inconsciente ou medo de ser descoberto.
+55. Mãe que Perdeu um Filho Anterior: Gera uma superproteção baseada no pânico da morte. O usuário tem medo de viver.
+56. Mãe que nunca quis casar: Transmite a visão de que relacionamentos são prisões ou fardos.
+57. Mãe que foi 'Mãe de Aluguel' ou Doou um filho: Ferida de abandono e culpa sistêmica avassaladora.
+58. Mãe que odeia a própria Mãe: Repetição do conflito geracional. O usuário não consegue receber amor.
+59. Mãe que viveu em Orfanato/Abrigo: Transmite a crença de que não há lugar seguro no mundo.
+60. Mãe com Passado de Abuso: Transmite medo de intimidade física e vigilância constante contra homens.
+61. Mãe que desonra o Feminino: Trata mulheres como inferiores. Gera baixa autoestima em filhas e desrespeito em filhos.
+62. Mãe que queria ser Homem: Conflito de gênero transmitido como rejeição à própria natureza biológica.
+63. Mãe que esconde a Paternidade: O usuário sente um vazio onde deveria estar a força do pai.
+64. Mãe que 'Sequestra' a Atenção: Simula crises para impedir o filho de sair de casa ou viajar.
+65. Mãe que 'Rivaliza' com a Nora/Genro: Disputa o controle da nova família do filho. Gera divórcios.
+
+BLOQUEIOS DE PROSPERIDADE E MERECIMENTO (66-80):
+66. Mãe que gasta compulsivamente: Gera no usuário o medo de ter dinheiro e perdê-lo rápido.
+67. Mãe 'Mão de Vaca' (Avareza): Transmite a crença de que 'o dinheiro é difícil e deve ser escondido'.
+68. Mãe que se sente inferior a Ricos: Gera vergonha de cobrar o preço justo pelo próprio trabalho.
+69. Mãe que foi explorada financeiramente: Transmite o padrão de ser 'usado' por parceiros ou sócios.
+70. Mãe que associa Dinheiro a Pecado: Bloqueio quântico de fluxo por culpa religiosa.
+71. Mãe que critica quem tem Sucesso: O usuário se sabota para não ser criticado pela mãe.
+72. Mãe que nunca teve conta bancária: Transmite analfabetismo financeiro e dependência.
+73. Mãe que 'paga' pelo amor do filho: Gera a crença de que o amor deve ser comprado com presentes.
+74. Mãe que faliu um negócio: Medo paralisante de empreender ou tentar algo novo.
+75. Mãe que diz 'Dinheiro não dá em árvore': Instala a escassez como realidade absoluta.
+76. Mãe que inveja o sucesso do filho: Gera o 'medo de brilhar' para não magoar a mãe.
+77. Mãe que prioriza a aparência sobre a comida: Gera futilidade e vazio material.
+78. Mãe que trabalha em subempregos humilhantes: O filho sente que 'não pode' subir de cargo por lealdade à dor dela.
+79. Mãe que foi sustentada por parentes: Transmite falta de autonomia e vitimismo.
+80. Mãe que se sacrifica financeiramente por vícios alheios: Transmite o padrão de 'salvador de falidos'.
+
+SOMATIZAÇÃO E CORPO FÍSICO (81-100):
+81. Mãe que reclama de dores constantes: Usuário tende a repetir os mesmos sintomas físicos (Psicossomática).
+82. Mãe que controla a comida do filho: Gera distúrbios alimentares e compulsões.
+83. Mãe que tem nojo do corpo: Transmite bloqueios sexuais e falta de prazer na vida.
+84. Mãe que dorme demais (Fuga): O usuário usa o sono ou a prostração como mecanismo de defesa.
+85. Mãe hipocondríaca por atenção: Usuário aprende que 'ficar doente' é a única forma de ser amado.
+86. Mãe que negligencia a própria saúde: Transmite o padrão de auto-abandono.
+87. Mãe com tiques ou manias: Gera ansiedade obsessivo-compulsiva (TOC) no usuário.
+88. Mãe que se sente feia: Transmite a ferida da desvalia estética e social.
+89. Mãe que não aguenta o choro do filho: Gera repressão emocional. Adulto que não consegue expressar dor.
+90. Mãe que 'engole' as emoções: Transmite problemas de tireoide ou garganta (não dito).
+91. Mãe que vive no passado: O usuário não consegue focar no presente e no futuro.
+92. Mãe que teme o futuro: Transmite ansiedade antecipatória constante.
+93. Mãe que invalida as dores do filho: 'Isso não é nada'. Gera adultos que não se cuidam.
+94. Mãe que exige silêncio absoluto: Bloqueia a comunicação e a autoexposição do usuário.
+95. Mãe que faz o filho se sentir 'sujo': Gera bloqueios de intimidade e autoestima.
+96. Mãe que compara o filho a 'bandidos' ou 'fracassados': Profecia auto-realizável de fracasso.
+97. Mãe que 'adota' estranhos e ignora o filho: Ferida de injustiça e invisibilidade.
+98. Mãe que odeia comemorar aniversários: Sentimento de que 'minha existência não é uma festa'.
+99. Mãe que ameaça ir embora: Trauma de abandono iminente. Gera dependência emocional nos parceiros.
+100. Mãe que morreu no Parto (Energético): A criança sente que 'matou' a mãe para viver. Culpa existencial extrema.
+
+FIM DO DATASET MÃE (100 CASOS).
 - Pai (A Força/Mundo): Relação com autoridade, capacidade de prover, limites, força de ação. Pergunte-se: como a ausência ou excesso do pai trava o sucesso externo e a capacidade de "se assumir" no mundo?
 - Financeiro: Lealdades à escassez familiar, medo do sucesso por "exclusão" do clã, crenças de não-merecimento instaladas na infância.
 - Relacionamento: Repetição do padrão conjugal dos pais, medo da vulnerabilidade, busca inconsciente por "curar o pai/mãe" através do parceiro.
