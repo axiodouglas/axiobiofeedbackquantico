@@ -216,7 +216,7 @@ const Profile = () => {
                   <DiagnosisFolder
                     key={d.id}
                     diagnosis={d}
-                    isPremium={true}
+                    isPremium={!!subscriptionActive}
                     userId={user!.id}
                   />
                 ))}
