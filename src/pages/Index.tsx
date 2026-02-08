@@ -238,29 +238,6 @@ const Index = () => {
             comandos diários de reprogramação com sua própria voz e meditações inovadoras.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-6">
-            <div className="rounded-xl border border-border bg-card px-6 py-4 min-w-[140px] cursor-pointer hover:border-primary/30 transition-all" onClick={() => navigate("/checkout")}>
-              <div className="text-sm text-muted-foreground mb-1">Mensal</div>
-              <div className="text-2xl font-bold text-foreground">R$ 29,90</div>
-              <div className="text-xs text-muted-foreground">/mês</div>
-            </div>
-            <div className="rounded-xl border border-border bg-card px-6 py-4 min-w-[140px] cursor-pointer hover:border-primary/30 transition-all" onClick={() => navigate("/checkout")}>
-              <div className="text-sm text-muted-foreground mb-1">Trimestral</div>
-              <div className="text-2xl font-bold text-foreground">R$ 24,99</div>
-              <div className="text-xs text-muted-foreground">/mês</div>
-              <div className="text-[10px] text-destructive font-bold mt-1">17% OFF</div>
-            </div>
-            <div className="rounded-xl border-2 border-primary bg-card px-6 py-4 min-w-[140px] relative cursor-pointer hover:shadow-[0_0_20px_hsl(175,70%,50%,0.2)] transition-all" onClick={() => navigate("/checkout")}>
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-0.5 text-xs font-semibold text-primary-foreground">
-                Popular
-              </div>
-              <div className="text-sm text-muted-foreground mb-1">Semestral</div>
-              <div className="text-2xl font-bold text-primary">R$ 19,99</div>
-              <div className="text-xs text-muted-foreground">/mês</div>
-              <div className="text-[10px] text-destructive font-bold mt-1">33% OFF</div>
-            </div>
-          </div>
-
           <Button variant="premium" size="lg" onClick={() => navigate("/checkout")}>
             <Sparkles className="h-5 w-5" />
             Desbloquear Premium
