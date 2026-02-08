@@ -84,27 +84,31 @@ const Report = () => {
                 </p>
               </div>
 
-              {/* Frequency Indicator */}
-              <div className="bg-secondary/50 rounded-xl p-5 mb-8">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-foreground text-sm">Frequência Vibracional Atual</h3>
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-destructive" />
-                    <span className="text-xs text-destructive">Abaixo do ideal</span>
+              {/* Sentimentos Predominantes */}
+              {aiDiagnosis.predominant_sentiments?.length > 0 && (
+                <div className="bg-secondary/50 rounded-xl p-5 mb-8">
+                  <h3 className="font-semibold text-foreground text-sm mb-3">Sentimentos Predominantes</h3>
+                  <div className="space-y-2">
+                    {aiDiagnosis.predominant_sentiments
+                      .sort((a, b) => b.intensity - a.intensity)
+                      .slice(0, 1)
+                      .map((s, i) => (
+                        <div key={i} className="flex items-center justify-between">
+                          <span className="text-sm font-medium text-foreground">{s.name}</span>
+                          <div className="flex items-center gap-2 flex-1 mx-4">
+                            <div className="w-full bg-muted rounded-full h-3">
+                              <div
+                                className="bg-gradient-to-r from-destructive via-yellow-500 to-primary h-3 rounded-full"
+                                style={{ width: `${s.intensity}%` }}
+                              />
+                            </div>
+                          </div>
+                          <span className="text-xs text-muted-foreground">{s.intensity}%</span>
+                        </div>
+                      ))}
                   </div>
                 </div>
-                <div className="w-full bg-muted rounded-full h-3">
-                  <div 
-                    className="bg-gradient-to-r from-destructive via-yellow-500 to-primary h-3 rounded-full"
-                    style={{ width: `${aiDiagnosis.frequency_score || 35}%` }}
-                  />
-                </div>
-                <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                  <span>Baixa</span>
-                  <span>Média</span>
-                  <span>Alta</span>
-                </div>
-              </div>
+              )}
 
               {/* Blocks Identified */}
               <div className="space-y-4 mb-10">
@@ -120,9 +124,6 @@ const Report = () => {
                     </h3>
                     <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
                       {block.description}
-                    </p>
-                    <p className="text-xs text-primary/80 italic">
-                      {block.origin}
                     </p>
                   </div>
                 ))}
@@ -187,13 +188,11 @@ const Report = () => {
                 </div>
 
                 <h2 className="text-xl font-bold text-foreground mb-3">
-                  Você Descobriu a Raiz. Agora, Cure Sua Linhagem.
+                  Adquira o Plano Completo
                 </h2>
 
                 <p className="text-sm text-muted-foreground mb-5 max-w-xl mx-auto">
-                  {aiDiagnosis.cta_message || 
-                    "Você descobriu a raiz. Agora, desbloqueie os Comandos com sua própria voz e cure sua linhagem de Pai e Traumas no Premium."
-                  }
+                  Comandos quânticos para cura, meditações exclusivas para o seu caso e acesso à comunidade com depoimentos reais de transformação.
                 </p>
 
                 <div className="bg-secondary/30 rounded-lg p-4 mb-5">
