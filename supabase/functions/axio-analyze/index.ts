@@ -154,7 +154,431 @@ SOMATIZAÇÃO E CORPO FÍSICO (81-100):
 99. Mãe que ameaça ir embora: Trauma de abandono iminente. Gera dependência emocional nos parceiros.
 100. Mãe que morreu no Parto (Energético): A criança sente que 'matou' a mãe para viver. Culpa existencial extrema.
 
-FIM DO DATASET MÃE (100 CASOS).
+DINÂMICAS DE CARREIRA E VISIBILIDADE (101-125):
+101. Mãe que desencoraja o 'Brilho': 'Não se ache melhor que os outros'. Gera medo patológico de sucesso e autopromoção.
+102. Mãe que inveja a juventude da filha: Gera na usuária um desejo de envelhecer precocemente ou se desleixar para não 'ofuscar' a mãe.
+103. Mãe que prioriza a estabilidade (Medo do Risco): Trava o espírito empreendedor do usuário. Gera pânico de trocar de emprego.
+104. Mãe que trabalha por necessidade, não por prazer: Instala a crença de que 'trabalho é castigo' e 'dinheiro é suor e dor'.
+105. Mãe que desvaloriza o intelecto: 'Isso de estudar não dá futuro'. Gera bloqueios de aprendizado e síndrome do impostor.
+106. Mãe que 'compra' o silêncio do filho: Usa presentes para encobrir erros dela. Adulto que tenta 'comprar' afeto em vez de construir conexões.
+107. Mãe que desdenha de pessoas ricas: Cria uma barreira quântica que impede o usuário de frequentar lugares de alto nível.
+108. Mãe que exige ajuda financeira mesmo quando não precisa: Gera o sentimento de ser 'explorado' pela família de origem.
+109. Mãe que nunca elogiou conquistas: Adulto que se torna 'workaholic' tentando desesperadamente um elogio que nunca vem.
+110. Mãe que foi demitida injustamente e nunca se recuperou: Transmite o medo constante de ser 'cortado' ou injustiçado no trabalho.
+111. Mãe que associa descanso à preguiça: Gera culpa avassaladora no usuário quando ele não está sendo produtivo.
+112. Mãe que teme o julgamento dos vizinhos: Bloqueia a autenticidade do usuário, tornando-o escravo da opinião alheia.
+113. Mãe que invalida a vocação do filho: 'Isso não é profissão'. Gera frustração profissional e falta de propósito.
+114. Mãe que abandonou a carreira pelos filhos e cobra esse 'sacrifício': Gera dívida emocional impagável no usuário.
+115. Mãe que gasta o dinheiro do filho sem autorização: Quebra de confiança financeira que gera dificuldade em delegar tarefas.
+116. Mãe 'Rainha do Drama' no ambiente de trabalho: O usuário teme ser expansivo ou sociável para não ser confundido com a mãe.
+117. Mãe que se sente vítima do sistema: Gera crença de que 'o mundo está contra mim' e vitimismo profissional.
+118. Mãe que esconde o próprio sucesso para não 'magoar' o marido: Transmite à filha o medo de ganhar mais que o parceiro.
+119. Mãe que não sabe cobrar por seus serviços: Gera o padrão de 'trabalhar de graça' ou cobrar muito pouco.
+120. Mãe que mudava de emprego constantemente: Transmite instabilidade e falta de foco em projetos de longo prazo.
+121. Mãe que trata o dinheiro como algo 'sujo': Bloqueio de recebimento por julgamento moral.
+122. Mãe que se endivida para manter status: Gera comportamento impulsivo de consumo no usuário.
+123. Mãe que critica chefes e autoridades: Gera conflitos constantes com hierarquia e dificuldade em aceitar ordens.
+124. Mãe que foca apenas no que falta: Mentalidade de escassez que impede a gratidão e a atração de novas oportunidades.
+125. Mãe que 'esquece' compromissos do filho: Gera sentimento de insignificância no mundo corporativo e social.
+
+RELACIONAMENTOS E INTIMIDADE (126-150):
+126. Mãe que fala mal do corpo de outras mulheres: Gera insegurança estética e comparação tóxica em relacionamentos.
+127. Mãe que vigia a sexualidade de forma obsessiva: Gera bloqueios de prazer, anorgasmia ou impotência psicogênica.
+128. Mãe que 'usa' o filho para espiar o pai: Inversão de papel. O filho se torna um espião, perdendo a própria inocência.
+129. Mãe que romantiza o sofrimento amoroso: Gera o padrão de 'dedo podre' e atração por parceiros que fazem sofrer.
+130. Mãe que trata o marido como um 'filho mais velho': Gera no usuário o padrão de atrair parceiros dependentes e imaturos.
+131. Mãe que não tolera a felicidade do casal: Gera conflitos entre o usuário e seu parceiro por 'lealdade' à mãe sozinha.
+132. Mãe que foi trocada por uma mulher mais jovem: Transmite o pavor do envelhecimento e a desconfiança absoluta em parceiros.
+133. Mãe que viveu casamentos de fachada: Gera a crença de que o amor é uma mentira necessária por conveniência.
+134. Mãe que 'escolhe' os parceiros do filho: Gera anulação da vontade própria e casamentos baseados em aprovação externa.
+135. Mãe que trata afeto como moeda de troca: 'Se você fizer isso, eu te amo'. Gera o padrão de 'agradar para ser amado'.
+136. Mãe que tem ciúmes da felicidade do filho com o pai: O usuário se sente culpado ao se divertir ou ter conexão com a linhagem paterna.
+137. Mãe que viveu solidão profunda mesmo casada: Transmite a sensação de que 'estaremos sempre sozinhos no final'.
+138. Mãe que não sabe dar limites a parentes: Gera invasão constante de privacidade na vida conjugal do usuário.
+139. Mãe que trata homens como 'todos iguais': Instala a desconfiança prévia em qualquer relacionamento.
+140. Mãe que é emocionalmente dependente dos filhos: Gera o 'Complexo de Atlas', onde o usuário sente que não pode ser feliz se a mãe estiver triste.
+141. Mãe que proíbe o luto ou a tristeza: 'Engole o choro'. Adulto que se torna uma 'panela de pressão' emocional.
+142. Mãe que usa a religião para punir o prazer: Gera culpa após momentos de alegria ou lazer.
+143. Mãe que 'rouba' o brilho de eventos do filho (aniversários, casamentos): Gera medo de celebrar conquistas.
+144. Mãe que idolatra o marido (pai): Gera sentimento de exclusão. O filho se sente um 'intruso' na relação dos pais.
+145. Mãe que compara o parceiro do filho com o próprio pai (negativamente): Gera tensão e sabotagem no relacionamento atual.
+146. Mãe que vive de aparências nas redes sociais/sociedade: Gera vazio interno e necessidade de validação digital constante.
+147. Mãe que se recusa a perdoar ofensas antigas: Gera rancor crônico e dificuldade em resolver conflitos simples.
+148. Mãe que trata o sexo como algo pecaminoso ou nojento: Bloqueia a conexão íntima profunda.
+149. Mãe que não demonstra vulnerabilidade nunca: Gera o padrão de 'armadura emocional'. O usuário não consegue pedir ajuda.
+150. Mãe que desaparece emocionalmente quando o filho erra: Trauma de abandono punitivo. Medo extremo de cometer erros.
+
+SAÚDE E BIOFEEDBACK (151-175):
+151. Mãe obsessiva com limpeza e germes: Gera ansiedade por controle e possíveis transtornos obsessivos.
+152. Mãe que associa comida a conforto emocional: Gera compulsão alimentar e dificuldade de lidar com frustrações.
+153. Mãe que temia doenças genéticas: Gera hipocondria preventiva e foco excessivo em sintomas físicos.
+154. Mãe que ignorava as dores físicas do filho: Gera adultos que negligenciam a própria saúde até o limite.
+155. Mãe que usava remédios para tudo: Gera dependência química ou farmacológica como fuga da dor emocional.
+156. Mãe que tinha medo de envelhecer (Botox/Cirurgias excessivas): Gera dismorfia corporal no usuário.
+157. Mãe com distúrbio de sono/Insônia: Transmite o estado de 'alerta noturno' e ansiedade ao deitar.
+158. Mãe que 'somatizava' raiva como dor de estômago: O usuário repete o padrão de gastrites nervosas.
+159. Mãe que via o corpo como um inimigo: Gera falta de conexão com a intuição corporal.
+160. Mãe que tinha pânico de hospitais: Gera bloqueio em buscar tratamentos preventivos.
+161. Mãe que forçava a alimentação: Gera má relação com a saciedade e o prazer de comer.
+162. Mãe que não suportava barulho: Gera hipersensibilidade auditiva e irritabilidade fácil no usuário.
+163. Mãe que associava magreza a sucesso: Gera pressão estética e risco de bulimia/anorexia.
+164. Mãe que tinha medo do sol/natureza: Gera comportamento sedentário e falta de vitalidade (Vitamina D baixa).
+165. Mãe que não permitia o toque físico: Gera carência de 'toque' ou aversão ao contato físico de terceiros.
+166. Mãe com respiração curta/ansiosa: O usuário não sabe respirar profundamente (falta de oxigenação cerebral).
+167. Mãe que vivia em ambientes escuros/fechados: Gera tendência à depressão sazonal e falta de ânimo.
+168. Mãe que tinha medo de dirigir/movimento: Gera medo de 'direção de vida' e paralisia em decisões.
+169. Mãe com alergias emocionais: O usuário manifesta dermatites ou asmas quando está sob estresse familiar.
+170. Mãe que usava a comida para 'calar' o filho: Gera dificuldade em se expressar verbalmente.
+171. Mãe que se via como 'fraca' fisicamente: Gera no usuário a crença de fragilidade biológica hereditária.
+172. Mãe com vícios em telas/TV (Fuga da realidade): Gera deficit de atenção e vício em dopamina barata.
+173. Mãe que não tomava água/não se nutria: Transmite padrão de auto-negligência básica.
+174. Mãe que trabalhava doente e se orgulhava disso: Gera o padrão de esgotamento (Burnout) como mérito.
+175. Mãe que tinha medo do próprio sangue/ciclos: Bloqueia a conexão com a ciclicidade da vida.
+
+ESPIRITUALIDADE E EXISTÊNCIA (176-200):
+176. Mãe que duvida de tudo (Ceticismo agressivo): Bloqueia a intuição e a conexão com algo maior no usuário.
+177. Mãe que usa o destino como desculpa: 'Era para ser assim'. Gera falta de autorresponsabilidade.
+178. Mãe que faz promessas em nome do filho: O usuário sente que sua alma está 'presa' a compromissos que não fez.
+179. Mãe que se sente amaldiçoada: Transmite a sensação de que 'nada nunca vai dar certo' por forças externas.
+180. Mãe que idolatra líderes espirituais acima da família: Gera sentimento de abandono e revolta contra o sagrado.
+181. Mãe que teme a morte de forma desesperada: Transmite a angústia existencial e o medo de riscos.
+182. Mãe que não se sente digna de entrar em lugares sagrados: Gera crença de 'indignidade' profunda.
+183. Mãe que critica a intuição do filho: 'Isso é coisa da sua cabeça'. Gera desconfiança nos próprios instintos.
+184. Mãe que atribui suas vitórias apenas à sorte: Bloqueia a percepção de mérito e competência do usuário.
+185. Mãe que tem medo do 'olho gordo': O usuário esconde suas vitórias por medo de ser atacado energeticamente.
+186. Mãe que não se perdoa por erros do passado: Gera lealdade à culpa. O usuário não se permite ser feliz.
+187. Mãe que se sente 'velha demais' para aprender: Transmite a ideia de que a vida acaba cedo.
+188. Mãe que vê o mundo como um vale de lágrimas: Gera melancolia existencial crônica.
+189. Mãe que desonra os antepassados: O usuário sente um vazio de pertencimento e falta de raízes.
+190. Mãe que busca a cura apenas fora de si: Gera dependência de gurus ou mestres, sem autoridade interna.
+191. Mãe que não entende o conceito de limite: Invade o espaço sagrado do filho, gerando falta de autoproteção.
+192. Mãe que teme o silêncio: Gera necessidade de barulho constante (fuga de si mesmo).
+193. Mãe que se sente uma fraude: Transmite a síndrome do impostor para as gerações futuras.
+194. Mãe que não reconhece o próprio corpo como sagrado: Bloqueia a autoestima física profunda.
+195. Mãe que vive projetada no futuro: Gera ansiedade e incapacidade de viver o 'agora'.
+196. Mãe que não sabe agradecer: Foca no que falta, gerando um 'buraco negro' emocional no lar.
+197. Mãe que se sente injustiçada por Deus/Universo: Transmite revolta e bloqueio de gratidão.
+198. Mãe que tem medo da própria sombra (emoções negativas): O usuário reprime sua sombra, gerando explosões súbitas.
+199. Mãe que não suporta a solidão: Gera dependência emocional e medo de ficar sozinho.
+200. Mãe que não deu o 'Sim' à vida do filho emocionalmente: O usuário sente que está aqui, mas não 'pertence' à vida.
+
+BLOQUEIOS DE IDENTIDADE E AUTENTICIDADE (201-225):
+201. Mãe que proibia perguntas: Gera adultos que aceitam abusos sem questionar e têm medo de investigar a verdade.
+202. Mãe que 'escolhia' as roupas do filho até a idade adulta: Bloqueio de expressão pessoal e dificuldade em tomar decisões simples.
+203. Mãe que tratava o talento do filho como 'exibicionismo': Gera vergonha de brilhar e medo de ser julgado como arrogante.
+204. Mãe que falava 'isso não é pra gente': Instala um teto de vidro social e financeiro intransponível.
+205. Mãe que tinha vergonha da própria risada: Gera repressão da alegria e adultos excessivamente sérios ou travados.
+206. Mãe que associava inteligência a 'ser metido': Sabotagem intelectual para ser aceito pelo clã familiar.
+207. Mãe que ignorava as conquistas acadêmicas: Sentimento de que 'nada que eu faço é importante o suficiente'.
+208. Mãe que forçava o filho a pedir desculpas mesmo estando certo: Gera o padrão de 'eterna vítima' ou 'eterno culpado'.
+209. Mãe que não permitia o choro masculino (ou força feminina): Inversão da polaridade e desconexão com a essência.
+210. Mãe que usava apelidos depreciativos como 'brincadeira': Baixa autoestima profunda mascarada por um humor autodepreciativo.
+211. Mãe que tratava a curiosidade sexual como 'sujeira': Bloqueio de energia vital e criatividade (segundo chakra).
+212. Mãe que não suportava ser contrariada: Gera adultos que se calam para evitar conflitos, acumulando raiva interna.
+213. Mãe que comparava o filho com personagens fictícios 'perfeitos': Sentimento de inadequação existencial crônica.
+214. Mãe que tinha pavor de ser o centro das atenções: Transmite o 'padrão de invisibilidade' profissional.
+215. Mãe que tratava a independência como traição: Gera culpa paralisante ao tentar morar sozinho ou viajar.
+216. Mãe que desvalorizava o trabalho doméstico/feminino: Gera nas filhas repulsa pela maternidade ou pelo cuidado pessoal.
+217. Mãe que idolatrava o sofrimento (mártir): Crença de que 'só tem valor quem sofre ou se sacrifica'.
+218. Mãe que não sabia receber elogios: Gera dificuldade em aceitar bônus, promoções ou presentes.
+219. Mãe que 'roubava' os amigos do filho: Invasão de limites sociais que gera isolamento e desconfiança.
+220. Mãe que tratava a vulnerabilidade como fraqueza: Gera o padrão de 'super-homem/super-mulher' que adoece por não pedir ajuda.
+221. Mãe que escondia a própria idade com pânico: Transmite o medo da morte e da passagem do tempo.
+222. Mãe que via perigo em cada esquina: Instala o 'filtro do medo' que impede o usuário de aproveitar oportunidades.
+223. Mãe que desdenhava de hobbies e prazeres: Gera adultos que não sabem se divertir e vivem apenas para o dever.
+224. Mãe que tratava o corpo do filho como 'propriedade dela': Gera falta de limites corporais e dificuldade em dizer 'não'.
+225. Mãe que nunca estava presente em apresentações escolares: Gera a ferida da invisibilidade social e profissional.
+
+SOMATIZAÇÃO E TRAUMAS DE ESCASSEZ (226-250):
+226. Mãe que escondia comida ou tinha pânico de faltar: Gera compulsão alimentar e medo de investir dinheiro.
+227. Mãe que associava doenças a 'merecer descanso': O usuário adoece inconscientemente quando precisa parar de trabalhar.
+228. Mãe que reclamava do preço de tudo: Instala a 'frequência da barganha', impedindo a atração de luxo e abundância.
+229. Mãe que tratava remédios caseiros como 'milagres' e médicos como 'vilões': Gera negligência com a saúde científica.
+230. Mãe que tinha medo de ar-condicionado/conforto: Gera resistência em usufruir de tecnologias que facilitam a vida.
+231. Mãe que guardava coisas 'para o dia especial' que nunca chegava: Gera o padrão de não viver o agora.
+232. Mãe que se sentia culpada ao comer algo gostoso sozinha: Transmite o padrão de 'autopunição' pelo prazer.
+233. Mãe que via a riqueza como causa de brigas familiares: Bloqueio quântico de prosperidade para 'manter a paz' na família.
+234. Mãe que associava suor a dignidade: 'Só é honesto quem se mata de trabalhar'. Bloqueia o ganho de dinheiro inteligente.
+235. Mãe que tinha inveja de quem viajava: Gera culpa no usuário ao planejar férias ou lazer.
+236. Mãe que tratava bancos e investimentos como 'coisa de ladrão': Gera analfabetismo financeiro e perdas por medo.
+237. Mãe que associava magreza a doença: Gera dificuldade em manter o peso ideal por medo inconsciente de morrer.
+238. Mãe que não bebia água por 'não sentir sede': Padrão de desidratação e falta de fluxo vital no corpo.
+239. Mãe que dormia com a TV ligada (Fuga do Silêncio): Gera agitação mental e dificuldade em meditar.
+240. Mãe que tratava a menstruação/ciclo como 'maldição': Bloqueio do sagrado feminino e do fluxo de criação.
+241. Mãe que tinha pavor de dever um centavo a alguém: Gera ansiedade financeira extrema, mesmo com saldo positivo.
+242. Mãe que via a gordura como 'proteção': O corpo do usuário retém peso para se proteger de traumas emocionais.
+243. Mãe que trabalhava em ambientes insalubres sem reclamar: Transmite a aceitação de migalhas profissionais.
+244. Mãe que tinha alergia a flores/perfumes: Bloqueio da percepção da beleza e sutileza da vida.
+245. Mãe que associava o sol a doenças de pele de forma paranoica: Gera falta de energia vital e depressão.
+246. Mãe que não suportava ver o filho ocioso: Gera o padrão de 'ansiedade produtiva' (incapacidade de relaxar).
+247. Mãe que tinha nojo de suor/esforço físico: Gera sedentarismo e desconexão com o vigor do corpo.
+248. Mãe que via a velhice como 'o fim de tudo': Gera depressão ao completar cada ciclo de aniversário.
+249. Mãe que associava fartura a 'pecado' (Gula): Bloqueio do recebimento das bênçãos do universo.
+250. Mãe que nunca terminava um tratamento de saúde: Gera o padrão de 'começar e não concluir' processos de cura.
+
+RELACIONAMENTOS E LEALDADES OCULTAS (251-275):
+251. Mãe que competia com a filha pelo afeto do pai: Gera rivalidade feminina crônica em ambientes de trabalho.
+252. Mãe que tratava o genro/nora como inimigo: Gera conflitos de lealdade entre o parceiro e a mãe.
+253. Mãe que romantizava o 'primeiro amor' perdido: Gera no usuário a sensação de que o atual parceiro nunca será o ideal.
+254. Mãe que perdoava traições do pai de forma submissa: Transmite o padrão de aceitar migalhas afetivas.
+255. Mãe que usava o filho como 'marido energético': Gera dificuldade no usuário em encontrar um parceiro real, pois o 'lugar' já está ocupado pela mãe.
+256. Mãe que odiava a sogra (avó): Gera conflitos sistêmicos e falta de apoio da linhagem ancestral.
+257. Mãe que não deixava o filho fechar a porta do quarto: Quebra total de privacidade e limites individuais.
+258. Mãe que lia o diário/celular do filho: Gera paranoia e dificuldade em confiar em qualquer pessoa íntima.
+259. Mãe que falava mal dos amigos do filho: Gera isolamento social e medo de ser julgado pelo grupo.
+260. Mãe que se fazia de morta/doente para o filho não sair de casa: Manipulação emocional extrema que gera fobias sociais.
+261. Mãe que associava intimidade a 'perder o respeito': Gera casamentos frios e sem conexão sexual profunda.
+262. Mãe que tratava o divórcio como 'morte social': Gera o padrão de manter relacionamentos tóxicos 'pelas aparências'.
+263. Mãe que dizia que 'homem não presta' ou 'mulher é traiçoeira': Instala a desconfiança prévia no amor.
+264. Mãe que não aceitava o envelhecimento dos filhos: Gera comportamentos infantilizados em adultos de 40 anos.
+265. Mãe que 'adotava' os problemas dos vizinhos e ignorava os de casa: Gera sentimento de injustiça e abandono emocional.
+266. Mãe que via a sexualidade como moeda de troca: 'Se ele te der isso, você faz aquilo'. Gera prostituição emocional.
+267. Mãe que não permitia demonstrações de afeto em público: Gera frieza e dificuldade em validar o parceiro socialmente.
+268. Mãe que associava o amor a 'ter que sofrer': 'Quem ama cuida e sofre'. Gera relacionamentos de codependência.
+269. Mãe que tinha ciúmes dos netos com a outra avó: Gera triangulações familiares tóxicas.
+270. Mãe que via o casamento como o 'fim da vida': Gera medo de compromisso e autossabotagem em relações sérias.
+271. Mãe que desvalorizava o parceiro do filho por ser 'pobre': Gera conflitos financeiros no casal.
+272. Mãe que tratava a solidão como algo heróico: Gera o padrão de se isolar sempre que algo vai mal.
+273. Mãe que associava beleza a ser 'vagabunda': Gera repressão da vaidade e do magnetismo pessoal.
+274. Mãe que não deixava o filho ter segredos: Gera a sensação de estar sempre sendo vigiado (Panóptico interno).
+275. Mãe que 'abandonava' o filho quando ele discordava dela: Trauma de abandono condicional. Gera pessoas 'boazinhas' demais.
+
+CONSCIÊNCIA QUÂNTICA E TRANSGERACIONAL (276-300):
+276. Mãe que dizia 'isso é maldição de família': Instala o destino trágico como realidade imutável.
+277. Mãe que não acreditava em milagres ou mudanças: Bloqueio da neuroplasticidade e da esperança de cura.
+278. Mãe que via a vida como um 'teste de resistência': Gera o padrão de atrair problemas apenas para provar que é forte.
+279. Mãe que desonrava a própria terra de origem: Gera falta de pertencimento e instabilidade de moradia.
+280. Mãe que tratava o sucesso alheio como 'sorte ou roubo': Bloqueio de mérito e competência.
+281. Mãe que tinha medo do escuro/espiritualidade: Gera pânico do desconhecido e da própria sombra.
+282. Mãe que associava oração a pedir coisas materiais: Gera falta de conexão espiritual profunda.
+283. Mãe que dizia 'o que os olhos não veem o coração não sente': Gera o padrão de esconder problemas em vez de resolvê-los.
+284. Mãe que via o futuro como 'ameaça': Gera ansiedade crônica e incapacidade de planejar a longo prazo.
+285. Mãe que não aceitava presentes: 'não precisava ter gasto': Mata o fluxo de gratidão e generosidade.
+286. Mãe que tratava a intuição como 'coisa de louco': Desconexão com o guia interno e decisões erradas constantes.
+287. Mãe que tinha pavor de ficar sozinha: Transmite o medo do silêncio e da autoanálise.
+288. Mãe que se sentia inferior a pessoas com diploma: Gera arrogância compensatória ou complexo de inferioridade.
+289. Mãe que dizia 'ninguém é de ninguém': Gera falta de compromisso com a própria vida e metas.
+290. Mãe que via a alegria como presságio de algo ruim: 'Riu muito hoje, vai chorar amanhã'. Gera medo de ser feliz.
+291. Mãe que não permitia mudanças na casa (móveis no mesmo lugar há anos): Bloqueio de renovação energética.
+292. Mãe que tratava a tristeza como frescura: Gera depressões mascaradas por sorrisos falsos.
+293. Mãe que tinha medo de rituais/comemorações: Gera falta de marcos de vitória na vida do usuário.
+294. Mãe que via o universo como punitivo: Gera medo constante de 'pecar' ou ser castigado pela vida.
+295. Mãe que não sabia dizer 'eu te amo': Gera dificuldade em expressar sentimentos básicos de afeto.
+296. Mãe que tratava a morte como tabu absoluto: Gera lutos mal elaborados e medo de finais.
+297. Mãe que associava ser 'mulher de família' a não ter ambição: Bloqueia o crescimento profissional feminino.
+298. Mãe que via o trabalho como a única forma de ser digna: Gera o padrão de 'fazer para ser', esquecendo o 'ser'.
+299. Mãe que nunca pediu perdão: Gera rigidez mental e dificuldade em admitir erros.
+300. Mãe que dizia 'você é igualzinho ao seu pai' (como insulto): Gera ódio de si mesmo e da própria herança biológica.
+
+TRAUMAS SISTÊMICOS E DE CIVILIZAÇÃO (301-350):
+301. Mãe que viveu em escassez de guerra/fome: Transmite o pânico de que a prosperidade pode acabar a qualquer momento.
+302. Mãe que perdeu a pátria/casa: Gera no usuário a sensação de 'eterno estrangeiro' no trabalho e na vida.
+303. Mãe que ocultava a raça/origem por medo: Gera crise de identidade e sentimento de ser uma fraude social.
+304. Mãe que servia aos outros e esquecia de si: Gera o padrão de 'eterno assistente' que nunca assume a liderança.
+305. Mãe que associava o Estado/Governo ao perigo: Bloqueia a legalização de empresas e o crescimento formal do usuário.
+306. Mãe que via a educação como 'coisa de rico': Gera sabotagem acadêmica e medo de ser mais inteligente que o clã.
+307. Mãe que associava o mar/rio a perigo: Gera bloqueio emocional e medo de mergulhar em sentimentos profundos.
+308. Mãe que não tinha certidão de nascimento/documentos: Gera dificuldade em 'existir legalmente' e ocupar espaços oficiais.
+309. Mãe que associava hospitais a morte: Gera negligência com exames preventivos básicos.
+310. Mãe que 'limpava o rastro' para não ser notada: Padrão de invisibilidade total no mercado e redes sociais.
+311. Mãe que via a floresta/selva como ameaça: Gera desconexão com a sabedoria ancestral e a medicina natural.
+312. Mãe que foi explorada em trabalho infantil: Transmite ressentimento contra o trabalho e falta de alegria profissional.
+313. Mãe que viveu em ditadura/repressão: Gera autocensura e medo de se posicionar publicamente.
+314. Mãe que perdeu irmãos/familiares em tragédias: Transmite luto não elaborado e culpa de sobrevivente.
+315. Mãe que foi deslocada de sua comunidade: Gera falta de raízes e instabilidade de moradia crônica.
+316. Mãe que ocultava deficiência física ou mental: Gera vergonha do próprio corpo e das limitações.
+317. Mãe que viveu em favela/periferia com vergonha: Instala o medo de revelar a origem e bloqueio de ascensão social.
+318. Mãe que foi vítima de racismo e se calou: Transmite a submissão como estratégia de sobrevivência.
+319. Mãe que não teve acesso a saneamento básico: Gera o padrão de 'aceitar o mínimo' como normalidade.
+320. Mãe que perdeu tudo em desastre natural: Transmite o medo de construir algo que pode ser destruído.
+321. Mãe que foi separada dos filhos à força: Gera pânico de separação e apego extremo.
+322. Mãe que viveu em abrigo/instituição: Transmite a crença de que não há lugar seguro permanente.
+323. Mãe que foi obrigada a casar jovem: Gera revolta contra compromissos e medo de perder a liberdade.
+324. Mãe que teve filhos muito cedo (adolescente): Gera inversão de papéis — o filho 'cria' a mãe.
+325. Mãe que viveu isolamento social extremo: Transmite dificuldade em criar redes de apoio e networking.
+326. Mãe que foi expulsa de comunidade religiosa: Gera medo de pertencer a grupos e ser excluído novamente.
+327. Mãe que perdeu a visão/audição progressivamente: Transmite o medo de perder capacidades e ficar impotente.
+328. Mãe que não teve infância (trabalho/responsabilidades): Gera adultos que não sabem brincar ou se divertir.
+329. Mãe que viveu em bigamia/poligamia oculta: Gera desconfiança crônica e medo de ser 'a segunda opção'.
+330. Mãe que era analfabeta e escondia: Gera vergonha intelectual e medo de ser 'descoberto' como ignorante.
+331. Mãe que viveu em campo de refugiados: Transmite o modo de sobrevivência permanente — nunca relaxar.
+332. Mãe que perdeu bens por corrupção/injustiça: Gera desconfiança no sistema e boicote ao crescimento formal.
+333. Mãe que foi forçada a trabalhar em condições degradantes: Transmite a aceitação de exploração como normalidade.
+334. Mãe que viveu epidemia/pandemia com perdas: Gera pânico de contágio e medo de proximidade física.
+335. Mãe que foi impedida de estudar por ser mulher: Transmite revolta contra o masculino e desejo de provar valor.
+336. Mãe que perdeu a terra/propriedade da família: Gera sensação de 'chão roubado' e instabilidade patrimonial.
+337. Mãe que viveu em zona de conflito armado: Transmite hipervigilância e desconfiança de estranhos.
+338. Mãe que foi traficada ou explorada sexualmente: Trauma profundo de objetificação que bloqueia a dignidade pessoal.
+339. Mãe que migrou ilegalmente: Gera medo de ser 'pego' e dificuldade em se estabelecer formalmente.
+340. Mãe que perdeu a nacionalidade/cidadania: Gera crise de identidade e falta de pertencimento global.
+341. Mãe que viveu em extrema pobreza rural: Transmite a crença de que cidade é perigo e campo é segurança.
+342. Mãe que foi vítima de violência policial: Gera medo de autoridade e resistência a qualquer forma de ordem.
+343. Mãe que perdeu filhos para adoção forçada: Transmite culpa devastadora e medo de perder quem ama.
+344. Mãe que foi presa injustamente: Gera paranoia de que 'o sistema vai me pegar' a qualquer momento.
+345. Mãe que viveu em seca/falta de água crônica: Transmite a escassez como realidade absoluta e imutável.
+346. Mãe que foi vítima de experimentos médicos: Gera desconfiança total da medicina e dos profissionais de saúde.
+347. Mãe que perdeu a casa em incêndio/enchente: Transmite o medo de construir e perder tudo novamente.
+348. Mãe que viveu em condição de servidão/escravidão: Transmite submissão e falta de autonomia como herança.
+349. Mãe que foi perseguida por crenças religiosas: Gera medo de expressar fé e espiritualidade abertamente.
+350. Mãe que viveu em genocídio/limpeza étnica: Transmite trauma coletivo de aniquilação e culpa de sobrevivente.
+
+NEUROCIÊNCIA E COMPORTAMENTO MODERNO (351-400):
+351. Mãe viciada em dopamina barata (TV/Redes): Gera no usuário déficit de atenção e incapacidade de concluir projetos longos.
+352. Mãe que comparava o filho com influenciadores/famosos: Gera dismorfia corporal e sentimento de 'vencer é impossível'.
+353. Mãe que usava o filho para 'ganhar likes': Gera vazio de identidade; o usuário sente que só tem valor se for admirado.
+354. Mãe que associava ser 'dona de casa' a ser fracassada: Gera repulsa ao autocuidado e à organização do lar.
+355. Mãe que associava 'viver de internet' a vadiagem: Bloqueia o potencial de ganhos digitais do usuário.
+356. Mãe que tinha pânico de tecnologias novas: Gera resistência à inovação e medo de obsolescência profissional.
+357. Mãe que não permitia o tédio (sempre ocupada): Gera adultos ansiosos que não conseguem descansar sem culpa.
+358. Mãe que tratava a terapia como 'coisa de louco': Gera resistência à cura emocional profunda.
+359. Mãe que associava medicação psiquiátrica a vergonha: Gera sofrimento silencioso e repressão de doenças mentais.
+360. Mãe que vivia em estado de 'Multitarefa' constante: Transmite um sistema nervoso esgotado (Burnout precoce).
+361. Mãe que tinha medo de inteligência artificial: Gera resistência à evolução tecnológica e paralisia profissional.
+362. Mãe que vivia no celular ignorando o filho: Gera ferida de invisibilidade digital e carência de presença.
+363. Mãe que postava fotos constrangedoras do filho: Gera vergonha da própria imagem e fobia social digital.
+364. Mãe que usava apps de controle parental de forma obsessiva: Gera sensação de vigilância constante e falta de autonomia.
+365. Mãe que não entendia o mundo digital do filho: Gera distanciamento geracional e solidão intelectual.
+366. Mãe que tinha medo de compras online: Transmite desconfiança do novo e resistência ao fluxo financeiro digital.
+367. Mãe que se informava apenas por fake news: Gera paranoia e dificuldade em discernir verdade de mentira.
+368. Mãe que usava o celular como babá: Gera vício em telas e dificuldade de concentração profunda.
+369. Mãe que tinha ciúmes da atenção do filho ao celular: Gera culpa ao usar tecnologia e bloqueio de produtividade digital.
+370. Mãe que não permitia jogos/diversão digital: Gera adultos que não sabem relaxar ou se entreter.
+371. Mãe que vivia em grupos de WhatsApp tóxicos: Transmite fofoca e invasão de privacidade como normalidade.
+372. Mãe que se comparava com outras mães nas redes: Gera insegurança materna transmitida ao filho.
+373. Mãe que filmava tudo sem permissão: Gera sensação de ser um objeto de exibição, não um ser humano.
+374. Mãe que não sabia usar e-mail/computador: Gera vergonha da origem e medo de ser visto como atrasado.
+375. Mãe que dependia dos filhos para tarefas digitais simples: Inversão de papéis tecnológica que gera sobrecarga.
+376. Mãe que bloqueava/excluía pessoas impulsivamente: Transmite padrão de abandono abrupto em relacionamentos.
+377. Mãe que expunha conflitos familiares nas redes: Gera medo de exposição e dificuldade em confiar.
+378. Mãe que vivia de dietas da moda/influenciadores: Transmite relação instável com o corpo e a alimentação.
+379. Mãe que tinha medo de avião/distâncias: Gera limitação geográfica profissional e medo de expandir.
+380. Mãe que via o home office como 'não trabalhar': Gera culpa ao trabalhar de casa e necessidade de provar produtividade.
+381. Mãe que não respeitava o horário de trabalho do filho: Gera dificuldade em estabelecer limites profissionais.
+382. Mãe que vivia endividada com cartão de crédito: Transmite relação compulsiva e destrutiva com o dinheiro.
+383. Mãe que mandava áudios enormes com cobranças: Gera ansiedade ao receber mensagens e notificações.
+384. Mãe que stalkeava o filho nas redes sociais: Gera paranoia digital e comportamento de esconder a própria vida.
+385. Mãe que não aceitava ser corrigida tecnologicamente: Gera frustração e distanciamento emocional.
+386. Mãe que usava emoticons passivo-agressivos: Gera desconfiança na comunicação escrita e ambiguidade relacional.
+387. Mãe que assistia a programas policialescos obsessivamente: Transmite medo do mundo e desconfiança generalizada.
+388. Mãe que não permitia privacidade no banheiro: Gera falta de limites corporais e vergonha do próprio corpo.
+389. Mãe que vivia reclamando do Wi-Fi: Transmite frustração constante com o que não controla.
+390. Mãe que tinha ciúmes de amizades virtuais do filho: Gera isolamento social digital e medo de conexões.
+391. Mãe que usava GPS para rastrear o filho adulto: Gera sensação de clausura e controle mesmo à distância.
+392. Mãe que tinha medo de ser hackeada: Transmite paranoia e desconfiança do sistema digital.
+393. Mãe que vivia de cupons/promoções obsessivamente: Transmite mentalidade de escassez digital.
+394. Mãe que não celebrava conquistas online do filho: Gera sensação de que o mundo digital 'não conta'.
+395. Mãe que usava fotos antigas do filho como perfil: Gera sensação de que o filho não cresceu aos olhos dela.
+396. Mãe que mandava correntes religiosas com ameaças: Gera medo espiritual e culpa ao ignorar mensagens.
+397. Mãe que vivia em jogos de celular (fuga): Gera abandono emocional moderno e carência de presença.
+398. Mãe que tratava o trabalho remoto do filho como 'estar à toa': Desvalorização profissional e sabotagem de agenda.
+399. Mãe que não respeitava o 'não perturbe' do celular: Gera dificuldade em estabelecer limites em qualquer área da vida.
+400. Mãe que usava a tecnologia para manipular (prints/gravações): Gera medo de se expressar autenticamente.
+
+SAÚDE EMOCIONAL E PSICOSSOMÁTICA (401-450):
+401. Mãe que 'engolia' o choro: Gera problemas de tireoide e comunicação travada no usuário.
+402. Mãe que associava o toque a invasão: Gera aversão a intimidade física e dificuldade em parcerias sexuais.
+403. Mãe que tinha medo do próprio cheiro/corpo: Transmite baixa autoestima biológica e vergonha existencial.
+404. Mãe que via a doença como 'descanso merecido': O usuário adoece sempre que atinge um pico de sucesso.
+405. Mãe com distúrbios alimentares velados: Gera relação tóxica com a comida e o espelho.
+406. Mãe que associava ser 'forte' a não sentir dor: Gera negligência com sintomas graves de saúde.
+407. Mãe que tinha pavor de cirurgias: Gera bloqueio em tomar decisões que exigem 'cortes' necessários na vida.
+408. Mãe que associava sol/natureza a sujeira: Gera falta de vitalidade e conexão com os ritmos naturais.
+409. Mãe que usava perfumes para esconder o 'cheiro de gente': Gera negação da humanidade e dos instintos.
+410. Mãe que não bebia água e vivia desidratada: Transmite um padrão de rigidez mental e falta de fluidez.
+411. Mãe que via a gravidez como 'doença': Gera medo de criar vida (biológica ou profissionalmente).
+412. Mãe que se automedicava com álcool: Transmite a fuga da dor como estratégia de sobrevivência.
+413. Mãe que ignorava sinais de depressão: Gera incapacidade de reconhecer a própria tristeza.
+414. Mãe que tinha ataques de pânico em público: Transmite vergonha da vulnerabilidade e medo de espaços abertos.
+415. Mãe que via o exercício físico como vaidade: Gera culpa ao cuidar do próprio corpo.
+416. Mãe que tinha dores crônicas sem diagnóstico: Transmite a 'dor sem nome' que o filho carrega no corpo.
+417. Mãe que não dormia para vigiar a casa: Gera insônia crônica e hipervigilância noturna.
+418. Mãe que perdia cabelo por estresse: Transmite a 'perda de força vital' visível no corpo.
+419. Mãe que vivia gripada/com baixa imunidade: Transmite vulnerabilidade imunológica e falta de defesas emocionais.
+420. Mãe que tinha medo de anestesia/perder o controle: Gera necessidade de controle absoluto sobre tudo.
+421. Mãe que associava prazer sexual a doença: Gera disfunções sexuais e culpa pós-orgásmica.
+422. Mãe que via o corpo como 'peso': Gera relação de ódio com o próprio físico.
+423. Mãe que não permitia o filho ficar em casa doente: Gera adultos que trabalham doentes e colapsam.
+424. Mãe que associava maternidade a perda de beleza: Gera medo de ter filhos e perder a identidade.
+425. Mãe que tinha medo de exames de sangue: Gera aversão a diagnósticos e fuga da verdade sobre a saúde.
+426. Mãe que vivia com dor de cabeça/enxaqueca: Transmite tensão mental crônica e sobrecarga cognitiva.
+427. Mãe que se recusava a usar óculos: Gera negação das próprias limitações e dificuldade em pedir ajuda.
+428. Mãe que tinha medo de dentista: Transmite medo de 'morder a vida' e falta de agressividade saudável.
+429. Mãe que via a velhice como doença: Gera depreciação da experiência e da sabedoria acumulada.
+430. Mãe que não aceitava o próprio diagnóstico: Gera negação da realidade e fuga de tratamentos necessários.
+431. Mãe que associava ser magra a ser amada: Gera transtornos alimentares e busca por amor através do corpo.
+432. Mãe que tinha alergia emocional ao conflito: Gera somatizações toda vez que há uma discussão.
+433. Mãe que usava a dor como forma de comunicação: Gera adultos que só são 'ouvidos' quando adoecem.
+434. Mãe que não respeitava os limites físicos do filho: Gera burnout e colapso por excesso de demanda.
+435. Mãe que via o repouso como 'morte social': Gera incapacidade de descansar sem sentir que está perdendo algo.
+436. Mãe que tinha medo de ficar careca: Transmite insegurança estética extrema e medo de rejeição visual.
+437. Mãe que associava suor a 'falta de classe': Gera vergonha do esforço físico e do trabalho braçal.
+438. Mãe que não aceitava engordar: Transmite obsessão com o peso e controle alimentar excessivo.
+439. Mãe que via a academia como 'lugar de gente vaidosa': Gera culpa ao investir no próprio corpo.
+440. Mãe que tinha medo do próprio reflexo: Transmite aversão à autoimagem e dificuldade em se reconhecer.
+441. Mãe que se punia com jejum quando errava: Gera associação entre erro e autopunição física.
+442. Mãe que não sabia identificar emoções: Transmite alexitimia — incapacidade de nomear sentimentos.
+443. Mãe que via o estresse como 'normal': Gera normalização do sofrimento e resistência à mudança.
+444. Mãe que tinha medo de ficar paralítica: Transmite paralisia de decisões e medo de 'ficar presa'.
+445. Mãe que se cortava ou se machucava: Transmite autolesão como mecanismo de alívio emocional.
+446. Mãe que não conseguia ficar parada: Gera agitação crônica e incapacidade de relaxar profundamente.
+447. Mãe que via a saúde mental como luxo: Gera negligência emocional e sofrimento em silêncio.
+448. Mãe que usava a comida para premiar/punir: Gera relação condicional com a alimentação.
+449. Mãe que não aceitava o corpo pós-parto: Transmite rejeição ao processo de criação e à transformação natural.
+450. Mãe que vivia comparando o corpo com o da juventude: Gera insatisfação crônica com o presente.
+
+FÍSICA QUÂNTICA E LEALDADE INVISÍVEL (451-500):
+451. Mãe que dizia 'somos pobres, mas limpos': Associa riqueza a sujeira moral; trava o recebimento de grandes quantias.
+452. Mãe que não aceitava ajuda de ninguém: Gera adultos 'tratores' que se sobrecarregam e não delegam.
+453. Mãe que vivia projetada na dor do passado: Gera incapacidade de focar no futuro e no crescimento.
+454. Mãe que associava alegria a presságio de azar: O usuário se sabota sempre que algo começa a dar muito certo.
+455. Mãe que não dava o 'Sim' à vida dela mesma: O usuário sente que está 'devendo' a própria existência e não se sente digno de ser feliz.
+456. Mãe que rivalizava com o sucesso do filho: Medo de brilhar para não perder o 'amor' da mãe através da inveja dela.
+457. Mãe que tratava a espiritualidade como barganha: Bloqueia a conexão real com o fluxo do universo.
+458. Mãe que associava ser 'boa pessoa' a ser pobre: Destrói o merecimento financeiro do usuário.
+459. Mãe que não perdoava as mulheres da família: Gera conflitos cíclicos com parceiras e colegas de trabalho.
+460. Mãe que não tomou a própria mãe: O usuário sente-se sem base, sem raízes e vive em constante busca por algo que nunca acha.
+461. Mãe que abandonou o filho em momentos críticos (doença/escola): Gera pânico de abandono em momentos de vulnerabilidade.
+462. Mãe que traiu a confiança do filho revelando segredos: Gera incapacidade de confiar e se abrir emocionalmente.
+463. Mãe que fez o filho escolher entre ela e o pai: Gera culpa dilacerante e lealdade dividida que paralisa decisões.
+464. Mãe que humilhava o filho em público: Gera fobia social e medo de exposição.
+465. Mãe que rejeitava o filho por se parecer com o pai: O filho sente que sua própria genética é um erro.
+466. Mãe que abandonou o lar sem explicação: Gera ferida de abandono absoluto e medo de ser deixado.
+467. Mãe que tratava o filho como 'problema' desde o nascimento: Gera crença de que 'eu sou o problema' em qualquer conflito.
+468. Mãe que fazia chantagem emocional com suicídio: Gera pânico de perda e responsabilidade desproporcional pela vida alheia.
+469. Mãe que injustiçava o filho nas punições: Gera revolta silenciosa e sensação de que o mundo é injusto.
+470. Mãe que humilhava o corpo do filho (gordo/magro/feio): Gera dismorfia corporal e ódio ao espelho.
+471. Mãe que rejeitava abraços e afeto físico: Gera 'fome de pele' e busca desesperada por contato em adultos.
+472. Mãe que abandonava emocionalmente durante a adolescência: Gera crise de identidade e comportamentos de risco.
+473. Mãe que traiu a família com segredos financeiros: Gera desconfiança em sócios e parceiros de negócios.
+474. Mãe que humilhava as notas/desempenho escolar: Gera bloqueio de aprendizado e medo de avaliações.
+475. Mãe que rejeitava a orientação sexual do filho: Gera vergonha da própria essência e autoexílio emocional.
+476. Mãe que abandonava promessas feitas ao filho: Gera descrença em compromissos e dificuldade em manter contratos.
+477. Mãe que traía o pai e envolvia o filho como cúmplice: Gera culpa moral devastadora e perda de inocência.
+478. Mãe que injustiçava o filho ao proteger o agressor: Gera sensação de que 'ninguém está do meu lado'.
+479. Mãe que humilhava as escolhas de carreira do filho: Gera boicote profissional e medo de seguir a vocação.
+480. Mãe que rejeitava netos por não gostar do parceiro do filho: Gera conflitos geracionais e dor familiar profunda.
+481. Mãe que abandonava o filho para viver nova relação: Gera sensação de ser 'descartável' quando algo 'melhor' aparece.
+482. Mãe que traía a si mesma vivendo uma vida que odiava: Transmite inautenticidade e medo de mudança.
+483. Mãe que injustiçava o filho ao dividir herança desigualmente: Gera ferida de desvalia e sentimento de 'não merecer'.
+484. Mãe que humilhava o choro do filho homem: Gera bloqueio emocional masculino e raiva reprimida.
+485. Mãe que rejeitava a criatividade do filho: Gera morte da imaginação e adultos 'robotizados'.
+486. Mãe que abandonou animais de estimação do filho: Gera medo de se apegar e perder o que ama.
+487. Mãe que traía a confiança contando mentiras 'inocentes': Gera dificuldade em discernir verdade e mentira.
+488. Mãe que injustiçava o filho ao favorecer o caçula: Gera competição entre irmãos e ferida de preterição.
+489. Mãe que humilhava a fé/espiritualidade do filho: Gera vergonha de buscar o transcendente.
+490. Mãe que rejeitava mudanças de visual/identidade do filho: Gera medo de se reinventar e ficar 'preso' a uma versão antiga.
+491. Mãe que abandonou projetos que envolviam o filho: Gera medo de se comprometer com projetos de longo prazo.
+492. Mãe que tratava o erro do filho como imperdoável: Gera perfeccionismo paralisante e medo de tentar.
+493. Mãe que injustiçava ao negar a verdade sobre a história familiar: Gera sensação de viver sobre mentiras.
+494. Mãe que humilhava o sotaque/modo de falar do filho: Gera bloqueio de comunicação e medo de falar em público.
+495. Mãe que rejeitava o sucesso financeiro do filho: Gera autossabotagem financeira por culpa de ultrapassar a mãe.
+496. Mãe que abandonou a própria saúde e culpou os filhos: Gera culpa existencial e medo de 'matar' a mãe com o sucesso.
+497. Mãe que traía os próprios valores para agradar terceiros: Gera falta de integridade e medo de se posicionar.
+498. Mãe que injustiçava o filho ao acreditar no agressor: Gera desamparo profundo e sensação de que a verdade não importa.
+499. Mãe que humilhava a sensibilidade do filho: Gera anestesia emocional e dificuldade em sentir empatia.
+500. Mãe que rejeitava a existência do filho emocionalmente: O 'Não-Sim' materno. Gera a ferida máxima — o sentimento de que 'eu não deveria existir'. Raiz de todas as auto-sabotagens.
+
+FIM DO DATASET MÃE (500 CASOS).
 
 REGRA OBRIGATÓRIA DE MAPEAMENTO SECUNDÁRIO:
 Para QUALQUER diagnóstico (Mãe, Pai ou Traumas), você DEVE obrigatoriamente gerar um mapeamento de como o trauma identificado afeta as 3 áreas da vida:
