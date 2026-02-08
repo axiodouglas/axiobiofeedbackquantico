@@ -1,23 +1,31 @@
 import { useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, AlertTriangle, Brain, Lock, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowLeft, AlertTriangle, Brain, Lock, Sparkles, TrendingUp, DollarSign, Stethoscope, Users, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import type { DiagnosisResult } from "@/hooks/use-axio-analysis";
 
+interface SecondaryImpacts {
+  financeiro?: string;
+  saude?: string;
+  relacionamentos?: string;
+}
+
+interface ExtendedDiagnosis extends DiagnosisResult {
+  secondary_impacts?: SecondaryImpacts;
+}
+
 const Report = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const area = searchParams.get("area") || "pai";
+  const area = searchParams.get("area") || "mae";
 
-  // HARD STOP: Only load validated AI diagnosis — no mocks, no placeholders
   const aiDiagnosis = useMemo(() => {
     try {
       const stored = sessionStorage.getItem("axio_result");
       if (stored) {
         const parsed = JSON.parse(stored);
-        const diagnosis = parsed.diagnosis as DiagnosisResult;
-        // Validate essential fields exist
+        const diagnosis = parsed.diagnosis as ExtendedDiagnosis;
         if (diagnosis?.title && diagnosis?.blocks?.length > 0 && diagnosis?.summary) {
           return diagnosis;
         }
@@ -26,24 +34,18 @@ const Report = () => {
     return null;
   }, []);
 
-  // HARD STOP: No valid AI data = redirect to recording, never show empty/mock report
   useEffect(() => {
     if (!aiDiagnosis) {
-      // Cleanup any stale data
       sessionStorage.removeItem("axio_result");
       sessionStorage.removeItem("axio_audio");
       navigate(`/recording?area=${area}`, { replace: true });
     }
   }, [aiDiagnosis, area, navigate]);
 
-  // Don't render anything while redirecting
-  if (!aiDiagnosis) {
-    return null;
-  }
+  if (!aiDiagnosis) return null;
 
   return (
     <div className="min-h-screen bg-background noise">
-      {/* Header */}
       <header className="border-b border-border bg-card/50 py-4">
         <div className="container mx-auto px-4">
           <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">
@@ -53,7 +55,6 @@ const Report = () => {
         </div>
       </header>
 
-      {/* Report Content */}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
           <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-[0_0_40px_hsl(175,70%,50%,0.1)]">
@@ -72,7 +73,6 @@ const Report = () => {
               </div>
             </div>
 
-            {/* Report Body */}
             <div className="px-6 sm:px-10 pb-10">
               {/* Title */}
               <div className="text-center mb-8 -mt-2">
@@ -136,6 +136,50 @@ const Report = () => {
                 </div>
               )}
 
+              {/* Secondary Impacts - How trauma affects the 3 areas */}
+              {aiDiagnosis.secondary_impacts && (
+                <div className="mb-10">
+                  <h2 className="text-lg font-bold text-foreground mb-4">
+                    📊 Relatório de Impacto nas 3 Áreas da Vida
+                  </h2>
+                  <div className="space-y-3">
+                    {aiDiagnosis.secondary_impacts.financeiro && (
+                      <div className="flex items-start gap-3 bg-secondary/20 border border-border rounded-xl p-4">
+                        <DollarSign className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-semibold text-foreground mb-1">💰 Financeiro</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {aiDiagnosis.secondary_impacts.financeiro}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    {aiDiagnosis.secondary_impacts.saude && (
+                      <div className="flex items-start gap-3 bg-secondary/20 border border-border rounded-xl p-4">
+                        <Stethoscope className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-semibold text-foreground mb-1">🏥 Saúde</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {aiDiagnosis.secondary_impacts.saude}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                    {aiDiagnosis.secondary_impacts.relacionamentos && (
+                      <div className="flex items-start gap-3 bg-secondary/20 border border-border rounded-xl p-4">
+                        <Users className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-semibold text-foreground mb-1">❤️ Relacionamentos</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {aiDiagnosis.secondary_impacts.relacionamentos}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* CTA - Premium Unlock */}
               <div className="bg-gradient-to-br from-primary/15 via-card to-card border-2 border-primary/40 rounded-xl p-6 text-center mb-8">
                 <div className="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/20">
@@ -143,38 +187,33 @@ const Report = () => {
                 </div>
 
                 <h2 className="text-xl font-bold text-foreground mb-3">
-                  Acesse Seu Comando A.X.I.O. de Cura
+                  Você Descobriu a Raiz. Agora, Cure Sua Linhagem.
                 </h2>
 
                 <p className="text-sm text-muted-foreground mb-5 max-w-xl mx-auto">
-                  {aiDiagnosis.cta_message || (
-                    <>
-                      Este diagnóstico é apenas a ponta do iceberg. Para adquirir os{" "}
-                      <strong className="text-foreground">Comandos Quânticos</strong> para ressignificar sua mente
-                      e ter acesso a <strong className="text-foreground">Meditações Únicas</strong> feitas
-                      semanalmente, assine o <span className="text-primary font-semibold">Plano Premium</span>.
-                    </>
-                  )}
+                  {aiDiagnosis.cta_message || 
+                    "Você descobriu a raiz. Agora, desbloqueie os Comandos com sua própria voz e cure sua linhagem de Pai e Traumas no Premium."
+                  }
                 </p>
 
                 <div className="bg-secondary/30 rounded-lg p-4 mb-5">
-                  <h4 className="font-semibold text-foreground mb-2 text-sm">O que você vai receber:</h4>
+                  <h4 className="font-semibold text-foreground mb-2 text-sm">O que você vai desbloquear:</h4>
                   <ul className="text-xs text-muted-foreground space-y-1.5 text-left max-w-md mx-auto">
                     <li className="flex items-start gap-2">
-                      <Sparkles className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                      <span>Comandos de Reprogramação Quântica personalizados</span>
+                      <Mic className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
+                      <span>Comandos Quânticos gravados <strong>com sua própria voz</strong></span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Sparkles className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                      <span>Meditações guiadas para cura hereditária</span>
+                      <span>Diagnóstico de Pai e Traumas Adicionais</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Sparkles className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                      <span>Acompanhamento evolutivo da sua frequência</span>
+                      <span>Meditação inovadora para mentes ansiosas</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Sparkles className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                      <span>Acesso às 4 áreas de diagnóstico</span>
+                      <span>Ciclo semanal com entrega diária de comandos</span>
                     </li>
                   </ul>
                 </div>

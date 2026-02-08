@@ -1,26 +1,44 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, UserCheck, Heart } from "lucide-react";
+import { ArrowLeft, Heart, UserCheck, Flame, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const freeAreas = [
-  {
-    id: "pai",
-    title: "Pai",
-    description: "Descubra os bloqueios relacionados ao Pai.",
-    icon: <UserCheck className="h-8 w-8" />,
-    iconColor: "bg-primary/20 text-primary",
-  },
+const areas = [
   {
     id: "mae",
     title: "Mãe",
-    description: "Descubra os bloqueios relacionados à Mãe.",
+    description: "Descubra a raiz dos seus bloqueios na relação materna.",
     icon: <Heart className="h-8 w-8" />,
     iconColor: "bg-axio-relationship/20 text-axio-relationship",
+    isFree: true,
+  },
+  {
+    id: "pai",
+    title: "Pai",
+    description: "Desbloqueie a força paterna e sua capacidade de agir.",
+    icon: <UserCheck className="h-8 w-8" />,
+    iconColor: "bg-primary/20 text-primary",
+    isFree: false,
+  },
+  {
+    id: "traumas",
+    title: "Traumas Adicionais",
+    description: "Bullying, acidentes, perdas e abusos externos.",
+    icon: <Flame className="h-8 w-8" />,
+    iconColor: "bg-axio-family/20 text-axio-family",
+    isFree: false,
   },
 ];
 
 const AreaSelection = () => {
   const navigate = useNavigate();
+
+  const handleSelect = (area: typeof areas[number]) => {
+    if (area.isFree) {
+      navigate(`/recording?area=${area.id}`);
+    } else {
+      navigate("/checkout");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background noise flex flex-col">
@@ -35,16 +53,16 @@ const AreaSelection = () => {
 
       <div className="flex-1 container mx-auto px-4 py-12 flex flex-col items-center justify-center">
         <div className="max-w-md w-full text-center">
-          <h1 className="text-3xl font-bold mb-2 text-foreground">Escolha a Área</h1>
+          <h1 className="text-3xl font-bold mb-2 text-foreground">Escolha o Pilar</h1>
           <p className="text-muted-foreground mb-8">
-            Selecione sobre qual área você deseja gravar seu áudio de diagnóstico gratuito.
+            Selecione qual área deseja trabalhar nesta semana.
           </p>
 
           <div className="grid grid-cols-1 gap-4">
-            {freeAreas.map((area) => (
+            {areas.map((area) => (
               <div
                 key={area.id}
-                onClick={() => navigate(`/recording?area=${area.id}`)}
+                onClick={() => handleSelect(area)}
                 className="group relative overflow-hidden rounded-xl border-2 border-border bg-card p-6 transition-all duration-300 cursor-pointer hover:border-primary/60 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.2)]"
               >
                 <div className="flex items-center gap-4">
@@ -54,9 +72,16 @@ const AreaSelection = () => {
                   <div className="text-left">
                     <h3 className="text-xl font-semibold text-foreground">{area.title}</h3>
                     <p className="text-sm text-muted-foreground">{area.description}</p>
-                    <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
-                      Gratuito
-                    </span>
+                    {area.isFree ? (
+                      <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
+                        Gratuito
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
+                        <Lock className="h-2.5 w-2.5" />
+                        Premium
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

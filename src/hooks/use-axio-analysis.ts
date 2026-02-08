@@ -7,6 +7,12 @@ export interface DiagnosisBlock {
   origin: string;
 }
 
+export interface SecondaryImpacts {
+  financeiro?: string;
+  saude?: string;
+  relacionamentos?: string;
+}
+
 export interface DiagnosisResult {
   focus_valid: boolean;
   focus_message?: string;
@@ -17,6 +23,7 @@ export interface DiagnosisResult {
   summary: string;
   root_wound: string;
   predominant_sentiments: { name: string; intensity: number }[];
+  secondary_impacts?: SecondaryImpacts;
   cta_message: string;
   is_premium: boolean;
   deep_analysis?: string;
