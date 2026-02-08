@@ -29,7 +29,7 @@ const Index = () => {
       onClick: () => navigate("/checkout"),
     },
     {
-      title: "Traumas Adicionais",
+      title: "Traumas",
       description: "Bullying, acidentes, perdas e abusos externos à família.",
       icon: <Flame className="h-7 w-7" />,
       iconColor: "bg-axio-family/20 text-axio-family",
@@ -87,9 +87,6 @@ const Index = () => {
               Iniciar Diagnóstico Gratuito
             </Button>
 
-            <p className="mt-4 text-sm text-muted-foreground">
-              O card Mãe é gratuito — a raiz de tudo começa aqui
-            </p>
           </div>
         </div>
       </div>
@@ -123,8 +120,8 @@ const Index = () => {
             description="Relatos reais de transformação para elevar sua frequência"
             icon={<MessageSquare className="h-7 w-7" />}
             iconColor="bg-primary/20 text-primary"
-            isPremium={true}
-            isLocked={true}
+            isPremium={false}
+            isLocked={false}
             onClick={() => navigate("/community")}
           />
         </div>
@@ -228,21 +225,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Premium CTA */}
-        <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card to-card p-8 text-center">
-          <h3 className="text-2xl font-bold text-foreground mb-3">
-            Desbloqueie Pai, Traumas e Comandos Quânticos
-          </h3>
-          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-            Acesse diagnósticos completos com mapeamento de Saúde, Financeiro e Relacionamento, 
-            comandos diários de reprogramação com sua própria voz e meditações inovadoras.
-          </p>
-
-          <Button variant="premium" size="lg" onClick={() => navigate("/checkout")}>
-            <Sparkles className="h-5 w-5" />
-            Desbloquear Premium
-          </Button>
-        </div>
       </div>
 
       {/* Footer */}

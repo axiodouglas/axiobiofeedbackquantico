@@ -17,15 +17,15 @@ const areas = [
     description: "Desbloqueie a força paterna e sua capacidade de agir.",
     icon: <UserCheck className="h-8 w-8" />,
     iconColor: "bg-primary/20 text-primary",
-    isFree: false,
+    isFree: true,
   },
   {
     id: "traumas",
-    title: "Traumas Adicionais",
+    title: "Traumas",
     description: "Bullying, acidentes, perdas e abusos externos.",
     icon: <Flame className="h-8 w-8" />,
     iconColor: "bg-axio-family/20 text-axio-family",
-    isFree: false,
+    isFree: true,
   },
 ];
 
