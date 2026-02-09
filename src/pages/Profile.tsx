@@ -25,11 +25,11 @@ interface Diagnosis {
 const areaLabels: Record<string, string> = {
   pai: "Pai",
   mae: "Mãe",
-  ansiedade: "Ansiedade",
-  medo: "Medo",
+  traumas: "Traumas",
+  relacionamento: "Relacionamentos",
   financeiro: "Financeiro",
   saude: "Saúde",
-  relacionamento: "Relacionamento",
+  familiar: "Familiar",
 };
 
 const Profile = () => {
