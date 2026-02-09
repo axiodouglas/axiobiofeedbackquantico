@@ -36,6 +36,9 @@ const Starfield = ({ active }: { active: boolean }) => {
       { x: 0.6, y: 0.7, r: 10, color: "175,70%,50%", orbitR: 0.05, angle: 4, orbitSpeed: 0.0005 },
     ];
 
+    // Giant moon
+    const moon = { x: 0.5, y: 0.35, baseR: 60, angle: 0, orbitR: 0.12, orbitSpeed: 0.00015 };
+
     const draw = (t: number) => {
       const w = canvas.width, h = canvas.height;
       ctx.clearRect(0, 0, w, h);
@@ -67,6 +70,45 @@ const Starfield = ({ active }: { active: boolean }) => {
         ctx.beginPath();
         ctx.arc(cx, cy, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `hsla(${p.color},0.9)`;
+        ctx.fill();
+      });
+
+      // Draw giant moon
+      moon.angle += moon.orbitSpeed * speedMul;
+      const mx = (moon.x + Math.cos(moon.angle) * moon.orbitR) * w;
+      const my = (moon.y + Math.sin(moon.angle) * moon.orbitR * 0.4) * h;
+      const mr = moon.baseR + Math.sin(t * 0.001) * 4;
+
+      // Moon glow
+      const moonGlow = ctx.createRadialGradient(mx, my, mr * 0.5, mx, my, mr * 2.5);
+      moonGlow.addColorStop(0, "hsla(210,30%,85%,0.15)");
+      moonGlow.addColorStop(0.5, "hsla(220,40%,70%,0.06)");
+      moonGlow.addColorStop(1, "hsla(220,40%,60%,0)");
+      ctx.beginPath();
+      ctx.arc(mx, my, mr * 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = moonGlow;
+      ctx.fill();
+
+      // Moon body
+      const moonBody = ctx.createRadialGradient(mx - mr * 0.3, my - mr * 0.3, 0, mx, my, mr);
+      moonBody.addColorStop(0, "hsla(210,20%,92%,0.95)");
+      moonBody.addColorStop(0.6, "hsla(220,15%,75%,0.85)");
+      moonBody.addColorStop(1, "hsla(230,20%,55%,0.7)");
+      ctx.beginPath();
+      ctx.arc(mx, my, mr, 0, Math.PI * 2);
+      ctx.fillStyle = moonBody;
+      ctx.fill();
+
+      // Moon craters
+      const craters = [
+        { ox: -0.2, oy: -0.15, r: 0.12 },
+        { ox: 0.25, oy: 0.1, r: 0.08 },
+        { ox: -0.05, oy: 0.3, r: 0.1 },
+      ];
+      craters.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(mx + c.ox * mr, my + c.oy * mr, c.r * mr, 0, Math.PI * 2);
+        ctx.fillStyle = "hsla(220,15%,65%,0.3)";
         ctx.fill();
       });
 
