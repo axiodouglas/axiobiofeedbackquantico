@@ -21,6 +21,8 @@ import DiagnosisDetail from "./pages/DiagnosisDetail";
 import MeditationStructure from "./pages/MeditationStructure";
 import MyReports from "./pages/MyReports";
 import ReportsByDate from "./pages/ReportsByDate";
+import Oracle from "./pages/Oracle";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +54,8 @@ const App = () => (
               <Route path="/meus-relatorios" element={<MyReports />} />
               <Route path="/meus-relatorios/:date" element={<ReportsByDate />} />
               <Route path="/meditation-structure" element={<MeditationStructure />} />
+              <Route path="/oraculo" element={<Oracle />} />
+              <Route path="/faq" element={<FAQ />} />
               <Route path="/terms" element={<Terms />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

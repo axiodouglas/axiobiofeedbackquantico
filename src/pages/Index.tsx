@@ -1,4 +1,4 @@
-import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HeartHandshake } from "lucide-react";
+import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HeartHandshake, HelpCircle, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -152,6 +152,28 @@ const Index = () => {
             isLocked={false}
             badge="Método"
             onClick={() => navigate("/meditation-structure")}
+          />
+          {/* Oráculo AXIO Card */}
+          <AreaCard
+            title="Oráculo AXIO"
+            description="Consulte o Guia Quântico de sabedoria — respostas místicas e científicas para suas dúvidas"
+            icon={<Eye className="h-7 w-7" />}
+            iconColor="bg-[hsl(270,50%,55%)]/20 text-[hsl(270,50%,55%)]"
+            isPremium={false}
+            isLocked={false}
+            badge="IA"
+            onClick={() => navigate("/oraculo")}
+          />
+          {/* FAQ Card */}
+          <AreaCard
+            title="Perguntas Frequentes"
+            description="Tire suas dúvidas sobre o método, gravações, meditação e mais"
+            icon={<HelpCircle className="h-7 w-7" />}
+            iconColor="bg-primary/20 text-primary"
+            isPremium={false}
+            isLocked={false}
+            badge="Ajuda"
+            onClick={() => navigate("/faq")}
           />
         </div>
 
