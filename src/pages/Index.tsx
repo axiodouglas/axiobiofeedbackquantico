@@ -72,17 +72,19 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 pt-10 pb-12">
+        <div className="relative z-10 container mx-auto px-4 pt-20 pb-12">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
-              <Sparkles className="h-4 w-4 text-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">Biofeedback Quântico</span>
-            </div>
-            
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
               <span className="text-foreground">Bem-vindo ao </span>
               <span className="text-gradient-cyan">A.X.I.O.</span>
             </h1>
+
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
+              <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+              <span className="text-sm font-medium text-primary">Biofeedback Quântico</span>
+            </div>
+            
+            
             
             <p className="text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 leading-relaxed">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 

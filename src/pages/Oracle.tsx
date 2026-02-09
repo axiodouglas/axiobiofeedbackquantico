@@ -250,9 +250,12 @@ const Oracle = () => {
         {/* Messages */}
         <div ref={scrollRef} className="flex-1 w-full max-w-2xl mx-auto overflow-y-auto px-4 pb-4 pt-6 space-y-4">
           {messages.length === 0 && (
-            <p className="text-center text-muted-foreground text-sm mt-12 italic">
-              O Oráculo aguarda sua pergunta...
-            </p>
+            <div className="text-center mt-12 space-y-2">
+              <p className="text-foreground font-semibold text-base">Qual sua dúvida sobre o A.X.I.O.?</p>
+              <p className="text-muted-foreground text-xs max-w-sm mx-auto leading-relaxed">
+                Posso te ajudar com: Biofeedback vocal, os 4 pilares (Mãe, Pai, Traumas, Relacionamentos), PNL, Neurociência e Comandos Quânticos.
+              </p>
+            </div>
           )}
           {messages.map((m, i) => (
             <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -285,7 +288,7 @@ const Oracle = () => {
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
               }}
-              placeholder="Sussurre sua dúvida ao Oráculo..."
+              placeholder="Digite sua dúvida sobre o A.X.I.O..."
               className="min-h-[48px] max-h-[120px] resize-none bg-card/40 backdrop-blur-md border-border/50 focus:border-primary/50 text-sm placeholder:text-muted-foreground/60"
               rows={1}
             />
