@@ -226,12 +226,7 @@ const Oracle = () => {
       {/* Deep-space background */}
       <div className="absolute inset-0 z-0">
         {/* Background image */}
-        <img src={oracleBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
-        {/* Nebula layers */}
-        <div className="absolute inset-0 oracle-nebula oracle-nebula--purple" />
-        <div className="absolute inset-0 oracle-nebula oracle-nebula--blue" />
-        <div className="absolute inset-0 oracle-nebula oracle-nebula--cyan" />
-        <Starfield active={isLoading} />
+        <img src={oracleBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-50" />
       </div>
 
       {/* Nav */}
