@@ -18,6 +18,7 @@ import Community from "./pages/Community";
 import Terms from "./pages/Terms";
 import Profile from "./pages/Profile";
 import DiagnosisDetail from "./pages/DiagnosisDetail";
+import MeditationStructure from "./pages/MeditationStructure";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const App = () => (
               } />
               <Route path="/profile" element={<Profile />} />
               <Route path="/diagnosis/:id" element={<DiagnosisDetail />} />
+              <Route path="/meditation-structure" element={<MeditationStructure />} />
               <Route path="/terms" element={<Terms />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
