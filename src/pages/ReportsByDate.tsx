@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useAreaLock } from "@/hooks/use-area-lock";
 import { AreaCard } from "@/components/AreaCard";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Sparkles, Activity } from "lucide-react";
+import { ArrowLeft, Sparkles, Activity, Lock, Clock } from "lucide-react";
 import UserMenu from "@/components/UserMenu";
 import { format } from "date-fns";
 
@@ -34,6 +35,7 @@ export default function ReportsByDate() {
   const navigate = useNavigate();
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
   const [loadingData, setLoadingData] = useState(true);
+  const { lockedAreas, daysRemaining } = useAreaLock(user?.id);
 
   useEffect(() => {
     if (!loading && !user) navigate("/auth");
@@ -83,6 +85,20 @@ export default function ReportsByDate() {
       <div className="container mx-auto px-4 py-8 max-w-3xl space-y-6">
         <h1 className="text-2xl font-bold text-foreground">{displayDate}</h1>
 
+        {/* Intro sobre bloqueio semanal */}
+        {lockedAreas.length > 0 && (
+          <div className="flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4">
+            <Clock className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">Processo de Limpeza Mental — 7 dias</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Para que o processo de reprogramação seja eficaz, trabalhe apenas um pilar por semana. 
+                Os demais serão desbloqueados em <span className="font-semibold text-primary">{daysRemaining} dia{daysRemaining !== 1 ? "s" : ""}</span>.
+              </p>
+            </div>
+          </div>
+        )}
+
         {diagnoses.length === 0 ? (
           <div className="text-center py-16 space-y-4">
             <Activity className="h-12 w-12 text-muted-foreground/40 mx-auto" />
@@ -90,17 +106,21 @@ export default function ReportsByDate() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {diagnoses.map((d) => (
-              <AreaCard
-                key={d.id}
-                title={areaLabels[d.area] || d.area}
-                description="Toque para ver relatório, comandos e meditação"
-                icon={<span className="text-2xl">{areaIcons[d.area] || "📋"}</span>}
-                iconColor="bg-primary/20 text-primary"
-                badge={areaLabels[d.area] || d.area}
-                onClick={() => navigate(`/diagnosis/${d.id}`)}
-              />
-            ))}
+            {diagnoses.map((d) => {
+              const isLocked = lockedAreas.includes(d.area);
+              return (
+                <AreaCard
+                  key={d.id}
+                  title={areaLabels[d.area] || d.area}
+                  description={isLocked ? `Bloqueado — desbloqueio em ${daysRemaining} dia${daysRemaining !== 1 ? "s" : ""}` : "Toque para ver relatório, comandos e meditação"}
+                  icon={isLocked ? <Lock className="h-6 w-6" /> : <span className="text-2xl">{areaIcons[d.area] || "📋"}</span>}
+                  iconColor={isLocked ? "bg-muted text-muted-foreground" : "bg-primary/20 text-primary"}
+                  isLocked={isLocked}
+                  badge={!isLocked ? (areaLabels[d.area] || d.area) : undefined}
+                  onClick={isLocked ? undefined : () => navigate(`/diagnosis/${d.id}`)}
+                />
+              );
+            })}
           </div>
         )}
       </div>
