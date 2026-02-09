@@ -74,9 +74,14 @@ const Index = () => {
 
         <div className="relative z-10 container mx-auto px-4 pt-10 pb-12">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
               <Sparkles className="h-4 w-4 text-primary animate-pulse" />
               <span className="text-sm font-medium text-primary">Biofeedback Quântico</span>
+            </div>
+            <div className="mb-8">
+              <span className="inline-block text-xs font-semibold tracking-wider uppercase text-primary/80 bg-primary/10 border border-primary/20 rounded-full px-3 py-1">
+                Acesso Premium Liberado
+              </span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
@@ -134,6 +139,7 @@ const Index = () => {
             iconColor="bg-primary/20 text-primary"
             isPremium={false}
             isLocked={false}
+            badge="Gratuito"
             onClick={() => navigate("/community")}
           />
         </div>
@@ -203,9 +209,9 @@ const Index = () => {
               </p>
               <div className="bg-secondary/30 rounded-xl p-5 mb-6 max-w-xl mx-auto">
                 <p className="text-foreground font-medium leading-relaxed">
-                  Você grava os Comandos Quânticos <strong>com a sua própria voz</strong>. 
-                  Isso burla as defesas do cérebro — o <em>fator crítico da mente</em> — porque 
-                  o subconsciente aceita muito mais facilmente a própria voz do que uma voz estranha.
+               Você grava a meditação com comandos quânticos <strong>com a sua própria voz</strong>. 
+                   Isso burla as defesas do cérebro — o fator crítico da mente — porque 
+                   o subconsciente aceita muito mais facilmente a própria voz do que uma voz estranha.
                 </p>
               </div>
               <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto mb-4">
