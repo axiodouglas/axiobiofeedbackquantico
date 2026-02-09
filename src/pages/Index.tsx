@@ -11,8 +11,8 @@ const Index = () => {
   const areas = [
     {
       title: "Mãe",
-      description: "Descubra a raiz dos seus bloqueios na relação com a Mãe.",
-      icon: <Heart className="h-7 w-7" />,
+      description: "Bloqueios na relação materna",
+      icon: <Heart className="h-5 w-5" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: false,
       isLocked: false,
@@ -21,8 +21,8 @@ const Index = () => {
     },
     {
       title: "Pai",
-      description: "Desbloqueie a força paterna e sua capacidade de agir no mundo.",
-      icon: <UserCheck className="h-7 w-7" />,
+      description: "Força paterna e ação no mundo",
+      icon: <UserCheck className="h-5 w-5" />,
       iconColor: "bg-primary/20 text-primary",
       isPremium: false,
       isLocked: false,
@@ -31,8 +31,8 @@ const Index = () => {
     },
     {
       title: "Traumas",
-      description: "Bullying, acidentes, perdas e abusos externos à família.",
-      icon: <Flame className="h-7 w-7" />,
+      description: "Perdas, abusos e eventos externos",
+      icon: <Flame className="h-5 w-5" />,
       iconColor: "bg-axio-family/20 text-axio-family",
       isPremium: false,
       isLocked: false,
@@ -41,8 +41,8 @@ const Index = () => {
     },
     {
       title: "Relacionamentos",
-      description: "Descubra as projeções de Pai e Mãe no seu parceiro.",
-      icon: <HeartHandshake className="h-7 w-7" />,
+      description: "Projeções no parceiro",
+      icon: <HeartHandshake className="h-5 w-5" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: false,
       isLocked: false,
@@ -117,7 +117,7 @@ const Index = () => {
         </div>
 
         {/* Cards Grid 2x2 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-12">
+        <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto mb-12">
           {areas.map((area) => (
             <AreaCard
               key={area.title}
@@ -129,51 +129,52 @@ const Index = () => {
               isLocked={area.isLocked}
               badge={area.badge}
               onClick={area.onClick}
+              compact
             />
           ))}
-          {/* Community Card */}
           <AreaCard
-            title="Comunidade de Elevação de Frequência"
-            description="Relatos reais de transformação para elevar sua frequência"
-            icon={<MessageSquare className="h-7 w-7" />}
+            title="Comunidade"
+            description="Relatos de transformação"
+            icon={<MessageSquare className="h-5 w-5" />}
             iconColor="bg-primary/20 text-primary"
             isPremium={false}
             isLocked={false}
             badge="Gratuito"
             onClick={() => navigate("/community")}
+            compact
           />
-          {/* Estrutura da Meditação Card */}
           <AreaCard
-            title="Estrutura da Meditação A.X.I.O."
-            description="Conheça as 5 etapas da reprogramação quântica e o poder da sua própria voz"
-            icon={<Moon className="h-7 w-7" />}
+            title="Meditação"
+            description="5 etapas da reprogramação"
+            icon={<Moon className="h-5 w-5" />}
             iconColor="bg-primary/20 text-primary"
             isPremium={false}
             isLocked={false}
             badge="Método"
             onClick={() => navigate("/meditation-structure")}
+            compact
           />
-          {/* Oráculo AXIO Card */}
           <AreaCard
-            title="Oráculo AXIO"
-            description="Consulte o Guia Quântico de sabedoria — respostas místicas e científicas para suas dúvidas"
-            icon={<Eye className="h-7 w-7" />}
-            iconColor="bg-[hsl(270,50%,55%)]/20 text-[hsl(270,50%,55%)]"
+            title="Oráculo"
+            description="IA para suas dúvidas"
+            icon={<Eye className="h-5 w-5" />}
+            iconColor="bg-axio-family/20 text-axio-family"
             isPremium={false}
             isLocked={false}
             badge="IA"
             onClick={() => navigate("/oraculo")}
+            compact
           />
-          {/* FAQ Card */}
           <AreaCard
-            title="Perguntas Frequentes"
-            description="Tire suas dúvidas sobre o método, gravações, meditação e mais"
-            icon={<HelpCircle className="h-7 w-7" />}
+            title="FAQ"
+            description="Dúvidas sobre o método"
+            icon={<HelpCircle className="h-5 w-5" />}
             iconColor="bg-primary/20 text-primary"
             isPremium={false}
             isLocked={false}
             badge="Ajuda"
             onClick={() => navigate("/faq")}
+            compact
           />
         </div>
 

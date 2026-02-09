@@ -1,7 +1,7 @@
 import { Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface AreaCardProps {
+export interface AreaCardProps {
   title: string;
   description: string;
   icon: React.ReactNode;
@@ -10,6 +10,7 @@ interface AreaCardProps {
   isLocked?: boolean;
   badge?: string;
   onClick?: () => void;
+  compact?: boolean;
 }
 
 export const AreaCard = ({
@@ -21,14 +22,16 @@ export const AreaCard = ({
   isLocked = false,
   badge,
   onClick,
+  compact = false,
 }: AreaCardProps) => {
   return (
     <div
       onClick={onClick}
       className={cn(
-        "group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all duration-300 cursor-pointer",
+        "group relative overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 cursor-pointer",
         "hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)]",
-        isLocked && "opacity-80"
+        isLocked && "opacity-80",
+        compact ? "p-3" : "p-6"
       )}
     >
       {/* Background gradient */}
@@ -37,16 +40,17 @@ export const AreaCard = ({
       {/* Icon container */}
       <div
         className={cn(
-          "mb-4 flex h-14 w-14 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110",
-          iconColor
+          "flex items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110",
+          iconColor,
+          compact ? "mb-2 h-9 w-9" : "mb-4 h-14 w-14"
         )}
       >
         {icon}
       </div>
 
       {/* Content */}
-      <h3 className="mb-2 text-lg font-semibold text-foreground">{title}</h3>
-      <p className="text-sm text-muted-foreground">{description}</p>
+      <h3 className={cn("font-semibold text-foreground", compact ? "mb-1 text-sm" : "mb-2 text-lg")}>{title}</h3>
+      <p className={cn("text-muted-foreground", compact ? "text-xs leading-tight" : "text-sm")}>{description}</p>
 
       {/* Premium Lock */}
       {isLocked && (

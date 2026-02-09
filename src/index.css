@@ -230,117 +230,68 @@
     animation: quantum-wave 3s ease-in-out infinite;
   }
 
-  /* Oracle Portal */
-  .oracle-portal {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* Oracle - Deep Space Theme */
+  .oracle-nebula {
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: oracle-nebula-drift 20s ease-in-out infinite alternate;
   }
 
-  .oracle-ring {
+  .oracle-nebula--purple {
+    width: 60%;
+    height: 50%;
+    top: 10%;
+    left: -10%;
+    background: radial-gradient(ellipse, hsl(270 50% 45% / 0.6), transparent 70%);
+    animation-delay: 0s;
+  }
+
+  .oracle-nebula--blue {
+    width: 50%;
+    height: 60%;
+    top: 30%;
+    right: -10%;
+    background: radial-gradient(ellipse, hsl(220 60% 40% / 0.5), transparent 70%);
+    animation-delay: -7s;
+  }
+
+  .oracle-nebula--cyan {
+    width: 40%;
+    height: 40%;
+    bottom: 5%;
+    left: 30%;
+    background: radial-gradient(ellipse, hsl(175 70% 40% / 0.4), transparent 70%);
+    animation-delay: -14s;
+  }
+
+  @keyframes oracle-nebula-drift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -20px) scale(1.1); }
+  }
+
+  .oracle-supernova {
     position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 2px solid transparent;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
   }
 
-  .oracle-ring--outer {
-    width: 200px;
-    height: 200px;
-    border-color: hsl(270 60% 50% / 0.4);
-    animation: oracle-spin 8s linear infinite;
-    box-shadow: 0 0 30px hsl(270 60% 50% / 0.2), inset 0 0 30px hsl(270 60% 50% / 0.1);
-  }
-
-  .oracle-ring--mid {
-    width: 150px;
-    height: 150px;
-    border-color: hsl(220 70% 55% / 0.5);
-    animation: oracle-spin 6s linear infinite reverse;
-    box-shadow: 0 0 25px hsl(220 70% 55% / 0.2), inset 0 0 25px hsl(220 70% 55% / 0.1);
-  }
-
-  .oracle-ring--inner {
-    width: 100px;
-    height: 100px;
-    border-color: hsl(var(--primary) / 0.6);
-    animation: oracle-spin 4s linear infinite;
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.3), inset 0 0 20px hsl(var(--primary) / 0.15);
-  }
-
-  .oracle-core {
-    position: relative;
-    z-index: 2;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: radial-gradient(circle, hsl(270 50% 40%) 0%, hsl(220 60% 30%) 50%, hsl(var(--primary) / 0.5) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 40px hsl(270 50% 50% / 0.4);
-    animation: oracle-pulse-core 3s ease-in-out infinite;
-  }
-
-  .oracle-particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: hsl(var(--primary));
-    animation: oracle-particle-orbit 6s linear infinite;
-    animation-delay: calc(var(--i) * -0.75s);
-    opacity: 0.7;
-  }
-
-  /* Active state (loading) */
-  .oracle-portal--active .oracle-ring--outer {
-    animation-duration: 2s;
-    border-color: hsl(270 70% 60% / 0.8);
-    box-shadow: 0 0 50px hsl(270 70% 60% / 0.5), inset 0 0 50px hsl(270 70% 60% / 0.3);
-  }
-
-  .oracle-portal--active .oracle-ring--mid {
-    animation-duration: 1.5s;
-    border-color: hsl(220 80% 65% / 0.8);
-    box-shadow: 0 0 45px hsl(220 80% 65% / 0.5), inset 0 0 45px hsl(220 80% 65% / 0.3);
-  }
-
-  .oracle-portal--active .oracle-ring--inner {
-    animation-duration: 1s;
-    border-color: hsl(var(--primary) / 0.9);
-    box-shadow: 0 0 40px hsl(var(--primary) / 0.6), inset 0 0 40px hsl(var(--primary) / 0.4);
-  }
-
-  .oracle-portal--active .oracle-core {
-    animation-duration: 1s;
-    box-shadow: 0 0 60px hsl(270 60% 60% / 0.7);
-  }
-
-  .oracle-portal--active .oracle-particle {
-    animation-duration: 2s;
+  .oracle-supernova--active {
     opacity: 1;
-    width: 6px;
-    height: 6px;
+    background: radial-gradient(circle, hsl(175 70% 60% / 0.5) 0%, hsl(220 60% 50% / 0.2) 40%, transparent 70%);
+    animation: oracle-supernova-pulse 1.5s ease-in-out infinite;
   }
 
-  @keyframes oracle-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  @keyframes oracle-pulse-core {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; }
-  }
-
-  @keyframes oracle-particle-orbit {
-    0% { transform: rotate(calc(var(--i) * 45deg)) translateX(110px) rotate(calc(var(--i) * -45deg)); opacity: 0; }
-    20% { opacity: 0.8; }
-    80% { opacity: 0.8; }
-    100% { transform: rotate(calc(var(--i) * 45deg + 360deg)) translateX(110px) rotate(calc(var(--i) * -45deg - 360deg)); opacity: 0; }
+  @keyframes oracle-supernova-pulse {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+    50% { transform: translateX(-50%) scale(1.4); opacity: 1; }
   }
 }
 
