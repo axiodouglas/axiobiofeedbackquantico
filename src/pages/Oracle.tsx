@@ -248,9 +248,9 @@ const Oracle = () => {
         <div className={`oracle-supernova ${isLoading ? "oracle-supernova--active" : ""}`} />
 
         {/* Messages */}
-        <div ref={scrollRef} className="flex-1 w-full max-w-2xl mx-auto overflow-y-auto px-4 pb-4 pt-6 space-y-4">
+        <div ref={scrollRef} className="flex-1 w-full max-w-2xl mx-auto overflow-y-auto px-4 pb-4 pt-6 space-y-4 flex flex-col">
           {messages.length === 0 && (
-            <div className="text-center mt-12 space-y-2">
+            <div className="text-center mt-auto mb-4 space-y-2">
               <p className="text-foreground font-semibold text-base">Qual sua dúvida sobre o A.X.I.O.?</p>
               <p className="text-muted-foreground text-xs max-w-sm mx-auto leading-relaxed">
                 Posso te ajudar com: Biofeedback vocal, os 4 pilares (Mãe, Pai, Traumas, Relacionamentos), PNL, Neurociência e Comandos Quânticos.
