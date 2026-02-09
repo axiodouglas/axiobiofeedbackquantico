@@ -26,7 +26,7 @@ const Recording = () => {
   const { analyzeAudio, isAnalyzing } = useAxioAnalysis();
 
   const areaNames: Record<string, string> = {
-    pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamentos: "Relacionamentos",
+    pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamento: "Relacionamentos",
   };
 
   useEffect(() => {

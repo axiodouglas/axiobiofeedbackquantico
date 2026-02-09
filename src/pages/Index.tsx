@@ -47,7 +47,7 @@ const Index = () => {
       isPremium: false,
       isLocked: false,
       badge: "Gratuito",
-      onClick: () => navigate("/recording?area=relacionamentos"),
+      onClick: () => navigate("/recording?area=relacionamento"),
     },
   ];
 
