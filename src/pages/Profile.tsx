@@ -7,37 +7,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sparkles, ArrowLeft, FileText, Calendar, Activity, Crown, Pencil, Check, X, AlertTriangle, FolderTree } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import DiagnosisFolder from "@/components/DiagnosisFolder";
+import { Sparkles, ArrowLeft, Calendar, Crown, Pencil, Check, X, FileText } from "lucide-react";
+import { AreaCard } from "@/components/AreaCard";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
-
-interface Diagnosis {
-  id: string;
-  area: string;
-  frequency_score: number | null;
-  created_at: string;
-  diagnosis_result: any;
-}
-
-const areaLabels: Record<string, string> = {
-  pai: "Pai",
-  mae: "Mãe",
-  traumas: "Traumas",
-  relacionamento: "Relacionamentos",
-  financeiro: "Financeiro",
-  saude: "Saúde",
-  familiar: "Familiar",
-};
 
 const Profile = () => {
   const { user, profile, loading, refreshProfile } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
-  const [loadingDiagnoses, setLoadingDiagnoses] = useState(true);
   const [editingName, setEditingName] = useState(false);
   const [nameValue, setNameValue] = useState("");
   const [savingName, setSavingName] = useState(false);
@@ -47,20 +26,6 @@ const Profile = () => {
       navigate("/auth");
     }
   }, [loading, user, navigate]);
-
-  useEffect(() => {
-    if (user) {
-      supabase
-        .from("diagnoses")
-        .select("id, area, frequency_score, created_at, diagnosis_result")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-        .then(({ data }) => {
-          setDiagnoses(data ?? []);
-          setLoadingDiagnoses(false);
-        });
-    }
-  }, [user]);
 
   if (loading) {
     return (
@@ -94,7 +59,6 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-background noise">
-      {/* Nav */}
       <nav className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-md py-3">
         <div className="container mx-auto px-4 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="gap-1 text-muted-foreground">
@@ -188,53 +152,14 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        {/* Meus Relatórios */}
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <FolderTree className="h-5 w-5 text-primary" />
-              Meus Relatórios
-              {diagnoses.length > 0 && (
-                <Badge variant="secondary" className="text-xs ml-auto">
-                  {diagnoses.length}
-                </Badge>
-              )}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {loadingDiagnoses ? (
-              <p className="text-sm text-muted-foreground animate-pulse">Carregando...</p>
-            ) : diagnoses.length === 0 ? (
-              <div className="text-center py-8 space-y-3">
-                <Activity className="h-10 w-10 text-muted-foreground/40 mx-auto" />
-                <p className="text-sm text-muted-foreground">Nenhum relatório gerado ainda.</p>
-                <p className="text-xs text-muted-foreground">Grave um áudio em qualquer pilar para gerar seu primeiro relatório.</p>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {diagnoses.map((d) => (
-                  <DiagnosisFolder
-                    key={d.id}
-                    diagnosis={d}
-                    isPremium={!!subscriptionActive}
-                    userId={user!.id}
-                    userName={profile?.full_name || user?.email?.split("@")[0] || ""}
-                  />
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Aviso de expiração */}
-        {diagnoses.length > 0 && (
-          <Alert className="border-yellow-500/30 bg-yellow-500/5">
-            <AlertTriangle className="h-4 w-4 text-yellow-500" />
-            <AlertDescription className="text-xs text-muted-foreground">
-              Os relatórios e comandos são apagados automaticamente a cada 3 meses para garantir a atualização da sua jornada.
-            </AlertDescription>
-          </Alert>
-        )}
+        {/* Meus Relatórios - AreaCard */}
+        <AreaCard
+          title="Meus Relatórios"
+          description="Acesse seus diagnósticos, comandos quânticos e meditações"
+          icon={<FileText className="h-7 w-7" />}
+          iconColor="bg-primary/20 text-primary"
+          onClick={() => navigate("/meus-relatorios")}
+        />
       </div>
     </div>
   );
