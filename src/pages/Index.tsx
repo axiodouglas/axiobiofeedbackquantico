@@ -1,4 +1,4 @@
-import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HeartHandshake, HelpCircle, Eye } from "lucide-react";
+import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -152,28 +152,6 @@ const Index = () => {
             isLocked={false}
             badge="Método"
             onClick={() => navigate("/meditation-structure")}
-            compact
-          />
-          <AreaCard
-            title="Oráculo"
-            description="IA para suas dúvidas"
-            icon={<Eye className="h-5 w-5" />}
-            iconColor="bg-axio-family/20 text-axio-family"
-            isPremium={false}
-            isLocked={false}
-            badge="IA"
-            onClick={() => navigate("/oraculo")}
-            compact
-          />
-          <AreaCard
-            title="FAQ"
-            description="Dúvidas sobre o método"
-            icon={<HelpCircle className="h-5 w-5" />}
-            iconColor="bg-primary/20 text-primary"
-            isPremium={false}
-            isLocked={false}
-            badge="Ajuda"
-            onClick={() => navigate("/faq")}
             compact
           />
         </div>
