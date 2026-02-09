@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Brain, Sparkles, Mic, ChevronRight, AlertTriangle, DollarSign, Stethoscope, Users, Folder, FolderOpen, FileText } from "lucide-react";
+import MeditationScript from "@/components/MeditationScript";
 import { format, differenceInDays } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
@@ -32,9 +33,10 @@ interface DiagnosisFolderProps {
   diagnosis: DiagnosisData;
   isPremium: boolean;
   userId: string;
+  userName: string;
 }
 
-export default function DiagnosisFolder({ diagnosis, isPremium, userId }: DiagnosisFolderProps) {
+export default function DiagnosisFolder({ diagnosis, isPremium, userId, userName }: DiagnosisFolderProps) {
   const [open, setOpen] = useState(false);
   const [subOpen, setSubOpen] = useState<string | null>(null);
   const [commands, setCommands] = useState<QuantumCommand[]>([]);
@@ -115,7 +117,12 @@ export default function DiagnosisFolder({ diagnosis, isPremium, userId }: Diagno
           onToggle={() => toggleSub("meditation")}
           locked={!isPremium}
         >
-          <MeditationContent />
+          <MeditationScript
+            userName={userName}
+            diagnosisResult={dr}
+            diagnosisId={diagnosis.id}
+            userId={userId}
+          />
         </SubFolder>
       </CollapsibleContent>
     </Collapsible>
@@ -281,18 +288,6 @@ function CommandsContent({ commands }: { commands: { manha?: QuantumCommand; dia
           )}
         </div>
       ))}
-    </div>
-  );
-}
-
-/* ---- Meditation ---- */
-function MeditationContent() {
-  return (
-    <div className="text-center py-4 space-y-2">
-      <Mic className="h-8 w-8 text-muted-foreground/40 mx-auto" />
-      <p className="text-xs text-muted-foreground">
-        A meditação gravada com sua própria voz ficará disponível aqui após a geração dos comandos.
-      </p>
     </div>
   );
 }

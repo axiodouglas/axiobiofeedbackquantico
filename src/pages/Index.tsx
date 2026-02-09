@@ -1,4 +1,4 @@
-import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HelpCircle, HeartHandshake } from "lucide-react";
+import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -228,17 +228,73 @@ const Index = () => {
               </p>
             </div>
 
-            {/* 4. Orientação */}
-            <div className="bg-card border border-border rounded-2xl p-8 text-center">
+            {/* 4. Estrutura da Meditação A.X.I.O. */}
+            <div className="bg-gradient-to-br from-primary/10 via-card to-card border-2 border-primary/30 rounded-2xl p-8">
               <div className="flex items-center justify-center mb-6">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
-                  <HelpCircle className="h-6 w-6 text-primary" />
+                  <FileText className="h-6 w-6 text-primary" />
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-4">4. Orientação de Uso do A.X.I.O.</h3>
-              <p className="text-muted-foreground leading-relaxed max-w-xl mx-auto">
-                Em breve.
-              </p>
+              <h3 className="text-xl font-bold text-foreground mb-6 text-center">4. Estrutura da Meditação A.X.I.O.</h3>
+              
+              <div className="space-y-4 max-w-xl mx-auto">
+                <div className="bg-secondary/30 border border-border rounded-xl p-4">
+                  <h4 className="text-sm font-bold text-foreground mb-1">1. Acesso ao Subconsciente</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Serve para acalmar a mente e baixar a guarda do subconsciente. É o contato com o lugar onde tudo está guardado: medos, sonhos e traumas. Sem isso, a mente racional bloqueia o acesso à cura.
+                  </p>
+                </div>
+
+                <div className="bg-secondary/30 border border-border rounded-xl p-4">
+                  <h4 className="text-sm font-bold text-foreground mb-1">2. Validação Somática e Reconhecimento</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Reconhecer e validar as dores e traumas sem julgamentos. É olhar para a ferida e dar lugar a ela, o que permite soltar a energia que prende esses sentimentos no corpo.
+                  </p>
+                </div>
+
+                <div className="bg-secondary/30 border border-border rounded-xl p-4">
+                  <h4 className="text-sm font-bold text-foreground mb-1">3. Desassociação</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Processo de libertação onde você comunica ao seu ser que aquela dor não é sua e esse sentimento não te pertence mais. É o corte das dependências físicas, emocionais e energéticas.
+                  </p>
+                </div>
+
+                <div className="bg-secondary/30 border border-border rounded-xl p-4">
+                  <h4 className="text-sm font-bold text-foreground mb-1">4. Instalação de Novas Crenças</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Momento de implantar o oposto de tudo o que foi desassociado, ocupando o espaço com novas verdades de segurança e prosperidade.
+                  </p>
+                </div>
+
+                <div className="bg-secondary/30 border border-border rounded-xl p-4">
+                  <h4 className="text-sm font-bold text-foreground mb-1">5. Gratidão Sistêmica</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Agradecimento profundo ao corpo, órgãos e células para selar a cura no físico.
+                  </p>
+                </div>
+
+                {/* Gravar com a própria voz */}
+                <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <h4 className="text-sm font-bold text-primary mb-1 flex items-center gap-1.5">
+                    <Mic className="h-4 w-4" />
+                    Gravar com a Própria Voz
+                  </h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    É expressamente necessário gravar com a própria voz. O nosso corpo reconhece nossa própria voz como autoridade máxima, e isso é a parte principal do processo para conseguir burlar o subconsciente e o fator crítico da mente.
+                  </p>
+                </div>
+
+                {/* Escrita Manual */}
+                <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <h4 className="text-sm font-bold text-primary mb-1 flex items-center gap-1.5">
+                    <FileText className="h-4 w-4" />
+                    Escrita Manual
+                  </h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Redigir a meditação em uma folha é parte vital da limpeza emocional, fortalecendo o córtex pré-frontal para organizar o processo de cura.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
