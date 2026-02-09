@@ -79,9 +79,9 @@ const Index = () => {
               <span className="text-gradient-cyan">A.X.I.O.</span>
             </h1>
 
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
-              <Sparkles className="h-4 w-4 text-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">Biofeedback Quântico</span>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-[hsl(185,75%,40%)] px-5 py-2.5 shadow-[0_4px_15px_hsl(175,70%,50%,0.3)]">
+              <Sparkles className="h-4 w-4 text-primary-foreground animate-pulse" />
+              <span className="text-sm font-bold text-primary-foreground">Biofeedback Quântico</span>
             </div>
             
             
