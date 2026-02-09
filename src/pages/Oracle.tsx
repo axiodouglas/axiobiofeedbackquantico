@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Send } from "lucide-react";
+import oracleBg from "@/assets/oracle-bg.jpg";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import UserMenu from "@/components/UserMenu";
@@ -224,6 +225,8 @@ const Oracle = () => {
     <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
       {/* Deep-space background */}
       <div className="absolute inset-0 z-0">
+        {/* Background image */}
+        <img src={oracleBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
         {/* Nebula layers */}
         <div className="absolute inset-0 oracle-nebula oracle-nebula--purple" />
         <div className="absolute inset-0 oracle-nebula oracle-nebula--blue" />
