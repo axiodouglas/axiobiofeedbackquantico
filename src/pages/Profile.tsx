@@ -218,6 +218,7 @@ const Profile = () => {
                     diagnosis={d}
                     isPremium={!!subscriptionActive}
                     userId={user!.id}
+                    userName={profile?.full_name || user?.email?.split("@")[0] || ""}
                   />
                 ))}
               </div>
