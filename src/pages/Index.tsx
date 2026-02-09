@@ -119,7 +119,7 @@ const Index = () => {
           />
           <div className="absolute inset-0 bg-black/30" />
 
-          <div className="absolute inset-0 flex flex-col justify-between p-4">
+          <div className="absolute inset-0 flex flex-col p-4 gap-3">
             <div className="grid grid-cols-2 gap-3">
               {areas.map((area) => (
                 <AreaCard
@@ -137,29 +137,33 @@ const Index = () => {
               ))}
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <AreaCard
-                title="Comunidade"
-                description="Relatos de transformação"
-                icon={<MessageSquare className="h-5 w-5" />}
-                iconColor="bg-primary/20 text-primary"
-                isPremium={false}
-                isLocked={false}
-                badge="Gratuito"
-                onClick={() => navigate("/community")}
-                compact
-              />
-              <AreaCard
-                title="Meditação"
-                description="5 etapas da reprogramação"
-                icon={<Moon className="h-5 w-5" />}
-                iconColor="bg-primary/20 text-primary"
-                isPremium={false}
-                isLocked={false}
-                badge="Método"
-                onClick={() => navigate("/meditation-structure")}
-                compact
-              />
+            <div className="flex flex-col gap-3 flex-1">
+              <div className="flex-1">
+                <AreaCard
+                  title="Comunidade"
+                  description="Relatos de transformação"
+                  icon={<MessageSquare className="h-5 w-5" />}
+                  iconColor="bg-primary/20 text-primary"
+                  isPremium={false}
+                  isLocked={false}
+                  badge="Gratuito"
+                  onClick={() => navigate("/community")}
+                  compact
+                />
+              </div>
+              <div className="flex-1">
+                <AreaCard
+                  title="Meditação"
+                  description="5 etapas da reprogramação"
+                  icon={<Moon className="h-5 w-5" />}
+                  iconColor="bg-primary/20 text-primary"
+                  isPremium={false}
+                  isLocked={false}
+                  badge="Método"
+                  onClick={() => navigate("/meditation-structure")}
+                  compact
+                />
+              </div>
             </div>
           </div>
         </div>
