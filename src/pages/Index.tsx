@@ -78,11 +78,6 @@ const Index = () => {
               <Sparkles className="h-4 w-4 text-primary animate-pulse" />
               <span className="text-sm font-medium text-primary">Biofeedback Quântico</span>
             </div>
-            <div className="mb-8">
-              <span className="inline-block text-xs font-semibold tracking-wider uppercase text-primary/80 bg-primary/10 border border-primary/20 rounded-full px-3 py-1">
-                Acesso Premium Liberado
-              </span>
-            </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
               <span className="text-foreground">Bem-vindo ao </span>
