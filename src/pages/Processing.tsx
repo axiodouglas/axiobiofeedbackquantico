@@ -66,31 +66,70 @@ const Processing = () => {
     }
 
     try {
-      // 1. Insert diagnosis
-      const { data: insertedRows, error } = await supabase.from("diagnoses").insert({
-        user_id: user.id,
-        area,
-        transcription: data.transcription || null,
-        diagnosis_result: data.diagnosis,
-        frequency_score: data.diagnosis.frequency_score || null,
-      }).select("id");
+      // Check for existing diagnosis today for this area — overwrite if exists
+      const today = new Date().toISOString().slice(0, 10);
+      const { data: existing } = await supabase
+        .from("diagnoses")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("area", area)
+        .gte("created_at", `${today}T00:00:00Z`)
+        .lte("created_at", `${today}T23:59:59Z`)
+        .limit(1);
 
-      if (error) {
-        console.error("DB save error:", error.message, error.code, error.details);
-        setErrorMsg(`Erro ao salvar: ${error.message} (${error.code || "unknown"})`);
-        return false;
+      let diagnosisId: string | null = null;
+
+      if (existing && existing.length > 0) {
+        // Overwrite existing record
+        diagnosisId = existing[0].id;
+        const { error } = await supabase.from("diagnoses").update({
+          transcription: data.transcription || null,
+          diagnosis_result: data.diagnosis,
+          frequency_score: data.diagnosis.frequency_score || null,
+        }).eq("id", diagnosisId);
+
+        if (error) {
+          console.error("DB update error:", error.message, error.code, error.details);
+          setErrorMsg(`Erro ao salvar: ${error.message} (${error.code || "unknown"})`);
+          return false;
+        }
+
+        // Delete old quantum commands for this diagnosis
+        await supabase.from("quantum_commands").delete().eq("diagnosis_id", diagnosisId);
+      } else {
+        // Insert new
+        const { data: insertedRows, error } = await supabase.from("diagnoses").insert({
+          user_id: user.id,
+          area,
+          transcription: data.transcription || null,
+          diagnosis_result: data.diagnosis,
+          frequency_score: data.diagnosis.frequency_score || null,
+        }).select("id");
+
+        if (error) {
+          console.error("DB save error:", error.message, error.code, error.details);
+          setErrorMsg(`Erro ao salvar: ${error.message} (${error.code || "unknown"})`);
+          return false;
+        }
+        diagnosisId = insertedRows?.[0]?.id || null;
       }
 
-      const diagnosisId = insertedRows?.[0]?.id;
-
-      // 2. Generate quantum commands via edge function (fire-and-forget for non-premium, await for premium)
+      // Fetch user's profile name
+      let userName: string | null = null;
       if (diagnosisId) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("full_name")
+          .eq("user_id", user.id)
+          .single();
+        userName = profile?.full_name || null;
+
         try {
           await supabase.functions.invoke("generate-quantum-commands", {
             body: {
               diagnosis_id: diagnosisId,
               diagnosis_result: data.diagnosis,
-              user_name: null, // Will use profile name on the function side
+              user_name: userName,
             },
           });
         } catch (cmdErr) {
