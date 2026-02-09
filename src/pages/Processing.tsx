@@ -59,27 +59,45 @@ const Processing = () => {
     setErrorMsg(message || "O áudio enviado não foi audível ou o assunto está fora do tema deste card. Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.");
   }, [cleanupAttempt]);
 
-  // Save to database with retry
+  // Save to database and generate quantum commands
   const saveToDB = useCallback(async (data: any): Promise<boolean> => {
     if (!user) {
-      // Not authenticated — skip DB save, go straight to report
       return true;
     }
 
     try {
-      const { error } = await supabase.from("diagnoses").insert({
+      // 1. Insert diagnosis
+      const { data: insertedRows, error } = await supabase.from("diagnoses").insert({
         user_id: user.id,
         area,
         transcription: data.transcription || null,
         diagnosis_result: data.diagnosis,
         frequency_score: data.diagnosis.frequency_score || null,
-      });
+      }).select("id");
 
       if (error) {
         console.error("DB save error:", error.message, error.code, error.details);
         setErrorMsg(`Erro ao salvar: ${error.message} (${error.code || "unknown"})`);
         return false;
       }
+
+      const diagnosisId = insertedRows?.[0]?.id;
+
+      // 2. Generate quantum commands via edge function (fire-and-forget for non-premium, await for premium)
+      if (diagnosisId) {
+        try {
+          await supabase.functions.invoke("generate-quantum-commands", {
+            body: {
+              diagnosis_id: diagnosisId,
+              diagnosis_result: data.diagnosis,
+              user_name: null, // Will use profile name on the function side
+            },
+          });
+        } catch (cmdErr) {
+          console.warn("Quantum commands generation failed (non-blocking):", cmdErr);
+        }
+      }
+
       return true;
     } catch (err) {
       console.error("DB save exception:", err);
