@@ -112,7 +112,7 @@ const DiagnosisDetail = () => {
     <div className="min-h-screen bg-background noise">
       <nav className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-md py-3">
         <div className="container mx-auto px-4 flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={() => navigate("/meus-relatorios")} className="gap-1 text-muted-foreground">
+          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-1 text-muted-foreground">
             <ArrowLeft className="h-4 w-4" />
             Relatórios
           </Button>

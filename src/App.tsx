@@ -20,6 +20,7 @@ import Profile from "./pages/Profile";
 import DiagnosisDetail from "./pages/DiagnosisDetail";
 import MeditationStructure from "./pages/MeditationStructure";
 import MyReports from "./pages/MyReports";
+import ReportsByDate from "./pages/ReportsByDate";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => (
               <Route path="/profile" element={<Profile />} />
               <Route path="/diagnosis/:id" element={<DiagnosisDetail />} />
               <Route path="/meus-relatorios" element={<MyReports />} />
+              <Route path="/meus-relatorios/:date" element={<ReportsByDate />} />
               <Route path="/meditation-structure" element={<MeditationStructure />} />
               <Route path="/terms" element={<Terms />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
