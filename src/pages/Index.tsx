@@ -107,7 +107,7 @@ const Index = () => {
       {/* Main Content - Cards over Cosmic Image */}
       <div className="container mx-auto px-4 py-12">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Os 4 Pilares do Diagnóstico</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Os 4 Pilares que Travam sua Vida</h2>
           <p className="text-muted-foreground">Mãe, Pai, Traumas e Relacionamentos — as sementes de todos os bloqueios</p>
         </div>
 
@@ -173,7 +173,7 @@ const Index = () => {
                   <Moon className="h-5 w-5" />
                 </div>
                 <div className="relative z-10">
-                  <h3 className="font-bold text-foreground text-lg leading-tight">Meditação</h3>
+                  <h3 className="font-bold text-foreground text-lg leading-tight">Estrutura da Meditação A.X.I.O.</h3>
                   <p className="text-xs text-muted-foreground">5 etapas da reprogramação</p>
                 </div>
                 <div className="absolute right-3 top-3 rounded-full bg-primary px-2 py-0.5">
