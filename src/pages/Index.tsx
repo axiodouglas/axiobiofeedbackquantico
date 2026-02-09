@@ -42,7 +42,7 @@ const Index = () => {
     },
     {
       title: "Relacionamentos",
-      description: "Projeções no parceiro",
+      description: "Projeções dos seus traumas nas pessoas",
       icon: <HeartHandshake className="h-5 w-5" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: false,
