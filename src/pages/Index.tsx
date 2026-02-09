@@ -85,8 +85,6 @@ const Index = () => {
               <span className="text-sm font-bold text-primary-foreground">Biofeedback Quântico</span>
             </div>
             
-            
-            
             <p className="text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 leading-relaxed">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
               Descubra a raiz dos seus bloqueios e cure sua linhagem.
@@ -106,67 +104,65 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content - Cards over Cosmic Image */}
       <div className="container mx-auto px-4 py-12">
-        {/* Section Title */}
         <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-foreground mb-2">Os 4 Pilares do Diagnóstico</h2>
           <p className="text-muted-foreground">Mãe, Pai, Traumas e Relacionamentos — as sementes de todos os bloqueios</p>
         </div>
 
-        {/* Cards Grid 2x2 */}
-        <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto">
-          {areas.map((area) => (
-            <AreaCard
-              key={area.title}
-              title={area.title}
-              description={area.description}
-              icon={area.icon}
-              iconColor={area.iconColor}
-              isPremium={area.isPremium}
-              isLocked={area.isLocked}
-              badge={area.badge}
-              onClick={area.onClick}
-              compact
-            />
-          ))}
-        </div>
-
-        {/* Cosmic Image */}
-        <div className="max-w-lg mx-auto my-8">
+        <div className="relative max-w-lg mx-auto rounded-2xl overflow-hidden border border-border shadow-[0_0_30px_hsl(175,70%,50%,0.1)]">
           <img
             src={quantumCosmos}
             alt="Cosmos quântico"
-            className="w-full rounded-2xl border border-border shadow-[0_0_30px_hsl(175,70%,50%,0.1)]"
+            className="w-full h-auto min-h-[600px] object-cover"
           />
-        </div>
+          <div className="absolute inset-0 bg-black/30" />
 
-        {/* Community & Meditation Cards */}
-        <div className="grid grid-cols-2 gap-3 max-w-lg mx-auto mb-12">
-          <AreaCard
-            title="Comunidade"
-            description="Relatos de transformação"
-            icon={<MessageSquare className="h-5 w-5" />}
-            iconColor="bg-primary/20 text-primary"
-            isPremium={false}
-            isLocked={false}
-            badge="Gratuito"
-            onClick={() => navigate("/community")}
-            compact
-          />
-          <AreaCard
-            title="Meditação"
-            description="5 etapas da reprogramação"
-            icon={<Moon className="h-5 w-5" />}
-            iconColor="bg-primary/20 text-primary"
-            isPremium={false}
-            isLocked={false}
-            badge="Método"
-            onClick={() => navigate("/meditation-structure")}
-            compact
-          />
-        </div>
+          <div className="absolute inset-0 flex flex-col justify-between p-4">
+            <div className="grid grid-cols-2 gap-3">
+              {areas.map((area) => (
+                <AreaCard
+                  key={area.title}
+                  title={area.title}
+                  description={area.description}
+                  icon={area.icon}
+                  iconColor={area.iconColor}
+                  isPremium={area.isPremium}
+                  isLocked={area.isLocked}
+                  badge={area.badge}
+                  onClick={area.onClick}
+                  compact
+                />
+              ))}
+            </div>
 
+            <div className="grid grid-cols-2 gap-3">
+              <AreaCard
+                title="Comunidade"
+                description="Relatos de transformação"
+                icon={<MessageSquare className="h-5 w-5" />}
+                iconColor="bg-primary/20 text-primary"
+                isPremium={false}
+                isLocked={false}
+                badge="Gratuito"
+                onClick={() => navigate("/community")}
+                compact
+              />
+              <AreaCard
+                title="Meditação"
+                description="5 etapas da reprogramação"
+                icon={<Moon className="h-5 w-5" />}
+                iconColor="bg-primary/20 text-primary"
+                isPremium={false}
+                isLocked={false}
+                badge="Método"
+                onClick={() => navigate("/meditation-structure")}
+                compact
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Footer */}
