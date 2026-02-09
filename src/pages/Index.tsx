@@ -154,10 +154,14 @@ const Index = () => {
                   <span className="text-[10px] font-semibold text-primary-foreground">Gratuito</span>
                 </div>
                 {/* Floating chat bubbles */}
-                <span className="absolute text-lg opacity-20 animate-bounce" style={{ right: '15%', bottom: '10%', animationDuration: '3s', animationDelay: '0s' }}>💬</span>
-                <span className="absolute text-sm opacity-15 animate-bounce" style={{ right: '35%', bottom: '5%', animationDuration: '4s', animationDelay: '1s' }}>🗨️</span>
-                <span className="absolute text-base opacity-20 animate-bounce" style={{ right: '55%', bottom: '15%', animationDuration: '3.5s', animationDelay: '0.5s' }}>💬</span>
-                <span className="absolute text-xs opacity-10 animate-bounce" style={{ right: '25%', bottom: '20%', animationDuration: '5s', animationDelay: '2s' }}>🗨️</span>
+                <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '10%', bottom: '5%', animationDuration: '3s' }}>💬</span>
+                <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '30%', bottom: '15%', animationDuration: '4s', animationDelay: '1s' }}>🗨️</span>
+                <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '50%', bottom: '8%', animationDuration: '3.5s', animationDelay: '0.5s' }}>💬</span>
+                <span className="absolute text-lg opacity-20 animate-bounce" style={{ right: '70%', bottom: '20%', animationDuration: '5s', animationDelay: '2s' }}>🗨️</span>
+                <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '85%', bottom: '5%', animationDuration: '4.5s', animationDelay: '0.8s' }}>💬</span>
+                <span className="absolute text-xl opacity-15 animate-bounce" style={{ right: '20%', bottom: '25%', animationDuration: '3.8s', animationDelay: '1.5s' }}>💬</span>
+                <span className="absolute text-lg opacity-20 animate-bounce" style={{ right: '60%', bottom: '30%', animationDuration: '4.2s', animationDelay: '2.5s' }}>🗨️</span>
+                <span className="absolute text-2xl opacity-15 animate-bounce" style={{ right: '42%', bottom: '28%', animationDuration: '3.2s', animationDelay: '0.3s' }}>💬</span>
               </div>
 
               {/* Meditação Card */}
@@ -176,10 +180,14 @@ const Index = () => {
                   <span className="text-[10px] font-semibold text-primary-foreground">Método</span>
                 </div>
                 {/* Floating lotus & monks */}
-                <span className="absolute text-lg opacity-20 animate-bounce" style={{ right: '15%', bottom: '10%', animationDuration: '3s', animationDelay: '0s' }}>🪷</span>
-                <span className="absolute text-sm opacity-15 animate-bounce" style={{ right: '40%', bottom: '5%', animationDuration: '4.5s', animationDelay: '1.5s' }}>🧘</span>
-                <span className="absolute text-base opacity-20 animate-bounce" style={{ right: '60%', bottom: '15%', animationDuration: '3.5s', animationDelay: '0.5s' }}>🪷</span>
-                <span className="absolute text-xs opacity-10 animate-bounce" style={{ right: '25%', bottom: '20%', animationDuration: '5s', animationDelay: '2s' }}>🧘</span>
+                <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '10%', bottom: '5%', animationDuration: '3s' }}>🪷</span>
+                <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '30%', bottom: '15%', animationDuration: '4.5s', animationDelay: '1.5s' }}>🧘</span>
+                <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '55%', bottom: '8%', animationDuration: '3.5s', animationDelay: '0.5s' }}>🪷</span>
+                <span className="absolute text-lg opacity-20 animate-bounce" style={{ right: '75%', bottom: '20%', animationDuration: '5s', animationDelay: '2s' }}>🧘</span>
+                <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '85%', bottom: '10%', animationDuration: '4s', animationDelay: '0.8s' }}>🪷</span>
+                <span className="absolute text-xl opacity-15 animate-bounce" style={{ right: '20%', bottom: '25%', animationDuration: '3.8s', animationDelay: '1.2s' }}>🧘</span>
+                <span className="absolute text-lg opacity-20 animate-bounce" style={{ right: '45%', bottom: '30%', animationDuration: '4.2s', animationDelay: '2.5s' }}>🪷</span>
+                <span className="absolute text-2xl opacity-15 animate-bounce" style={{ right: '65%', bottom: '28%', animationDuration: '3.2s', animationDelay: '0.3s' }}>🧘</span>
               </div>
             </div>
           </div>
