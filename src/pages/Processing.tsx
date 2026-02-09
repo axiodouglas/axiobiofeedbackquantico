@@ -27,6 +27,12 @@ const Processing = () => {
   const [saveRetries, setSaveRetries] = useState(0);
   const analysisStarted = useRef(false);
   const analysisDataRef = useRef<any>(null);
+  const userRef = useRef(user);
+
+  // Keep userRef always up-to-date so saveToDB never uses stale user
+  useEffect(() => {
+    userRef.current = user;
+  }, [user]);
 
   // Progress animation (only during analyzing phase)
   useEffect(() => {
@@ -61,17 +67,24 @@ const Processing = () => {
 
   // Save to database and generate quantum commands
   const saveToDB = useCallback(async (data: any): Promise<boolean> => {
-    if (!user) {
-      return true;
+    // Use ref to always get the latest user (avoids stale closure)
+    let currentUser = userRef.current;
+    if (!currentUser) {
+      // Auth may still be loading — wait and retry
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      currentUser = userRef.current;
+      if (!currentUser) {
+        setErrorMsg("Sessão expirada. Faça login novamente.");
+        return false;
+      }
     }
 
     try {
-      // Check for existing diagnosis today for this area — overwrite if exists
       const today = new Date().toISOString().slice(0, 10);
       const { data: existing } = await supabase
         .from("diagnoses")
         .select("id")
-        .eq("user_id", user.id)
+        .eq("user_id", currentUser.id)
         .eq("area", area)
         .gte("created_at", `${today}T00:00:00Z`)
         .lte("created_at", `${today}T23:59:59Z`)
@@ -80,7 +93,6 @@ const Processing = () => {
       let diagnosisId: string | null = null;
 
       if (existing && existing.length > 0) {
-        // Overwrite existing record
         diagnosisId = existing[0].id;
         const { error } = await supabase.from("diagnoses").update({
           transcription: data.transcription || null,
@@ -94,12 +106,10 @@ const Processing = () => {
           return false;
         }
 
-        // Delete old quantum commands for this diagnosis
         await supabase.from("quantum_commands").delete().eq("diagnosis_id", diagnosisId);
       } else {
-        // Insert new
         const { data: insertedRows, error } = await supabase.from("diagnoses").insert({
-          user_id: user.id,
+          user_id: currentUser.id,
           area,
           transcription: data.transcription || null,
           diagnosis_result: data.diagnosis,
@@ -114,15 +124,13 @@ const Processing = () => {
         diagnosisId = insertedRows?.[0]?.id || null;
       }
 
-      // Fetch user's profile name
-      let userName: string | null = null;
       if (diagnosisId) {
         const { data: profile } = await supabase
           .from("profiles")
           .select("full_name")
-          .eq("user_id", user.id)
+          .eq("user_id", currentUser.id)
           .single();
-        userName = profile?.full_name || null;
+        const userName = profile?.full_name || null;
 
         try {
           await supabase.functions.invoke("generate-quantum-commands", {
@@ -142,7 +150,7 @@ const Processing = () => {
       console.error("DB save exception:", err);
       return false;
     }
-  }, [user, area]);
+  }, [area]);
 
   // Main analysis effect
   useEffect(() => {
