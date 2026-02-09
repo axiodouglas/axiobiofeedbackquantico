@@ -28,7 +28,7 @@ const areas = [
     isFree: true,
   },
   {
-    id: "relacionamentos",
+    id: "relacionamento",
     title: "Relacionamentos",
     description: "Descubra as projeções de Pai e Mãe no seu parceiro.",
     icon: <HeartHandshake className="h-8 w-8" />,
