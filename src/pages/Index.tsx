@@ -140,7 +140,7 @@ const Index = () => {
             <div className="flex flex-col gap-3 flex-1">
               {/* Comunidade Card */}
               <div
-                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-4 flex items-center gap-3"
+                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-4 flex items-start gap-2"
                 onClick={() => navigate("/community")}
               >
                 <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-10 w-10 shrink-0">
@@ -166,7 +166,7 @@ const Index = () => {
 
               {/* Meditação Card */}
               <div
-                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-4 flex items-center gap-3"
+                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-4 flex items-start gap-2"
                 onClick={() => navigate("/meditation-structure")}
               >
                 <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-10 w-10 shrink-0">
