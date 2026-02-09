@@ -159,6 +159,7 @@ const Processing = () => {
 
     const runAnalysis = async () => {
       const audioBase64 = sessionStorage.getItem("axio_audio");
+      console.log("[AXIO-DEBUG] Starting analysis. Audio exists:", !!audioBase64, "Length:", audioBase64?.length || 0);
 
       if (!audioBase64) {
         handleGracefulFailure("Nenhum áudio foi encontrado para análise.");
@@ -166,19 +167,25 @@ const Processing = () => {
       }
 
       try {
+        console.log("[AXIO-DEBUG] Converting audio to blob...");
         const res = await fetch(audioBase64);
         const blob = await res.blob();
+        console.log("[AXIO-DEBUG] Blob created. Size:", blob.size, "Type:", blob.type);
 
         const formData = new FormData();
         formData.append("audio", blob, "recording.webm");
         formData.append("area", area);
         formData.append("is_premium", "false");
 
+        console.log("[AXIO-DEBUG] Calling axio-transcribe with area:", area);
         const { data, error } = await supabase.functions.invoke("axio-transcribe", {
           body: formData,
         });
 
+        console.log("[AXIO-DEBUG] axio-transcribe response:", JSON.stringify({ error: error?.message || error, dataKeys: data ? Object.keys(data) : null, dataError: data?.error }));
+
         if (error || data?.error) {
+          console.error("[AXIO-DEBUG] Transcribe failed:", error?.message || data?.error);
           handleGracefulFailure();
           return;
         }
@@ -186,23 +193,25 @@ const Processing = () => {
         if (data?.diagnosis?.focus_valid === false) {
           const focusMsg = data.diagnosis.focus_message ||
             "O áudio enviado não está relacionado ao tema deste card. Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.";
+          console.warn("[AXIO-DEBUG] Focus invalid:", focusMsg);
           handleGracefulFailure(focusMsg);
           return;
         }
 
         if (!data?.diagnosis?.title || !data?.diagnosis?.blocks?.length) {
+          console.error("[AXIO-DEBUG] Invalid diagnosis structure:", JSON.stringify({ title: data?.diagnosis?.title, blocksLen: data?.diagnosis?.blocks?.length }));
           handleGracefulFailure();
           return;
         }
 
-        // Analysis succeeded — move to saving phase
+        console.log("[AXIO-DEBUG] Analysis succeeded. Saving...");
         analysisDataRef.current = data;
         sessionStorage.setItem("axio_result", JSON.stringify(data));
         setProgress(100);
         setPhase("saving");
 
-        // Attempt DB save
         const saved = await saveToDB(data);
+        console.log("[AXIO-DEBUG] Save result:", saved);
         if (saved) {
           sessionStorage.removeItem("axio_audio");
           setPhase("saved");
@@ -211,7 +220,8 @@ const Processing = () => {
           setPhase("error");
           setErrorMsg("Erro ao salvar o diagnóstico na nuvem. Tente novamente.");
         }
-      } catch {
+      } catch (err) {
+        console.error("[AXIO-DEBUG] Uncaught error:", err);
         handleGracefulFailure();
       }
     };
