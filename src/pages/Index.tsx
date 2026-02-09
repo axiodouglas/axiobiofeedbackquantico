@@ -112,8 +112,8 @@ const Index = () => {
       <div className="container mx-auto px-4 py-12">
         {/* Section Title */}
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Os 3 Pilares do Diagnóstico</h2>
-          <p className="text-muted-foreground">Mãe, Pai e Traumas — as sementes de todos os bloqueios</p>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Os 4 Pilares do Diagnóstico</h2>
+          <p className="text-muted-foreground">Mãe, Pai, Traumas e Relacionamentos — as sementes de todos os bloqueios</p>
         </div>
 
         {/* Cards Grid 2x2 */}
