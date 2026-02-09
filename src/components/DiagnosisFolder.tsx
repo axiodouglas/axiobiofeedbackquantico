@@ -239,21 +239,45 @@ function ImpactRow({ icon, label, text }: { icon: React.ReactNode; label: string
 }
 
 /* ---- Commands ---- */
+const RITUAL_INTRO = `A cura AXIO exige que sua mente lógica se cale para que seu corpo aprenda. Siga este ritual antes de cada comando para induzir o estado de transe e alta sugestão:
+
+1. Feche os olhos e, mesmo de olhos fechados, direcione seu olhar para o topo da cabeça (olhe para cima internamente, em direção à testa).
+2. Faça 5 respirações profundas: inspire pelo nariz e solte pela boca suavemente.
+3. Na 5ª vez que soltar o ar, esvazie os pulmões completamente e segure sem ar pelo máximo de tempo que conseguir, sentindo o silêncio absoluto do seu corpo.
+4. Quando não aguentar mais e precisar respirar, deixe o ar entrar naturalmente, sinta a calma profunda e inicie a fala do comando abaixo.
+
+✨ Instrução de Ouro: Se conseguir lembrar de cabeça, fale o comando de olhos fechados. Repita cada comando 3 vezes seguidas com convicção, conversando diretamente com seu corpo e sua mente.`;
+
 function CommandsContent({ commands }: { commands: { manha?: QuantumCommand; dia?: QuantumCommand; noite?: QuantumCommand } }) {
   const periods = [
-    { key: "manha", label: "☀️ Manhã", cmd: commands.manha },
-    { key: "dia", label: "🌤️ Dia", cmd: commands.dia },
-    { key: "noite", label: "🌙 Noite", cmd: commands.noite },
+    { key: "manha", label: "🌅 Manhã — Identidade e Segurança", cmd: commands.manha },
+    { key: "dia", label: "☀️ Tarde — Merecimento e Ação", cmd: commands.dia },
+    { key: "noite", label: "🌙 Noite — Limpeza e Entrega", cmd: commands.noite },
   ];
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
+      {/* Ritual Intro */}
+      <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
+        <p className="text-xs font-semibold text-primary mb-2 flex items-center gap-1.5">
+          <Sparkles className="h-3.5 w-3.5" />
+          Protocolo de Preparo Fisiológico
+        </p>
+        <p className="text-[11px] text-muted-foreground leading-relaxed whitespace-pre-line">
+          {RITUAL_INTRO}
+        </p>
+      </div>
+
+      {/* Commands */}
       {periods.map((p) => (
-        <div key={p.key} className="bg-secondary/30 border border-border rounded-lg p-2.5">
-          <p className="text-xs font-semibold text-foreground mb-1">{p.label}</p>
+        <div key={p.key} className="bg-secondary/30 border border-border rounded-lg p-3">
+          <p className="text-xs font-semibold text-foreground mb-1.5">{p.label}</p>
           {p.cmd ? (
             <p className="text-xs text-muted-foreground leading-relaxed">{p.cmd.command_text}</p>
           ) : (
             <p className="text-[11px] text-muted-foreground italic">Comando será gerado após o diagnóstico.</p>
+          )}
+          {p.cmd && (
+            <p className="text-[10px] text-primary/70 mt-2 italic">Repita 3 vezes com convicção.</p>
           )}
         </div>
       ))}
