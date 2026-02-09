@@ -55,12 +55,12 @@ const FAQ = () => {
 
       <div className="container mx-auto px-4 py-10 max-w-2xl">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 mb-4">
-            <HelpCircle className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Perguntas Frequentes</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2.5 mb-5">
+            <HelpCircle className="h-5 w-5 text-primary" />
+            <span className="text-base font-bold text-primary">Perguntas Frequentes</span>
           </div>
-          <h1 className="text-3xl font-bold text-foreground">FAQ do Método A.X.I.O.</h1>
-          <p className="text-muted-foreground mt-2">Tudo o que você precisa saber sobre o sistema</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground">FAQ do Método A.X.I.O.</h1>
+          <p className="text-base text-foreground/70 mt-3 max-w-lg mx-auto leading-relaxed">Tudo o que você precisa saber sobre o sistema</p>
         </div>
 
         <Accordion type="single" collapsible className="space-y-3">
@@ -70,10 +70,10 @@ const FAQ = () => {
               value={`item-${i}`}
               className="bg-card border border-border rounded-xl px-5 data-[state=open]:border-primary/30"
             >
-              <AccordionTrigger className="text-left text-foreground hover:no-underline text-sm font-semibold">
+              <AccordionTrigger className="text-left text-foreground hover:no-underline text-base font-semibold leading-snug">
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground text-sm leading-relaxed">
+              <AccordionContent className="text-foreground/75 text-sm leading-relaxed pt-1">
                 {item.a}
               </AccordionContent>
             </AccordionItem>
@@ -82,7 +82,7 @@ const FAQ = () => {
 
         {/* Support CTA */}
         <div className="mt-12 text-center">
-          <p className="text-muted-foreground text-sm mb-4">Não encontrou o que procurava?</p>
+          <p className="text-foreground/60 text-base mb-4">Não encontrou o que procurava?</p>
           <Button variant="cyanOutline" size="lg" onClick={handleSupport} className="gap-2">
             <MessageCircle className="h-5 w-5" />
             Falar com Suporte Humano
