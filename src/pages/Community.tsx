@@ -207,6 +207,52 @@ const Community = () => {
             </div>
           )}
 
+          {/* Inspiração Quântica */}
+          <div className="mb-8">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-primary" />
+              Inspiração Quântica
+            </h2>
+            <div className="bg-gradient-to-br from-primary/10 via-card to-card border border-primary/20 rounded-xl p-5 space-y-3">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg font-bold text-primary">
+                  JD
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-foreground">Dr. Joe Dispenza</h3>
+                  <span className="text-[11px] text-muted-foreground">Neurocientista &amp; Autor</span>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Em 1986, Joe Dispenza foi atropelado por um carro durante uma competição de triatlo. O acidente
+                destruiu 6 vértebras da sua coluna. Os médicos foram unânimes: ele precisaria de uma cirurgia com
+                implante de hastes metálicas — e mesmo assim, provavelmente nunca mais andaria normalmente.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Joe recusou a cirurgia. Em vez disso, decidiu usar exclusivamente o poder da sua mente para se curar.
+                Durante 9 semanas e meia, deitado de bruços, ele dedicou horas por dia a um único exercício:
+                <span className="text-primary font-medium"> reconstruir mentalmente sua coluna, vértebra por vértebra,
+                enviando comandos claros e repetitivos ao seu corpo.</span>
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Ele visualizava cada vértebra se realinhando, o tecido se regenerando, os nervos se reconectando.
+                Quando pensamentos de medo ou dúvida surgiam, ele voltava ao comando mental. Seu mantra era simples:
+                <span className="italic text-foreground"> &quot;Se eu consigo pensar nisso, meu corpo consegue executar.&quot;</span>
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Em 10 semanas, Joe estava de pé. Em 12 semanas, voltou a treinar. Sem cirurgia. Sem hastes metálicas.
+                Apenas o poder da mente sobre a matéria. Hoje, ele ensina milhões de pessoas ao redor do mundo a usar
+                a mesma técnica de reprogramação mental para curar doenças, superar traumas e transformar suas vidas.
+              </p>
+              <div className="bg-primary/5 border border-primary/15 rounded-lg p-3 mt-2">
+                <p className="text-xs text-primary italic text-center">
+                  &quot;Seu corpo não sabe a diferença entre uma experiência real e uma que você cria mentalmente com a mesma intensidade emocional.&quot;
+                  <span className="block text-[10px] text-primary/70 mt-1">— Dr. Joe Dispenza</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Posts */}
           <div className="space-y-4">
             {filteredPosts.map((post) => (
