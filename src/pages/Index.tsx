@@ -138,31 +138,48 @@ const Index = () => {
             </div>
 
             <div className="flex flex-col gap-3 flex-1">
-              <div className="flex-1">
-                <AreaCard
-                  title="Comunidade"
-                  description="Relatos de transformação"
-                  icon={<MessageSquare className="h-5 w-5" />}
-                  iconColor="bg-primary/20 text-primary"
-                  isPremium={false}
-                  isLocked={false}
-                  badge="Gratuito"
-                  onClick={() => navigate("/community")}
-                  compact
-                />
+              {/* Comunidade Card */}
+              <div
+                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-4 flex items-center gap-3"
+                onClick={() => navigate("/community")}
+              >
+                <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-10 w-10 shrink-0">
+                  <MessageSquare className="h-5 w-5" />
+                </div>
+                <div className="relative z-10">
+                  <h3 className="font-bold text-foreground text-lg leading-tight">Comunidade</h3>
+                  <p className="text-xs text-muted-foreground">Relatos de transformação</p>
+                </div>
+                <div className="absolute right-3 top-3 rounded-full bg-primary px-2 py-0.5">
+                  <span className="text-[10px] font-semibold text-primary-foreground">Gratuito</span>
+                </div>
+                {/* Floating chat bubbles */}
+                <span className="absolute text-lg opacity-20 animate-bounce" style={{ right: '15%', bottom: '10%', animationDuration: '3s', animationDelay: '0s' }}>💬</span>
+                <span className="absolute text-sm opacity-15 animate-bounce" style={{ right: '35%', bottom: '5%', animationDuration: '4s', animationDelay: '1s' }}>🗨️</span>
+                <span className="absolute text-base opacity-20 animate-bounce" style={{ right: '55%', bottom: '15%', animationDuration: '3.5s', animationDelay: '0.5s' }}>💬</span>
+                <span className="absolute text-xs opacity-10 animate-bounce" style={{ right: '25%', bottom: '20%', animationDuration: '5s', animationDelay: '2s' }}>🗨️</span>
               </div>
-              <div className="flex-1">
-                <AreaCard
-                  title="Meditação"
-                  description="5 etapas da reprogramação"
-                  icon={<Moon className="h-5 w-5" />}
-                  iconColor="bg-primary/20 text-primary"
-                  isPremium={false}
-                  isLocked={false}
-                  badge="Método"
-                  onClick={() => navigate("/meditation-structure")}
-                  compact
-                />
+
+              {/* Meditação Card */}
+              <div
+                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-4 flex items-center gap-3"
+                onClick={() => navigate("/meditation-structure")}
+              >
+                <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-10 w-10 shrink-0">
+                  <Moon className="h-5 w-5" />
+                </div>
+                <div className="relative z-10">
+                  <h3 className="font-bold text-foreground text-lg leading-tight">Meditação</h3>
+                  <p className="text-xs text-muted-foreground">5 etapas da reprogramação</p>
+                </div>
+                <div className="absolute right-3 top-3 rounded-full bg-primary px-2 py-0.5">
+                  <span className="text-[10px] font-semibold text-primary-foreground">Método</span>
+                </div>
+                {/* Floating lotus & monks */}
+                <span className="absolute text-lg opacity-20 animate-bounce" style={{ right: '15%', bottom: '10%', animationDuration: '3s', animationDelay: '0s' }}>🪷</span>
+                <span className="absolute text-sm opacity-15 animate-bounce" style={{ right: '40%', bottom: '5%', animationDuration: '4.5s', animationDelay: '1.5s' }}>🧘</span>
+                <span className="absolute text-base opacity-20 animate-bounce" style={{ right: '60%', bottom: '15%', animationDuration: '3.5s', animationDelay: '0.5s' }}>🪷</span>
+                <span className="absolute text-xs opacity-10 animate-bounce" style={{ right: '25%', bottom: '20%', animationDuration: '5s', animationDelay: '2s' }}>🧘</span>
               </div>
             </div>
           </div>
