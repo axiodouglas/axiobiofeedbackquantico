@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Send, Sparkles } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import UserMenu from "@/components/UserMenu";
@@ -8,6 +8,89 @@ import UserMenu from "@/components/UserMenu";
 type Msg = { role: "user" | "assistant"; content: string };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/oracle-chat`;
+
+/* Starfield canvas */
+const Starfield = ({ active }: { active: boolean }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const activeRef = useRef(active);
+  activeRef.current = active;
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d")!;
+    let raf: number;
+
+    const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars = Array.from({ length: 180 }, () => ({
+      x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + 0.3,
+      speed: Math.random() * 0.0003 + 0.0001, flicker: Math.random() * Math.PI * 2,
+    }));
+
+    const planets = [
+      { x: 0.15, y: 0.3, r: 18, color: "270,50%,45%", orbitR: 0.08, angle: 0, orbitSpeed: 0.0004 },
+      { x: 0.8, y: 0.25, r: 12, color: "220,60%,50%", orbitR: 0.06, angle: 2, orbitSpeed: 0.0006 },
+      { x: 0.6, y: 0.7, r: 10, color: "175,70%,50%", orbitR: 0.05, angle: 4, orbitSpeed: 0.0005 },
+    ];
+
+    const draw = (t: number) => {
+      const w = canvas.width, h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+      const speedMul = activeRef.current ? 4 : 1;
+
+      // stars
+      stars.forEach(s => {
+        s.flicker += 0.02 * speedMul;
+        const alpha = 0.4 + Math.sin(s.flicker) * 0.3;
+        ctx.beginPath();
+        ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(200,80%,90%,${alpha})`;
+        ctx.fill();
+      });
+
+      // planets
+      planets.forEach(p => {
+        p.angle += p.orbitSpeed * speedMul;
+        const cx = (p.x + Math.cos(p.angle) * p.orbitR) * w;
+        const cy = (p.y + Math.sin(p.angle) * p.orbitR) * h;
+        const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, p.r * 1.8);
+        grd.addColorStop(0, `hsla(${p.color},0.8)`);
+        grd.addColorStop(0.6, `hsla(${p.color},0.25)`);
+        grd.addColorStop(1, `hsla(${p.color},0)`);
+        ctx.beginPath();
+        ctx.arc(cx, cy, p.r * 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cx, cy, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${p.color},0.9)`;
+        ctx.fill();
+      });
+
+      // supernova center glow when active
+      if (activeRef.current) {
+        const pulse = Math.sin(t * 0.004) * 0.3 + 0.7;
+        const g = ctx.createRadialGradient(w / 2, h * 0.32, 0, w / 2, h * 0.32, 120 * pulse);
+        g.addColorStop(0, `hsla(175,70%,60%,${0.4 * pulse})`);
+        g.addColorStop(0.4, `hsla(220,60%,50%,${0.15 * pulse})`);
+        g.addColorStop(1, "hsla(270,50%,40%,0)");
+        ctx.beginPath();
+        ctx.arc(w / 2, h * 0.32, 120 * pulse, 0, Math.PI * 2);
+        ctx.fillStyle = g;
+        ctx.fill();
+      }
+
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+};
 
 const Oracle = () => {
   const navigate = useNavigate();
@@ -96,9 +179,18 @@ const Oracle = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background noise flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
+      {/* Deep-space background */}
+      <div className="absolute inset-0 z-0">
+        {/* Nebula layers */}
+        <div className="absolute inset-0 oracle-nebula oracle-nebula--purple" />
+        <div className="absolute inset-0 oracle-nebula oracle-nebula--blue" />
+        <div className="absolute inset-0 oracle-nebula oracle-nebula--cyan" />
+        <Starfield active={isLoading} />
+      </div>
+
       {/* Nav */}
-      <nav className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-md py-3">
+      <nav className="sticky top-0 z-20 border-b border-border/40 bg-background/40 backdrop-blur-md py-3">
         <div className="container mx-auto px-4 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="gap-1 text-muted-foreground">
             <ArrowLeft className="h-4 w-4" /> Voltar
@@ -108,28 +200,15 @@ const Oracle = () => {
         </div>
       </nav>
 
-      {/* Portal + Chat */}
-      <div className="flex-1 flex flex-col items-center overflow-hidden">
-        {/* Portal visual */}
-        <div className="relative w-full flex justify-center py-8 shrink-0">
-          <div className={`oracle-portal ${isLoading ? "oracle-portal--active" : ""}`}>
-            <div className="oracle-ring oracle-ring--outer" />
-            <div className="oracle-ring oracle-ring--mid" />
-            <div className="oracle-ring oracle-ring--inner" />
-            <div className="oracle-core">
-              <Sparkles className="h-8 w-8 text-white/90" />
-            </div>
-            {/* particles */}
-            {Array.from({ length: 8 }).map((_, i) => (
-              <span key={i} className="oracle-particle" style={{ "--i": i } as React.CSSProperties} />
-            ))}
-          </div>
-        </div>
+      {/* Chat area */}
+      <div className="flex-1 flex flex-col items-center overflow-hidden relative z-10">
+        {/* Supernova center indicator */}
+        <div className={`oracle-supernova ${isLoading ? "oracle-supernova--active" : ""}`} />
 
         {/* Messages */}
-        <div ref={scrollRef} className="flex-1 w-full max-w-2xl mx-auto overflow-y-auto px-4 pb-4 space-y-4">
+        <div ref={scrollRef} className="flex-1 w-full max-w-2xl mx-auto overflow-y-auto px-4 pb-4 pt-6 space-y-4">
           {messages.length === 0 && (
-            <p className="text-center text-muted-foreground text-sm mt-6 italic">
+            <p className="text-center text-muted-foreground text-sm mt-12 italic">
               O Oráculo aguarda sua pergunta...
             </p>
           )}
@@ -138,8 +217,8 @@ const Oracle = () => {
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
                   m.role === "user"
-                    ? "bg-primary/20 text-foreground"
-                    : "glass border border-purple-500/20 text-foreground"
+                    ? "bg-primary/20 text-foreground backdrop-blur-sm"
+                    : "bg-card/60 backdrop-blur-md border border-primary/20 text-foreground"
                 }`}
               >
                 {m.content}
@@ -148,14 +227,14 @@ const Oracle = () => {
           ))}
           {isLoading && messages[messages.length - 1]?.role === "user" && (
             <div className="flex justify-start">
-              <div className="glass border border-purple-500/20 rounded-2xl px-4 py-3 text-sm text-muted-foreground animate-pulse">
-                O Oráculo está canalizando...
+              <div className="bg-card/60 backdrop-blur-md border border-primary/20 rounded-2xl px-4 py-3 text-sm text-muted-foreground animate-pulse">
+                O Oráculo está processando...
               </div>
             </div>
           )}
         </div>
 
-        {/* Input */}
+        {/* Input — glassmorphism */}
         <div className="w-full max-w-2xl mx-auto px-4 pb-6 pt-2 shrink-0">
           <div className="flex gap-2 items-end">
             <Textarea
@@ -165,7 +244,7 @@ const Oracle = () => {
                 if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
               }}
               placeholder="Sussurre sua dúvida ao Oráculo..."
-              className="min-h-[48px] max-h-[120px] resize-none bg-card border-border focus:border-purple-500/50 text-sm"
+              className="min-h-[48px] max-h-[120px] resize-none bg-card/40 backdrop-blur-md border-border/50 focus:border-primary/50 text-sm placeholder:text-muted-foreground/60"
               rows={1}
             />
             <Button
@@ -173,7 +252,7 @@ const Oracle = () => {
               size="icon"
               onClick={send}
               disabled={isLoading || !input.trim()}
-              className="shrink-0 h-12 w-12"
+              className="shrink-0 h-12 w-12 animate-glow"
             >
               <Send className="h-5 w-5" />
             </Button>
