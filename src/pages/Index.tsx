@@ -150,9 +150,6 @@ const Index = () => {
                   <h3 className="font-bold text-foreground text-lg leading-tight">Comunidade</h3>
                   <p className="text-xs text-muted-foreground">Relatos de transformação</p>
                 </div>
-                <div className="absolute right-3 top-3 rounded-full bg-primary px-2 py-0.5">
-                  <span className="text-[10px] font-semibold text-primary-foreground">Gratuito</span>
-                </div>
                 {/* Floating chat bubbles */}
                 <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '10%', bottom: '5%', animationDuration: '3s' }}>💬</span>
                 <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '30%', bottom: '15%', animationDuration: '4s', animationDelay: '1s' }}>🗨️</span>
@@ -175,9 +172,6 @@ const Index = () => {
                 <div className="relative z-10">
                   <h3 className="font-bold text-foreground text-lg leading-tight">Estrutura da Meditação A.X.I.O.</h3>
                   <p className="text-xs text-muted-foreground">5 etapas da reprogramação</p>
-                </div>
-                <div className="absolute right-3 top-3 rounded-full bg-primary px-2 py-0.5">
-                  <span className="text-[10px] font-semibold text-primary-foreground">Método</span>
                 </div>
                 {/* Floating lotus & monks */}
                 <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '10%', bottom: '5%', animationDuration: '3s' }}>🪷</span>
