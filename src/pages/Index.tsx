@@ -142,6 +142,17 @@ const Index = () => {
             badge="Gratuito"
             onClick={() => navigate("/community")}
           />
+          {/* Estrutura da Meditação Card */}
+          <AreaCard
+            title="Estrutura da Meditação A.X.I.O."
+            description="Conheça as 5 etapas da reprogramação quântica e o poder da sua própria voz"
+            icon={<Moon className="h-7 w-7" />}
+            iconColor="bg-primary/20 text-primary"
+            isPremium={false}
+            isLocked={false}
+            badge="Método"
+            onClick={() => navigate("/meditation-structure")}
+          />
         </div>
 
         {/* Como Funciona - Inline */}
@@ -199,19 +210,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Card Estrutura da Meditação - Clickable like Community */}
-        <div className="max-w-3xl mx-auto mb-12">
-          <AreaCard
-            title="Estrutura da Meditação A.X.I.O."
-            description="Conheça as 5 etapas da reprogramação quântica e o poder da sua própria voz"
-            icon={<Moon className="h-7 w-7" />}
-            iconColor="bg-primary/20 text-primary"
-            isPremium={false}
-            isLocked={false}
-            badge="Método"
-            onClick={() => navigate("/meditation-structure")}
-          />
-        </div>
 
       </div>
 
