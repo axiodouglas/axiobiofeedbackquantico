@@ -37,7 +37,6 @@ const Starfield = ({ active }: { active: boolean }) => {
       { x: 0.6, y: 0.7, r: 10, color: "175,70%,50%", orbitR: 0.05, angle: 4, orbitSpeed: 0.0005 },
     ];
 
-    // Giant moon
     const moon = { x: 0.5, y: 0.35, baseR: 60, angle: 0, orbitR: 0.12, orbitSpeed: 0.00015 };
 
     const draw = (t: number) => {
@@ -45,7 +44,6 @@ const Starfield = ({ active }: { active: boolean }) => {
       ctx.clearRect(0, 0, w, h);
       const speedMul = activeRef.current ? 4 : 1;
 
-      // stars
       stars.forEach(s => {
         s.flicker += 0.02 * speedMul;
         const alpha = 0.4 + Math.sin(s.flicker) * 0.3;
@@ -55,7 +53,6 @@ const Starfield = ({ active }: { active: boolean }) => {
         ctx.fill();
       });
 
-      // planets
       planets.forEach(p => {
         p.angle += p.orbitSpeed * speedMul;
         const cx = (p.x + Math.cos(p.angle) * p.orbitR) * w;
@@ -74,13 +71,11 @@ const Starfield = ({ active }: { active: boolean }) => {
         ctx.fill();
       });
 
-      // Draw giant moon
       moon.angle += moon.orbitSpeed * speedMul;
       const mx = (moon.x + Math.cos(moon.angle) * moon.orbitR) * w;
       const my = (moon.y + Math.sin(moon.angle) * moon.orbitR * 0.4) * h;
       const mr = moon.baseR + Math.sin(t * 0.001) * 4;
 
-      // Moon glow
       const moonGlow = ctx.createRadialGradient(mx, my, mr * 0.5, mx, my, mr * 2.5);
       moonGlow.addColorStop(0, "hsla(210,30%,85%,0.15)");
       moonGlow.addColorStop(0.5, "hsla(220,40%,70%,0.06)");
@@ -90,7 +85,6 @@ const Starfield = ({ active }: { active: boolean }) => {
       ctx.fillStyle = moonGlow;
       ctx.fill();
 
-      // Moon body
       const moonBody = ctx.createRadialGradient(mx - mr * 0.3, my - mr * 0.3, 0, mx, my, mr);
       moonBody.addColorStop(0, "hsla(210,20%,92%,0.95)");
       moonBody.addColorStop(0.6, "hsla(220,15%,75%,0.85)");
@@ -100,7 +94,6 @@ const Starfield = ({ active }: { active: boolean }) => {
       ctx.fillStyle = moonBody;
       ctx.fill();
 
-      // Moon craters
       const craters = [
         { ox: -0.2, oy: -0.15, r: 0.12 },
         { ox: 0.25, oy: 0.1, r: 0.08 },
@@ -113,7 +106,6 @@ const Starfield = ({ active }: { active: boolean }) => {
         ctx.fill();
       });
 
-      // supernova center glow when active
       if (activeRef.current) {
         const pulse = Math.sin(t * 0.004) * 0.3 + 0.7;
         const g = ctx.createRadialGradient(w / 2, h * 0.32, 0, w / 2, h * 0.32, 120 * pulse);
@@ -223,13 +215,10 @@ const Oracle = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
-      {/* Deep-space background */}
       <div className="absolute inset-0 z-0">
-        {/* Background image */}
         <img src={oracleBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-50" />
       </div>
 
-      {/* Nav */}
       <nav className="sticky top-0 z-20 border-b border-border/40 bg-background/40 backdrop-blur-md py-3">
         <div className="container mx-auto px-4 flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="gap-1 text-muted-foreground">
@@ -240,18 +229,15 @@ const Oracle = () => {
         </div>
       </nav>
 
-      {/* Chat area */}
       <div className="flex-1 flex flex-col items-center overflow-hidden relative z-10">
-        {/* Supernova center indicator */}
         <div className={`oracle-supernova ${isLoading ? "oracle-supernova--active" : ""}`} />
 
-        {/* Messages */}
         <div ref={scrollRef} className="flex-1 w-full max-w-2xl mx-auto overflow-y-auto px-4 pb-4 pt-6 space-y-4 flex flex-col">
           {messages.length === 0 && (
             <div className="text-center mt-auto mb-4 space-y-2">
-              <p className="text-foreground font-semibold text-base">Qual sua dúvida sobre o A.X.I.O.?</p>
+              <p className="text-foreground font-semibold text-base">Tire suas dúvidas sobre crenças e comportamento</p>
               <p className="text-muted-foreground text-xs max-w-sm mx-auto leading-relaxed">
-                Posso te ajudar com: Biofeedback vocal, os 4 pilares (Mãe, Pai, Traumas, Relacionamentos), PNL, Neurociência e Comandos Quânticos.
+                Sou especialista em crenças limitantes, somatização, PNL e neurociência comportamental. Pergunte sobre como suas crenças afetam seu corpo, seus relacionamentos e sua vida. Para dúvidas sobre o funcionamento do app, consulte o FAQ.
               </p>
             </div>
           )}
@@ -277,7 +263,6 @@ const Oracle = () => {
           )}
         </div>
 
-        {/* Input — glassmorphism */}
         <div className="w-full max-w-2xl mx-auto px-4 pb-6 pt-2 shrink-0">
           <div className="flex gap-2 items-end">
             <Textarea
@@ -286,7 +271,7 @@ const Oracle = () => {
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
               }}
-              placeholder="Digite sua dúvida sobre o A.X.I.O..."
+              placeholder="Pergunte sobre crenças, somatização, PNL..."
               className="min-h-[48px] max-h-[120px] resize-none bg-card/40 backdrop-blur-md border-border/50 focus:border-primary/50 text-sm placeholder:text-muted-foreground/60"
               rows={1}
             />

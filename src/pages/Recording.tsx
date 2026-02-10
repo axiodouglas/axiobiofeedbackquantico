@@ -1,33 +1,44 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Mic, Square, ArrowLeft } from "lucide-react";
+import { Mic, Square, ArrowLeft, Play, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useAxioAnalysis } from "@/hooks/use-axio-analysis";
+import { useAuth } from "@/hooks/use-auth";
+import { useAreaLock } from "@/hooks/use-area-lock";
 
 const MAX_RECORDING_TIME = 120;
+
+const areaNames: Record<string, string> = {
+  pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamento: "Relacionamentos",
+};
 
 const Recording = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const area = searchParams.get("area") || "pai";
 
+  const { user } = useAuth();
+  const { lockedAreas, loading: lockLoading } = useAreaLock(user?.id);
+
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [confirmed, setConfirmed] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const isRecordingRef = useRef(false);
 
-  const { analyzeAudio, isAnalyzing } = useAxioAnalysis();
+  const { isAnalyzing } = useAxioAnalysis();
 
-  const areaNames: Record<string, string> = {
-    pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamento: "Relacionamentos",
-  };
+  const audioUrl = useMemo(() => {
+    if (!audioBlob) return null;
+    return URL.createObjectURL(audioBlob);
+  }, [audioBlob]);
 
   useEffect(() => {
     return () => {
@@ -35,14 +46,63 @@ const Recording = () => {
     };
   }, []);
 
+  // Check area lock
+  const lock = lockedAreas[area];
+  const isAreaLocked = lock?.locked;
+
+  if (!lockLoading && isAreaLocked) {
+    return (
+      <div className="min-h-screen bg-background noise flex flex-col">
+        <header className="border-b border-border bg-card/50 py-4">
+          <div className="container mx-auto px-4">
+            <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Voltar
+            </Button>
+          </div>
+        </header>
+        <div className="flex-1 container mx-auto px-4 py-12 flex flex-col items-center justify-center">
+          <div className="max-w-md w-full text-center space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-destructive/30 bg-destructive/10 px-4 py-2">
+              <AlertTriangle className="h-4 w-4 text-destructive" />
+              <span className="text-sm font-medium text-destructive">Diagnóstico já realizado</span>
+            </div>
+            <h1 className="text-2xl font-bold text-foreground">Pilar {areaNames[area]} em protocolo</h1>
+            <div className="bg-card border border-border rounded-xl p-6 text-left space-y-3">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Você já gravou o diagnóstico deste pilar. Para que a reprogramação funcione, é essencial seguir o protocolo:
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-2">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary font-bold">1.</span>
+                  Pratique os <strong className="text-foreground">comandos quânticos</strong> diariamente (manhã, tarde e noite)
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary font-bold">2.</span>
+                  Ouça sua <strong className="text-foreground">meditação gravada</strong> todas as noites ao dormir
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary font-bold">3.</span>
+                  Aguarde pelo menos <strong className="text-primary">{lock.daysRemaining} dia(s)</strong> antes de refazer
+                </li>
+              </ul>
+              <p className="text-xs text-muted-foreground italic">
+                A repetição é o que cria novos caminhos neurais. Sem o protocolo, o diagnóstico perde eficácia.
+              </p>
+            </div>
+            <Button variant="cyan" onClick={() => navigate("/")}>
+              Voltar para o Início
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          sampleRate: 44100,
-        },
+        audio: { echoCancellation: true, noiseSuppression: true, sampleRate: 44100 },
       });
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
@@ -62,18 +122,15 @@ const Recording = () => {
       setIsRecording(true);
       isRecordingRef.current = true;
       setRecordingTime(0);
+      setConfirmed(false);
 
       timerRef.current = setInterval(() => {
         setRecordingTime((prev) => {
           if (prev >= MAX_RECORDING_TIME - 1) {
-            // Use ref-based stop to avoid stale closure
             if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
               mediaRecorderRef.current.stop();
               isRecordingRef.current = false;
-              if (timerRef.current) {
-                clearInterval(timerRef.current);
-                timerRef.current = null;
-              }
+              if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
             }
             setIsRecording(false);
             return MAX_RECORDING_TIME;
@@ -92,16 +149,12 @@ const Recording = () => {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
       isRecordingRef.current = false;
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
+      if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
     }
   };
 
   const handleSubmit = async () => {
     if (!audioBlob) return;
-
     if (recordingTime < 10) {
       alert("Grave pelo menos 10 segundos para um diagnóstico válido.");
       return;
@@ -119,9 +172,7 @@ const Recording = () => {
     reader.onloadend = () => {
       try {
         const base64 = reader.result as string;
-        if (!base64 || base64.length < 100) {
-          throw new Error("Audio data too small");
-        }
+        if (!base64 || base64.length < 100) throw new Error("Audio data too small");
         sessionStorage.setItem("axio_audio", base64);
         sessionStorage.setItem("axio_area", area);
         setUploadProgress(100);
@@ -186,43 +237,78 @@ const Recording = () => {
                 className="w-full"
               >
                 {isRecording ? (
-                  <>
-                    <Square className="h-5 w-5" />
-                    Parar Gravação
-                  </>
+                  <><Square className="h-5 w-5" /> Parar Gravação</>
                 ) : (
-                  <>
-                    <Mic className="h-5 w-5" />
-                    Iniciar Gravação
-                  </>
+                  <><Mic className="h-5 w-5" /> Iniciar Gravação</>
                 )}
               </Button>
             ) : (
               <div className="space-y-4">
                 <p className="text-sm text-primary font-medium">✓ Áudio gravado com sucesso!</p>
 
-                {isUploading || isAnalyzing ? (
+                {/* Audio preview */}
+                {audioUrl && (
+                  <div className="bg-secondary/30 border border-border rounded-lg p-3">
+                    <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1.5">
+                      <Play className="h-3.5 w-3.5" />
+                      Ouça seu áudio antes de enviar:
+                    </p>
+                    <audio src={audioUrl} controls className="w-full h-10" />
+                  </div>
+                )}
+
+                {!confirmed && !isUploading && !isAnalyzing && (
+                  <>
+                    {/* 7-day warning */}
+                    <div className="bg-destructive/5 border border-destructive/20 rounded-lg p-3 text-left">
+                      <p className="text-xs text-destructive font-semibold mb-1 flex items-center gap-1.5">
+                        <AlertTriangle className="h-3.5 w-3.5" />
+                        Atenção
+                      </p>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        Ao gerar o relatório, você não poderá gravar outro diagnóstico para o pilar <strong className="text-foreground">{areaNames[area]}</strong> durante <strong className="text-primary">7 dias</strong>. 
+                        Nesse período, você deverá praticar os comandos quânticos e ouvir a meditação diariamente para que a reprogramação funcione.
+                      </p>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => {
+                          setAudioBlob(null);
+                          setRecordingTime(0);
+                        }}
+                      >
+                        Regravar
+                      </Button>
+                      <Button variant="cyan" className="flex-1" onClick={() => setConfirmed(true)}>
+                        Confirmar e Gerar Relatório
+                      </Button>
+                    </div>
+                  </>
+                )}
+
+                {confirmed && !isUploading && !isAnalyzing && (
+                  <div className="space-y-3">
+                    <p className="text-xs text-muted-foreground">
+                      Tem certeza? Após gerar, o pilar ficará bloqueado por 7 dias.
+                    </p>
+                    <div className="flex gap-3">
+                      <Button variant="outline" className="flex-1" onClick={() => setConfirmed(false)}>
+                        Voltar
+                      </Button>
+                      <Button variant="cyan" className="flex-1" onClick={handleSubmit}>
+                        Sim, Gerar Relatório
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
+                {(isUploading || isAnalyzing) && (
                   <div className="space-y-2">
                     <Progress value={uploadProgress} className="h-2" />
-                    <p className="text-sm text-muted-foreground">
-                      Enviando... {uploadProgress}%
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex gap-4">
-                    <Button
-                      variant="outline"
-                      className="flex-1"
-                      onClick={() => {
-                        setAudioBlob(null);
-                        setRecordingTime(0);
-                      }}
-                    >
-                      Gravar Novamente
-                    </Button>
-                    <Button variant="cyan" className="flex-1" onClick={handleSubmit}>
-                      Enviar Áudio
-                    </Button>
+                    <p className="text-sm text-muted-foreground">Enviando... {uploadProgress}%</p>
                   </div>
                 )}
               </div>

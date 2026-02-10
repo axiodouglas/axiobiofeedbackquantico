@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, UserCheck, Flame, HeartHandshake, Info } from "lucide-react";
+import { ArrowLeft, Heart, UserCheck, Flame, HeartHandshake, Info, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
+import { useAreaLock } from "@/hooks/use-area-lock";
+import { useToast } from "@/hooks/use-toast";
 
 const areas = [
   {
@@ -35,8 +38,20 @@ const areas = [
 
 const AreaSelection = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { lockedAreas } = useAreaLock(user?.id);
+  const { toast } = useToast();
 
   const handleSelect = (area: typeof areas[number]) => {
+    const lock = lockedAreas[area.id];
+    if (lock?.locked) {
+      toast({
+        title: "Diagnóstico já realizado",
+        description: `Você já gravou o pilar "${area.title}". Siga o protocolo: pratique os comandos quânticos e a meditação por ${lock.daysRemaining} dia(s) restante(s) antes de refazer. Isso é essencial para a reprogramação funcionar.`,
+        variant: "destructive",
+      });
+      return;
+    }
     navigate(`/recording?area=${area.id}`);
   };
 
@@ -67,26 +82,41 @@ const AreaSelection = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-4">
-            {areas.map((area) => (
-              <div
-                key={area.id}
-                onClick={() => handleSelect(area)}
-                className="group relative overflow-hidden rounded-xl border-2 border-border bg-card cursor-pointer hover:border-primary/60 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.2)] p-6 transition-all duration-300"
-              >
-                <div className="flex items-center gap-4">
-                  <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${area.iconColor} transition-transform group-hover:scale-110`}>
-                    {area.icon}
-                  </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-semibold text-foreground">{area.title}</h3>
-                    <p className="text-sm text-muted-foreground">{area.description}</p>
-                    <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
-                      Gratuito
-                    </span>
+            {areas.map((area) => {
+              const lock = lockedAreas[area.id];
+              const isLocked = lock?.locked;
+
+              return (
+                <div
+                  key={area.id}
+                  onClick={() => handleSelect(area)}
+                  className={`group relative overflow-hidden rounded-xl border-2 bg-card cursor-pointer p-6 transition-all duration-300 ${
+                    isLocked
+                      ? "border-border/50 opacity-60"
+                      : "border-border hover:border-primary/60 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.2)]"
+                  }`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${area.iconColor} transition-transform group-hover:scale-110`}>
+                      {isLocked ? <Lock className="h-8 w-8" /> : area.icon}
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-xl font-semibold text-foreground">{area.title}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {isLocked
+                          ? `Protocolo ativo — ${lock.daysRemaining} dia(s) restante(s)`
+                          : area.description}
+                      </p>
+                      {!isLocked && (
+                        <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
+                          Gratuito
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

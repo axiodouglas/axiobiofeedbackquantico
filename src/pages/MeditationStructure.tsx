@@ -128,12 +128,6 @@ const MeditationStructure = () => {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
-          <Button variant="cyan" size="lg" onClick={() => navigate("/recording?area=mae")}>
-            <Mic className="h-5 w-5" />
-            Iniciar Diagnóstico
-          </Button>
-        </div>
       </div>
     </div>
   );

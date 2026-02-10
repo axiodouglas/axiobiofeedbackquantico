@@ -18,44 +18,21 @@ function generateMeditationScript(userName: string, dr: any): string {
   const sentiments = (dr?.predominant_sentiments || []).map((s: any) => s.name).join(", ") || "sentimentos guardados";
   const rootWound = dr?.root_wound || "feridas de origem";
 
-  return `🧘 MEDITAÇÃO A.X.I.O. — ROTEIRO PERSONALIZADO
+  return `${name}, eu me conecto agora com o mais profundo do nosso ser. Eu me conecto com a nossa mente e com o nosso corpo. Corpo, ouça a minha voz: está tudo bem agora. Nós podemos relaxar. Nós podemos soltar as amarras, os bloqueios e tudo o que esteja nos impedindo de acessar o nosso subconsciente. Nós estamos em um lugar seguro agora. ${name}, você pode confiar em mim. Eu te amo, corpo, e estou aqui para te ajudar para que, juntos, possamos viver o mais incrível que a vida tem para nós. Mas, para isso, precisamos juntos baixar todas as nossas defesas.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${name}, eu olho agora para nós e valido cada trauma, cada medo e cada sentimento de ${traumas}. Eu reconheço essa dor sem qualquer julgamento. Eu te dou lugar, eu te vejo. Eu sei que nós sentimos ${sentiments} e está tudo bem. Ao validar o que sentimos, eu permito que a energia que prende esses sentimentos nas nossas células e tecidos comece a se soltar agora. Não precisamos mais lutar contra o que sentimos. Nós apenas reconhecemos e deixamos fluir. ${name}, acalme, está tudo bem, nós podemos ficar calmos agora.
 
-📌 ETAPA 1 — Acesso e Entrega
+Corpo, nós iniciamos agora o desligamento total. Eu ordeno o corte de todos os laços, veículos, pactos e verdades absolutas que nos prendem ao passado. Eu desligo agora a energia de ${sentiments} dos nossos órgãos relacionados a esses sentimentos. Eu quebro toda lealdade invisível a familiares, pessoas ou situações. Eu me desassocio de toda energia que não é nossa. Eu devolvo o que é do outro com amor, mas recupero agora 100% da nossa força vital. ${name}, nós estamos livres agora.
 
-Eu, ${name}, entro em contato agora com o mais profundo do meu ser. Me conecto com a minha mente e com o meu corpo. Corpo, ouça a minha voz: está tudo bem agora. Você pode relaxar. Você pode soltar as amarras, os bloqueios e tudo o que esteja impedindo de acessar o seu subconsciente. Estamos em um lugar seguro agora. Você pode confiar em mim. Eu te amo, corpo, e estou aqui para te ajudar para que, juntos, possamos viver o mais incrível que a vida tem para nós. Mas, para isso, precisamos juntos baixar todas as nossas defesas.
+${name}, onde antes havia ${rootWound}, agora eu instalo segurança, amor próprio e confiança plena. Corpo, sinta essa nova verdade entrando em cada célula. Nós agora ocupamos o nosso lugar com segurança e alegria. Nós somos dignos de prosperidade, saúde e relacionamentos saudáveis. Essa é a nossa nova realidade e ela começa agora.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📌 ETAPA 2 — Validação Somática e Reconhecimento
-
-Com base nos sentimentos do relatório, eu olho para você, corpo, e valido agora cada trauma, cada medo e cada sentimento de ${traumas}. Eu reconheço essa dor sem qualquer julgamento. Eu te dou lugar, eu te vejo. Ao validar o que você sentiu, eu permito que a energia que prende esses sentimentos em suas células e tecidos comece a se soltar agora. Não precisamos mais lutar contra o que sentimos; nós apenas reconhecemos e deixamos fluir.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📌 ETAPA 3 — Desassociação, Corte e Desligamento
-
-Corpo, iniciamos agora o desligamento total. Com base na ciência do comportamento e na somatização, eu ordeno o corte de todos os laços, veículos, pactos e verdades absolutas que nos prendem ao passado. Eu desligo agora a energia de ${sentiments} dos meus órgãos relacionados a esses sentimentos. Eu quebro toda lealdade invisível a familiares, pessoas ou situações. Eu me desassocio de toda energia que não é minha. Eu devolvo o que é do outro com amor, mas recupero agora 100% da minha força vital.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📌 ETAPA 4 — Instalação de Nova Realidade
-
-Onde antes havia ${rootWound}, agora eu instalo segurança, amor próprio e confiança plena. Corpo, sinta essa nova verdade entrando em cada célula. Nós agora ocupamos o nosso lugar com segurança e alegria. Eu sou digno(a) de prosperidade, saúde e relacionamentos saudáveis. Essa é a minha nova realidade e ela começa agora.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📌 ETAPA 5 — Gratidão Sistêmica e Selamento
-
-Agradeço profundamente a cada pessoa, à minha mãe, ao meu pai e a todas as situações que me moldaram, mas que agora deixo ir. Agradeço ao meu corpo, ao meu cérebro, coração, pulmões, fígado, rins, estômago e a cada uma das minhas trilhões de células por sustentarem essa nova consciência. Agora vamos relembrar tudo isso de novo, corpo, porque já é real em nossa vida. Tudo está feito e consumado.`;
+${name}, eu agradeço profundamente a cada pessoa, à nossa mãe, ao nosso pai e a todas as situações que nos moldaram, mas que agora deixamos ir. Agradeço ao nosso corpo, ao nosso cérebro, coração, pulmões, fígado, rins, estômago e a cada uma das nossas trilhões de células por sustentarem essa nova consciência. ${name}, nós vamos relembrar tudo isso de novo, corpo, porque já é real na nossa vida. Tudo está feito e consumado. ${name}, durma em paz agora, nós estamos seguros.`;
 }
 
 export default function MeditationScript({ userName, diagnosisResult, diagnosisId, userId }: MeditationScriptProps) {
   const { toast } = useToast();
   const script = generateMeditationScript(userName, diagnosisResult);
 
-  // Recording state
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -64,7 +41,7 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
   const chunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const MAX_DURATION = 30 * 60; // 30 min
+  const MAX_DURATION = 30 * 60;
 
   useEffect(() => {
     return () => {
@@ -132,7 +109,6 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
     if (!audioUrl) return;
     setSaving(true);
     try {
-      // Save meditation script text to diagnosis_result
       const { data: diag } = await supabase
         .from("diagnoses")
         .select("diagnosis_result")
@@ -167,7 +143,6 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
 
   return (
     <div className="space-y-4">
-      {/* Writing instruction */}
       <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
         <p className="text-xs font-semibold text-primary mb-1 flex items-center gap-1.5">
           <FileText className="h-3.5 w-3.5" />
@@ -178,14 +153,12 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
         </p>
       </div>
 
-      {/* Script */}
       <div className="bg-secondary/30 border border-border rounded-lg p-4 max-h-[400px] overflow-y-auto">
         <p className="text-xs text-muted-foreground leading-relaxed whitespace-pre-line">
           {script}
         </p>
       </div>
 
-      {/* Recording controls */}
       <div className="bg-secondary/20 border border-border rounded-lg p-4 space-y-3">
         <p className="text-xs font-semibold text-foreground flex items-center gap-1.5">
           <Mic className="h-3.5 w-3.5 text-primary" />
