@@ -1687,7 +1687,7 @@ Para modo PREMIUM, adicione:
 {
   "deep_analysis": "Análise técnica profunda conectando a base biológica/gestacional com as travas atuais, usando termos do usuário",
   "quantum_command": "Comando quântico personalizado para reprogramação mental antes de dormir — deve ser específico ao bloqueio encontrado",
-  "meditation_focus": "Foco específico para meditação semanal baseado nos bloqueios — para mentes ansiosas que já tentaram de tudo",
+  "meditation_focus": "Texto completo de meditação seguindo obrigatoriamente a estrutura AXIO em 5 passos CORRIDOS sem títulos e sem numeração, como autodiálogo natural em primeira pessoa do plural: ACESSO (fale com a biologia, acalme órgãos, passe segurança ao subconsciente), VALIDAÇÃO (valide a dor nas raízes usando PNL, somatize nos órgãos afetados), DESASSOCIAÇÃO (corte de vínculos e lealdades cegas, use obrigatoriamente a frase recupero agora toda a minha força vital, devolva o lixo emocional), INSTALAÇÃO (reconstrua a identidade com crenças de merecimento e soberania), GRATIDÃO (agradeça ao corpo, descreva sensação física de alívio, sele com gratidão). Use as palavras do usuário, tom de expert terapeuta, NUNCA use números ou títulos de passos. A pessoa vai gravar com sua voz para ouvir em loop dormindo.",
   "is_premium": true
 }`;
 
