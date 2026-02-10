@@ -6,116 +6,87 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import UserMenu from "@/components/UserMenu";
-import { supabase } from "@/integrations/supabase/client";
 
 const faqItems = [
   {
-    q: "Como o Oráculo sabe o que eu sinto?",
-    a: "Ele utiliza algoritmos de Biofeedback que analisam a frequência da sua voz e as palavras usadas para identificar padrões no seu subconsciente.",
+    q: "Como funciona o diagnóstico por áudio?",
+    a: "Você grava um áudio de pelo menos 10 segundos falando sobre seus sentimentos e desafios no pilar escolhido (Mãe, Pai, Traumas ou Relacionamentos). O sistema analisa sua voz e suas palavras para identificar padrões emocionais inconscientes e gerar um relatório personalizado.",
   },
   {
-    q: "Posso trocar o tema da minha meditação no meio da semana?",
-    a: "O protocolo AXIO recomenda focar em um único tema por 7 dias para garantir a neuroplasticidade, mas você pode iniciar um novo card a qualquer momento se sentir necessidade.",
+    q: "Quais são os 4 Pilares da Crença?",
+    a: "Os pilares são: Mãe (bloqueios na relação materna), Pai (força paterna e ação no mundo), Traumas (eventos externos como bullying, perdas e abusos) e Relacionamentos (projeções dos traumas de Pai e Mãe no parceiro). Cada pilar revela raízes diferentes dos seus padrões inconscientes.",
   },
   {
-    q: "O que significa 'Acesso Premium Liberado'?",
-    a: "Significa que você tem acesso total aos cards de Pai, Traumas e ao Oráculo Quântico de forma ilimitada.",
+    q: "Por que não posso gravar o mesmo pilar duas vezes em 7 dias?",
+    a: "O protocolo A.X.I.O. exige um período mínimo de 7 dias praticando os comandos quânticos e ouvindo a meditação para que a reprogramação neural se consolide. Gravar novamente antes desse período interromperia o processo de neuroplasticidade.",
+  },
+  {
+    q: "O que são os Comandos Quânticos?",
+    a: "São frases de reprogramação personalizadas geradas com base no seu diagnóstico. Divididos em Manhã (identidade), Tarde (merecimento) e Noite (limpeza), devem ser repetidos 3 vezes cada com os olhos fechados e convicção. Eles reescrevem crenças limitantes no subconsciente.",
+  },
+  {
+    q: "Como funciona a meditação personalizada?",
+    a: "O sistema gera um roteiro de meditação baseado no seu diagnóstico. Você deve escrever o roteiro à mão (ativa o córtex pré-frontal), gravar com sua própria voz e ouvir toda noite ao dormir. Sua voz burla o fator crítico da mente, acelerando a reprogramação.",
+  },
+  {
+    q: "Por que preciso gravar a meditação com minha própria voz?",
+    a: "Sua voz possui uma frequência única que seu subconsciente reconhece como autoridade máxima. Ao ouvir seus próprios comandos, você burla as defesas naturais da mente, permitindo que as reprogramações alcancem camadas profundas do inconsciente.",
+  },
+  {
+    q: "Qual a duração mínima e máxima da gravação do diagnóstico?",
+    a: "A gravação deve ter no mínimo 10 segundos e máximo de 2 minutos. Quanto mais detalhado e honesto for o relato, mais preciso será o diagnóstico. Entre 1 e 2 minutos é o ideal.",
+  },
+  {
+    q: "O que fazer se o áudio não gravar ou der erro?",
+    a: "Verifique se você concedeu permissão de microfone ao navegador. Em iPhones, use obrigatoriamente o Safari. Feche outros apps que possam estar usando o microfone e tente novamente.",
   },
   {
     q: "Minhas gravações são sigilosas?",
-    a: "Sim. Seus áudios são processados para gerar o relatório e criptografados para sua total segurança e privacidade.",
+    a: "Sim. Seus áudios são processados para gerar o relatório e tratados com total segurança e privacidade. Nenhum dado é compartilhado com terceiros.",
+  },
+  {
+    q: "O que fazer se meu relatório não foi gerado?",
+    a: "Isso pode acontecer se a gravação for muito curta, com muito ruído ou se houve falha na conexão. Grave novamente em um ambiente silencioso com pelo menos 10 segundos de fala clara.",
+  },
+  {
+    q: "Onde encontro meus relatórios anteriores?",
+    a: "Acesse o menu do seu perfil e toque em 'Meus Relatórios'. Lá você encontra o histórico completo organizado por data, incluindo relatórios, comandos quânticos e meditações.",
   },
   {
     q: "Como redigir a meditação ajuda no meu cérebro?",
-    a: "Ao escrever à mão, você força o Córtex Pré-Frontal a organizar o trauma, o que potencializa a limpeza emocional que ocorrerá durante o sono.",
+    a: "Ao escrever à mão, você ativa o córtex pré-frontal para organizar o trauma, potencializando a limpeza emocional que ocorrerá durante o sono ao ouvir a gravação.",
   },
   {
-    q: "O que fazer se eu não conseguir segurar o ar por muito tempo na introdução?",
-    a: "Respeite o limite do seu corpo. O vácuo pulmonar serve para silenciar a mente, mas o relaxamento é o objetivo principal. Segure apenas o quanto for confortável.",
+    q: "Para que serve o Oráculo?",
+    a: "O Oráculo é um assistente especializado em crenças, somatização e comportamento humano. Você pode tirar dúvidas sobre como crenças limitantes afetam seu corpo e sua vida. Ele não responde sobre o funcionamento do app — para isso, consulte este FAQ.",
+  },
+  {
+    q: "O que é a Comunidade A.X.I.O.?",
+    a: "É um espaço para ler e compartilhar relatos de transformação com outros usuários. Você pode encontrar inspiração nas histórias de superação e conquistas de quem já passou pelo processo.",
   },
   {
     q: "Posso ouvir a meditação de outra pessoa?",
     a: "Não recomendamos. A voz do próprio usuário é a chave para burlar o fator crítico da mente. Ouvir outra voz não terá o mesmo efeito de reprogramação.",
   },
   {
-    q: "Como gravar o áudio para o diagnóstico dos pilares?",
-    a: "Acesse o card do pilar desejado (Mãe, Pai, Traumas ou Relacionamentos), toque no botão de gravação e fale livremente sobre o tema por pelo menos 1 minuto. O sistema analisa sua voz automaticamente.",
-  },
-  {
-    q: "Qual a duração mínima e máxima da gravação?",
-    a: "A gravação deve ter no mínimo 1 minuto para que o algoritmo consiga mapear os padrões. Não há limite máximo, mas entre 2 e 5 minutos é o ideal.",
-  },
-  {
-    q: "O que fazer se o áudio não gravar ou der erro?",
-    a: "Verifique se você concedeu permissão de microfone ao app no navegador. Tente recarregar a página e gravar novamente. Em celulares, feche outros apps que possam estar usando o microfone.",
-  },
-  {
-    q: "O áudio ficou com ruído, posso regravar?",
-    a: "Sim. Basta iniciar uma nova gravação no mesmo pilar. O sistema processará o áudio mais recente. Procure um ambiente silencioso para melhores resultados.",
-  },
-  {
-    q: "Por que meu relatório não foi gerado?",
-    a: "Isso pode acontecer se a gravação for muito curta, se houver muito ruído no áudio ou se houve uma falha na conexão. Tente gravar novamente em um ambiente tranquilo com pelo menos 1 minuto de fala.",
-  },
-  {
-    q: "Quanto tempo leva para gerar o relatório?",
-    a: "O relatório é gerado em até 2 minutos após o envio do áudio. Se demorar mais, verifique sua conexão com a internet e tente recarregar a página.",
-  },
-  {
-    q: "O relatório ficou incompleto ou com informações estranhas, o que faço?",
-    a: "Regravar o áudio falando de forma mais clara e detalhada sobre o tema costuma resolver. Quanto mais específico for seu relato, mais preciso será o diagnóstico.",
-  },
-  {
-    q: "Por que tenho que falar com minha própria voz na meditação?",
-    a: "Sua voz possui uma frequência única que o seu subconsciente reconhece como confiável. Ao ouvir seus próprios comandos quânticos, você burla o fator crítico da mente, permitindo que as reprogramações alcancem camadas profundas do inconsciente.",
-  },
-  {
-    q: "Posso gravar a meditação com fone de ouvido?",
-    a: "Sim, e é até recomendado. O fone de ouvido melhora a captação da sua voz e reduz ruídos externos, tornando a análise mais precisa.",
-  },
-  {
-    q: "O que são os Comandos Quânticos?",
-    a: "São frases de reprogramação personalizadas geradas pelo sistema com base no seu diagnóstico. Eles são projetados para reescrever crenças limitantes no seu subconsciente.",
-  },
-  {
-    q: "Onde encontro meus relatórios anteriores?",
-    a: "Acesse o menu do seu perfil e toque em 'Meus Relatórios'. Lá você encontra o histórico completo de todos os diagnósticos realizados, organizados por data.",
-  },
-  {
-    q: "O app funciona em qualquer navegador?",
-    a: "O app funciona melhor em Chrome, Safari e Edge atualizados. Navegadores muito antigos podem ter problemas com a gravação de áudio. Recomendamos manter o navegador atualizado.",
-  },
-  {
-    q: "Preciso estar conectado à internet para usar?",
-    a: "Sim. O processamento do áudio e a geração dos relatórios e meditações são feitos na nuvem, então é necessária uma conexão estável com a internet.",
-  },
-  {
-    q: "O que fazer se a página travar durante o processamento?",
-    a: "Aguarde pelo menos 2 minutos antes de recarregar. Se o problema persistir, feche a aba, abra novamente e tente realizar uma nova gravação.",
-  },
-  {
-    q: "Posso usar o app no celular?",
-    a: "Sim. O app é totalmente responsivo e funciona em qualquer smartphone. Para a melhor experiência de gravação, use o navegador Chrome no Android ou Safari no iPhone.",
-  },
-  {
-    q: "O que é a Escala de Hawkins no relatório?",
-    a: "É uma escala de consciência que mede o nível energético das suas emoções. O diagnóstico identifica em que faixa você está para cada pilar, ajudando a traçar o caminho da evolução.",
-  },
-  {
     q: "Preciso fazer o diagnóstico de todos os 4 pilares?",
     a: "Não é obrigatório, mas recomendamos. Cada pilar revela bloqueios em áreas diferentes da vida. A análise completa oferece uma visão holística dos seus padrões inconscientes.",
   },
   {
-    q: "Como funciona o card de Comunidade?",
-    a: "Na Comunidade você pode ler relatos de transformação de outros usuários e compartilhar sua própria jornada. É um espaço de acolhimento e troca de experiências.",
+    q: "O app funciona em qualquer navegador?",
+    a: "Funciona melhor em Chrome, Safari e Edge atualizados. Em iPhones, use obrigatoriamente o Safari. Recomendamos manter o navegador sempre atualizado.",
   },
   {
-    q: "A estrutura de meditação é igual para todos os pilares?",
-    a: "A estrutura das 5 etapas é a mesma, mas o conteúdo dos comandos quânticos e as visualizações são personalizados para cada pilar com base no seu diagnóstico individual.",
+    q: "Preciso de internet para usar o app?",
+    a: "Sim. O processamento do áudio e a geração dos relatórios, comandos e meditações são feitos na nuvem, sendo necessária uma conexão estável.",
   },
   {
-    q: "O que fazer se o botão de gravação não aparecer?",
-    a: "Verifique se o navegador está atualizado e se as permissões de microfone estão habilitadas. Em iPhones, use obrigatoriamente o Safari. Recarregue a página se necessário.",
+    q: "O que fazer se a página travar durante o processamento?",
+    a: "Aguarde pelo menos 2 minutos antes de recarregar. Se persistir, feche a aba, abra novamente e faça uma nova gravação.",
+  },
+  {
+    q: "O relatório ficou incompleto, o que faço?",
+    a: "Regravar o áudio falando de forma mais clara e detalhada costuma resolver. Quanto mais específico for seu relato, mais preciso será o diagnóstico.",
   },
 ];
 
@@ -131,9 +102,7 @@ const FAQ = () => {
   const handleSendSupport = async () => {
     if (!supportMessage.trim() || !supportEmail.trim()) return;
     setSending(true);
-    // For now, store the message — email integration to be added later
     try {
-      // Just simulate sending for now
       await new Promise((r) => setTimeout(r, 800));
       setSent(true);
       setSupportMessage("");
@@ -180,73 +149,48 @@ const FAQ = () => {
               </AccordionTrigger>
               <AccordionContent className="text-foreground/75 text-sm leading-relaxed pt-1">
                 {item.a}
-
-                {/* Inline support prompt */}
-                {!supportOpen && (
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setSupportOpen(true); }}
-                    className="mt-4 block text-primary text-xs font-medium hover:underline"
-                  >
-                    Ainda ficou com dúvida? Mande uma mensagem para o suporte →
-                  </button>
-                )}
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
 
-        {/* Support form */}
-        {supportOpen && (
-          <div className="mt-8 bg-card border border-primary/30 rounded-xl p-6 animate-fade-in">
-            {sent ? (
-              <div className="flex flex-col items-center gap-3 py-4">
-                <CheckCircle className="h-10 w-10 text-primary" />
-                <p className="text-foreground font-semibold">Mensagem enviada com sucesso!</p>
-                <p className="text-muted-foreground text-sm">Nosso suporte responderá em breve.</p>
-              </div>
-            ) : (
-              <>
-                <h3 className="text-lg font-bold text-foreground mb-4">Fale com o Suporte</h3>
-                <div className="space-y-3">
-                  <Input
-                    placeholder="Seu nome"
-                    value={supportName}
-                    onChange={(e) => setSupportName(e.target.value)}
-                    className="bg-background border-border"
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Seu e-mail"
-                    value={supportEmail}
-                    onChange={(e) => setSupportEmail(e.target.value)}
-                    className="bg-background border-border"
-                  />
-                  <Textarea
-                    placeholder="Descreva sua dúvida ou problema..."
-                    value={supportMessage}
-                    onChange={(e) => setSupportMessage(e.target.value)}
-                    className="bg-background border-border min-h-[100px]"
-                    rows={4}
-                  />
-                  <div className="flex gap-3">
-                    <Button
-                      variant="cyan"
-                      onClick={handleSendSupport}
-                      disabled={sending || !supportMessage.trim() || !supportEmail.trim()}
-                      className="gap-2"
-                    >
-                      <Send className="h-4 w-4" />
-                      {sending ? "Enviando..." : "Enviar Mensagem"}
-                    </Button>
-                    <Button variant="ghost" onClick={() => setSupportOpen(false)}>
-                      Cancelar
-                    </Button>
-                  </div>
+        {/* Support section at the bottom */}
+        <div className="mt-8 text-center">
+          {!supportOpen ? (
+            <button
+              onClick={() => setSupportOpen(true)}
+              className="text-primary text-sm font-medium hover:underline"
+            >
+              Ainda ficou com dúvida? Mande uma mensagem para o suporte →
+            </button>
+          ) : (
+            <div className="bg-card border border-primary/30 rounded-xl p-6 animate-fade-in text-left">
+              {sent ? (
+                <div className="flex flex-col items-center gap-3 py-4">
+                  <CheckCircle className="h-10 w-10 text-primary" />
+                  <p className="text-foreground font-semibold">Mensagem enviada com sucesso!</p>
+                  <p className="text-muted-foreground text-sm">Nosso suporte responderá em breve.</p>
                 </div>
-              </>
-            )}
-          </div>
-        )}
+              ) : (
+                <>
+                  <h3 className="text-lg font-bold text-foreground mb-4">Fale com o Suporte</h3>
+                  <div className="space-y-3">
+                    <Input placeholder="Seu nome" value={supportName} onChange={(e) => setSupportName(e.target.value)} className="bg-background border-border" />
+                    <Input type="email" placeholder="Seu e-mail" value={supportEmail} onChange={(e) => setSupportEmail(e.target.value)} className="bg-background border-border" />
+                    <Textarea placeholder="Descreva sua dúvida ou problema..." value={supportMessage} onChange={(e) => setSupportMessage(e.target.value)} className="bg-background border-border min-h-[100px]" rows={4} />
+                    <div className="flex gap-3">
+                      <Button variant="cyan" onClick={handleSendSupport} disabled={sending || !supportMessage.trim() || !supportEmail.trim()} className="gap-2">
+                        <Send className="h-4 w-4" />
+                        {sending ? "Enviando..." : "Enviar Mensagem"}
+                      </Button>
+                      <Button variant="ghost" onClick={() => setSupportOpen(false)}>Cancelar</Button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, Search, MessageSquare, Lock, Sparkles, Filter } from "lucide-react";
+import { ArrowLeft, Heart, Search, MessageSquare, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,7 +30,7 @@ const mockPosts: Post[] = [
     id: "1",
     author: "Maria S.",
     category: "financeiro",
-    content: "Depois de usar os comandos quânticos por 3 semanas, consegui minha primeira promoção em 5 anos! A reprogramação de crenças limitantes sobre dinheiro realmente funciona.",
+    content: "Depois de usar os comandos quânticos por 3 semanas, consegui minha primeira promoção em 5 anos! Descobri que minha mãe sempre dizia 'dinheiro é sujo' e eu carregava essa crença sem perceber. A reprogramação mudou tudo.",
     likes: 24,
     liked: false,
     date: "02/02/2026",
@@ -39,7 +39,7 @@ const mockPosts: Post[] = [
     id: "2",
     author: "João P.",
     category: "saude",
-    content: "Minha ansiedade reduziu drasticamente após o diagnóstico raiz. Descobrir que meu padrão vinha da linhagem paterna foi transformador.",
+    content: "Minha ansiedade reduziu drasticamente após o diagnóstico do pilar Pai. Descobri que a ausência paterna criou um padrão de hipervigilância que eu repetia no trabalho. Após 2 semanas de meditação, consigo dormir sem remédio.",
     likes: 18,
     liked: false,
     date: "01/02/2026",
@@ -48,7 +48,7 @@ const mockPosts: Post[] = [
     id: "3",
     author: "Ana L.",
     category: "relacionamento",
-    content: "Finalmente entendi por que repetia os mesmos padrões nos relacionamentos. O A.X.I.O. mostrou bloqueios que eu nem sabia que existiam.",
+    content: "Finalmente entendi por que repetia os mesmos padrões nos relacionamentos. O A.X.I.O. mostrou que eu projetava a figura do meu pai em todos os parceiros. Hoje estou em um relacionamento saudável pela primeira vez.",
     likes: 31,
     liked: false,
     date: "30/01/2026",
@@ -57,7 +57,7 @@ const mockPosts: Post[] = [
     id: "4",
     author: "Carlos M.",
     category: "conquistas",
-    content: "6 meses usando o A.X.I.O. e minha frequência vibracional subiu de 200 para 450 na escala de Hawkins! Gratidão por essa ferramenta incrível.",
+    content: "6 meses usando o A.X.I.O. e minha vida mudou completamente. Saí de um emprego que me adoecia, abri meu próprio negócio e hoje faturo 3x mais. A chave foi desbloquear a crença de que eu não merecia sucesso — herança da minha mãe.",
     likes: 42,
     liked: false,
     date: "28/01/2026",
@@ -66,14 +66,58 @@ const mockPosts: Post[] = [
     id: "5",
     author: "Fernanda R.",
     category: "saude",
-    content: "As meditações quânticas semanais me ajudaram a dormir melhor e ter mais energia durante o dia. Recomendo demais!",
+    content: "Sofria com gastrite nervosa há 8 anos. Após o diagnóstico do pilar Mãe, descobri que eu 'engolia' a raiva que sentia dela. Com os comandos e a meditação, meu estômago melhorou em 3 semanas.",
     likes: 15,
     liked: false,
     date: "25/01/2026",
   },
+  {
+    id: "6",
+    author: "Roberto A.",
+    category: "financeiro",
+    content: "Sempre me sabotava quando estava prestes a fechar um grande negócio. O pilar Pai revelou que meu pai faliu quando eu era criança e eu tinha medo inconsciente de repetir. Após o protocolo, fechei o maior contrato da minha carreira.",
+    likes: 27,
+    liked: false,
+    date: "22/01/2026",
+  },
+  {
+    id: "7",
+    author: "Juliana C.",
+    category: "relacionamento",
+    content: "Eu atraía sempre parceiros emocionalmente indisponíveis. O diagnóstico de Traumas mostrou que um abandono na infância me fazia buscar inconscientemente quem me rejeitava. A meditação me ajudou a quebrar esse ciclo.",
+    likes: 33,
+    liked: false,
+    date: "20/01/2026",
+  },
+  {
+    id: "8",
+    author: "Marcos T.",
+    category: "saude",
+    content: "Insônia crônica por 4 anos. O diagnóstico revelou que eu vivia em estado de alerta constante, herança de uma mãe ansiosa. Ouvir a meditação com minha própria voz antes de dormir mudou meu padrão de sono em 10 dias.",
+    likes: 20,
+    liked: false,
+    date: "18/01/2026",
+  },
+  {
+    id: "9",
+    author: "Patrícia N.",
+    category: "conquistas",
+    content: "Tinha vergonha de cobrar meu preço justo como terapeuta. O pilar Mãe mostrou que ela sempre criticava quem tinha dinheiro. Depois de fazer os comandos por 2 semanas, dobrei meus preços e tenho mais clientes do que antes!",
+    likes: 38,
+    liked: false,
+    date: "15/01/2026",
+  },
+  {
+    id: "10",
+    author: "Lucas D.",
+    category: "relacionamento",
+    content: "Meu casamento estava à beira do divórcio. O diagnóstico de Relacionamentos revelou que eu projetava a raiva da minha mãe na minha esposa. Após o protocolo completo, reconstruímos nossa relação do zero. Gratidão eterna.",
+    likes: 45,
+    liked: false,
+    date: "12/01/2026",
+  },
 ];
 
-// Set to true for preview/testing, false for production
 const IS_PREVIEW = true;
 
 const Community = () => {
@@ -83,7 +127,7 @@ const Community = () => {
   const [posts, setPosts] = useState<Post[]>(mockPosts);
   const [newPost, setNewPost] = useState("");
   const [newPostCategory, setNewPostCategory] = useState<Category>("conquistas");
-  const isPremium = IS_PREVIEW; // In production, check user subscription
+  const isPremium = IS_PREVIEW;
 
   const filteredPosts = posts.filter((post) => {
     const matchesCategory = selectedCategory === "todos" || post.category === selectedCategory;
@@ -131,35 +175,26 @@ const Community = () => {
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
-          {/* Header */}
           <div className="text-center mb-8">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
               <MessageSquare className="h-4 w-4 text-primary" />
               <span className="text-sm font-medium text-primary">Comunidade A.X.I.O.</span>
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-2">
-              Comunidade de Elevação de Frequência
+              Comunidade de Transformação
             </h1>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Relatos reais de transformação. Compartilhe suas conquistas e inspire outros
-              a elevar sua frequência vibracional.
+              Relatos reais de quem reprogramou suas crenças limitantes. Compartilhe suas conquistas e inspire outros.
             </p>
           </div>
 
-          {/* Search & Filter */}
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Buscar relatos..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9"
-              />
+              <Input placeholder="Buscar relatos..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-9" />
             </div>
           </div>
 
-          {/* Category Tabs */}
           <div className="flex flex-wrap gap-2 mb-6">
             {(Object.keys(categoryLabels) as Category[]).map((cat) => (
               <button
@@ -176,38 +211,26 @@ const Community = () => {
             ))}
           </div>
 
-          {/* New Post (Premium) */}
           {isPremium && (
             <div className="bg-card border border-primary/30 rounded-xl p-4 mb-6">
               <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
                 Compartilhe seu relato
               </h3>
-              <Textarea
-                placeholder="Conte sua história de transformação..."
-                value={newPost}
-                onChange={(e) => setNewPost(e.target.value)}
-                className="mb-3 min-h-[80px]"
-              />
+              <Textarea placeholder="Conte sua história de transformação..." value={newPost} onChange={(e) => setNewPost(e.target.value)} className="mb-3 min-h-[80px]" />
               <div className="flex items-center gap-3">
-                <select
-                  value={newPostCategory}
-                  onChange={(e) => setNewPostCategory(e.target.value as Category)}
-                  className="bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground"
-                >
+                <select value={newPostCategory} onChange={(e) => setNewPostCategory(e.target.value as Category)} className="bg-card border border-border rounded-lg px-3 py-2 text-sm text-foreground">
                   <option value="saude">Saúde</option>
                   <option value="financeiro">Financeiro</option>
                   <option value="relacionamento">Relacionamento</option>
                   <option value="conquistas">Conquistas</option>
                 </select>
-                <Button variant="cyan" size="sm" onClick={handleNewPost}>
-                  Publicar
-                </Button>
+                <Button variant="cyan" size="sm" onClick={handleNewPost}>Publicar</Button>
               </div>
             </div>
           )}
 
-          {/* Inspiração Quântica */}
+          {/* Inspiração Quântica - Joe Dispenza pinned */}
           <div className="mb-8">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
@@ -215,9 +238,7 @@ const Community = () => {
             </h2>
             <div className="bg-gradient-to-br from-primary/10 via-card to-card border border-primary/20 rounded-xl p-5 space-y-3">
               <div className="flex items-center gap-3 mb-2">
-                <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg font-bold text-primary">
-                  JD
-                </div>
+                <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg font-bold text-primary">JD</div>
                 <div>
                   <h3 className="text-sm font-bold text-foreground">Dr. Joe Dispenza</h3>
                   <span className="text-[11px] text-muted-foreground">Neurocientista &amp; Autor</span>
@@ -235,14 +256,8 @@ const Community = () => {
                 enviando comandos claros e repetitivos ao seu corpo.</span>
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Ele visualizava cada vértebra se realinhando, o tecido se regenerando, os nervos se reconectando.
-                Quando pensamentos de medo ou dúvida surgiam, ele voltava ao comando mental. Seu mantra era simples:
-                <span className="italic text-foreground"> &quot;Se eu consigo pensar nisso, meu corpo consegue executar.&quot;</span>
-              </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
                 Em 10 semanas, Joe estava de pé. Em 12 semanas, voltou a treinar. Sem cirurgia. Sem hastes metálicas.
-                Apenas o poder da mente sobre a matéria. Hoje, ele ensina milhões de pessoas ao redor do mundo a usar
-                a mesma técnica de reprogramação mental para curar doenças, superar traumas e transformar suas vidas.
+                Apenas o poder da mente sobre a matéria.
               </p>
               <div className="bg-primary/5 border border-primary/15 rounded-lg p-3 mt-2">
                 <p className="text-xs text-primary italic text-center">
@@ -253,7 +268,6 @@ const Community = () => {
             </div>
           </div>
 
-          {/* Posts */}
           <div className="space-y-4">
             {filteredPosts.map((post) => (
               <div key={post.id} className="bg-card border border-border rounded-xl p-5 transition-all hover:border-primary/20">
