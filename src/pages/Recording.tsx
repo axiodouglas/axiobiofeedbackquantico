@@ -8,6 +8,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { useAreaLock } from "@/hooks/use-area-lock";
 
 const MAX_RECORDING_TIME = 120;
+const MAX_AUDIO_SIZE_MB = 10;
+const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento"];
 
 const areaNames: Record<string, string> = {
   pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamento: "Relacionamentos",
@@ -16,7 +18,8 @@ const areaNames: Record<string, string> = {
 const Recording = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const area = searchParams.get("area") || "pai";
+  const rawArea = searchParams.get("area") || "pai";
+  const area = VALID_AREAS.includes(rawArea) ? rawArea : "pai";
 
   const { user } = useAuth();
   const { lockedAreas, loading: lockLoading } = useAreaLock(user?.id);
@@ -160,6 +163,19 @@ const Recording = () => {
       return;
     }
 
+    // Validate audio size
+    const maxBytes = MAX_AUDIO_SIZE_MB * 1024 * 1024;
+    if (audioBlob.size > maxBytes) {
+      alert(`O áudio é muito grande (máximo ${MAX_AUDIO_SIZE_MB}MB). Grave um áudio mais curto.`);
+      return;
+    }
+
+    // Validate audio type
+    if (!audioBlob.type.startsWith("audio/")) {
+      alert("Formato de áudio inválido. Tente gravar novamente.");
+      return;
+    }
+
     setIsUploading(true);
     setUploadProgress(10);
 
@@ -173,10 +189,10 @@ const Recording = () => {
       try {
         const base64 = reader.result as string;
         if (!base64 || base64.length < 100) throw new Error("Audio data too small");
-        sessionStorage.setItem("axio_audio", base64);
-        sessionStorage.setItem("axio_area", area);
         setUploadProgress(100);
-        navigate(`/processing?area=${area}`);
+        navigate(`/processing?area=${area}`, {
+          state: { audioBase64: base64 },
+        });
       } catch {
         setIsUploading(false);
         setUploadProgress(0);
