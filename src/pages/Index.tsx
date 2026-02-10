@@ -17,7 +17,7 @@ const Index = () => {
       isPremium: false,
       isLocked: false,
       badge: "Gratuito",
-      onClick: () => navigate("/recording?area=mae"),
+      onClick: () => navigate("/auth"),
     },
     {
       title: "Pai",
@@ -27,7 +27,7 @@ const Index = () => {
       isPremium: false,
       isLocked: false,
       badge: "Gratuito",
-      onClick: () => navigate("/recording?area=pai"),
+      onClick: () => navigate("/auth"),
     },
     {
       title: "Traumas",
@@ -37,7 +37,7 @@ const Index = () => {
       isPremium: false,
       isLocked: false,
       badge: "Gratuito",
-      onClick: () => navigate("/recording?area=traumas"),
+      onClick: () => navigate("/auth"),
     },
     {
       title: "Relacionamentos",
@@ -47,7 +47,7 @@ const Index = () => {
       isPremium: false,
       isLocked: false,
       badge: "Gratuito",
-      onClick: () => navigate("/recording?area=relacionamento"),
+      onClick: () => navigate("/auth"),
     },
   ];
 
@@ -88,7 +88,7 @@ const Index = () => {
               variant="cyan" 
               size="xl" 
               className="group"
-              onClick={() => navigate("/recording?area=mae")}
+              onClick={() => navigate("/auth")}
             >
               <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
               Iniciar Diagnóstico Gratuito

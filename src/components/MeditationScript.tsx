@@ -192,10 +192,6 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
                 <Download className="h-3 w-3" />
                 Baixar MP3
               </Button>
-              <Button variant="cyan" size="sm" onClick={saveToProfile} disabled={saving} className="gap-1 h-7 text-[11px] px-2">
-                <Sparkles className="h-3 w-3" />
-                {saving ? "Salvando..." : "Salvar"}
-              </Button>
               <Button variant="ghost" size="sm" onClick={() => { setAudioUrl(null); setRecordingTime(0); }} className="h-7 text-[11px] px-2">
                 Regravar
               </Button>
