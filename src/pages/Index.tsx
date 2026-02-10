@@ -1,4 +1,4 @@
-import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake } from "lucide-react";
+import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -161,6 +161,23 @@ const Index = () => {
                 <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4.5s', animationDelay: '1.5s' }}>🧘</span>
                 <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>🪷</span>
               </div>
+        </div>
+
+        {/* Oráculo Card */}
+        <div
+          className="group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3"
+          onClick={() => navigate("/oraculo")}
+        >
+          <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-12 w-12 shrink-0">
+            <Eye className="h-6 w-6" />
+          </div>
+          <div className="relative z-10">
+            <h3 className="font-bold text-foreground text-xl leading-tight">Oráculo A.X.I.O.</h3>
+            <p className="text-sm text-muted-foreground">Tire dúvidas sobre crenças e comportamento</p>
+          </div>
+          <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '8%', animationDuration: '3s' }}>🔮</span>
+          <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4s', animationDelay: '1s' }}>✨</span>
+          <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>👁️</span>
         </div>
       </div>
       </div>
