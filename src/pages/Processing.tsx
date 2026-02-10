@@ -94,6 +94,7 @@ const Processing = () => {
 
       if (existing && existing.length > 0) {
         diagnosisId = existing[0].id;
+        diagnosisIdRef.current = diagnosisId;
         const { error } = await supabase.from("diagnoses").update({
           transcription: data.transcription || null,
           diagnosis_result: data.diagnosis,
@@ -122,6 +123,7 @@ const Processing = () => {
           return false;
         }
         diagnosisId = insertedRows?.[0]?.id || null;
+        diagnosisIdRef.current = diagnosisId;
       }
 
       if (diagnosisId) {
@@ -257,8 +259,14 @@ const Processing = () => {
     navigate("/area-selection");
   };
 
+  const diagnosisIdRef = useRef<string | null>(null);
+
   const handleFinish = () => {
-    navigate(`/report?area=${area}`);
+    if (diagnosisIdRef.current) {
+      navigate(`/diagnosis/${diagnosisIdRef.current}`);
+    } else {
+      navigate(`/report?area=${area}`);
+    }
   };
 
   // SAVING STATE
