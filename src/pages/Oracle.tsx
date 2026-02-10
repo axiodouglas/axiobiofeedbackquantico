@@ -10,122 +10,6 @@ type Msg = { role: "user" | "assistant"; content: string };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/oracle-chat`;
 
-/* Starfield canvas */
-const Starfield = ({ active }: { active: boolean }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const activeRef = useRef(active);
-  activeRef.current = active;
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
-    let raf: number;
-
-    const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const stars = Array.from({ length: 180 }, () => ({
-      x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + 0.3,
-      speed: Math.random() * 0.0003 + 0.0001, flicker: Math.random() * Math.PI * 2,
-    }));
-
-    const planets = [
-      { x: 0.15, y: 0.3, r: 18, color: "270,50%,45%", orbitR: 0.08, angle: 0, orbitSpeed: 0.0004 },
-      { x: 0.8, y: 0.25, r: 12, color: "220,60%,50%", orbitR: 0.06, angle: 2, orbitSpeed: 0.0006 },
-      { x: 0.6, y: 0.7, r: 10, color: "175,70%,50%", orbitR: 0.05, angle: 4, orbitSpeed: 0.0005 },
-    ];
-
-    const moon = { x: 0.5, y: 0.35, baseR: 60, angle: 0, orbitR: 0.12, orbitSpeed: 0.00015 };
-
-    const draw = (t: number) => {
-      const w = canvas.width, h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
-      const speedMul = activeRef.current ? 4 : 1;
-
-      stars.forEach(s => {
-        s.flicker += 0.02 * speedMul;
-        const alpha = 0.4 + Math.sin(s.flicker) * 0.3;
-        ctx.beginPath();
-        ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(200,80%,90%,${alpha})`;
-        ctx.fill();
-      });
-
-      planets.forEach(p => {
-        p.angle += p.orbitSpeed * speedMul;
-        const cx = (p.x + Math.cos(p.angle) * p.orbitR) * w;
-        const cy = (p.y + Math.sin(p.angle) * p.orbitR) * h;
-        const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, p.r * 1.8);
-        grd.addColorStop(0, `hsla(${p.color},0.8)`);
-        grd.addColorStop(0.6, `hsla(${p.color},0.25)`);
-        grd.addColorStop(1, `hsla(${p.color},0)`);
-        ctx.beginPath();
-        ctx.arc(cx, cy, p.r * 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = grd;
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(cx, cy, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.color},0.9)`;
-        ctx.fill();
-      });
-
-      moon.angle += moon.orbitSpeed * speedMul;
-      const mx = (moon.x + Math.cos(moon.angle) * moon.orbitR) * w;
-      const my = (moon.y + Math.sin(moon.angle) * moon.orbitR * 0.4) * h;
-      const mr = moon.baseR + Math.sin(t * 0.001) * 4;
-
-      const moonGlow = ctx.createRadialGradient(mx, my, mr * 0.5, mx, my, mr * 2.5);
-      moonGlow.addColorStop(0, "hsla(210,30%,85%,0.15)");
-      moonGlow.addColorStop(0.5, "hsla(220,40%,70%,0.06)");
-      moonGlow.addColorStop(1, "hsla(220,40%,60%,0)");
-      ctx.beginPath();
-      ctx.arc(mx, my, mr * 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = moonGlow;
-      ctx.fill();
-
-      const moonBody = ctx.createRadialGradient(mx - mr * 0.3, my - mr * 0.3, 0, mx, my, mr);
-      moonBody.addColorStop(0, "hsla(210,20%,92%,0.95)");
-      moonBody.addColorStop(0.6, "hsla(220,15%,75%,0.85)");
-      moonBody.addColorStop(1, "hsla(230,20%,55%,0.7)");
-      ctx.beginPath();
-      ctx.arc(mx, my, mr, 0, Math.PI * 2);
-      ctx.fillStyle = moonBody;
-      ctx.fill();
-
-      const craters = [
-        { ox: -0.2, oy: -0.15, r: 0.12 },
-        { ox: 0.25, oy: 0.1, r: 0.08 },
-        { ox: -0.05, oy: 0.3, r: 0.1 },
-      ];
-      craters.forEach(c => {
-        ctx.beginPath();
-        ctx.arc(mx + c.ox * mr, my + c.oy * mr, c.r * mr, 0, Math.PI * 2);
-        ctx.fillStyle = "hsla(220,15%,65%,0.3)";
-        ctx.fill();
-      });
-
-      if (activeRef.current) {
-        const pulse = Math.sin(t * 0.004) * 0.3 + 0.7;
-        const g = ctx.createRadialGradient(w / 2, h * 0.32, 0, w / 2, h * 0.32, 120 * pulse);
-        g.addColorStop(0, `hsla(175,70%,60%,${0.4 * pulse})`);
-        g.addColorStop(0.4, `hsla(220,60%,50%,${0.15 * pulse})`);
-        g.addColorStop(1, "hsla(270,50%,40%,0)");
-        ctx.beginPath();
-        ctx.arc(w / 2, h * 0.32, 120 * pulse, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
-      }
-
-      raf = requestAnimationFrame(draw);
-    };
-    raf = requestAnimationFrame(draw);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
-  }, []);
-
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
-};
 
 const Oracle = () => {
   const navigate = useNavigate();
@@ -133,6 +17,7 @@ const Oracle = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const sendingRef = useRef(false);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -140,14 +25,15 @@ const Oracle = () => {
 
   const send = async () => {
     const text = input.trim();
-    if (!text || isLoading) return;
+    if (!text || isLoading || sendingRef.current) return;
+    sendingRef.current = true;
     setInput("");
     const userMsg: Msg = { role: "user", content: text };
+    const allMessages = [...messages, userMsg];
     setMessages((prev) => [...prev, userMsg]);
     setIsLoading(true);
 
     let assistantSoFar = "";
-    const allMessages = [...messages, userMsg];
 
     try {
       const resp = await fetch(CHAT_URL, {
@@ -176,17 +62,16 @@ const Oracle = () => {
 
         let newlineIndex: number;
         while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
-          let line = textBuffer.slice(0, newlineIndex);
+          const line = textBuffer.slice(0, newlineIndex).replace(/\r$/, "");
           textBuffer = textBuffer.slice(newlineIndex + 1);
-          if (line.endsWith("\r")) line = line.slice(0, -1);
           if (line.startsWith(":") || line.trim() === "") continue;
           if (!line.startsWith("data: ")) continue;
           const jsonStr = line.slice(6).trim();
           if (jsonStr === "[DONE]") { streamDone = true; break; }
           try {
             const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
-            if (content) {
+            const content = parsed.choices?.[0]?.delta?.content;
+            if (typeof content === "string" && content.length > 0) {
               assistantSoFar += content;
               const snapshot = assistantSoFar;
               setMessages((prev) => {
@@ -198,8 +83,7 @@ const Oracle = () => {
               });
             }
           } catch {
-            textBuffer = line + "\n" + textBuffer;
-            break;
+            // Skip malformed SSE lines instead of re-buffering (prevents infinite loop)
           }
         }
       }
@@ -210,6 +94,7 @@ const Oracle = () => {
       ]);
     } finally {
       setIsLoading(false);
+      sendingRef.current = false;
     }
   };
 
@@ -237,7 +122,7 @@ const Oracle = () => {
             <div className="text-center mt-auto mb-4 space-y-2">
               <p className="text-foreground font-semibold text-base">Tire suas dúvidas sobre crenças e comportamento</p>
               <p className="text-muted-foreground text-xs max-w-sm mx-auto leading-relaxed">
-                Sou especialista em crenças limitantes, somatização, PNL e neurociência comportamental. Pergunte sobre como suas crenças afetam seu corpo, seus relacionamentos e sua vida. Para dúvidas sobre o funcionamento do app, consulte o FAQ.
+                Sou especialista em crenças limitantes, somatização, PNL e neurociência comportamental. Pergunte sobre como suas crenças afetam seu corpo, seus relacionamentos e sua vida. Para gerar diagnósticos, comandos e meditações, grave um áudio nos pilares.
               </p>
             </div>
           )}
