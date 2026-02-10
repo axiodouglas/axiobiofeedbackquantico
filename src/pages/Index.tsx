@@ -1,4 +1,4 @@
-import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye } from "lucide-react";
+import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -125,9 +125,14 @@ const Index = () => {
             <div className="flex flex-col gap-3 flex-1">
               {/* Comunidade Card */}
               <div
-                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3"
-                onClick={() => navigate("/community")}
+                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 opacity-80"
+                onClick={() => navigate("/planos")}
               >
+                {/* Premium Lock */}
+                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
+                  <Lock className="h-2.5 w-2.5 text-primary-foreground" />
+                  <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+                </div>
                 <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-12 w-12 shrink-0">
                   <MessageSquare className="h-6 w-6" />
                 </div>
@@ -143,9 +148,14 @@ const Index = () => {
 
               {/* Meditação Card */}
               <div
-                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3"
-                onClick={() => navigate("/meditation-structure")}
+                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 opacity-80"
+                onClick={() => navigate("/planos")}
               >
+                {/* Premium Lock */}
+                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
+                  <Lock className="h-2.5 w-2.5 text-primary-foreground" />
+                  <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+                </div>
                 <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-12 w-12 shrink-0">
                   <Moon className="h-6 w-6" />
                 </div>
@@ -162,9 +172,14 @@ const Index = () => {
 
         {/* Oráculo Card */}
         <div
-          className="group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3"
-          onClick={() => navigate("/oraculo")}
+          className="group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 opacity-80"
+          onClick={() => navigate("/planos")}
         >
+          {/* Premium Lock */}
+          <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
+            <Lock className="h-2.5 w-2.5 text-primary-foreground" />
+            <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+          </div>
           <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-12 w-12 shrink-0">
             <Eye className="h-6 w-6" />
           </div>
