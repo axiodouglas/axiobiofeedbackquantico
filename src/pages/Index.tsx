@@ -138,18 +138,10 @@ const Index = () => {
                   <h3 className="font-bold text-foreground text-xl leading-tight">Comunidade</h3>
                   <p className="text-sm text-muted-foreground">Relatos de transformação</p>
                 </div>
-                {/* Floating chat bubbles - expanded */}
-                <span className="absolute text-3xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '5%', animationDuration: '3s' }}>💬</span>
-                <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '25%', bottom: '12%', animationDuration: '4s', animationDelay: '1s' }}>🗨️</span>
-                <span className="absolute text-3xl opacity-25 animate-bounce" style={{ right: '45%', bottom: '6%', animationDuration: '3.5s', animationDelay: '0.5s' }}>💬</span>
-                <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '65%', bottom: '18%', animationDuration: '5s', animationDelay: '2s' }}>🗨️</span>
-                <span className="absolute text-3xl opacity-20 animate-bounce" style={{ right: '82%', bottom: '4%', animationDuration: '4.5s', animationDelay: '0.8s' }}>💬</span>
-                <span className="absolute text-2xl opacity-15 animate-bounce" style={{ right: '15%', bottom: '22%', animationDuration: '3.8s', animationDelay: '1.5s' }}>💬</span>
-                <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '55%', bottom: '28%', animationDuration: '4.2s', animationDelay: '2.5s' }}>🗨️</span>
-                <span className="absolute text-3xl opacity-15 animate-bounce" style={{ right: '38%', bottom: '25%', animationDuration: '3.2s', animationDelay: '0.3s' }}>💬</span>
-                <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '72%', bottom: '30%', animationDuration: '4.8s', animationDelay: '1.8s' }}>🗨️</span>
-                <span className="absolute text-xl opacity-15 animate-bounce" style={{ right: '90%', bottom: '15%', animationDuration: '3.6s', animationDelay: '2.2s' }}>💬</span>
-                <span className="absolute text-3xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '30%', animationDuration: '5.2s', animationDelay: '0.6s' }}>🗨️</span>
+                {/* Floating chat bubbles */}
+                <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '8%', animationDuration: '3s' }}>💬</span>
+                <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4s', animationDelay: '1s' }}>🗨️</span>
+                <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>💬</span>
               </div>
 
               {/* Meditação Card */}
@@ -164,19 +156,10 @@ const Index = () => {
                   <h3 className="font-bold text-foreground text-xl leading-tight">Entenda a Meditação A.X.I.O.</h3>
                   <p className="text-sm text-muted-foreground">5 etapas da reprogramação</p>
                 </div>
-                {/* Floating lotus & monks - expanded */}
-                <span className="absolute text-3xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '5%', animationDuration: '3s' }}>🪷</span>
-                <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '25%', bottom: '12%', animationDuration: '4.5s', animationDelay: '1.5s' }}>🧘</span>
-                <span className="absolute text-3xl opacity-25 animate-bounce" style={{ right: '50%', bottom: '6%', animationDuration: '3.5s', animationDelay: '0.5s' }}>🪷</span>
-                <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '70%', bottom: '18%', animationDuration: '5s', animationDelay: '2s' }}>🧘</span>
-                <span className="absolute text-3xl opacity-20 animate-bounce" style={{ right: '82%', bottom: '8%', animationDuration: '4s', animationDelay: '0.8s' }}>🪷</span>
-                <span className="absolute text-2xl opacity-15 animate-bounce" style={{ right: '15%', bottom: '22%', animationDuration: '3.8s', animationDelay: '1.2s' }}>🧘</span>
-                <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '40%', bottom: '28%', animationDuration: '4.2s', animationDelay: '2.5s' }}>🪷</span>
-                <span className="absolute text-3xl opacity-15 animate-bounce" style={{ right: '60%', bottom: '25%', animationDuration: '3.2s', animationDelay: '0.3s' }}>🧘</span>
-                <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '90%', bottom: '15%', animationDuration: '4.8s', animationDelay: '1.8s' }}>🪷</span>
-                <span className="absolute text-xl opacity-15 animate-bounce" style={{ right: '35%', bottom: '32%', animationDuration: '3.6s', animationDelay: '2.2s' }}>🧘</span>
-                <span className="absolute text-3xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '5.2s', animationDelay: '0.6s' }}>🪷</span>
-                <span className="absolute text-2xl opacity-15 animate-bounce" style={{ right: '78%', bottom: '30%', animationDuration: '3.4s', animationDelay: '1s' }}>🧘</span>
+                {/* Floating lotus & monks */}
+                <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '8%', animationDuration: '3s' }}>🪷</span>
+                <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4.5s', animationDelay: '1.5s' }}>🧘</span>
+                <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>🪷</span>
               </div>
         </div>
       </div>
