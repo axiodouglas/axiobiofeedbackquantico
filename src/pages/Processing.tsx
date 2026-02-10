@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { Brain, Dna, Sparkles, Activity, AlertCircle, CloudUpload, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,9 +16,11 @@ type Phase = "analyzing" | "saving" | "saved" | "error";
 
 const Processing = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const area = searchParams.get("area") || "pai";
   const { user } = useAuth();
+  const audioFromState = useRef<string | null>(location.state?.audioBase64 || null);
 
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -53,10 +55,7 @@ const Processing = () => {
   }, [phase]);
 
   const cleanupAttempt = useCallback(() => {
-    sessionStorage.removeItem("axio_audio");
-    sessionStorage.removeItem("axio_result");
-    sessionStorage.removeItem("axio_area");
-    sessionStorage.removeItem("axio_focus_error");
+    audioFromState.current = null;
   }, []);
 
   const handleGracefulFailure = useCallback((message?: string) => {
@@ -160,7 +159,7 @@ const Processing = () => {
     analysisStarted.current = true;
 
     const runAnalysis = async () => {
-      const audioBase64 = sessionStorage.getItem("axio_audio");
+      const audioBase64 = audioFromState.current;
       console.log("[AXIO-DEBUG] Starting analysis. Audio exists:", !!audioBase64, "Length:", audioBase64?.length || 0);
 
       if (!audioBase64) {
@@ -208,14 +207,13 @@ const Processing = () => {
 
         console.log("[AXIO-DEBUG] Analysis succeeded. Saving...");
         analysisDataRef.current = data;
-        sessionStorage.setItem("axio_result", JSON.stringify(data));
         setProgress(100);
         setPhase("saving");
 
         const saved = await saveToDB(data);
         console.log("[AXIO-DEBUG] Save result:", saved);
         if (saved) {
-          sessionStorage.removeItem("axio_audio");
+          audioFromState.current = null;
           setPhase("saved");
         } else {
           setSaveRetries(1);
@@ -236,7 +234,7 @@ const Processing = () => {
     setPhase("saving");
     const saved = await saveToDB(analysisDataRef.current);
     if (saved) {
-      sessionStorage.removeItem("axio_audio");
+      audioFromState.current = null;
       setPhase("saved");
     } else {
       setSaveRetries((r) => r + 1);

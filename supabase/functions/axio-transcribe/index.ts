@@ -6,9 +6,37 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Simple in-memory rate limiting by IP
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_MAX = 10; // max requests per window
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+  entry.count++;
+  return entry.count > RATE_LIMIT_MAX;
+}
+
+const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento"];
+const MAX_AUDIO_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  // Rate limiting
+  const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  if (isRateLimited(clientIp)) {
+    return new Response(
+      JSON.stringify({ error: "Muitas requisições. Aguarde alguns minutos." }),
+      { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
   }
 
   try {
@@ -23,6 +51,25 @@ serve(async (req) => {
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    // Validate audio file size
+    if (audioFile.size > MAX_AUDIO_SIZE_BYTES) {
+      return new Response(
+        JSON.stringify({ error: "Arquivo de áudio muito grande. Máximo 10MB." }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate audio type
+    if (!audioFile.type.startsWith("audio/")) {
+      return new Response(
+        JSON.stringify({ error: "Formato de arquivo inválido. Envie apenas áudio." }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate area parameter
+    const validatedArea = VALID_AREAS.includes(area) ? area : "pai";
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -99,7 +146,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         transcription,
-        area: area || "pai",
+        area: validatedArea,
         is_premium: isPremium,
       }),
     });
