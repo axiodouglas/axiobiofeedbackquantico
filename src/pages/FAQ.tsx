@@ -9,84 +9,44 @@ import UserMenu from "@/components/UserMenu";
 
 const faqItems = [
   {
-    q: "Como funciona o diagnóstico por áudio?",
-    a: "Você grava um áudio de pelo menos 10 segundos falando sobre seus sentimentos e desafios no pilar escolhido (Mãe, Pai, Traumas ou Relacionamentos). O sistema analisa sua voz e suas palavras para identificar padrões emocionais inconscientes e gerar um relatório personalizado.",
+    q: "Por que o Método AXIO é diferente de outros apps?",
+    a: "Porque usamos a sua própria voz para reprogramar o seu subconsciente, atacando a crença raiz identificada pelo nosso Biofeedback vocal.",
   },
   {
-    q: "Quais são os 4 Pilares da Crença?",
-    a: "Os pilares são: Mãe (bloqueios na relação materna), Pai (força paterna e ação no mundo), Traumas (eventos externos como bullying, perdas e abusos) e Relacionamentos (projeções dos traumas de Pai e Mãe no parceiro). Cada pilar revela raízes diferentes dos seus padrões inconscientes.",
+    q: "Como devo ouvir a meditação?",
+    a: "O protocolo AXIO foi desenhado para ser ouvido durante o sono em loop. Ao dormir, sua mente consciente relaxa, permitindo que a reprogramação penetre diretamente no subconsciente.",
   },
   {
-    q: "Por que não posso gravar o mesmo pilar duas vezes em 7 dias?",
-    a: "O protocolo A.X.I.O. exige um período mínimo de 7 dias praticando os comandos quânticos e ouvindo a meditação para que a reprogramação neural se consolide. Gravar novamente antes desse período interromperia o processo de neuroplasticidade.",
+    q: "Qual a importância de escrever a meditação à mão?",
+    a: "A escrita ativa o Córtex Pré-Frontal, transformando o trauma emocional em uma informação lógica, o que potencializa a limpeza que ocorrerá enquanto você dorme.",
   },
   {
-    q: "O que são os Comandos Quânticos?",
-    a: "São frases de reprogramação personalizadas geradas com base no seu diagnóstico. Divididos em Manhã (identidade), Tarde (merecimento) e Noite (limpeza), devem ser repetidos 3 vezes cada com os olhos fechados e convicção. Eles reescrevem crenças limitantes no subconsciente.",
+    q: "Posso gravar mais de um pilar no mesmo dia?",
+    a: "O app é liberado, mas o ideal para resultados reais é gravar um pilar por vez e seguir o protocolo de 7 dias ouvindo a meditação todas as noites. Se você não seguir o protocolo e fizer de forma aleatória, os resultados ficam comprometidos e sob sua própria responsabilidade.",
   },
   {
-    q: "Como funciona a meditação personalizada?",
-    a: "O sistema gera um roteiro de meditação baseado no seu diagnóstico. Você deve escrever o roteiro à mão (ativa o córtex pré-frontal), gravar com sua própria voz e ouvir toda noite ao dormir. Sua voz burla o fator crítico da mente, acelerando a reprogramação.",
+    q: "Por que devo usar a minha própria voz?",
+    a: "O seu subconsciente aceita a sua voz como uma ordem absoluta. Ouvir a si mesmo é a chave para a transformação real.",
   },
   {
-    q: "Por que preciso gravar a meditação com minha própria voz?",
-    a: "Sua voz possui uma frequência única que seu subconsciente reconhece como autoridade máxima. Ao ouvir seus próprios comandos, você burla as defesas naturais da mente, permitindo que as reprogramações alcancem camadas profundas do inconsciente.",
+    q: "O Oráculo AXIO pode me dar diagnósticos?",
+    a: "O Oráculo complementa o seu relatório com base na PNL e Neurociência, ajudando você a entender a origem comportamental dos seus bloqueios.",
   },
   {
-    q: "Qual a duração mínima e máxima da gravação do diagnóstico?",
-    a: "A gravação deve ter no mínimo 10 segundos e máximo de 2 minutos. Quanto mais detalhado e honesto for o relato, mais preciso será o diagnóstico. Entre 1 e 2 minutos é o ideal.",
+    q: "Como o app identifica bloqueios no meu áudio?",
+    a: "Analisamos padrões de frequência e termos específicos que revelam onde a sua energia emocional está estagnada.",
   },
   {
-    q: "O que fazer se o áudio não gravar ou der erro?",
-    a: "Verifique se você concedeu permissão de microfone ao navegador. Em iPhones, use obrigatoriamente o Safari. Feche outros apps que possam estar usando o microfone e tente novamente.",
+    q: "Como deve ser a minha gravação de voz?",
+    a: "O áudio é composto apenas pela sua voz. Ao gravar, fale de forma calma, pausada e relaxada. Não precisa ser perfeito, apenas leia o roteiro com tranquilidade. Sua mente reconhece sua voz como a maior autoridade que existe.",
   },
   {
-    q: "Minhas gravações são sigilosas?",
-    a: "Sim. Seus áudios são processados para gerar o relatório e tratados com total segurança e privacidade. Nenhum dado é compartilhado com terceiros.",
+    q: "O que sinto após as primeiras noites de loop?",
+    a: "É comum sentir mais clareza mental e uma leveza emocional, pois o seu cérebro está substituindo caminhos neurais antigos por novos padrões de força.",
   },
   {
-    q: "O que fazer se meu relatório não foi gerado?",
-    a: "Isso pode acontecer se a gravação for muito curta, com muito ruído ou se houve falha na conexão. Grave novamente em um ambiente silencioso com pelo menos 10 segundos de fala clara.",
-  },
-  {
-    q: "Onde encontro meus relatórios anteriores?",
-    a: "Acesse o menu do seu perfil e toque em 'Meus Relatórios'. Lá você encontra o histórico completo organizado por data, incluindo relatórios, comandos quânticos e meditações.",
-  },
-  {
-    q: "Como redigir a meditação ajuda no meu cérebro?",
-    a: "Ao escrever à mão, você ativa o córtex pré-frontal para organizar o trauma, potencializando a limpeza emocional que ocorrerá durante o sono ao ouvir a gravação.",
-  },
-  {
-    q: "Para que serve o Oráculo?",
-    a: "O Oráculo é um assistente especializado em crenças, somatização e comportamento humano. Você pode tirar dúvidas sobre como crenças limitantes afetam seu corpo e sua vida. Ele não responde sobre o funcionamento do app — para isso, consulte este FAQ.",
-  },
-  {
-    q: "O que é a Comunidade A.X.I.O.?",
-    a: "É um espaço para ler e compartilhar relatos de transformação com outros usuários. Você pode encontrar inspiração nas histórias de superação e conquistas de quem já passou pelo processo.",
-  },
-  {
-    q: "Posso ouvir a meditação de outra pessoa?",
-    a: "Não recomendamos. A voz do próprio usuário é a chave para burlar o fator crítico da mente. Ouvir outra voz não terá o mesmo efeito de reprogramação.",
-  },
-  {
-    q: "Preciso fazer o diagnóstico de todos os 4 pilares?",
-    a: "Não é obrigatório, mas recomendamos. Cada pilar revela bloqueios em áreas diferentes da vida. A análise completa oferece uma visão holística dos seus padrões inconscientes.",
-  },
-  {
-    q: "O app funciona em qualquer navegador?",
-    a: "Funciona melhor em Chrome, Safari e Edge atualizados. Em iPhones, use obrigatoriamente o Safari. Recomendamos manter o navegador sempre atualizado.",
-  },
-  {
-    q: "Preciso de internet para usar o app?",
-    a: "Sim. O processamento do áudio e a geração dos relatórios, comandos e meditações são feitos na nuvem, sendo necessária uma conexão estável.",
-  },
-  {
-    q: "O que fazer se a página travar durante o processamento?",
-    a: "Aguarde pelo menos 2 minutos antes de recarregar. Se persistir, feche a aba, abra novamente e faça uma nova gravação.",
-  },
-  {
-    q: "O relatório ficou incompleto, o que faço?",
-    a: "Regravar o áudio falando de forma mais clara e detalhada costuma resolver. Quanto mais específico for seu relato, mais preciso será o diagnóstico.",
+    q: "Como faço para assinar ou mudar meu plano?",
+    a: "Você pode escolher ou alterar seu plano diretamente no menu 'Planos de Assinatura', localizado no ícone da coroa no menu superior. Lá você encontra as melhores opções de desconto.",
   },
 ];
 

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { LogIn, LogOut, User, Eye, HelpCircle } from "lucide-react";
+import { LogIn, LogOut, User, Crown, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -12,8 +12,8 @@ const UserMenu = () => {
   if (!user) {
     return (
       <div className="flex items-center gap-2">
-        <button onClick={() => navigate("/oraculo")} className="text-muted-foreground hover:text-primary transition-colors p-1">
-          <Eye className="h-4 w-4" />
+        <button onClick={() => navigate("/planos")} className="text-muted-foreground hover:text-primary transition-colors p-1">
+          <Crown className="h-4 w-4" />
         </button>
         <button onClick={() => navigate("/faq")} className="text-muted-foreground hover:text-primary transition-colors p-1">
           <HelpCircle className="h-4 w-4" />
@@ -28,8 +28,8 @@ const UserMenu = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <button onClick={() => navigate("/oraculo")} className="text-muted-foreground hover:text-primary transition-colors p-1">
-        <Eye className="h-4 w-4" />
+      <button onClick={() => navigate("/planos")} className="text-muted-foreground hover:text-primary transition-colors p-1">
+        <Crown className="h-4 w-4" />
       </button>
       <button onClick={() => navigate("/faq")} className="text-muted-foreground hover:text-primary transition-colors p-1">
         <HelpCircle className="h-4 w-4" />
