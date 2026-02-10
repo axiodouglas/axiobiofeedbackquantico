@@ -1691,17 +1691,45 @@ Para modo PREMIUM, adicione:
   "is_premium": true
 }`;
 
+const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento"];
+const MAX_TRANSCRIPTION_LENGTH = 10000;
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Validate authorization - this function should only be called from axio-transcribe with service role
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: "Não autorizado" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { transcription, area, is_premium, previous_diagnoses } = await req.json();
 
     if (!transcription || !area) {
       return new Response(
         JSON.stringify({ error: "Transcrição e área são obrigatórios" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate area
+    if (!VALID_AREAS.includes(area)) {
+      return new Response(
+        JSON.stringify({ error: "Área inválida" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate transcription length
+    if (typeof transcription !== "string" || transcription.length > MAX_TRANSCRIPTION_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: "Transcrição inválida ou muito longa" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }

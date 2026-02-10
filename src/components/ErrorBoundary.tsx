@@ -25,11 +25,6 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   handleReset = () => {
-    // Cleanup all diagnosis state
-    sessionStorage.removeItem("axio_audio");
-    sessionStorage.removeItem("axio_result");
-    sessionStorage.removeItem("axio_area");
-    sessionStorage.removeItem("axio_focus_error");
     this.setState({ hasError: false });
     window.location.href = "/area-selection";
   };
