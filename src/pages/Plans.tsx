@@ -5,6 +5,16 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
 import UserMenu from "@/components/UserMenu";
 
+const sharedFeatures = [
+  "Desbloqueio de todos os pilares (Pai, Traumas, Relacionamentos)",
+  "Diagnósticos ilimitados",
+  "Comandos Quânticos personalizados",
+  "Meditação personalizada",
+  "Acesso ao Oráculo AXIO",
+  "Acesso à Comunidade AXIO",
+  "Relatórios de evolução",
+];
+
 const plans = [
   {
     name: "Mensal",
@@ -12,12 +22,7 @@ const plans = [
     period: "/mês",
     badge: null,
     highlight: false,
-    features: [
-      "Diagnósticos ilimitados",
-      "Comandos Quânticos personalizados",
-      "Meditação personalizada",
-      "Acesso ao Oráculo AXIO",
-    ],
+    features: sharedFeatures,
   },
   {
     name: "Trimestral",
@@ -25,12 +30,7 @@ const plans = [
     period: "/mês",
     badge: "16% OFF",
     highlight: false,
-    features: [
-      "Tudo do plano Mensal",
-      "Economia de R$ 14,73 no trimestre",
-      "Acesso à Comunidade AXIO",
-      "Suporte prioritário",
-    ],
+    features: [...sharedFeatures, "Economia de R$ 14,73 no trimestre"],
   },
   {
     name: "Semestral",
@@ -38,12 +38,7 @@ const plans = [
     period: "/mês",
     badge: "33% OFF",
     highlight: true,
-    features: [
-      "Tudo do plano Trimestral",
-      "Economia de R$ 60 no semestre",
-      "Relatórios de evolução",
-      "Conteúdos exclusivos",
-    ],
+    features: [...sharedFeatures, "Economia de R$ 60 no semestre"],
   },
 ];
 
