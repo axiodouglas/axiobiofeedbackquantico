@@ -5,6 +5,7 @@ import oracleBg from "@/assets/oracle-bg.jpg";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import UserMenu from "@/components/UserMenu";
+import { supabase } from "@/integrations/supabase/client";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -18,6 +19,22 @@ const Oracle = () => {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const sendingRef = useRef(false);
+  const [userDiagnoses, setUserDiagnoses] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchDiagnoses = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase
+        .from("diagnoses")
+        .select("area, frequency_score, diagnosis_result")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(10);
+      if (data) setUserDiagnoses(data);
+    };
+    fetchDiagnoses();
+  }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -42,7 +59,7 @@ const Oracle = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: allMessages }),
+        body: JSON.stringify({ messages: allMessages, userDiagnoses }),
       });
 
       if (!resp.ok || !resp.body) {
