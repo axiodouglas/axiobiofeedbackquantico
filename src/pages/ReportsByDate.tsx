@@ -43,18 +43,18 @@ export default function ReportsByDate() {
 
   useEffect(() => {
     if (user && date) {
-      const startOfDay = `${date}T00:00:00.000Z`;
-      const endOfDay = `${date}T23:59:59.999Z`;
-
+      // Fetch ALL user diagnoses and filter by local date to avoid timezone mismatch
       supabase
         .from("diagnoses")
         .select("id, area, created_at")
         .eq("user_id", user.id)
-        .gte("created_at", startOfDay)
-        .lte("created_at", endOfDay)
         .order("created_at", { ascending: false })
         .then(({ data }) => {
-          setDiagnoses(data ?? []);
+          const filtered = (data ?? []).filter((d) => {
+            const localDate = format(new Date(d.created_at), "yyyy-MM-dd");
+            return localDate === date;
+          });
+          setDiagnoses(filtered);
           setLoadingData(false);
         });
     }
