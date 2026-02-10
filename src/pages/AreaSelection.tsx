@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, UserCheck, Flame, Lock, HeartHandshake, Clock } from "lucide-react";
+import { ArrowLeft, Heart, UserCheck, Flame, HeartHandshake, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/use-auth";
-import { useAreaLock } from "@/hooks/use-area-lock";
 
 const areas = [
   {
@@ -11,7 +9,6 @@ const areas = [
     description: "Descubra a raiz dos seus bloqueios na relação materna.",
     icon: <Heart className="h-8 w-8" />,
     iconColor: "bg-axio-relationship/20 text-axio-relationship",
-    isFree: true,
   },
   {
     id: "pai",
@@ -19,7 +16,6 @@ const areas = [
     description: "Desbloqueie a força paterna e sua capacidade de agir.",
     icon: <UserCheck className="h-8 w-8" />,
     iconColor: "bg-primary/20 text-primary",
-    isFree: true,
   },
   {
     id: "traumas",
@@ -27,7 +23,6 @@ const areas = [
     description: "Bullying, acidentes, perdas e abusos externos.",
     icon: <Flame className="h-8 w-8" />,
     iconColor: "bg-axio-family/20 text-axio-family",
-    isFree: true,
   },
   {
     id: "relacionamento",
@@ -35,22 +30,14 @@ const areas = [
     description: "Descubra as projeções de Pai e Mãe no seu parceiro.",
     icon: <HeartHandshake className="h-8 w-8" />,
     iconColor: "bg-axio-relationship/20 text-axio-relationship",
-    isFree: true,
   },
 ];
 
 const AreaSelection = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const { lockedAreas, daysRemaining, loading: lockLoading } = useAreaLock(user?.id);
 
   const handleSelect = (area: typeof areas[number]) => {
-    if (lockedAreas.includes(area.id)) return;
-    if (area.isFree) {
-      navigate(`/recording?area=${area.id}`);
-    } else {
-      navigate("/checkout");
-    }
+    navigate(`/recording?area=${area.id}`);
   };
 
   return (
@@ -68,64 +55,38 @@ const AreaSelection = () => {
         <div className="max-w-md w-full text-center">
           <h1 className="text-3xl font-bold mb-2 text-foreground">Escolha o Pilar</h1>
           <p className="text-muted-foreground mb-8">
-            Selecione qual área deseja trabalhar nesta semana.
+            Selecione qual área deseja trabalhar agora.
           </p>
 
-          {lockedAreas.length > 0 && (
-            <div className="flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 mb-6 text-left">
-              <Clock className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-              <p className="text-xs text-muted-foreground">
-                Você está em processo de limpeza mental. Os demais pilares serão desbloqueados em{" "}
-                <span className="font-semibold text-primary">{daysRemaining} dia{daysRemaining !== 1 ? "s" : ""}</span>.
-              </p>
-            </div>
-          )}
+          {/* Advisory message */}
+          <div className="flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 mb-6 text-left">
+            <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Para melhores resultados, recomendamos que você pratique os <span className="font-semibold text-foreground">comandos quânticos e a meditação</span> de cada pilar por no mínimo <span className="font-semibold text-primary">7 dias</span>, ou até sentir que a crença perdeu força, antes de iniciar outro pilar.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 gap-4">
-            {areas.map((area) => {
-              const isLocked = lockedAreas.includes(area.id);
-              return (
-                <div
-                  key={area.id}
-                  onClick={() => handleSelect(area)}
-                  className={`group relative overflow-hidden rounded-xl border-2 p-6 transition-all duration-300 ${
-                    isLocked
-                      ? "border-border bg-card/50 opacity-60 cursor-not-allowed"
-                      : "border-border bg-card cursor-pointer hover:border-primary/60 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.2)]"
-                  }`}
-                >
-                  <div className="flex items-center gap-4">
-                    <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${isLocked ? "bg-muted text-muted-foreground" : area.iconColor} transition-transform ${!isLocked ? "group-hover:scale-110" : ""}`}>
-                      {isLocked ? <Lock className="h-8 w-8" /> : area.icon}
-                    </div>
-                    <div className="text-left">
-                      <h3 className="text-xl font-semibold text-foreground">{area.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {isLocked ? `Desbloqueio em ${daysRemaining} dia${daysRemaining !== 1 ? "s" : ""}` : area.description}
-                      </p>
-                      {!isLocked && (
-                        area.isFree ? (
-                          <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
-                            Gratuito
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
-                            <Lock className="h-2.5 w-2.5" />
-                            Premium
-                          </span>
-                        )
-                      )}
-                      {isLocked && (
-                        <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-semibold bg-muted text-muted-foreground rounded-full px-2 py-0.5">
-                          <Lock className="h-2.5 w-2.5" />
-                          Bloqueado
-                        </span>
-                      )}
-                    </div>
+            {areas.map((area) => (
+              <div
+                key={area.id}
+                onClick={() => handleSelect(area)}
+                className="group relative overflow-hidden rounded-xl border-2 border-border bg-card cursor-pointer hover:border-primary/60 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.2)] p-6 transition-all duration-300"
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${area.iconColor} transition-transform group-hover:scale-110`}>
+                    {area.icon}
+                  </div>
+                  <div className="text-left">
+                    <h3 className="text-xl font-semibold text-foreground">{area.title}</h3>
+                    <p className="text-sm text-muted-foreground">{area.description}</p>
+                    <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
+                      Gratuito
+                    </span>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
