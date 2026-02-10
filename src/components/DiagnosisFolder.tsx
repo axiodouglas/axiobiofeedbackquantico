@@ -188,7 +188,6 @@ function ReportContent({ diagnosis }: { diagnosis: any }) {
                 <div className="flex-1 bg-muted rounded-full h-2.5">
                   <div className="bg-gradient-to-r from-destructive via-yellow-500 to-primary h-2.5 rounded-full" style={{ width: `${s.intensity}%` }} />
                 </div>
-                <span className="text-[10px] text-muted-foreground">{s.intensity}%</span>
               </div>
             ))}
         </div>

@@ -150,14 +150,11 @@ const DiagnosisDetail = () => {
                     .sort((a: any, b: any) => b.intensity - a.intensity)
                     .slice(0, 1)
                     .map((s: any, i: number) => (
-                      <div key={i} className="flex items-center justify-between">
+                      <div key={i} className="flex items-center gap-2">
                         <span className="text-sm font-medium text-foreground">{s.name}</span>
-                        <div className="flex items-center gap-2 flex-1 mx-4">
-                          <div className="w-full bg-muted rounded-full h-3">
-                            <div className="bg-gradient-to-r from-destructive via-yellow-500 to-primary h-3 rounded-full" style={{ width: `${s.intensity}%` }} />
-                          </div>
+                        <div className="flex-1 bg-muted rounded-full h-3">
+                          <div className="bg-gradient-to-r from-destructive via-yellow-500 to-primary h-3 rounded-full" style={{ width: `${s.intensity}%` }} />
                         </div>
-                        <span className="text-xs text-muted-foreground">{s.intensity}%</span>
                       </div>
                     ))}
                 </div>

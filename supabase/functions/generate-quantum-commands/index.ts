@@ -67,7 +67,7 @@ serve(async (req) => {
       `Resumo: ${dr.summary || "N/A"}`,
       `Ferida Raiz: ${dr.root_wound || "N/A"}`,
       `Bloqueios: ${(dr.blocks || []).map((b: any) => `${b.name}: ${b.description}`).join("; ")}`,
-      `Sentimentos Predominantes: ${(dr.predominant_sentiments || []).map((s: any) => `${s.name} (${s.intensity}%)`).join(", ")}`,
+      `Sentimentos Predominantes: ${(dr.predominant_sentiments || []).map((s: any) => s.name).join(", ")}`,
     ];
 
     if (dr.secondary_impacts) {

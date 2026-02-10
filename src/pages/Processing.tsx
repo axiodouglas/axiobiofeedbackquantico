@@ -417,7 +417,7 @@ const Processing = () => {
           </div>
 
           <p className="text-muted-foreground text-sm">
-            Processando análise quântica... {Math.round(progress)}%
+            Processando análise quântica...
           </p>
         </div>
       </div>

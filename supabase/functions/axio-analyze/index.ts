@@ -1641,8 +1641,10 @@ Exemplo: Se o diagnóstico de Pai for 'Rejeição Deliberada':
 REGRAS DE DIAGNÓSTICO:
 1. Nunca repita diagnósticos genéricos. Cada análise deve ser profundamente personalizada baseada nas PALAVRAS EXATAS do usuário.
 2. Conecte sempre o sintoma atual (trava financeira, ansiedade, padrão de relacionamento) à ORIGEM familiar/gestacional específica revelada no áudio.
-3. Use a Escala de Hawkins apenas como referência informativa, nunca classifique usuários como "Paz" ou "Iluminação".
-4. O frequency_score deve refletir realisticamente o estado emocional detectado (geralmente 20-45 para diagnósticos iniciais).
+3. Use a Escala de Hawkins apenas como referência interna de calibração — NUNCA mencione números, scores ou valores numéricos no texto do diagnóstico.
+4. O frequency_score é apenas para uso interno do sistema — NUNCA exiba ou mencione ele ao usuário.
+5. IMPORTANTE: Nos textos de description, summary, root_wound e secondary_impacts, NUNCA inclua números de referência do dataset (ex: "01", "50", "100"), porcentagens ou scores. Use apenas linguagem descritiva e empática.
+6. REVISÃO OBRIGATÓRIA: Antes de entregar o JSON, releia TODOS os campos de texto para garantir coerência de palavras. Exemplo: "vínculos" NÃO pode virar "veículos". Certifique-se de que cada palavra faz sentido no contexto.
 
 FORMATO DE RESPOSTA (JSON):
 {
