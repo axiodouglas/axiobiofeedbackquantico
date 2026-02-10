@@ -1,5 +1,4 @@
-import { Heart, UserCheck, Flame, Sparkles, Mic, Lock, Brain, MessageSquare, FileText, Moon, HeartHandshake } from "lucide-react";
-import quantumCosmos from "@/assets/quantum-cosmos.jpg";
+import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -80,11 +79,6 @@ const Index = () => {
               <span className="text-gradient-cyan">A.X.I.O.</span>
             </h1>
 
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-[hsl(185,75%,40%)] px-5 py-2.5 shadow-[0_4px_15px_hsl(175,70%,50%,0.3)]">
-              <Sparkles className="h-4 w-4 text-primary-foreground animate-pulse" />
-              <span className="text-sm font-bold text-primary-foreground">Biofeedback Quântico</span>
-            </div>
-            
             <p className="text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 leading-relaxed">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
               Descubra a raiz dos seus bloqueios e cure sua linhagem.
@@ -108,17 +102,12 @@ const Index = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-foreground mb-2">Os 4 Pilares da Crença</h2>
+          <p className="text-muted-foreground max-w-lg mx-auto text-sm leading-relaxed">
+            O método A.X.I.O. investiga as 4 raízes inconscientes que moldam seus padrões de vida: Mãe, Pai, Traumas e Relacionamentos. Através da análise vocal, identificamos os bloqueios emocionais de origem e geramos comandos quânticos personalizados para reprogramar sua linhagem.
+          </p>
         </div>
 
-        <div className="relative max-w-lg mx-auto rounded-2xl overflow-hidden border border-border shadow-[0_0_30px_hsl(175,70%,50%,0.1)]">
-          <img
-            src={quantumCosmos}
-            alt="Cosmos quântico"
-            className="w-full h-auto min-h-[600px] object-cover"
-          />
-          <div className="absolute inset-0 bg-black/30" />
-
-          <div className="absolute inset-0 flex flex-col p-4 gap-3">
+        <div className="max-w-lg mx-auto flex flex-col gap-3">
             <div className="grid grid-cols-2 gap-3">
               {areas.map((area) => (
                 <AreaCard
@@ -189,9 +178,8 @@ const Index = () => {
                 <span className="absolute text-3xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '5.2s', animationDelay: '0.6s' }}>🪷</span>
                 <span className="absolute text-2xl opacity-15 animate-bounce" style={{ right: '78%', bottom: '30%', animationDuration: '3.4s', animationDelay: '1s' }}>🧘</span>
               </div>
-            </div>
-          </div>
         </div>
+      </div>
       </div>
 
       {/* Footer */}
