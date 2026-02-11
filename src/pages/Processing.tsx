@@ -102,7 +102,7 @@ const Processing = () => {
 
         if (error) {
           console.error("DB update error:", error.message, error.code, error.details);
-          setErrorMsg(`Erro ao salvar: ${error.message} (${error.code || "unknown"})`);
+          setErrorMsg("Não foi possível salvar o diagnóstico. Tente novamente.");
           return false;
         }
 
@@ -118,7 +118,7 @@ const Processing = () => {
 
         if (error) {
           console.error("DB save error:", error.message, error.code, error.details);
-          setErrorMsg(`Erro ao salvar: ${error.message} (${error.code || "unknown"})`);
+          setErrorMsg("Não foi possível salvar o diagnóstico. Tente novamente.");
           return false;
         }
         diagnosisId = insertedRows?.[0]?.id || null;
