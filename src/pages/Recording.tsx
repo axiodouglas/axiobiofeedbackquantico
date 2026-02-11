@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useAxioAnalysis } from "@/hooks/use-axio-analysis";
 import { useAuth } from "@/hooks/use-auth";
-import { useAreaLock } from "@/hooks/use-area-lock";
+import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
+import { useToast } from "@/hooks/use-toast";
 
 const MAX_RECORDING_TIME = 120;
 const MAX_AUDIO_SIZE_MB = 10;
@@ -21,8 +22,11 @@ const Recording = () => {
   const rawArea = searchParams.get("area") || "pai";
   const area = VALID_AREAS.includes(rawArea) ? rawArea : "pai";
 
-  const { user } = useAuth();
-  const { lockedAreas, loading: lockLoading } = useAreaLock(user?.id);
+  const { user, profile, loading: authLoading } = useAuth();
+  const { freeDiagnosisUsed, loading: freeLoading } = useFreeDiagnosisUsed(user?.id);
+  const { toast } = useToast();
+
+  const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -49,55 +53,38 @@ const Recording = () => {
     };
   }, []);
 
-  // Check area lock
-  const lock = lockedAreas[area];
-  const isAreaLocked = lock?.locked;
+  // Gate: non-premium users can only record "mae" and only once
+  useEffect(() => {
+    if (authLoading || freeLoading) return;
+    if (isPremium) return; // premium can do anything
 
-  if (!lockLoading && isAreaLocked) {
+    // Non-premium trying to access non-mae area
+    if (area !== "mae") {
+      toast({
+        title: "Acesso restrito",
+        description: "Assine um plano para liberar todos os pilares.",
+        variant: "destructive",
+      });
+      navigate("/planos", { replace: true });
+      return;
+    }
+
+    // Non-premium already used free diagnosis
+    if (freeDiagnosisUsed) {
+      toast({
+        title: "Diagnóstico cortesia já utilizado",
+        description: "Você já utilizou seu diagnóstico cortesia. Assine um plano para liberar todos os pilares.",
+        variant: "destructive",
+      });
+      navigate("/planos", { replace: true });
+    }
+  }, [authLoading, freeLoading, isPremium, area, freeDiagnosisUsed, navigate, toast]);
+
+  // Show loading while auth/free check resolves
+  if (authLoading || freeLoading) {
     return (
-      <div className="min-h-screen bg-background noise flex flex-col">
-        <header className="border-b border-border bg-card/50 py-4">
-          <div className="container mx-auto px-4">
-            <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              Voltar
-            </Button>
-          </div>
-        </header>
-        <div className="flex-1 container mx-auto px-4 py-12 flex flex-col items-center justify-center">
-          <div className="max-w-md w-full text-center space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-destructive/30 bg-destructive/10 px-4 py-2">
-              <AlertTriangle className="h-4 w-4 text-destructive" />
-              <span className="text-sm font-medium text-destructive">Diagnóstico já realizado</span>
-            </div>
-            <h1 className="text-2xl font-bold text-foreground">Pilar {areaNames[area]} em protocolo</h1>
-            <div className="bg-card border border-border rounded-xl p-6 text-left space-y-3">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Você já gravou o diagnóstico deste pilar. Para que a reprogramação funcione, é essencial seguir o protocolo:
-              </p>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary font-bold">1.</span>
-                  Pratique os <strong className="text-foreground">comandos quânticos</strong> diariamente (manhã, tarde e noite)
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary font-bold">2.</span>
-                  Ouça sua <strong className="text-foreground">meditação gravada</strong> todas as noites ao dormir
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary font-bold">3.</span>
-                  Aguarde pelo menos <strong className="text-primary">{lock.daysRemaining} dia(s)</strong> antes de refazer
-                </li>
-              </ul>
-              <p className="text-xs text-muted-foreground italic">
-                A repetição é o que cria novos caminhos neurais. Sem o protocolo, o diagnóstico perde eficácia.
-              </p>
-            </div>
-            <Button variant="cyan" onClick={() => navigate("/")}>
-              Voltar para o Início
-            </Button>
-          </div>
-        </div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Mic className="h-8 w-8 text-primary animate-pulse" />
       </div>
     );
   }
@@ -163,14 +150,12 @@ const Recording = () => {
       return;
     }
 
-    // Validate audio size
     const maxBytes = MAX_AUDIO_SIZE_MB * 1024 * 1024;
     if (audioBlob.size > maxBytes) {
       alert(`O áudio é muito grande (máximo ${MAX_AUDIO_SIZE_MB}MB). Grave um áudio mais curto.`);
       return;
     }
 
-    // Validate audio type
     if (!audioBlob.type.startsWith("audio/")) {
       alert("Formato de áudio inválido. Tente gravar novamente.");
       return;
@@ -262,7 +247,6 @@ const Recording = () => {
               <div className="space-y-4">
                 <p className="text-sm text-primary font-medium">✓ Áudio gravado com sucesso!</p>
 
-                {/* Audio preview */}
                 {audioUrl && (
                   <div className="bg-secondary/30 border border-border rounded-lg p-3">
                     <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1.5">
@@ -275,18 +259,6 @@ const Recording = () => {
 
                 {!confirmed && !isUploading && !isAnalyzing && (
                   <>
-                    {/* 7-day warning */}
-                    <div className="bg-destructive/5 border border-destructive/20 rounded-lg p-3 text-left">
-                      <p className="text-xs text-destructive font-semibold mb-1 flex items-center gap-1.5">
-                        <AlertTriangle className="h-3.5 w-3.5" />
-                        Atenção
-                      </p>
-                      <p className="text-[11px] text-muted-foreground leading-relaxed">
-                        Ao gerar o relatório, você não poderá gravar outro diagnóstico para o pilar <strong className="text-foreground">{areaNames[area]}</strong> durante <strong className="text-primary">7 dias</strong>. 
-                        Nesse período, você deverá praticar os comandos quânticos e ouvir a meditação diariamente para que a reprogramação funcione.
-                      </p>
-                    </div>
-
                     <div className="flex gap-3">
                       <Button
                         variant="outline"
@@ -308,7 +280,7 @@ const Recording = () => {
                 {confirmed && !isUploading && !isAnalyzing && (
                   <div className="space-y-3">
                     <p className="text-xs text-muted-foreground">
-                      Tem certeza? Após gerar, o pilar ficará bloqueado por 7 dias.
+                      Tem certeza? Clique para gerar seu relatório.
                     </p>
                     <div className="flex gap-3">
                       <Button variant="outline" className="flex-1" onClick={() => setConfirmed(false)}>

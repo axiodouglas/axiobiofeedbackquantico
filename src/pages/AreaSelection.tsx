@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Heart, UserCheck, Flame, HeartHandshake, Info, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { useAreaLock } from "@/hooks/use-area-lock";
+import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
 
 const areas = [
@@ -39,27 +39,33 @@ const areas = [
 const AreaSelection = () => {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
-  const { lockedAreas } = useAreaLock(user?.id);
+  const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
 
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   const handleSelect = (area: typeof areas[number]) => {
-    // Non-premium users can only access "mae"
-    if (!isPremium && area.id !== "mae") {
+    if (isPremium) {
+      navigate(`/recording?area=${area.id}`);
+      return;
+    }
+
+    // Non-premium: only "mae" and only if free diagnosis not used
+    if (area.id !== "mae") {
       navigate("/planos");
       return;
     }
 
-    const lock = lockedAreas[area.id];
-    if (lock?.locked) {
+    if (freeDiagnosisUsed) {
       toast({
-        title: "Diagnóstico já realizado",
-        description: `Você já gravou o pilar "${area.title}". Siga o protocolo: pratique os comandos quânticos e a meditação por ${lock.daysRemaining} dia(s) restante(s) antes de refazer. Isso é essencial para a reprogramação funcionar.`,
+        title: "Diagnóstico cortesia já utilizado",
+        description: "Você já utilizou seu diagnóstico cortesia. Assine um plano para liberar todos os pilares.",
         variant: "destructive",
       });
+      navigate("/planos");
       return;
     }
+
     navigate(`/recording?area=${area.id}`);
   };
 
@@ -81,49 +87,49 @@ const AreaSelection = () => {
             Selecione qual área deseja trabalhar agora.
           </p>
 
-          {/* Advisory message */}
-          <div className="flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 mb-6 text-left">
-            <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              Para melhores resultados, recomendamos que você pratique os <span className="font-semibold text-foreground">comandos quânticos e a meditação</span> de cada pilar por no mínimo <span className="font-semibold text-primary">7 dias</span>, ou até sentir que a crença perdeu força, antes de iniciar outro pilar.
-            </p>
-          </div>
+          {isPremium && (
+            <div className="flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 mb-6 text-left">
+              <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Você tem acesso <span className="font-semibold text-primary">Premium</span>. Todos os pilares estão liberados.
+              </p>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 gap-4">
             {areas.map((area) => {
-              const lock = lockedAreas[area.id];
-              const isLocked = lock?.locked;
               const isPremiumLocked = !isPremium && area.id !== "mae";
+              const isFreeUsed = !isPremium && area.id === "mae" && freeDiagnosisUsed;
 
               return (
                 <div
                   key={area.id}
                   onClick={() => handleSelect(area)}
                   className={`group relative overflow-hidden rounded-xl border-2 bg-card cursor-pointer p-6 transition-all duration-300 ${
-                    isLocked || isPremiumLocked
+                    isPremiumLocked || isFreeUsed
                       ? "border-border/50 opacity-60"
                       : "border-border hover:border-primary/60 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.2)]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
                     <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${area.iconColor} transition-transform group-hover:scale-110`}>
-                      {isLocked || isPremiumLocked ? <Lock className="h-8 w-8" /> : area.icon}
+                      {isPremiumLocked || isFreeUsed ? <Lock className="h-8 w-8" /> : area.icon}
                     </div>
                     <div className="text-left">
                       <h3 className="text-xl font-semibold text-foreground">{area.title}</h3>
                       <p className="text-sm text-muted-foreground">
-                        {isLocked
-                          ? `Protocolo ativo — ${lock.daysRemaining} dia(s) restante(s)`
+                        {isFreeUsed
+                          ? "Diagnóstico cortesia já utilizado"
                           : isPremiumLocked
                           ? "Premium"
                           : area.description}
                       </p>
-                      {!isLocked && !isPremiumLocked && (
+                      {!isPremiumLocked && !isFreeUsed && !isPremium && (
                         <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
                           Gratuito
                         </span>
                       )}
-                      {isPremiumLocked && (
+                      {(isPremiumLocked || isFreeUsed) && (
                         <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
                           Premium
                         </span>

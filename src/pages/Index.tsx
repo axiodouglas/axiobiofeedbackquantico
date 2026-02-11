@@ -4,12 +4,52 @@ import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
+import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
+import { useToast } from "@/hooks/use-toast";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 
 const Index = () => {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
+  const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
+  const { toast } = useToast();
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
+
+  const handleFreeArea = () => {
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
+    if (!isPremium && freeDiagnosisUsed) {
+      toast({
+        title: "Diagnóstico cortesia já utilizado",
+        description: "Você já utilizou seu diagnóstico cortesia. Assine um plano para liberar todos os pilares.",
+        variant: "destructive",
+      });
+      navigate("/planos");
+      return;
+    }
+    navigate("/recording?area=mae");
+  };
+
+  const handlePremiumArea = (area: string) => {
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
+    if (!isPremium) {
+      if (freeDiagnosisUsed) {
+        toast({
+          title: "Diagnóstico cortesia já utilizado",
+          description: "Você já utilizou seu diagnóstico cortesia. Assine um plano para liberar todos os pilares.",
+          variant: "destructive",
+        });
+      }
+      navigate("/planos");
+      return;
+    }
+    navigate(`/recording?area=${area}`);
+  };
 
   const areas = [
     {
@@ -18,9 +58,9 @@ const Index = () => {
       icon: <Heart className="h-5 w-5" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: false,
-      isLocked: false,
-      badge: "Gratuito",
-      onClick: () => user ? navigate("/recording?area=mae") : navigate("/auth"),
+      isLocked: !isPremium && freeDiagnosisUsed,
+      badge: isPremium ? undefined : freeDiagnosisUsed ? undefined : "Gratuito",
+      onClick: handleFreeArea,
     },
     {
       title: "Pai",
@@ -29,7 +69,7 @@ const Index = () => {
       iconColor: "bg-primary/20 text-primary",
       isPremium: !isPremium,
       isLocked: !isPremium,
-      onClick: () => isPremium ? navigate("/recording?area=pai") : navigate("/planos"),
+      onClick: () => handlePremiumArea("pai"),
     },
     {
       title: "Traumas",
@@ -38,7 +78,7 @@ const Index = () => {
       iconColor: "bg-axio-family/20 text-axio-family",
       isPremium: !isPremium,
       isLocked: !isPremium,
-      onClick: () => isPremium ? navigate("/recording?area=traumas") : navigate("/planos"),
+      onClick: () => handlePremiumArea("traumas"),
     },
     {
       title: "Relacionamentos",
@@ -47,7 +87,7 @@ const Index = () => {
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: !isPremium,
       isLocked: !isPremium,
-      onClick: () => isPremium ? navigate("/recording?area=relacionamento") : navigate("/planos"),
+      onClick: () => handlePremiumArea("relacionamento"),
     },
   ];
 
@@ -88,10 +128,10 @@ const Index = () => {
               variant="cyan" 
               size="xl" 
               className="group"
-              onClick={() => user ? navigate("/recording?area=mae") : navigate("/auth")}
+              onClick={handleFreeArea}
             >
               <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
-              Iniciar Diagnóstico Gratuito
+              {isPremium ? "Iniciar Diagnóstico" : freeDiagnosisUsed ? "Assinar Plano Premium" : "Iniciar Diagnóstico Gratuito"}
             </Button>
 
           </div>
@@ -144,7 +184,6 @@ const Index = () => {
                   <h3 className="font-bold text-foreground text-xl leading-tight">Comunidade</h3>
                   <p className="text-sm text-muted-foreground">Relatos de transformação</p>
                 </div>
-                {/* Floating chat bubbles */}
                 <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '8%', animationDuration: '3s' }}>💬</span>
                 <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4s', animationDelay: '1s' }}>🗨️</span>
                 <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>💬</span>
@@ -168,7 +207,6 @@ const Index = () => {
                   <h3 className="font-bold text-foreground text-xl leading-tight">Entenda a Meditação A.X.I.O.</h3>
                   <p className="text-sm text-muted-foreground">5 etapas da reprogramação</p>
                 </div>
-                {/* Floating lotus & monks */}
                 <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '8%', animationDuration: '3s' }}>🪷</span>
                 <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4.5s', animationDelay: '1.5s' }}>🧘</span>
                 <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>🪷</span>
