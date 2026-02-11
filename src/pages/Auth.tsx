@@ -47,7 +47,8 @@ const Auth = () => {
       if (err) {
         setError(err);
       } else {
-        setSuccessMessage("Cadastro realizado! Verifique seu e-mail para confirmar sua conta.");
+        // Auto-confirm is enabled, so redirect immediately after signup
+        navigate("/recording?area=mae");
       }
     }
     setLoading(false);
