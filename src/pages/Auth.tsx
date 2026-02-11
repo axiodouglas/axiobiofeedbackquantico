@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Brain, Mail, Lock, User, ArrowLeft, Sparkles, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,8 +11,15 @@ import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 
 const Auth = () => {
   const navigate = useNavigate();
-  const { signIn, signUp } = useAuth();
+  const { user, signIn, signUp } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
+
+  // If already logged in, redirect to recording
+  useEffect(() => {
+    if (user) {
+      navigate("/recording?area=mae", { replace: true });
+    }
+  }, [user, navigate]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
