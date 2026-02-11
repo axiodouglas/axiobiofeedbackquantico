@@ -107,6 +107,10 @@ const Admin = () => {
 
   const totalUsers = profiles.length;
   const premiumUsers = profiles.filter((p) => p.is_premium).length;
+  const freeUsers = profiles.filter((p) => !p.is_premium).length;
+  const monthlyUsers = profiles.filter((p) => p.is_premium && p.subscription_type === "monthly").length;
+  const quarterlyUsers = profiles.filter((p) => p.is_premium && p.subscription_type === "quarterly").length;
+  const semiannualUsers = profiles.filter((p) => p.is_premium && p.subscription_type === "semiannual").length;
   const estimatedRevenue = profiles.reduce((sum, p) => {
     if (p.is_premium && p.subscription_type) {
       return sum + (PLAN_PRICES[p.subscription_type] || 0);
@@ -160,6 +164,34 @@ const Admin = () => {
                 R$ {estimatedRevenue.toFixed(0)}
               </p>
               <p className="text-xs text-muted-foreground">Faturamento Est.</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Plan Distribution */}
+        <div className="grid grid-cols-4 gap-3">
+          <Card className="bg-card border-border">
+            <CardContent className="p-3 text-center">
+              <p className="text-xl font-bold text-foreground">{freeUsers}</p>
+              <p className="text-xs text-muted-foreground">Gratuito</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-card border-border">
+            <CardContent className="p-3 text-center">
+              <p className="text-xl font-bold text-foreground">{monthlyUsers}</p>
+              <p className="text-xs text-muted-foreground">Mensal</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-card border-border">
+            <CardContent className="p-3 text-center">
+              <p className="text-xl font-bold text-foreground">{quarterlyUsers}</p>
+              <p className="text-xs text-muted-foreground">Trimestral</p>
+            </CardContent>
+          </Card>
+          <Card className="bg-card border-border">
+            <CardContent className="p-3 text-center">
+              <p className="text-xl font-bold text-foreground">{semiannualUsers}</p>
+              <p className="text-xs text-muted-foreground">Semestral</p>
             </CardContent>
           </Card>
         </div>
