@@ -25,6 +25,7 @@ import Oracle from "./pages/Oracle";
 import FAQ from "./pages/FAQ";
 import Plans from "./pages/Plans";
 import VendaOficial from "./pages/VendaOficial";
+import Convite from "./pages/Convite";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -62,6 +63,7 @@ const App = () => (
               <Route path="/planos" element={<Plans />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/venda-oficial" element={<VendaOficial />} />
+              <Route path="/convite" element={<Convite />} />
               <Route path="/admin" element={<Admin />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

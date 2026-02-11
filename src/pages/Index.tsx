@@ -114,12 +114,12 @@ const Index = () => {
 
         <div className="relative z-10 container mx-auto px-4 pt-20 pb-12">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight px-2">
               <span className="text-foreground">Bem-vindo ao </span>
               <span className="text-gradient-cyan">A.X.I.O.</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 leading-relaxed px-2">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
               Descubra a raiz dos seus bloqueios e cure sua linhagem.
             </p>

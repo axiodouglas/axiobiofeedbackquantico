@@ -68,12 +68,12 @@ const VendaOficial = () => {
             <span className="text-sm font-semibold text-primary tracking-wide">MÉTODO A.X.I.O.</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground px-2">
             Reprograme seu Subconsciente com a{" "}
             <span className="text-gradient-cyan">Autoridade da sua própria Voz.</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto px-2">
             Conheça o Método AXIO: uma fusão de{" "}
             <span className="text-foreground font-medium">Neurociência, PNL e Física Quântica</span>{" "}
             para destravar traumas de Pai, Mãe e Relacionamentos enquanto você dorme.
@@ -83,7 +83,7 @@ const VendaOficial = () => {
             <Button
               variant="premium"
               size="xl"
-              className="text-base md:text-lg px-10 py-6 rounded-2xl animate-pulse-glow"
+              className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl animate-pulse-glow"
               onClick={scrollToPlans}
             >
               QUERO COMEÇAR MINHA TRANSFORMAÇÃO
@@ -128,7 +128,7 @@ const VendaOficial = () => {
       {/* Social Proof */}
       <section className="relative z-10 py-16 px-4">
         <div className="max-w-3xl mx-auto text-center space-y-6">
-          <p className="text-2xl md:text-3xl font-bold text-foreground italic leading-snug">
+          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground italic leading-snug px-2">
             "A voz é a impressão digital emocional. Quando você a usa como ferramenta de cura, o subconsciente não tem escolha senão obedecer."
           </p>
           <p className="text-primary font-semibold">— Método A.X.I.O.</p>
@@ -220,10 +220,10 @@ const VendaOficial = () => {
       {/* Final CTA */}
       <section className="relative z-10 py-20 px-4 text-center">
         <div className="max-w-2xl mx-auto space-y-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
             Sua voz tem o poder de <span className="text-gradient-cyan">curar.</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-base sm:text-lg px-2">
             Não adie mais. Cada noite sem reprogramação é uma oportunidade perdida.
           </p>
           <Button variant="premium" size="xl" className="animate-pulse-glow" onClick={scrollToPlans}>
