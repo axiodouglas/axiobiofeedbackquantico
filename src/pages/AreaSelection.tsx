@@ -38,11 +38,19 @@ const areas = [
 
 const AreaSelection = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const { lockedAreas } = useAreaLock(user?.id);
   const { toast } = useToast();
 
+  const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
+
   const handleSelect = (area: typeof areas[number]) => {
+    // Non-premium users can only access "mae"
+    if (!isPremium && area.id !== "mae") {
+      navigate("/planos");
+      return;
+    }
+
     const lock = lockedAreas[area.id];
     if (lock?.locked) {
       toast({
@@ -85,31 +93,39 @@ const AreaSelection = () => {
             {areas.map((area) => {
               const lock = lockedAreas[area.id];
               const isLocked = lock?.locked;
+              const isPremiumLocked = !isPremium && area.id !== "mae";
 
               return (
                 <div
                   key={area.id}
                   onClick={() => handleSelect(area)}
                   className={`group relative overflow-hidden rounded-xl border-2 bg-card cursor-pointer p-6 transition-all duration-300 ${
-                    isLocked
+                    isLocked || isPremiumLocked
                       ? "border-border/50 opacity-60"
                       : "border-border hover:border-primary/60 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.2)]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
                     <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${area.iconColor} transition-transform group-hover:scale-110`}>
-                      {isLocked ? <Lock className="h-8 w-8" /> : area.icon}
+                      {isLocked || isPremiumLocked ? <Lock className="h-8 w-8" /> : area.icon}
                     </div>
                     <div className="text-left">
                       <h3 className="text-xl font-semibold text-foreground">{area.title}</h3>
                       <p className="text-sm text-muted-foreground">
                         {isLocked
                           ? `Protocolo ativo — ${lock.daysRemaining} dia(s) restante(s)`
+                          : isPremiumLocked
+                          ? "Premium"
                           : area.description}
                       </p>
-                      {!isLocked && (
+                      {!isLocked && !isPremiumLocked && (
                         <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
                           Gratuito
+                        </span>
+                      )}
+                      {isPremiumLocked && (
+                        <span className="inline-block mt-1 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
+                          Premium
                         </span>
                       )}
                     </div>
