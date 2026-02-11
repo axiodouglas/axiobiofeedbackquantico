@@ -75,11 +75,6 @@ const Admin = () => {
 
   const loadUsers = async () => {
     setLoading(true);
-    const { data } = await supabase.functions.invoke("admin-users", {
-      body: null,
-      headers: {},
-    });
-    // Use GET with query params via fetch
     const session = await supabase.auth.getSession();
     const token = session.data.session?.access_token;
     const res = await fetch(
