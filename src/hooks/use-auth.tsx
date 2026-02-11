@@ -39,10 +39,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .eq("user_id", userId)
         .single();
       if (data) {
-        setProfile({
-          ...data,
-          is_premium: data.is_premium ?? false,
-        });
+        // Auto-lock expired subscriptions
+        const isExpired = data.is_premium && data.subscription_expires_at && new Date(data.subscription_expires_at) < new Date();
+        if (isExpired) {
+          await supabase
+            .from("profiles")
+            .update({ is_premium: false })
+            .eq("user_id", userId);
+          setProfile({
+            ...data,
+            is_premium: false,
+          });
+        } else {
+          setProfile({
+            ...data,
+            is_premium: data.is_premium ?? false,
+          });
+        }
       }
     } catch {
       // Profile may not exist yet

@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Users, Crown, DollarSign, FileText, ArrowLeft, Sparkles } from "lucide-react";
+import { Users, Crown, DollarSign, FileText, ArrowLeft, Sparkles, AlertTriangle } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
@@ -113,6 +113,12 @@ const Admin = () => {
     return sum;
   }, 0);
 
+  // Users whose plans expired but are still marked as premium (failed auto-lock)
+  const expiredButPremium = profiles.filter((p) => {
+    if (!p.is_premium || !p.subscription_expires_at) return false;
+    return new Date(p.subscription_expires_at) < new Date();
+  });
+
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -191,7 +197,42 @@ const Admin = () => {
           </Card>
         </div>
 
-        {/* Users Table */}
+        {/* Expired Plans Alert */}
+        {expiredButPremium.length > 0 && (
+          <Card className="bg-destructive/5 border-destructive/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm flex items-center gap-2 text-destructive">
+                <AlertTriangle className="h-4 w-4" />
+                ⚠️ Planos Vencidos Não Bloqueados ({expiredButPremium.length})
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-xs">E-mail</TableHead>
+                      <TableHead className="text-xs">Plano</TableHead>
+                      <TableHead className="text-xs">Expirou em</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {expiredButPremium.map((p) => (
+                      <TableRow key={p.id}>
+                        <TableCell className="text-xs">{p.email || "—"}</TableCell>
+                        <TableCell className="text-xs">{PLAN_LABELS[p.subscription_type || ""] || p.subscription_type || "—"}</TableCell>
+                        <TableCell className="text-xs text-destructive">
+                          {p.subscription_expires_at ? format(new Date(p.subscription_expires_at), "dd/MM/yy", { locale: ptBR }) : "—"}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <Card className="bg-card border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Usuários</CardTitle>
