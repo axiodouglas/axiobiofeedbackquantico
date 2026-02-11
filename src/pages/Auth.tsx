@@ -33,7 +33,7 @@ const Auth = () => {
       if (err) {
         setError(err);
       } else {
-        navigate("/");
+        navigate("/recording?area=mae");
       }
     } else {
       const { error: err } = await signUp(email, password, fullName);

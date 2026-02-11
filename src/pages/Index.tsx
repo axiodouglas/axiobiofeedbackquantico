@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { user, profile } = useAuth();
+  const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   const areas = [
     {
@@ -17,34 +20,34 @@ const Index = () => {
       isPremium: false,
       isLocked: false,
       badge: "Gratuito",
-      onClick: () => navigate("/auth"),
+      onClick: () => user ? navigate("/recording?area=mae") : navigate("/auth"),
     },
     {
       title: "Pai",
       description: "Força paterna e ação no mundo",
       icon: <UserCheck className="h-5 w-5" />,
       iconColor: "bg-primary/20 text-primary",
-      isPremium: true,
-      isLocked: true,
-      onClick: () => navigate("/planos"),
+      isPremium: !isPremium,
+      isLocked: !isPremium,
+      onClick: () => isPremium ? navigate("/recording?area=pai") : navigate("/planos"),
     },
     {
       title: "Traumas",
       description: "Perdas, abusos e eventos externos",
       icon: <Flame className="h-5 w-5" />,
       iconColor: "bg-axio-family/20 text-axio-family",
-      isPremium: true,
-      isLocked: true,
-      onClick: () => navigate("/planos"),
+      isPremium: !isPremium,
+      isLocked: !isPremium,
+      onClick: () => isPremium ? navigate("/recording?area=traumas") : navigate("/planos"),
     },
     {
       title: "Relacionamentos",
       description: "Projeções dos seus traumas nas pessoas",
       icon: <HeartHandshake className="h-5 w-5" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
-      isPremium: true,
-      isLocked: true,
-      onClick: () => navigate("/planos"),
+      isPremium: !isPremium,
+      isLocked: !isPremium,
+      onClick: () => isPremium ? navigate("/recording?area=relacionamento") : navigate("/planos"),
     },
   ];
 
@@ -85,7 +88,7 @@ const Index = () => {
               variant="cyan" 
               size="xl" 
               className="group"
-              onClick={() => navigate("/auth")}
+              onClick={() => user ? navigate("/recording?area=mae") : navigate("/auth")}
             >
               <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
               Iniciar Diagnóstico Gratuito
@@ -125,14 +128,15 @@ const Index = () => {
             <div className="flex flex-col gap-3 flex-1">
               {/* Comunidade Card */}
               <div
-                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 opacity-80"
-                onClick={() => navigate("/planos")}
+                className={`flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 ${!isPremium ? 'opacity-80' : ''}`}
+                onClick={() => isPremium ? navigate("/community") : navigate("/planos")}
               >
-                {/* Premium Lock */}
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
-                  <Lock className="h-2.5 w-2.5 text-primary-foreground" />
-                  <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
-                </div>
+                {!isPremium && (
+                  <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
+                    <Lock className="h-2.5 w-2.5 text-primary-foreground" />
+                    <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+                  </div>
+                )}
                 <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-12 w-12 shrink-0">
                   <MessageSquare className="h-6 w-6" />
                 </div>
@@ -148,14 +152,15 @@ const Index = () => {
 
               {/* Meditação Card */}
               <div
-                className="flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 opacity-80"
-                onClick={() => navigate("/planos")}
+                className={`flex-1 group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 ${!isPremium ? 'opacity-80' : ''}`}
+                onClick={() => isPremium ? navigate("/meditation-structure") : navigate("/planos")}
               >
-                {/* Premium Lock */}
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
-                  <Lock className="h-2.5 w-2.5 text-primary-foreground" />
-                  <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
-                </div>
+                {!isPremium && (
+                  <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
+                    <Lock className="h-2.5 w-2.5 text-primary-foreground" />
+                    <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+                  </div>
+                )}
                 <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-12 w-12 shrink-0">
                   <Moon className="h-6 w-6" />
                 </div>
@@ -172,14 +177,15 @@ const Index = () => {
 
         {/* Oráculo Card */}
         <div
-          className="group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 opacity-80"
-          onClick={() => navigate("/planos")}
+          className={`group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 ${!isPremium ? 'opacity-80' : ''}`}
+          onClick={() => isPremium ? navigate("/oracle") : navigate("/planos")}
         >
-          {/* Premium Lock */}
-          <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
-            <Lock className="h-2.5 w-2.5 text-primary-foreground" />
-            <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
-          </div>
+          {!isPremium && (
+            <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
+              <Lock className="h-2.5 w-2.5 text-primary-foreground" />
+              <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+            </div>
+          )}
           <div className="flex items-center justify-center rounded-xl bg-primary/20 text-primary h-12 w-12 shrink-0">
             <Eye className="h-6 w-6" />
           </div>
