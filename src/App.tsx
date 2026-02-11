@@ -24,6 +24,7 @@ import ReportsByDate from "./pages/ReportsByDate";
 import Oracle from "./pages/Oracle";
 import FAQ from "./pages/FAQ";
 import Plans from "./pages/Plans";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -59,6 +60,7 @@ const App = () => (
               <Route path="/faq" element={<FAQ />} />
               <Route path="/planos" element={<Plans />} />
               <Route path="/terms" element={<Terms />} />
+              <Route path="/admin" element={<Admin />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
