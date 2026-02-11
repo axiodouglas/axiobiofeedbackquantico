@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Users, Crown, DollarSign, FileText, ArrowLeft, Sparkles, AlertTriangle } from "lucide-react";
+import { Users, Crown, DollarSign, FileText, ArrowLeft, Sparkles, AlertTriangle, Eye } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
@@ -132,13 +132,24 @@ const Admin = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border px-4 py-3 flex items-center gap-3">
-        <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
-          <ArrowLeft className="h-5 w-5" />
+      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="icon" onClick={() => navigate("/")}>
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+          <h1 className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Painel Admin
+          </h1>
+        </div>
+        <Button
+          variant="cyanOutline"
+          size="sm"
+          className="gap-1.5"
+          onClick={() => window.open("/venda-oficial", "_blank")}
+        >
+          <Eye className="h-4 w-4" />
+          Ver Página de Vendas
         </Button>
-        <h1 className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-          Painel Admin
-        </h1>
       </div>
 
       <div className="max-w-5xl mx-auto p-4 space-y-6">
