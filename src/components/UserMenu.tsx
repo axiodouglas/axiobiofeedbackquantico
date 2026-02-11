@@ -1,11 +1,25 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogIn, LogOut, User, Crown, HelpCircle } from "lucide-react";
+import { LogIn, LogOut, User, Crown, HelpCircle, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
 
 const UserMenu = () => {
   const { user, profile, loading, signOut } = useAuth();
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .eq("role", "admin")
+      .maybeSingle()
+      .then(({ data }) => setIsAdmin(!!data));
+  }, [user]);
 
   if (loading) return null;
 
@@ -34,6 +48,11 @@ const UserMenu = () => {
       <button onClick={() => navigate("/faq")} className="text-muted-foreground hover:text-primary transition-colors p-1">
         <HelpCircle className="h-4 w-4" />
       </button>
+      {isAdmin && (
+        <button onClick={() => navigate("/admin")} className="text-muted-foreground hover:text-primary transition-colors p-1" title="Admin">
+          <Shield className="h-4 w-4" />
+        </button>
+      )}
       <div
         className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
         onClick={() => navigate("/profile")}
