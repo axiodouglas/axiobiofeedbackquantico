@@ -1,23 +1,27 @@
-import { useNavigate } from "react-router-dom";
-import { Crown, Check, Sparkles, Brain, Mic, MessageCircle, ChevronDown } from "lucide-react";
+import { Sparkles, Brain, Mic, MessageCircle, ChevronDown, Download, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { toast } from "@/hooks/use-toast";
 
-const sharedFeatures = [
-  "Desbloqueio de todos os pilares (Pai, Traumas, Relacionamentos)",
-  "Diagnósticos ilimitados",
-  "Comandos Quânticos personalizados",
-  "Meditação personalizada",
-  "Acesso ao Oráculo AXIO",
-  "Acesso à Comunidade AXIO",
-  "Relatórios de evolução",
-];
-
-const plans = [
-  { name: "Mensal", price: "29,90", period: "/mês", badge: null, highlight: false, features: sharedFeatures },
-  { name: "Trimestral", price: "24,99", period: "/mês", badge: "16% OFF", highlight: false, features: [...sharedFeatures, "Economia de R$ 14,73 no trimestre"] },
-  { name: "Semestral", price: "19,90", period: "/mês", badge: "33% OFF", highlight: true, features: [...sharedFeatures, "Economia de R$ 60 no semestre"] },
+const testimonials = [
+  {
+    author: "Marcos O.",
+    text: "Achei que não ia conseguir gravar minha voz com calma, mas segui a dica e fiz relaxado. É estranho no começo, mas o resultado de ouvir a si mesmo é muito potente.",
+  },
+  {
+    author: "Helena M.",
+    text: "Eu tinha pavor de olhar para trás por causa dos abusos que sofri na infância. A raiva e a tristeza me consumiam. Com a meditação de traumas, hoje sinto que a situação ficou no passado. Finalmente tenho paz.",
+  },
+  {
+    author: "Felipe G.",
+    text: "O diagnóstico da Mãe mostrou exatamente por que eu tinha tanto medo de faltar dinheiro. Era uma crença dela que eu carregava. Ouvir o loop dormindo mudou meu mindset em poucos dias.",
+  },
+  {
+    author: "Juliana P.",
+    text: "Minha saúde melhorou depois que limpei o rancor que tinha da minha linhagem materna. Incrível como a gente guarda lixo emocional no corpo sem saber.",
+  },
+  {
+    author: "Sonia K.",
+    text: "Estou no meu quinto dia de protocolo de loop noturno. O sono está muito mais profundo e eu acordo com uma disposição que não tinha antes. O AXIO é transformador.",
+  },
 ];
 
 const benefits = [
@@ -39,19 +43,6 @@ const benefits = [
 ];
 
 const VendaOficial = () => {
-  const navigate = useNavigate();
-
-  const scrollToPlans = () => {
-    document.getElementById("planos")?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleSelectPlan = (planName: string) => {
-    toast({
-      title: "Redirecionando para o Checkout Seguro...",
-      description: `Você selecionou o plano ${planName}.`,
-    });
-  };
-
   return (
     <div className="min-h-screen bg-background noise relative overflow-hidden">
       {/* Ambient nebula effects */}
@@ -84,26 +75,84 @@ const VendaOficial = () => {
               variant="premium"
               size="xl"
               className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl animate-pulse-glow"
-              onClick={scrollToPlans}
+              asChild
             >
-              QUERO COMEÇAR MINHA TRANSFORMAÇÃO
+              <a href="#">QUERO MEU DIAGNÓSTICO GRATUITO AGORA</a>
             </Button>
-            <button onClick={scrollToPlans} className="text-muted-foreground hover:text-primary transition-colors flex flex-col items-center gap-1 text-sm">
-              Conheça os planos
+            <button onClick={() => document.getElementById("autoridade")?.scrollIntoView({ behavior: "smooth" })} className="text-muted-foreground hover:text-primary transition-colors flex flex-col items-center gap-1 text-sm">
+              Conheça a ciência por trás
               <ChevronDown className="h-4 w-4 animate-bounce" />
             </button>
           </div>
         </div>
       </section>
 
+      {/* Joe Dispenza Authority Block */}
+      <section id="autoridade" className="relative z-10 py-20 px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 mb-4">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-primary">Inspiração Quântica</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
+              A ciência que prova: <span className="text-gradient-cyan">a mente cura o corpo.</span>
+            </h2>
+          </div>
+
+          <div className="card-glow rounded-2xl p-6 sm:p-8 space-y-5">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center text-xl font-bold text-primary shrink-0">JD</div>
+              <div>
+                <h3 className="text-base font-bold text-foreground">Dr. Joe Dispenza</h3>
+                <span className="text-xs text-muted-foreground">Neurocientista &amp; Autor</span>
+              </div>
+            </div>
+
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Em 1986, Joe Dispenza foi atropelado por um carro durante uma competição de triatlo. O acidente
+              destruiu 6 vértebras da sua coluna. Os médicos foram unânimes: ele precisaria de uma cirurgia com
+              implante de hastes metálicas — e mesmo assim, provavelmente nunca mais andaria normalmente.
+            </p>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Joe recusou a cirurgia. Em vez disso, decidiu usar exclusivamente o poder da sua mente para se curar.
+              Durante 9 semanas e meia, deitado de bruços, ele dedicou horas por dia a um único exercício:
+              <span className="text-primary font-medium"> reconstruir mentalmente sua coluna, vértebra por vértebra,
+              enviando comandos claros e repetitivos ao seu corpo.</span>
+            </p>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Em 10 semanas, Joe estava de pé. Em 12 semanas, voltou a treinar. Sem cirurgia. Sem hastes metálicas.
+              Apenas o poder da mente sobre a matéria.
+            </p>
+
+            <div className="bg-primary/5 border border-primary/15 rounded-xl p-4 mt-3">
+              <p className="text-sm text-primary italic text-center leading-relaxed">
+                "Seu corpo não sabe a diferença entre uma experiência real e uma que você cria mentalmente com a mesma intensidade emocional."
+                <span className="block text-xs text-primary/70 mt-1.5">— Dr. Joe Dispenza</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA between sections */}
+      <section className="relative z-10 py-10 px-4 text-center">
+        <Button variant="cyan" size="xl" className="rounded-2xl text-sm sm:text-base" asChild>
+          <a href="#" className="flex items-center gap-2">
+            <Download className="h-5 w-5" />
+            BAIXAR APP AGORA
+          </a>
+        </Button>
+      </section>
+
       {/* Benefits Section */}
       <section className="relative z-10 py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 px-2">
               O que o <span className="text-gradient-cyan">A.X.I.O.</span> faz por você
             </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
+            <p className="text-muted-foreground max-w-lg mx-auto px-2">
               Três pilares tecnológicos trabalhando juntos para reprogramar seu subconsciente.
             </p>
           </div>
@@ -125,95 +174,51 @@ const VendaOficial = () => {
         </div>
       </section>
 
-      {/* Social Proof */}
+      {/* Testimonials */}
+      <section className="relative z-10 py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 px-2">
+              Relatos de quem já <span className="text-gradient-cyan">se transformou</span>
+            </h2>
+            <p className="text-muted-foreground px-2">Histórias reais da comunidade AXIO.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className={`card-glow rounded-2xl p-6 space-y-3 ${i === 0 ? "sm:col-span-2" : ""}`}
+              >
+                <div className="flex items-center gap-1.5 text-primary">
+                  {[...Array(5)].map((_, s) => (
+                    <Star key={s} className="h-3.5 w-3.5 fill-current" />
+                  ))}
+                </div>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed italic">
+                  "{t.text}"
+                </p>
+                <p className="text-xs font-semibold text-foreground">— {t.author}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA between sections */}
+      <section className="relative z-10 py-10 px-4 text-center">
+        <Button variant="premium" size="xl" className="rounded-2xl animate-pulse-glow text-sm sm:text-base" asChild>
+          <a href="#">QUERO MEU DIAGNÓSTICO GRATUITO AGORA</a>
+        </Button>
+      </section>
+
+      {/* Social Proof Quote */}
       <section className="relative z-10 py-16 px-4">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground italic leading-snug px-2">
             "A voz é a impressão digital emocional. Quando você a usa como ferramenta de cura, o subconsciente não tem escolha senão obedecer."
           </p>
           <p className="text-primary font-semibold">— Método A.X.I.O.</p>
-        </div>
-      </section>
-
-      {/* Plans Section */}
-      <section id="planos" className="relative z-10 py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2.5 mb-5">
-              <Crown className="h-5 w-5 text-primary" />
-              <span className="text-base font-bold text-primary">Planos de Assinatura</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Escolha o plano ideal para a sua
-              <span className="text-primary"> transformação</span>
-            </h2>
-            <p className="text-base text-muted-foreground mt-3 max-w-lg mx-auto leading-relaxed">
-              Invista no seu autoconhecimento e desbloqueie todo o poder do Método A.X.I.O.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className={`relative rounded-2xl p-[1px] transition-all duration-300 ${
-                  plan.highlight
-                    ? "bg-gradient-to-b from-primary via-[hsl(260,60%,55%)] to-[hsl(220,70%,35%)] shadow-[0_0_40px_hsl(175,70%,50%,0.25)]"
-                    : "bg-border hover:bg-primary/30"
-                }`}
-              >
-                {plan.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                    <Badge className="bg-gradient-to-r from-primary to-[hsl(260,60%,55%)] text-primary-foreground border-0 px-4 py-1 text-xs font-bold shadow-lg gap-1">
-                      <Sparkles className="h-3 w-3" /> MELHOR VALOR
-                    </Badge>
-                  </div>
-                )}
-                <div className={`rounded-2xl p-6 h-full flex flex-col bg-card ${plan.highlight ? "bg-card/95" : ""}`}>
-                  <div className="mb-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-bold text-foreground">{plan.name}</h3>
-                      {plan.badge && (
-                        <Badge
-                          variant={plan.highlight ? "default" : "secondary"}
-                          className={`text-xs font-bold ${plan.highlight ? "bg-primary/20 text-primary border-primary/30" : "border-primary/30 text-primary bg-primary/10"}`}
-                        >
-                          {plan.badge}
-                        </Badge>
-                      )}
-                    </div>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-sm text-muted-foreground">R$</span>
-                      <span className="text-4xl font-extrabold text-foreground">{plan.price}</span>
-                      <span className="text-sm text-muted-foreground">{plan.period}</span>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-3 flex-1 mb-6">
-                    {plan.features.map((feat, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-foreground/80">
-                        <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button
-                    variant={plan.highlight ? "premium" : "cyanOutline"}
-                    size="lg"
-                    className="w-full"
-                    onClick={() => handleSelectPlan(plan.name)}
-                  >
-                    {plan.highlight ? "Começar Agora" : "Selecionar Plano"}
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-center text-xs text-muted-foreground mt-8">
-            Todos os planos incluem 7 dias de garantia. Cancele a qualquer momento.
-          </p>
         </div>
       </section>
 
@@ -226,9 +231,17 @@ const VendaOficial = () => {
           <p className="text-muted-foreground text-base sm:text-lg px-2">
             Não adie mais. Cada noite sem reprogramação é uma oportunidade perdida.
           </p>
-          <Button variant="premium" size="xl" className="animate-pulse-glow" onClick={scrollToPlans}>
-            QUERO COMEÇAR AGORA
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button variant="premium" size="xl" className="animate-pulse-glow rounded-2xl text-sm sm:text-base" asChild>
+              <a href="#">QUERO MEU DIAGNÓSTICO GRATUITO AGORA</a>
+            </Button>
+            <Button variant="cyanOutline" size="lg" className="rounded-2xl text-sm sm:text-base" asChild>
+              <a href="#" className="flex items-center gap-2">
+                <Download className="h-4 w-4" />
+                BAIXAR APP AGORA
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
 
