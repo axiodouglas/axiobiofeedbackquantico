@@ -1,4 +1,5 @@
-import { Sparkles, Brain, Mic, MessageCircle, Download, Star, User } from "lucide-react";
+import { useState, useRef, useCallback } from "react";
+import { Sparkles, Brain, Mic, MessageCircle, Download, Star, User, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VisualShowcase from "@/components/VisualShowcase";
 import AuthorSection from "@/components/venda/AuthorSection";
@@ -7,6 +8,21 @@ import BenefitsSection from "@/components/venda/BenefitsSection";
 import CtaBanner from "@/components/venda/CtaBanner";
 
 const VendaOficial = () => {
+  const [muted, setMuted] = useState(true);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const toggleMute = useCallback(() => {
+    const iframe = iframeRef.current;
+    if (iframe?.contentWindow) {
+      const command = muted ? "unMute" : "mute";
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ event: "command", func: command }),
+        "*"
+      );
+      setMuted(!muted);
+    }
+  }, [muted]);
+
   return (
     <div className="min-h-screen bg-background noise relative overflow-hidden">
       {/* Ambient nebula effects */}
@@ -29,15 +45,23 @@ const VendaOficial = () => {
           </h1>
 
           {/* YouTube Video */}
-          <div className="w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.15)]">
+          <div className="relative w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.15)]">
             <iframe
-              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1&mute=1&loop=1&playlist=W0LV-4LHwCI&playsinline=1"
+              ref={iframeRef}
+              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1&mute=1&loop=1&playlist=W0LV-4LHwCI&playsinline=1&enablejsapi=1&origin=https://axiobiofeedbackquantico.lovable.app"
               title="AXIO - Vídeo de Vendas"
               className="w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               loading="lazy"
             />
+            <button
+              onClick={toggleMute}
+              className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-background transition-colors z-10"
+            >
+              {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+              {muted ? "Ativar Som" : "Mudo"}
+            </button>
           </div>
 
           <div className="pt-4 flex flex-col items-center gap-4">
@@ -62,9 +86,7 @@ const VendaOficial = () => {
             Teste Grátis: <span className="text-gradient-cyan">Pilar Mãe</span>
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
-            A relação com a mãe é a nossa primeira conexão com o mundo e a base da nossa segurança emocional. 
-            Traumas nesta área impactam diretamente sua prosperidade, autoestima e saúde física. 
-            Comece sua cura por aqui.
+            A mãe é a base da segurança e prosperidade. Entenda como essa conexão molda suas crenças hoje.
           </p>
           <Button variant="cyan" size="xl" className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl" asChild>
             <a href="https://axiobiofeedbackquantico.lovable.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">

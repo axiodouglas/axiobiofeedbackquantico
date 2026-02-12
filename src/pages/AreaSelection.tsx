@@ -9,7 +9,7 @@ const areas = [
   {
     id: "mae",
     title: "Mãe",
-    description: "Descubra a raiz dos seus bloqueios na relação materna.",
+    description: "A mãe é a base da segurança e prosperidade. Entenda como essa conexão molda suas crenças hoje.",
     icon: <Heart className="h-8 w-8" />,
     iconColor: "bg-axio-relationship/20 text-axio-relationship",
   },
