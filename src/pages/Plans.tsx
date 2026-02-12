@@ -22,6 +22,7 @@ const plans = [
     badge: null,
     highlight: false,
     features: sharedFeatures,
+    link: "https://pay.kiwify.com.br/yobcEvI",
   },
   {
     name: "Trimestral",
@@ -30,6 +31,7 @@ const plans = [
     badge: "16% OFF",
     highlight: false,
     features: sharedFeatures,
+    link: "https://pay.kiwify.com.br/JZ6HiAu",
   },
   {
     name: "Semestral",
@@ -38,6 +40,7 @@ const plans = [
     badge: "33% OFF",
     highlight: true,
     features: sharedFeatures,
+    link: "https://pay.kiwify.com.br/R3VE945",
   },
 ];
 
@@ -126,9 +129,11 @@ const Plans = () => {
                   variant={plan.highlight ? "premium" : "cyanOutline"}
                   size="sm"
                   className="w-full"
-                  onClick={() => handleSelectPlan(plan.name)}
+                  asChild
                 >
-                  {plan.highlight ? "Começar Agora" : "Selecionar Plano"}
+                  <a href={plan.link} target="_blank" rel="noopener noreferrer">
+                    Adquirir Plano
+                  </a>
                 </Button>
               </div>
             </div>
