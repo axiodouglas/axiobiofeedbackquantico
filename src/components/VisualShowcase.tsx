@@ -11,6 +11,7 @@ import showcasePilares from "@/assets/showcase-pilares.jpg";
 import showcaseRelatorio from "@/assets/showcase-relatorio.jpg";
 import showcaseFuncionalidades from "@/assets/showcase-funcionalidades.jpg";
 import showcaseGravacao from "@/assets/showcase-gravacao.jpg";
+import showcaseOraculo from "@/assets/showcase-oraculo.jpg";
 
 const screens = [
   { src: showcaseHome, alt: "Tela inicial AXIO" },
@@ -18,6 +19,7 @@ const screens = [
   { src: showcaseGravacao, alt: "Gravação de áudio AXIO" },
   { src: showcaseRelatorio, alt: "Relatório e diagnóstico AXIO" },
   { src: showcaseFuncionalidades, alt: "Funcionalidades AXIO" },
+  { src: showcaseOraculo, alt: "Oráculo AXIO" },
 ];
 
 const VisualShowcase = () => {
