@@ -101,7 +101,7 @@ const Processing = () => {
         }).eq("id", diagnosisId);
 
         if (error) {
-          console.error("DB update error:", error.message, error.code, error.details);
+          console.error("DB update error:", error);
           setErrorMsg("Não foi possível salvar o diagnóstico. Tente novamente.");
           return false;
         }
@@ -117,7 +117,7 @@ const Processing = () => {
         }).select("id");
 
         if (error) {
-          console.error("DB save error:", error.message, error.code, error.details);
+          console.error("DB save error:", error);
           setErrorMsg("Não foi possível salvar o diagnóstico. Tente novamente.");
           return false;
         }
