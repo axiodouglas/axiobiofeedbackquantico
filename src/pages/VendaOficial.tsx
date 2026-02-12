@@ -1,5 +1,6 @@
-import { Sparkles, Brain, Mic, MessageCircle, ChevronDown, Download, Star } from "lucide-react";
+import { Sparkles, Brain, Mic, MessageCircle, Download, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import VisualShowcase from "@/components/VisualShowcase";
 
 const testimonials = [
   {
@@ -33,12 +34,12 @@ const benefits = [
   {
     icon: Brain,
     title: "Meditações Personalizadas com sua Voz",
-    description: "Reprograme crenças limitantes com meditações geradas a partir da SUA própria voz — a frequência que seu cérebro mais reconhece e aceita.",
+    description: "Você irá gravar a meditação com a sua própria voz e isso é o que vai te dar controle sobre seu subconsciente.",
   },
   {
     icon: MessageCircle,
     title: "Oráculo AXIO para Dúvidas Profundas",
-    description: "Um conselheiro quântico treinado em PNL, Neurociência e Física Quântica para guiar você nas decisões mais difíceis da sua vida.",
+    description: "Um conselheiro quântico treinado em PNL, Neurociência e Física Quântica para tirar suas dúvidas sobre suas crenças.",
   },
 ];
 
@@ -59,91 +60,41 @@ const VendaOficial = () => {
             <span className="text-sm font-semibold text-primary tracking-wide">MÉTODO A.X.I.O.</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground px-2">
-            Reprograme seu Subconsciente com a{" "}
-            <span className="text-gradient-cyan">Autoridade da sua própria Voz.</span>
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground px-2 uppercase">
+            Reprograme suas Crenças com{" "}
+            <span className="text-gradient-cyan">A.X.I.O.</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto px-2">
-            Conheça o Método AXIO: uma fusão de{" "}
-            <span className="text-foreground font-medium">Neurociência, PNL e Física Quântica</span>{" "}
-            para destravar traumas de Pai, Mãe e Relacionamentos enquanto você dorme.
-          </p>
+          {/* YouTube Video */}
+          <div className="w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.15)]">
+            <iframe
+              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1&mute=1"
+              title="AXIO - Vídeo de Vendas"
+              className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
 
           <div className="pt-4 flex flex-col items-center gap-4">
             <Button
-              variant="premium"
+              variant="cyan"
               size="xl"
-              className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl animate-pulse-glow"
+              className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl"
               asChild
             >
-              <a href="#">QUERO MEU DIAGNÓSTICO GRATUITO AGORA</a>
+              <a href="#" className="flex items-center gap-2">
+                <Download className="h-5 w-5" />
+                BAIXAR AGORA
+              </a>
             </Button>
-            <button onClick={() => document.getElementById("autoridade")?.scrollIntoView({ behavior: "smooth" })} className="text-muted-foreground hover:text-primary transition-colors flex flex-col items-center gap-1 text-sm">
-              Conheça a ciência por trás
-              <ChevronDown className="h-4 w-4 animate-bounce" />
-            </button>
           </div>
         </div>
       </section>
 
-      {/* Joe Dispenza Authority Block */}
-      <section id="autoridade" className="relative z-10 py-20 px-4">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 mb-4">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">Inspiração Quântica</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
-              A ciência que prova: <span className="text-gradient-cyan">a mente cura o corpo.</span>
-            </h2>
-          </div>
-
-          <div className="card-glow rounded-2xl p-6 sm:p-8 space-y-5">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center text-xl font-bold text-primary shrink-0">JD</div>
-              <div>
-                <h3 className="text-base font-bold text-foreground">Dr. Joe Dispenza</h3>
-                <span className="text-xs text-muted-foreground">Neurocientista &amp; Autor</span>
-              </div>
-            </div>
-
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Em 1986, Joe Dispenza foi atropelado por um carro durante uma competição de triatlo. O acidente
-              destruiu 6 vértebras da sua coluna. Os médicos foram unânimes: ele precisaria de uma cirurgia com
-              implante de hastes metálicas — e mesmo assim, provavelmente nunca mais andaria normalmente.
-            </p>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Joe recusou a cirurgia. Em vez disso, decidiu usar exclusivamente o poder da sua mente para se curar.
-              Durante 9 semanas e meia, deitado de bruços, ele dedicou horas por dia a um único exercício:
-              <span className="text-primary font-medium"> reconstruir mentalmente sua coluna, vértebra por vértebra,
-              enviando comandos claros e repetitivos ao seu corpo.</span>
-            </p>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Em 10 semanas, Joe estava de pé. Em 12 semanas, voltou a treinar. Sem cirurgia. Sem hastes metálicas.
-              Apenas o poder da mente sobre a matéria.
-            </p>
-
-            <div className="bg-primary/5 border border-primary/15 rounded-xl p-4 mt-3">
-              <p className="text-sm text-primary italic text-center leading-relaxed">
-                "Seu corpo não sabe a diferença entre uma experiência real e uma que você cria mentalmente com a mesma intensidade emocional."
-                <span className="block text-xs text-primary/70 mt-1.5">— Dr. Joe Dispenza</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA between sections */}
-      <section className="relative z-10 py-10 px-4 text-center">
-        <Button variant="cyan" size="xl" className="rounded-2xl text-sm sm:text-base" asChild>
-          <a href="#" className="flex items-center gap-2">
-            <Download className="h-5 w-5" />
-            BAIXAR APP AGORA
-          </a>
-        </Button>
-      </section>
+      {/* Visual Showcase */}
+      <VisualShowcase />
 
       {/* Benefits Section */}
       <section className="relative z-10 py-20 px-4">
@@ -205,13 +156,6 @@ const VendaOficial = () => {
         </div>
       </section>
 
-      {/* CTA between sections */}
-      <section className="relative z-10 py-10 px-4 text-center">
-        <Button variant="premium" size="xl" className="rounded-2xl animate-pulse-glow text-sm sm:text-base" asChild>
-          <a href="#">QUERO MEU DIAGNÓSTICO GRATUITO AGORA</a>
-        </Button>
-      </section>
-
       {/* Social Proof Quote */}
       <section className="relative z-10 py-16 px-4">
         <div className="max-w-3xl mx-auto text-center space-y-6">
@@ -231,16 +175,56 @@ const VendaOficial = () => {
           <p className="text-muted-foreground text-base sm:text-lg px-2">
             Não adie mais. Cada noite sem reprogramação é uma oportunidade perdida.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="premium" size="xl" className="animate-pulse-glow rounded-2xl text-sm sm:text-base" asChild>
-              <a href="#">QUERO MEU DIAGNÓSTICO GRATUITO AGORA</a>
-            </Button>
-            <Button variant="cyanOutline" size="lg" className="rounded-2xl text-sm sm:text-base" asChild>
-              <a href="#" className="flex items-center gap-2">
-                <Download className="h-4 w-4" />
-                BAIXAR APP AGORA
-              </a>
-            </Button>
+          <Button variant="premium" size="xl" className="animate-pulse-glow rounded-2xl text-sm sm:text-base" asChild>
+            <a href="#">QUERO MEU DIAGNÓSTICO GRATUITO AGORA</a>
+          </Button>
+        </div>
+      </section>
+
+      {/* Joe Dispenza Authority Block - Inspiração */}
+      <section className="relative z-10 py-20 px-4">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 mb-4">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-primary">Inspiração</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
+              A ciência que prova: <span className="text-gradient-cyan">a mente cura o corpo.</span>
+            </h2>
+          </div>
+
+          <div className="card-glow rounded-2xl p-6 sm:p-8 space-y-5">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center text-xl font-bold text-primary shrink-0">JD</div>
+              <div>
+                <h3 className="text-base font-bold text-foreground">Dr. Joe Dispenza</h3>
+                <span className="text-xs text-muted-foreground">Neurocientista &amp; Autor</span>
+              </div>
+            </div>
+
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Em 1986, Joe Dispenza foi atropelado por um carro durante uma competição de triatlo. O acidente
+              destruiu 6 vértebras da sua coluna. Os médicos foram unânimes: ele precisaria de uma cirurgia com
+              implante de hastes metálicas — e mesmo assim, provavelmente nunca mais andaria normalmente.
+            </p>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Joe recusou a cirurgia. Em vez disso, decidiu usar exclusivamente o poder da sua mente para se curar.
+              Durante 9 semanas e meia, deitado de bruços, ele dedicou horas por dia a um único exercício:
+              <span className="text-primary font-medium"> reconstruir mentalmente sua coluna, vértebra por vértebra,
+              enviando comandos claros e repetitivos ao seu corpo.</span>
+            </p>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              Em 10 semanas, Joe estava de pé. Em 12 semanas, voltou a treinar. Sem cirurgia. Sem hastes metálicas.
+              Apenas o poder da mente sobre a matéria.
+            </p>
+
+            <div className="bg-primary/5 border border-primary/15 rounded-xl p-4 mt-3">
+              <p className="text-sm text-primary italic text-center leading-relaxed">
+                "Seu corpo não sabe a diferença entre uma experiência real e uma que você cria mentalmente com a mesma intensidade emocional."
+                <span className="block text-xs text-primary/70 mt-1.5">— Dr. Joe Dispenza</span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
