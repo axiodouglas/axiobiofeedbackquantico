@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Download, FileText, Play, Square, Sparkles } from "lucide-react";
+import { Mic, MicOff, Download, FileText, Play, Square } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -43,7 +43,6 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
-  const [saving, setSaving] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -104,35 +103,7 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
     a.click();
   };
 
-  const saveToProfile = async () => {
-    if (!audioUrl) return;
-    setSaving(true);
-    try {
-      const { data: diag } = await supabase
-        .from("diagnoses")
-        .select("diagnosis_result")
-        .eq("id", diagnosisId)
-        .single();
-
-      if (diag) {
-        const updatedResult = {
-          ...(diag.diagnosis_result as any),
-          meditation_script: script,
-          meditation_saved: true,
-        };
-        await supabase
-          .from("diagnoses")
-          .update({ diagnosis_result: updatedResult })
-          .eq("id", diagnosisId);
-      }
-
-      toast({ title: "Meditação salva no perfil!" });
-    } catch {
-      toast({ title: "Erro ao salvar", variant: "destructive" });
-    } finally {
-      setSaving(false);
-    }
-  };
+  // saveToProfile removed — only Download and Regravar available
 
   const formatTime = (s: number) => {
     const m = Math.floor(s / 60);

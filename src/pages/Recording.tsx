@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
 
-const MAX_RECORDING_TIME = 120;
+const MAX_RECORDING_TIME = 180;
 const MAX_AUDIO_SIZE_MB = 10;
 const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento"];
 
@@ -224,7 +224,7 @@ const Recording = () => {
             <div className="text-5xl font-mono font-bold text-foreground mb-4">
               {formatTime(recordingTime)}
             </div>
-            <div className="text-sm text-muted-foreground mb-6">Máximo: 2 minutos</div>
+            <div className="text-sm text-muted-foreground mb-6">Máximo: 3 minutos</div>
 
             <div className="mb-8">
               <Progress value={progressPercent} className="h-2" />
@@ -301,6 +301,15 @@ const Recording = () => {
                 )}
               </div>
             )}
+          </div>
+
+          <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 mb-4">
+            <p className="text-sm font-semibold text-primary mb-1">⚠️ IMPORTANTE</p>
+            <p className="text-sm text-foreground leading-relaxed">
+              Seja o mais detalhista possível. Fale sobre sentimentos, memórias e fatos.{" "}
+              <strong className="text-primary">Grave em silêncio absoluto, sem música de fundo.</strong>{" "}
+              Sua voz é o único comando e autoridade sobre seu corpo.
+            </p>
           </div>
 
           <div className="text-left bg-card/50 border border-border rounded-xl p-4">
