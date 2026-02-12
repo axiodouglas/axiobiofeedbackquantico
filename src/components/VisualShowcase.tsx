@@ -6,14 +6,18 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import showcaseDiagnosis from "@/assets/showcase-diagnosis.jpg";
-import showcaseOracle from "@/assets/showcase-oracle.jpg";
-import showcaseReports from "@/assets/showcase-reports.jpg";
+import showcaseHome from "@/assets/showcase-home.jpg";
+import showcasePilares from "@/assets/showcase-pilares.jpg";
+import showcaseRelatorio from "@/assets/showcase-relatorio.jpg";
+import showcaseFuncionalidades from "@/assets/showcase-funcionalidades.jpg";
+import showcaseGravacao from "@/assets/showcase-gravacao.jpg";
 
 const screens = [
-  { src: showcaseDiagnosis, alt: "Diagnóstico por voz AXIO" },
-  { src: showcaseOracle, alt: "Oráculo AXIO" },
-  { src: showcaseReports, alt: "Relatórios AXIO" },
+  { src: showcaseHome, alt: "Tela inicial AXIO" },
+  { src: showcasePilares, alt: "Os 4 Pilares da Crença" },
+  { src: showcaseGravacao, alt: "Gravação de áudio AXIO" },
+  { src: showcaseRelatorio, alt: "Relatório e diagnóstico AXIO" },
+  { src: showcaseFuncionalidades, alt: "Funcionalidades AXIO" },
 ];
 
 const VisualShowcase = () => {
@@ -40,8 +44,15 @@ const VisualShowcase = () => {
             <CarouselContent>
               {screens.map((s, i) => (
                 <CarouselItem key={i} className="flex items-center justify-center">
-                  <div className="w-[200px] sm:w-[260px] md:w-[300px] rounded-2xl overflow-hidden shadow-[0_0_30px_hsl(175,70%,50%,0.15)] border border-primary/10">
-                    <img src={s.src} alt={s.alt} className="w-full h-auto object-cover" loading="lazy" />
+                  {/* Phone frame */}
+                  <div className="relative w-[220px] sm:w-[260px] md:w-[280px]">
+                    <div className="rounded-[2rem] border-[3px] border-muted-foreground/30 bg-background/80 p-2 shadow-[0_0_30px_hsl(175,70%,50%,0.15)]">
+                      {/* Notch */}
+                      <div className="mx-auto w-20 h-4 bg-muted-foreground/20 rounded-b-xl mb-1" />
+                      <div className="rounded-[1.5rem] overflow-hidden">
+                        <img src={s.src} alt={s.alt} className="w-full h-auto object-cover" loading="lazy" />
+                      </div>
+                    </div>
                   </div>
                 </CarouselItem>
               ))}
