@@ -43,7 +43,35 @@ serve(async (req) => {
     const formData = await req.formData();
     const audioFile = formData.get("audio") as File;
     const area = formData.get("area") as string;
-    const isPremium = formData.get("is_premium") === "true";
+
+    // Verify premium status server-side instead of trusting client input
+    let isPremium = false;
+    const authHeader = req.headers.get("Authorization");
+    if (authHeader) {
+      const supabaseUrl = Deno.env.get("SUPABASE_URL");
+      const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
+      if (supabaseUrl && supabaseAnonKey) {
+        try {
+          const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
+          const userSupabase = createClient(supabaseUrl, supabaseAnonKey, {
+            global: { headers: { Authorization: authHeader } },
+          });
+          const { data: { user } } = await userSupabase.auth.getUser();
+          if (user) {
+            const { data: profile } = await userSupabase
+              .from("profiles")
+              .select("is_premium, subscription_expires_at")
+              .eq("user_id", user.id)
+              .single();
+            isPremium = !!(profile?.is_premium && 
+              (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date()));
+          }
+        } catch (e) {
+          // If auth check fails, default to non-premium (safe fallback)
+          console.warn("Premium check failed, defaulting to free:", e);
+        }
+      }
+    }
 
     if (!audioFile) {
       return new Response(
