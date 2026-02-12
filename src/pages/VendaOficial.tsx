@@ -68,7 +68,7 @@ const VendaOficial = () => {
           {/* YouTube Video — audio available, no forced mute */}
           <div className="w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.15)]">
             <iframe
-              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0"
+              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1"
               title="AXIO - Vídeo de Vendas"
               className="w-full h-full"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
