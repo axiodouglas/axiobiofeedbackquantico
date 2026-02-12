@@ -77,7 +77,7 @@ const Index = () => {
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
       isPremium: false,
       isLocked: !isPremium && freeDiagnosisUsed,
-      badge: isPremium ? undefined : freeDiagnosisUsed ? undefined : "Gratuito",
+      badge: isPremium ? undefined : freeDiagnosisUsed ? "Já utilizado" : "Gratuito",
       onClick: handleFreeArea,
     },
     {

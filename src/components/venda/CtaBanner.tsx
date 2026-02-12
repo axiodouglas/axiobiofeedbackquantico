@@ -10,7 +10,7 @@ const CtaBanner = ({ text }: CtaBannerProps) => (
     <div className="max-w-2xl mx-auto text-center space-y-5">
       <p className="text-lg sm:text-xl font-bold text-foreground">{text}</p>
       <Button variant="premium" size="xl" className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl" asChild>
-        <a href="#" className="flex items-center gap-2">
+        <a href="https://axiobiofeedbackquantico.lovable.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
           <Download className="h-5 w-5" />
           BAIXAR APP AGORA
         </a>

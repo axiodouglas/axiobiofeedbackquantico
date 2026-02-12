@@ -220,12 +220,12 @@ const DiagnosisDetail = () => {
 
         <AreaCard
           title="Comandos Quânticos da Semana"
-          description="Seus comandos personalizados para manhã, tarde e noite"
+          description={isPremium ? "Seus comandos personalizados para manhã, tarde e noite" : "Disponível apenas nos Planos Premium"}
           icon={<Sparkles className="h-7 w-7" />}
           iconColor="bg-primary/20 text-primary"
           isPremium={!isPremium}
           isLocked={!isPremium}
-          onClick={() => isPremium && toggleSection("commands")}
+          onClick={() => isPremium ? toggleSection("commands") : navigate("/planos")}
         />
 
         {activeSection === "commands" && isPremium && (
@@ -263,12 +263,12 @@ const DiagnosisDetail = () => {
 
         <AreaCard
           title="Meditação da Semana"
-          description="Roteiro personalizado com gravação da sua própria voz"
+          description={isPremium ? "Roteiro personalizado com gravação da sua própria voz" : "Disponível apenas nos Planos Premium"}
           icon={<Mic className="h-7 w-7" />}
           iconColor="bg-primary/20 text-primary"
           isPremium={!isPremium}
           isLocked={!isPremium}
-          onClick={() => isPremium && toggleSection("meditation")}
+          onClick={() => isPremium ? toggleSection("meditation") : navigate("/planos")}
         />
 
         {activeSection === "meditation" && isPremium && diagnosis && (
