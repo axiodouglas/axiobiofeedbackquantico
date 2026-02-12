@@ -65,13 +65,13 @@ const VendaOficial = () => {
             <span className="text-gradient-cyan">A.X.I.O.</span>
           </h1>
 
-          {/* YouTube Video */}
+          {/* YouTube Video — audio available, no forced mute */}
           <div className="w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.15)]">
             <iframe
-              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1&mute=1"
+              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0"
               title="AXIO - Vídeo de Vendas"
               className="w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               loading="lazy"
             />
@@ -86,14 +86,14 @@ const VendaOficial = () => {
             >
               <a href="#" className="flex items-center gap-2">
                 <Download className="h-5 w-5" />
-                BAIXAR AGORA
+                BAIXAR APP AGORA
               </a>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Visual Showcase */}
+      {/* Visual Showcase — Carousel */}
       <VisualShowcase />
 
       {/* Benefits Section */}
@@ -163,21 +163,6 @@ const VendaOficial = () => {
             "A voz é a impressão digital emocional. Quando você a usa como ferramenta de cura, o subconsciente não tem escolha senão obedecer."
           </p>
           <p className="text-primary font-semibold">— Método A.X.I.O.</p>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="relative z-10 py-20 px-4 text-center">
-        <div className="max-w-2xl mx-auto space-y-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
-            Sua voz tem o poder de <span className="text-gradient-cyan">curar.</span>
-          </h2>
-          <p className="text-muted-foreground text-base sm:text-lg px-2">
-            Não adie mais. Cada noite sem reprogramação é uma oportunidade perdida.
-          </p>
-          <Button variant="premium" size="xl" className="animate-pulse-glow rounded-2xl text-sm sm:text-base" asChild>
-            <a href="#">QUERO MEU DIAGNÓSTICO GRATUITO AGORA</a>
-          </Button>
         </div>
       </section>
 
