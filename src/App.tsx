@@ -58,7 +58,11 @@ const App = () => (
               <Route path="/meus-relatorios" element={<MyReports />} />
               <Route path="/meus-relatorios/:date" element={<ReportsByDate />} />
               <Route path="/meditation-structure" element={<MeditationStructure />} />
-              <Route path="/oraculo" element={<Oracle />} />
+              <Route path="/oraculo" element={
+                <ProtectedRoute requirePremium>
+                  <Oracle />
+                </ProtectedRoute>
+              } />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/planos" element={<Plans />} />
               <Route path="/terms" element={<Terms />} />

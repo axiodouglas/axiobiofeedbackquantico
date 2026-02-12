@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
@@ -6,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 
 const Index = () => {
@@ -13,7 +15,23 @@ const Index = () => {
   const { user, profile } = useAuth();
   const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
-  const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      if (!user) { setIsAdmin(false); return; }
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      setIsAdmin(!!data);
+    };
+    checkAdmin();
+  }, [user]);
+
+  const isPremium = isAdmin || (profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date()));
 
   const handleFreeArea = () => {
     if (!user) {
@@ -216,7 +234,7 @@ const Index = () => {
         {/* Oráculo Card */}
         <div
           className={`group relative overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.15)] transition-all duration-300 cursor-pointer p-5 flex items-start gap-3 ${!isPremium ? 'opacity-80' : ''}`}
-          onClick={() => isPremium ? navigate("/oracle") : navigate("/planos")}
+          onClick={() => isPremium ? navigate("/oraculo") : navigate("/planos")}
         >
           {!isPremium && (
             <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
