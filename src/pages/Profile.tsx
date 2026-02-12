@@ -144,7 +144,7 @@ const Profile = () => {
               </p>
             )}
             {!subscriptionActive && (
-              <Button variant="cyan" size="sm" onClick={() => navigate("/planos")} className="gap-1.5">
+              <Button variant="cyan" size="sm" onClick={() => navigate("/venda-oficial")} className="gap-1.5">
                 <Sparkles className="h-4 w-4" />
                 Assinar Premium
               </Button>
