@@ -11,7 +11,7 @@ serve(async (req) => {
   }
 
   try {
-    const { name, email, message } = await req.json();
+    const { name, email, message, subject } = await req.json();
 
     if (!email || !message) {
       return new Response(
@@ -47,7 +47,7 @@ serve(async (req) => {
       body: JSON.stringify({
         from: "AXIO Suporte <onboarding@resend.dev>",
         to: ["suporteaxio@gmail.com"],
-        subject: `[Suporte AXIO] Mensagem de ${name || "Usuário"}`,
+        subject: subject || `[Suporte AXIO] Mensagem de ${name || "Usuário"}`,
         reply_to: email,
         html: `
           <h2>Nova mensagem de suporte</h2>
