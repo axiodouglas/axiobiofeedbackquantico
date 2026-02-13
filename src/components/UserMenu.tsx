@@ -4,7 +4,7 @@ import { LogIn, LogOut, User, Crown, HelpCircle, Shield, AlertCircle } from "luc
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
-import BugReportModal from "@/components/BugReportModal";
+import BugReportModalSafe from "@/components/BugReportModalSafe";
 
 const UserMenu = () => {
   const { user, profile, loading, signOut } = useAuth();
@@ -58,7 +58,7 @@ const UserMenu = () => {
       <button onClick={() => setBugReportOpen(true)} className="text-muted-foreground hover:text-destructive transition-colors p-1" title="Relatar erro">
         <AlertCircle className="h-4 w-4" />
       </button>
-      <BugReportModal open={bugReportOpen} onOpenChange={setBugReportOpen} />
+      <BugReportModalSafe open={bugReportOpen} onOpenChange={setBugReportOpen} />
       <div
         className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors"
         onClick={() => navigate("/profile")}
