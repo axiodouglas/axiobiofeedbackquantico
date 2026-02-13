@@ -16,7 +16,12 @@ interface Diagnosis {
 }
 
 export default function MyReports() {
-  const { user, loading } = useAuth();
+  const { user, loading, refreshProfile } = useAuth();
+
+  // Force profile refresh when accessing reports
+  useEffect(() => {
+    if (user) refreshProfile();
+  }, [user]);
   const navigate = useNavigate();
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
   const [loadingData, setLoadingData] = useState(true);
