@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, HelpCircle, Send, CheckCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -63,12 +64,19 @@ const FAQ = () => {
     if (!supportMessage.trim() || !supportEmail.trim()) return;
     setSending(true);
     try {
-      await new Promise((r) => setTimeout(r, 800));
+      const { error } = await supabase.functions.invoke("send-support-email", {
+        body: {
+          name: supportName.trim(),
+          email: supportEmail.trim(),
+          message: supportMessage.trim(),
+        },
+      });
+      if (error) throw error;
       setSent(true);
       setSupportMessage("");
       setSupportName("");
       setSupportEmail("");
-      setTimeout(() => { setSent(false); setSupportOpen(false); }, 3000);
+      setTimeout(() => { setSent(false); setSupportOpen(false); }, 4000);
     } catch {
       // silently fail
     } finally {
@@ -128,8 +136,8 @@ const FAQ = () => {
               {sent ? (
                 <div className="flex flex-col items-center gap-3 py-4">
                   <CheckCircle className="h-10 w-10 text-primary" />
-                  <p className="text-foreground font-semibold">Mensagem enviada com sucesso!</p>
-                  <p className="text-muted-foreground text-sm">Nosso suporte responderá em breve.</p>
+                  <p className="text-foreground font-semibold">Sua mensagem foi enviada!</p>
+                  <p className="text-muted-foreground text-sm">Responderemos em breve.</p>
                 </div>
               ) : (
                 <>
