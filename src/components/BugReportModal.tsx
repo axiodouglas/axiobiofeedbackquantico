@@ -87,7 +87,7 @@ export default function BugReportModal({ open, onOpenChange }: BugReportModalPro
 
       if (error) throw error;
 
-      toast({ title: "Relato enviado!", description: "Obrigado por nos ajudar a melhorar." });
+      toast({ title: "Agradecemos sua sugestão", description: "Seu relato foi enviado com sucesso." });
       resetForm();
       onOpenChange(false);
     } catch (err: any) {
