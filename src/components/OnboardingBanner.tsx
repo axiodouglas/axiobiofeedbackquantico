@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { X, ArrowUpRight, User } from "lucide-react";
+import { X, ArrowUp, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -34,7 +34,7 @@ const OnboardingBanner = () => {
           className="text-primary font-semibold hover:underline flex items-center gap-1"
         >
           Ver agora
-          <ArrowUpRight className="h-3.5 w-3.5 animate-bounce" />
+          <ArrowUp className="h-3.5 w-3.5 animate-bounce" />
         </button>
         <button
           onClick={dismiss}
