@@ -13,7 +13,12 @@ import OnboardingBanner from "@/components/OnboardingBanner";
 
 const Index = () => {
   const navigate = useNavigate();
-  const { user, profile } = useAuth();
+  const { user, profile, refreshProfile } = useAuth();
+
+  // Force profile refresh on every app open
+  useEffect(() => {
+    if (user) refreshProfile();
+  }, [user]);
   const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
   const [isAdmin, setIsAdmin] = useState(false);
