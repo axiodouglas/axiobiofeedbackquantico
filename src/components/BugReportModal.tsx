@@ -69,8 +69,11 @@ export default function BugReportModal({ open, onOpenChange }: BugReportModalPro
 
       if (uploadError) throw uploadError;
 
-      const { data: urlData } = supabase.storage.from("error-reports").getPublicUrl(path);
-      const imageUrl = urlData.publicUrl;
+      const { data: urlData, error: signedUrlError } = await supabase.storage
+        .from("error-reports")
+        .createSignedUrl(path, 60 * 60 * 24 * 30); // 30 days
+      if (signedUrlError || !urlData?.signedUrl) throw signedUrlError || new Error("Failed to generate URL");
+      const imageUrl = urlData.signedUrl;
 
       const categoryLabel = categories.find((c) => c.value === category)?.label || category;
       const userName = profile?.full_name || user.email?.split("@")[0] || "Usuário";
