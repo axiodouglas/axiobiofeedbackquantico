@@ -112,7 +112,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background noise">
-      <OnboardingBanner />
       {/* Top Navigation */}
       <nav className="absolute top-0 left-0 right-0 z-20 py-4">
         <div className="container mx-auto px-4 flex items-center justify-between">
@@ -133,6 +132,7 @@ const Index = () => {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 pt-20 pb-12">
+          <OnboardingBanner />
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight px-2">
               <span className="text-foreground">Bem-vindo ao </span>

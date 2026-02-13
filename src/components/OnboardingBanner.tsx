@@ -24,21 +24,21 @@ const OnboardingBanner = () => {
   };
 
   return (
-    <div className="relative w-full bg-gradient-to-r from-card via-card/95 to-card border-b border-primary/20 py-2.5 px-4 animate-fade-in">
-      <div className="container mx-auto flex items-center justify-end gap-2 text-sm pr-16">
+    <div className="relative w-full rounded-xl bg-card/80 border border-primary/20 py-2.5 px-4 mb-6 animate-fade-in backdrop-blur-sm">
+      <div className="flex items-center justify-center gap-2 text-sm">
         <span className="text-foreground/80 flex items-center gap-1.5">
-          Acesse seu Relatório no <User className="h-3.5 w-3.5 text-primary inline" />
+          Acesse seu Relatório no <User className="h-4 w-4 text-primary" />
         </span>
         <button
           onClick={() => { navigate("/profile"); dismiss(); }}
           className="text-primary font-semibold hover:underline flex items-center gap-1"
         >
           Ver agora
+          <ArrowUpRight className="h-3.5 w-3.5 animate-bounce" />
         </button>
-        <ArrowUpRight className="h-4 w-4 text-primary animate-bounce" />
         <button
           onClick={dismiss}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
           aria-label="Fechar"
         >
           <X className="h-4 w-4" />
