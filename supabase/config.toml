@@ -5,3 +5,9 @@ verify_jwt = false
 
 [functions.admin-users]
 verify_jwt = false
+
+[functions.send-support-email]
+verify_jwt = false
+
+[functions.send-broadcast-email]
+verify_jwt = false

@@ -49,6 +49,14 @@ serve(async (req) => {
       });
     }
 
+    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+    if (!RESEND_API_KEY) {
+      return new Response(JSON.stringify({ error: "RESEND_API_KEY não configurada" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // Get all user emails from profiles
     const { data: profiles, error: profilesError } = await supabase
       .from("profiles")
@@ -58,23 +66,59 @@ serve(async (req) => {
 
     const { subject, message } = await req.json();
 
-    // Use Lovable AI to format, but really we just need to send via SMTP
-    // Since we don't have SMTP configured, we'll use Supabase's built-in
-    // auth.admin API to send magic link emails as a workaround isn't ideal.
-    // Instead, let's return the list so admin can use an external tool,
-    // OR we log success for the concept.
+    const emailSubject = subject || "Uma ótima sexta-feira do Método AXIO! ✨";
+    const emailBody = message || "Olá! Passando para desejar uma excelente sexta-feira. Que hoje seja um dia de clareza mental e liberação. Lembre-se: sua voz é a autoridade sobre sua realidade. Vamos reprogramar?";
 
-    const emailList = (profiles || [])
+    const recipients = (profiles || [])
       .filter((p: { email: string | null }) => p.email)
-      .map((p: { email: string | null; full_name: string | null }) => p.email);
+      .map((p: { email: string | null; full_name: string | null }) => ({
+        email: p.email!,
+        name: p.full_name || "Usuário",
+      }));
+
+    let sentCount = 0;
+    const errors: string[] = [];
+
+    for (const recipient of recipients) {
+      try {
+        const res = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${RESEND_API_KEY}`,
+          },
+          body: JSON.stringify({
+            from: "AXIO <onboarding@resend.dev>",
+            to: [recipient.email],
+            subject: emailSubject,
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; color: #e0e0e0; padding: 30px; border-radius: 12px;">
+                <h2 style="color: #00d4aa; text-align: center;">✨ Método A.X.I.O. ✨</h2>
+                <p style="font-size: 16px; line-height: 1.6;">Olá, ${recipient.name}!</p>
+                <p style="font-size: 16px; line-height: 1.6;">${emailBody}</p>
+                <hr style="border-color: #333; margin: 20px 0;" />
+                <p style="font-size: 12px; color: #888; text-align: center;">© 2025 A.X.I.O. — Análise do Fator X do Inconsciente de Origem</p>
+              </div>
+            `,
+          }),
+        });
+
+        if (res.ok) {
+          sentCount++;
+        } else {
+          const errText = await res.text();
+          errors.push(`${recipient.email}: ${errText}`);
+        }
+      } catch (e) {
+        errors.push(`${recipient.email}: ${e.message}`);
+      }
+    }
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: `Broadcast preparado para ${emailList.length} usuário(s)`,
-        recipients: emailList,
-        subject: subject || "Uma ótima sexta-feira do Método AXIO! ✨",
-        body: message || "Olá! Passando para desejar uma excelente sexta-feira. Que hoje seja um dia de clareza mental e liberação. Lembre-se: sua voz é a autoridade sobre sua realidade. Vamos reprogramar?",
+        message: `E-mail enviado para ${sentCount} de ${recipients.length} usuário(s)`,
+        errors: errors.length > 0 ? errors : undefined,
       }),
       {
         status: 200,
