@@ -13,25 +13,26 @@ interface MeditationScriptProps {
 
 function generateMeditationScript(userName: string, dr: any): string {
   const name = userName || "Querido(a)";
-  const traumas = (dr?.blocks || []).map((b: any) => b.name).join(", ") || "dores do passado";
-  const sentiments = (dr?.predominant_sentiments || []).map((s: any) => s.name).join(", ") || "sentimentos guardados";
+  const blocks = (dr?.blocks || []).map((b: any) => b.name);
+  const traumas = blocks.length > 0 ? blocks.join(", ") : "dores do passado";
+  const sentiments = (dr?.predominant_sentiments || []).map((s: any) => s.name);
+  const sentimentText = sentiments.length > 0 ? sentiments.join(", ") : "sentimentos guardados";
   const rootWound = dr?.root_wound || "feridas de origem";
-  const saude = dr?.secondary_impacts?.saude || "tensão acumulada no corpo";
 
-  // PASSO 1 - ACESSO (Segurança Somática)
-  const acesso = `${name}, eu agora fecho os meus olhos e dou um comando de paz à minha biologia. Eu falo com cada órgão que viveu em estado de alerta. Coração, acalme-se. Glândulas, descansem. É seguro relaxar. Eu informo ao meu sistema nervoso que o ambiente é seguro e que eu sou a sua proteção. Eu baixo a guarda agora, porque tudo o que faremos aqui é por amor a nós mesmos. ${name}, eu me conecto com o mais profundo do nosso ser. Corpo, ouça a minha voz: está tudo bem agora. Nós podemos soltar as amarras, os bloqueios e tudo o que esteja nos impedindo de acessar o nosso subconsciente.`;
+  // PASSO 1 - ACESSO
+  const acesso = `${name}, eu agora fecho os meus olhos e dou um comando de paz ao meu corpo. Eu falo com cada parte de mim que viveu em estado de alerta. Coração, acalme-se. É seguro relaxar. Eu baixo a guarda agora, porque tudo o que faremos aqui é por amor a nós mesmos. Eu me conecto com o mais profundo do nosso ser. Corpo, ouça a minha voz: está tudo bem agora. Nós podemos soltar as amarras e tudo o que nos impede de acessar a nossa verdade.`;
 
-  // PASSO 2 - VALIDAÇÃO (Olhar do Expert)
-  const validacao = `${name}, eu olho agora para nós e reconheço a dor de ${rootWound}. Eu valido cada trauma, cada medo e cada sentimento de ${traumas}. Eu acolho essa ferida sem qualquer julgamento. Eu digo a essa dor: eu finalmente te vejo e nunca mais vou te abandonar. Eu sei que nós sentimos ${sentiments} e está tudo bem. Eu reconheço onde essa dor se instala no nosso corpo, ${saude}. Ao validar o que sentimos, eu permito que a energia que prende esses sentimentos nas nossas células e tecidos comece a se soltar agora. Não precisamos mais lutar contra o que sentimos. Nós apenas reconhecemos e deixamos fluir. ${name}, acalme, está tudo bem, nós podemos ficar calmos agora.`;
+  // PASSO 2 - VALIDAÇÃO
+  const validacao = `Eu olho agora para nós e reconheço a dor de ${rootWound}. Eu valido cada sentimento de ${traumas}. Eu acolho essa ferida sem qualquer julgamento. Eu digo a essa dor: eu finalmente te vejo e nunca mais vou te abandonar. Eu sei que sentimos ${sentimentText} e está tudo bem. Eu reconheço onde essa dor se instala no meu corpo e, neste momento, eu dou permissão para que cada tensão se dissolva. Eu solto o peso dos meus ombros, relaxo o meu pescoço e acalmo o meu ventre. Ao validar o que sinto, eu permito que essa energia flua livremente, sem resistência. Eu estou seguro em meu próprio corpo. Não precisamos mais lutar contra o que sentimos. Nós apenas reconhecemos e deixamos fluir.`;
 
-  // PASSO 3 - DESASSOCIAÇÃO (Corte de Vínculos)
-  const desassociacao = `Corpo, nós iniciamos agora o desligamento total. Eu ordeno o corte de todos os vínculos, lealdades cegas e pactos que nos prendem ao sofrimento da nossa linhagem. Eu não sou a dor dos meus ancestrais. Eu rescindo todo contrato de codependência. Eu desligo agora a energia de ${sentiments} dos nossos órgãos relacionados a esses sentimentos. Eu quebro toda lealdade invisível a familiares, pessoas ou situações. Eu me desassocio de toda energia que não é nossa. Eu devolvo o lixo emocional aos seus donos originais com amor, mas recupero agora toda a minha força vital. Eu sou livre da aprovação deles. ${name}, nós estamos livres agora.`;
+  // PASSO 3 - DESASSOCIAÇÃO
+  const desassociacao = `Corpo, nós iniciamos agora o desligamento total. Eu ordeno o corte de todos os vínculos, lealdades cegas e pactos que nos prendem ao sofrimento da nossa linhagem. Eu não sou a dor dos meus ancestrais. Eu rescindo todo contrato de codependência. Eu libero agora toda tensão acumulada. Eu permito que meus órgãos relaxem. Eu solto a necessidade de me defender. Eu quebro toda lealdade invisível a familiares, pessoas ou situações. Eu me desassocio de toda energia que não é nossa. Eu devolvo o que não me pertence com amor, mas recupero agora toda a minha força vital. Eu sou livre da aprovação deles. Nós estamos livres agora.`;
 
-  // PASSO 4 - INSTALAÇÃO (Nova Identidade)
-  const instalacao = `${name}, onde antes havia ${rootWound}, agora eu instalo segurança, amor próprio e confiança plena. Eu instalo a consciência da minha soberania. Eu sou digno e inteiro. Corpo, sinta essa nova verdade entrando em cada célula. Nós agora ocupamos o nosso lugar com segurança e alegria. Nós somos dignos de prosperidade, saúde e relacionamentos saudáveis. Eu retomo meu direito ao prazer, à alegria e à minha voz. Minha identidade é restaurada agora. Essa é a nossa nova realidade e ela começa agora.`;
+  // PASSO 4 - INSTALAÇÃO
+  const instalacao = `Onde antes havia ${rootWound}, agora eu instalo segurança, amor próprio e confiança plena. Eu instalo a consciência da minha soberania. Eu sou digno e inteiro. Corpo, sinta essa nova verdade entrando em cada parte de mim. Nós agora ocupamos o nosso lugar com segurança e alegria. Nós somos dignos de prosperidade, saúde e relacionamentos saudáveis. Eu retomo meu direito ao prazer, à alegria e à minha voz. Minha identidade é restaurada agora. ${name}, essa é a nossa nova realidade e ela começa agora.`;
 
-  // PASSO 5 - GRATIDÃO (Selagem Somática)
-  const gratidao = `${name}, eu agradeço profundamente a cada pessoa, à nossa mãe, ao nosso pai e a todas as situações que nos moldaram, mas que agora deixamos ir. Eu agradeço ao meu corpo por permitir essa limpeza. Agradeço ao nosso cérebro, coração, pulmões, fígado, rins, estômago e a cada uma das nossas trilhões de células por sustentarem essa nova consciência. Sinto a vida correndo livre, meus pulmões expandindo e meu ventre aquecido. ${name}, nós vamos relembrar tudo isso de novo, corpo, porque já é real na nossa vida. Está feito, está selado. Gratidão. ${name}, durma em paz agora, nós estamos seguros.`;
+  // PASSO 5 - GRATIDÃO
+  const gratidao = `Eu agradeço profundamente a cada pessoa, à nossa mãe, ao nosso pai e a todas as situações que nos moldaram, mas que agora deixamos ir. Eu agradeço ao meu corpo por permitir essa limpeza. Sinto a vida correndo livre, meus pulmões expandindo e meu ventre aquecido. Nós vamos relembrar tudo isso de novo, corpo, porque já é real na nossa vida. Está feito, está selado. Gratidão. ${name}, durma em paz agora, nós estamos seguros.`;
 
   return `${acesso}\n\n${validacao}\n\n${desassociacao}\n\n${instalacao}\n\n${gratidao}`;
 }
