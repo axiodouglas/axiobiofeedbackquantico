@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
+import OnboardingBanner from "@/components/OnboardingBanner";
 
 const areas = [
   {
@@ -71,6 +72,7 @@ const AreaSelection = () => {
 
   return (
     <div className="min-h-screen bg-background noise flex flex-col">
+      <OnboardingBanner />
       <header className="border-b border-border bg-card/50 py-4">
         <div className="container mx-auto px-4">
           <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">
