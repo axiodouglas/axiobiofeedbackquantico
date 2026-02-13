@@ -9,6 +9,7 @@ import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
+import OnboardingBanner from "@/components/OnboardingBanner";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -111,6 +112,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background noise">
+      <OnboardingBanner />
       {/* Top Navigation */}
       <nav className="absolute top-0 left-0 right-0 z-20 py-4">
         <div className="container mx-auto px-4 flex items-center justify-between">
