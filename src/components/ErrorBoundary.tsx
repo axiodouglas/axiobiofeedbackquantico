@@ -46,7 +46,7 @@ class ErrorBoundary extends Component<Props, State> {
                 Para um diagnóstico preciso, grave novamente focando exclusivamente no assunto selecionado.
               </p>
               <Button variant="cyan" size="lg" onClick={this.handleReset}>
-                Voltar ao Início
+                Tentar Novamente
               </Button>
             </div>
           </div>
