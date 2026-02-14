@@ -75,6 +75,7 @@ export type Database = {
         Row: {
           created_at: string
           email: string | null
+          free_diagnosis_reset_at: string | null
           full_name: string | null
           id: string
           is_premium: boolean | null
@@ -86,6 +87,7 @@ export type Database = {
         Insert: {
           created_at?: string
           email?: string | null
+          free_diagnosis_reset_at?: string | null
           full_name?: string | null
           id?: string
           is_premium?: boolean | null
@@ -97,6 +99,7 @@ export type Database = {
         Update: {
           created_at?: string
           email?: string | null
+          free_diagnosis_reset_at?: string | null
           full_name?: string | null
           id?: string
           is_premium?: boolean | null

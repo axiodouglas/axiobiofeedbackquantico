@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye, Lock } from "lucide-react";
+import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye, Lock, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -149,15 +149,28 @@ const Index = () => {
               Descubra a raiz dos seus bloqueios e cure sua linhagem.
             </p>
 
-            <Button 
-              variant="cyan" 
-              size="xl" 
-              className="group"
-              onClick={handleFreeArea}
-            >
-              <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
-              {isPremium ? "Iniciar Diagnóstico" : freeDiagnosisUsed ? "Assinar Plano Premium" : "Iniciar Diagnóstico Gratuito"}
-            </Button>
+            {(isPremium || !freeDiagnosisUsed) && (
+              <Button 
+                variant="cyan" 
+                size="xl" 
+                className="group"
+                onClick={handleFreeArea}
+              >
+                <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
+                {isPremium ? "Iniciar Diagnóstico" : "Iniciar Diagnóstico Gratuito"}
+              </Button>
+            )}
+            {!isPremium && freeDiagnosisUsed && (
+              <Button 
+                variant="cyan" 
+                size="xl" 
+                className="group"
+                onClick={() => navigate("/planos")}
+              >
+                <Crown className="h-5 w-5 transition-transform group-hover:scale-110" />
+                Adquirir Premium
+              </Button>
+            )}
 
           </div>
         </div>

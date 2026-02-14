@@ -42,9 +42,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Auto-lock expired subscriptions
         const isExpired = data.is_premium && data.subscription_expires_at && new Date(data.subscription_expires_at) < new Date();
         if (isExpired) {
+          // Reset to free status and grant a new free diagnosis
           await supabase
             .from("profiles")
-            .update({ is_premium: false })
+            .update({ is_premium: false, free_diagnosis_reset_at: new Date().toISOString() } as any)
             .eq("user_id", userId);
           setProfile({
             ...data,
