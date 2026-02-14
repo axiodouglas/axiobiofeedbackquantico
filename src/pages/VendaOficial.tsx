@@ -42,24 +42,12 @@ const VendaOficial = () => {
             />
           </div>
 
-          <div className="pt-4 flex flex-col items-center gap-4">
-            <Button variant="cyan" size="xl" className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl" asChild>
-              <a href="https://axiobiofeedbackquantico.lovable.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Download className="h-5 w-5" />
-                BAIXAR APP AGORA
-              </a>
-            </Button>
-          </div>
         </div>
       </section>
 
       {/* Teste Grátis: Pilar Mãe */}
       <section className="relative z-10 py-16 px-4">
         <div className="max-w-2xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Teste Grátis</span>
-          </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
             Teste Grátis: <span className="text-gradient-cyan">Pilar Mãe</span>
           </h2>
