@@ -14,10 +14,10 @@ const Auth = () => {
   const { user, signIn, signUp } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
 
-  // If already logged in, redirect to recording
+  // If already logged in, redirect to home
   useEffect(() => {
     if (user) {
-      navigate("/recording?area=mae", { replace: true });
+      navigate("/", { replace: true });
     }
   }, [user, navigate]);
   const [email, setEmail] = useState("");
@@ -40,7 +40,7 @@ const Auth = () => {
       if (err) {
         setError(err);
       } else {
-        navigate("/recording?area=mae");
+        navigate("/");
       }
     } else {
       const { error: err } = await signUp(email, password, fullName);
@@ -48,7 +48,7 @@ const Auth = () => {
         setError(err);
       } else {
         // Auto-confirm is enabled, so redirect immediately after signup
-        navigate("/recording?area=mae");
+        navigate("/");
       }
     }
     setLoading(false);

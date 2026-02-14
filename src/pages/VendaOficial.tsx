@@ -1,5 +1,5 @@
-import { useState, useRef, useCallback } from "react";
-import { Sparkles, Brain, Mic, MessageCircle, Download, Star, User, Volume2, VolumeX } from "lucide-react";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { Sparkles, Brain, Download, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VisualShowcase from "@/components/VisualShowcase";
 import AuthorSection from "@/components/venda/AuthorSection";
@@ -7,9 +7,18 @@ import TestimonialsSection from "@/components/venda/TestimonialsSection";
 import BenefitsSection from "@/components/venda/BenefitsSection";
 import CtaBanner from "@/components/venda/CtaBanner";
 
+const APP_URL = "https://axiobiofeedbackquantico.lovable.app";
+
 const VendaOficial = () => {
   const [muted, setMuted] = useState(true);
+  const [showAudioBtn, setShowAudioBtn] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Show audio button after 1 second delay
+  useEffect(() => {
+    const timer = setTimeout(() => setShowAudioBtn(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleMute = useCallback(() => {
     const iframe = iframeRef.current;
@@ -55,13 +64,15 @@ const VendaOficial = () => {
               allowFullScreen
               loading="lazy"
             />
-            <button
-              onClick={toggleMute}
-              className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-background transition-colors z-10"
-            >
-              {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-              {muted ? "Ativar Som" : "Mudo"}
-            </button>
+            {showAudioBtn && (
+              <button
+                onClick={toggleMute}
+                className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-background transition-colors z-10 animate-fade-in"
+              >
+                {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                {muted ? "Ativar Som" : "Mudo"}
+              </button>
+            )}
           </div>
 
           <div className="pt-4 flex flex-col items-center gap-4">

@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/use-auth";
 import ErrorBoundary from "./components/ErrorBoundary";
+import SalesErrorBoundary from "./components/SalesErrorBoundary";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
@@ -66,7 +67,7 @@ const App = () => (
               <Route path="/faq" element={<FAQ />} />
               <Route path="/planos" element={<Plans />} />
               <Route path="/terms" element={<Terms />} />
-              <Route path="/venda-oficial" element={<VendaOficial />} />
+              <Route path="/venda-oficial" element={<SalesErrorBoundary><VendaOficial /></SalesErrorBoundary>} />
               <Route path="/convite" element={<Convite />} />
               <Route path="/admin" element={<Admin />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
