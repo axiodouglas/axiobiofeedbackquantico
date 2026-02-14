@@ -26,12 +26,18 @@ const PLAN_PRICES: Record<string, number> = {
   monthly: 29.9,
   quarterly: 74.97,
   semiannual: 119.4,
+  mensal: 29.9,
+  trimestral: 74.97,
+  semestral: 119.4,
 };
 
 const PLAN_LABELS: Record<string, string> = {
   monthly: "Mensal",
   quarterly: "Trimestral",
   semiannual: "Semestral",
+  mensal: "Mensal",
+  trimestral: "Trimestral",
+  semestral: "Semestral",
 };
 
 const Admin = () => {
@@ -103,9 +109,9 @@ const Admin = () => {
   const totalUsers = profiles.length;
   const premiumUsers = profiles.filter((p) => p.is_premium).length;
   const freeUsers = profiles.filter((p) => !p.is_premium).length;
-  const monthlyUsers = profiles.filter((p) => p.is_premium && p.subscription_type === "monthly").length;
-  const quarterlyUsers = profiles.filter((p) => p.is_premium && p.subscription_type === "quarterly").length;
-  const semiannualUsers = profiles.filter((p) => p.is_premium && p.subscription_type === "semiannual").length;
+  const monthlyUsers = profiles.filter((p) => p.is_premium && (p.subscription_type === "monthly" || p.subscription_type === "mensal")).length;
+  const quarterlyUsers = profiles.filter((p) => p.is_premium && (p.subscription_type === "quarterly" || p.subscription_type === "trimestral")).length;
+  const semiannualUsers = profiles.filter((p) => p.is_premium && (p.subscription_type === "semiannual" || p.subscription_type === "semestral")).length;
   const estimatedRevenue = profiles.reduce((sum, p) => {
     if (p.is_premium && p.subscription_type) {
       return sum + (PLAN_PRICES[p.subscription_type] || 0);

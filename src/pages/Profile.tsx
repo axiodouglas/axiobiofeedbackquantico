@@ -126,13 +126,10 @@ const Profile = () => {
           <CardContent className="space-y-3">
             <div className="flex items-center gap-3">
               <Badge variant={subscriptionActive ? "default" : "secondary"} className="text-xs">
-                {subscriptionActive ? "Premium Ativo" : "Teste Gratuito"}
+                {subscriptionActive
+                  ? `Plano ${(profile?.subscription_type || "").charAt(0).toUpperCase() + (profile?.subscription_type || "").slice(1)}`
+                  : "Teste Gratuito"}
               </Badge>
-              {profile?.subscription_type && (
-                <span className="text-sm text-muted-foreground capitalize">
-                  Plano {profile.subscription_type}
-                </span>
-              )}
             </div>
             {subscriptionActive && profile?.subscription_expires_at && (
               <p className="text-sm text-muted-foreground flex items-center gap-1.5">
