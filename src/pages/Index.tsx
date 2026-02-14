@@ -149,7 +149,7 @@ const Index = () => {
               Descubra a raiz dos seus bloqueios e cure sua linhagem.
             </p>
 
-            {(isPremium || !freeDiagnosisUsed) && (
+            {!isPremium && !freeDiagnosisUsed && (
               <Button 
                 variant="cyan" 
                 size="xl" 
@@ -157,7 +157,7 @@ const Index = () => {
                 onClick={handleFreeArea}
               >
                 <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
-                {isPremium ? "Iniciar Diagnóstico" : "Iniciar Diagnóstico Gratuito"}
+                Iniciar Diagnóstico Gratuito
               </Button>
             )}
             {!isPremium && freeDiagnosisUsed && (
