@@ -1,5 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
-import { Sparkles, Brain, Download, Volume2, VolumeX } from "lucide-react";
+import { Sparkles, Brain, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VisualShowcase from "@/components/VisualShowcase";
 import AuthorSection from "@/components/venda/AuthorSection";
@@ -10,28 +9,6 @@ import CtaBanner from "@/components/venda/CtaBanner";
 const APP_URL = "https://axiobiofeedbackquantico.lovable.app";
 
 const VendaOficial = () => {
-  const [muted, setMuted] = useState(true);
-  const [showAudioBtn, setShowAudioBtn] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  // Show audio button after 1 second delay
-  useEffect(() => {
-    const timer = setTimeout(() => setShowAudioBtn(true), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const toggleMute = useCallback(() => {
-    const iframe = iframeRef.current;
-    if (iframe?.contentWindow) {
-      const command = muted ? "unMute" : "mute";
-      iframe.contentWindow.postMessage(
-        JSON.stringify({ event: "command", func: command }),
-        "*"
-      );
-      setMuted(!muted);
-    }
-  }, [muted]);
-
   return (
     <div className="min-h-screen bg-background noise relative overflow-hidden">
       {/* Ambient nebula effects */}
@@ -56,23 +33,13 @@ const VendaOficial = () => {
           {/* YouTube Video */}
           <div className="relative w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.15)]">
             <iframe
-              ref={iframeRef}
-              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1&mute=1&loop=1&playlist=W0LV-4LHwCI&playsinline=1&enablejsapi=1&origin=https://axiobiofeedbackquantico.lovable.app"
+              src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1&mute=1&loop=1&playlist=W0LV-4LHwCI&playsinline=1"
               title="AXIO - Vídeo de Vendas"
               className="w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               loading="lazy"
             />
-            {showAudioBtn && (
-              <button
-                onClick={toggleMute}
-                className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-background transition-colors z-10 animate-fade-in"
-              >
-                {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-                {muted ? "Ativar Som" : "Mudo"}
-              </button>
-            )}
           </div>
 
           <div className="pt-4 flex flex-col items-center gap-4">
