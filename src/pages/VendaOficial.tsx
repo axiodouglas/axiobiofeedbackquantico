@@ -42,24 +42,17 @@ const VendaOficial = () => {
             />
           </div>
 
-        </div>
-      </section>
-
-      {/* Teste Grátis: Pilar Mãe */}
-      <section className="relative z-10 py-16 px-4">
-        <div className="max-w-2xl mx-auto text-center space-y-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Teste Grátis: <span className="text-gradient-cyan">Pilar Mãe</span>
-          </h2>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
-            A mãe é a base da segurança e prosperidade. Entenda como essa conexão molda suas crenças hoje.
-          </p>
-          <Button variant="cyan" size="xl" className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl" asChild>
-            <a href="https://axiobiofeedbackquantico.lovable.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-              <Brain className="h-5 w-5" />
-              COMEÇAR DIAGNÓSTICO GRÁTIS
-            </a>
-          </Button>
+          <div className="pt-6 flex flex-col items-center gap-4">
+            <Button variant="cyan" size="xl" className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl" asChild>
+              <a href="https://axiobiofeedbackquantico.lovable.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <Brain className="h-5 w-5" />
+                COMEÇAR DIAGNÓSTICO GRÁTIS
+              </a>
+            </Button>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
+              Teste Grátis: <span className="text-primary font-semibold">Pilar Mãe</span> — A mãe é a base da segurança e prosperidade. Entenda como essa conexão molda suas crenças hoje.
+            </p>
+          </div>
         </div>
       </section>
 
