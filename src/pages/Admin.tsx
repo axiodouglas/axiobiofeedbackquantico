@@ -23,9 +23,9 @@ interface ProfileRow {
 }
 
 const PLAN_PRICES: Record<string, number> = {
-  monthly: 49.9,
-  quarterly: 119.9,
-  semiannual: 199.9,
+  monthly: 29.9,
+  quarterly: 74.97,
+  semiannual: 119.4,
 };
 
 const PLAN_LABELS: Record<string, string> = {

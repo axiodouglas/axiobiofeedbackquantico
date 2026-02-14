@@ -126,7 +126,7 @@ const Profile = () => {
           <CardContent className="space-y-3">
             <div className="flex items-center gap-3">
               <Badge variant={subscriptionActive ? "default" : "secondary"} className="text-xs">
-                {subscriptionActive ? "Premium Ativo" : "Gratuito"}
+                {subscriptionActive ? "Premium Ativo" : "Teste Gratuito"}
               </Badge>
               {profile?.subscription_type && (
                 <span className="text-sm text-muted-foreground capitalize">
@@ -146,7 +146,7 @@ const Profile = () => {
             {!subscriptionActive && (
               <Button variant="cyan" size="sm" onClick={() => navigate("/venda-oficial")} className="gap-1.5">
                 <Sparkles className="h-4 w-4" />
-                Assinar Premium
+                Adquirir Premium
               </Button>
             )}
           </CardContent>

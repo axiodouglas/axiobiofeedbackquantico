@@ -1,9 +1,12 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Heart, UserCheck, Flame, HeartHandshake, Info, Lock } from "lucide-react";
+import { ArrowLeft, Heart, UserCheck, Flame, HeartHandshake, Info, Lock, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
+import { useAreaLock } from "@/hooks/use-area-lock";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import OnboardingBanner from "@/components/OnboardingBanner";
 
 const areas = [
@@ -42,10 +45,34 @@ const AreaSelection = () => {
   const { user, profile } = useAuth();
   const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!user) { setIsAdmin(false); return; }
+    supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .eq("role", "admin")
+      .maybeSingle()
+      .then(({ data }) => setIsAdmin(!!data));
+  }, [user]);
+
+  const { lockedAreas } = useAreaLock(user?.id, isAdmin);
 
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   const handleSelect = (area: typeof areas[number]) => {
+    // Check 7-day lock for premium users
+    if (isPremium && !isAdmin && lockedAreas[area.id]?.locked) {
+      toast({
+        title: "Pilar em protocolo",
+        description: `Aguarde mais ${lockedAreas[area.id].daysRemaining} dia(s) para regravar este pilar.`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (isPremium) {
       navigate(`/recording?area=${area.id}`);
       return;
@@ -102,26 +129,29 @@ const AreaSelection = () => {
             {areas.map((area) => {
               const isPremiumLocked = !isPremium && area.id !== "mae";
               const isFreeUsed = !isPremium && area.id === "mae" && freeDiagnosisUsed;
+              const isAreaLocked = isPremium && !isAdmin && lockedAreas[area.id]?.locked;
 
               return (
                 <div
                   key={area.id}
                   onClick={() => handleSelect(area)}
                   className={`group relative overflow-hidden rounded-xl border-2 bg-card cursor-pointer p-6 transition-all duration-300 ${
-                    isPremiumLocked || isFreeUsed
+                    isPremiumLocked || isFreeUsed || isAreaLocked
                       ? "border-border/50 opacity-60"
                       : "border-border hover:border-primary/60 hover:shadow-[0_0_30px_hsl(175,70%,50%,0.2)]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
                     <div className={`flex h-16 w-16 items-center justify-center rounded-xl ${area.iconColor} transition-transform group-hover:scale-110`}>
-                      {isPremiumLocked || isFreeUsed ? <Lock className="h-8 w-8" /> : area.icon}
+                      {isPremiumLocked || isFreeUsed ? <Lock className="h-8 w-8" /> : isAreaLocked ? <Clock className="h-8 w-8" /> : area.icon}
                     </div>
                     <div className="text-left">
                       <h3 className="text-xl font-semibold text-foreground">{area.title}</h3>
                       <p className="text-sm text-muted-foreground">
-                        {isFreeUsed
-                          ? "Diagnóstico cortesia já utilizado"
+                        {isAreaLocked
+                          ? `Aguarde ${lockedAreas[area.id].daysRemaining} dia(s) — protocolo ativo`
+                          : isFreeUsed
+                          ? "Diagnóstico gratuito já utilizado"
                           : isPremiumLocked
                           ? "Premium"
                           : area.description}

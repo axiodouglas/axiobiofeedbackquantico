@@ -6,7 +6,9 @@ import { Progress } from "@/components/ui/progress";
 import { useAxioAnalysis } from "@/hooks/use-axio-analysis";
 import { useAuth } from "@/hooks/use-auth";
 import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
+import { useAreaLock } from "@/hooks/use-area-lock";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const MAX_RECORDING_TIME = 180;
 const MAX_AUDIO_SIZE_MB = 10;
@@ -25,6 +27,21 @@ const Recording = () => {
   const { user, profile, loading: authLoading } = useAuth();
   const { freeDiagnosisUsed, loading: freeLoading } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminLoading, setAdminLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) { setIsAdmin(false); setAdminLoading(false); return; }
+    supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .eq("role", "admin")
+      .maybeSingle()
+      .then(({ data }) => { setIsAdmin(!!data); setAdminLoading(false); });
+  }, [user]);
+
+  const { lockedAreas, loading: lockLoading } = useAreaLock(user?.id, isAdmin);
 
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
@@ -54,8 +71,21 @@ const Recording = () => {
   }, []);
 
   // Gate: non-premium users can only record "mae" and only once
+  // Premium users: enforce 7-day area lock (admins exempt)
   useEffect(() => {
-    if (authLoading || freeLoading) return;
+    if (authLoading || freeLoading || lockLoading || adminLoading) return;
+
+    // 7-day lock check for premium (non-admin) users
+    if (isPremium && !isAdmin && lockedAreas[area]?.locked) {
+      toast({
+        title: "Pilar em protocolo",
+        description: `Aguarde mais ${lockedAreas[area].daysRemaining} dia(s) para regravar este pilar. O protocolo de 7 dias garante a neuroplasticidade.`,
+        variant: "destructive",
+      });
+      navigate("/", { replace: true });
+      return;
+    }
+
     if (isPremium) return; // premium can do anything
 
     // Non-premium trying to access non-mae area
@@ -72,16 +102,16 @@ const Recording = () => {
     // Non-premium already used free diagnosis
     if (freeDiagnosisUsed) {
       toast({
-        title: "Diagnóstico cortesia já utilizado",
-        description: "Você já utilizou seu diagnóstico cortesia. Assine um plano para liberar todos os pilares.",
+        title: "Diagnóstico gratuito já utilizado",
+        description: "Você já utilizou seu diagnóstico gratuito. Assine um plano para liberar todos os pilares.",
         variant: "destructive",
       });
       navigate("/planos", { replace: true });
     }
-  }, [authLoading, freeLoading, isPremium, area, freeDiagnosisUsed, navigate, toast]);
+  }, [authLoading, freeLoading, lockLoading, adminLoading, isPremium, isAdmin, area, freeDiagnosisUsed, lockedAreas, navigate, toast]);
 
-  // Show loading while auth/free check resolves
-  if (authLoading || freeLoading) {
+  // Show loading while checks resolve
+  if (authLoading || freeLoading || lockLoading || adminLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Mic className="h-8 w-8 text-primary animate-pulse" />
