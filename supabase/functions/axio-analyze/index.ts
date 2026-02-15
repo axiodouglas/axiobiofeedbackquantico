@@ -20,12 +20,26 @@ Transcrição: "Bom, eu não conheço meu pai, né? Porque desde pequeno eu tinh
 - No card MÃE: Bloqueie o relatório. O "Protagonista da Dor" é o Pai. Responda: "Identificamos que seu relato gira em torno da ausência e do não-reconhecimento paterno. Para um diagnóstico certeiro, migre para o card do PAI. Aqui, no card da MÃE, precisamos entender o impacto dela diante dessa ausência — como ela reagiu, se compensou, se projetou em você a raiva do abandono."
 
 2. REGRAS DE VALIDAÇÃO DE FOCO (Sentinela Contextual):
+
+=== PILARES MÃE e PAI (BLOQUEIO ESTRITO — NÃO ALTERE) ===
 - NÃO busque apenas palavras-chave. Analise SE O ÁUDIO GIRA EM TORNO de uma figura diferente do card selecionado.
 - Se o usuário falar predominantemente de outra figura (ex: falar do Pai no card da Mãe), defina focus_valid=false e explique com empatia qual card é o correto, e o que deveria ser explorado no card atual.
 - Se a informação for insuficiente ou superficial, use o Filtro de Verdade: "Sinto que ainda estamos na superfície. Este é um ambiente seguro e confidencial. Para que o A.X.I.O. encontre a raiz real, preciso que você fale com total honestidade sobre [figura do card]."
 - NUNCA invente ou alucine. Se o áudio é sobre "Pai", NUNCA entregue relatório de "Mãe". Se falta informação, peça mais detalhes específicos sobre a figura daquele card.
-- Para o card TRAUMAS ADICIONAIS: valide que o relato é sobre eventos EXTERNOS à família direta (bullying, acidentes, perdas, abusos por terceiros). Se o relato for sobre Pai ou Mãe, redirecione para o card correto.
-- Para o card RELACIONAMENTOS: valide que o relato envolve dinâmicas de casal, parceiro, intimidade ou repetição de padrões amorosos. Identifique se a raiz da dificuldade é uma projeção de Pai, Mãe ou lealdade sistêmica ancestral. Se o relato for exclusivamente sobre Pai ou Mãe sem contexto relacional, redirecione ao card correto.
+
+=== PILARES TRAUMAS e RELACIONAMENTOS (ESCUTA TERAPÊUTICA EXPANDIDA) ===
+- Para os cards TRAUMAS ADICIONAIS e RELACIONAMENTOS, a escuta é ABERTA E INTEGRATIVA. O usuário PODE e DEVE mencionar pai, mãe, infância, família e qualquer origem emocional. Essas menções devem ser INTEGRADAS ao diagnóstico, NUNCA bloqueadas.
+- A análise deve ser baseada em Neurociência, Psicologia, Física Quântica e Somática, interpretando como qualquer trauma ou padrão de relacionamento afeta o sistema nervoso e o corpo do usuário.
+- Princípio: "Tudo o que dói é relevante." Se o usuário menciona a mãe ao falar de um trauma, isso é contexto válido — não é fuga de assunto.
+- Para o card TRAUMAS ADICIONAIS: aceite qualquer relato sobre eventos, medos, fobias, acidentes, perdas, abusos, bullying, e TAMBÉM traumas relacionados a pai/mãe/infância. Integre todas as origens ao diagnóstico de trauma.
+- Para o card RELACIONAMENTOS: aceite qualquer relato sobre dinâmicas de casal, parceiro, intimidade, repetição de padrões amorosos, E TAMBÉM projeções parentais, lealdades sistêmicas e feridas de infância que impactam os relacionamentos. Integre tudo ao diagnóstico relacional.
+
+=== FILTRO DE FUGA DE ASSUNTO (APLICA-SE APENAS A TRAUMAS E RELACIONAMENTOS) ===
+- Embora a escuta seja aberta nesses dois pilares, MONITORE se o usuário fugiu COMPLETAMENTE do tema terapêutico.
+- Defina focus_valid=false APENAS se o conteúdo for comprovadamente IRRELEVANTE para o processo de biofeedback e autoconhecimento.
+- Exemplos de fuga real: falar de futebol, compras rotineiras, trabalho burocrático sem carga emocional, assuntos banais sem conexão emocional alguma.
+- Se detectar fuga, use esta mensagem: "O seu relato parece ter saído do foco emocional deste pilar. Por favor, retome sua fala concentrando-se nos seus sentimentos, memórias ou padrões de [Trauma/Relacionamento]."
+- NA DÚVIDA, SEMPRE gere o diagnóstico. Só bloqueie se for absolutamente claro que não há conteúdo emocional/terapêutico no relato.
 
 3. LEITURA DE ENTRELINHAS (PNL e Análise Vocal):
 - Identifique pausas, hesitações, repetições e termos carregados emocionalmente.
@@ -1735,7 +1749,7 @@ serve(async (req) => {
     }
 
     const areaNames: Record<string, string> = {
-      pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamentos: "Relacionamentos",
+      pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamento: "Relacionamentos",
     };
 
     const previousDiagStr = previous_diagnoses ? `DIAGNÓSTICOS ANTERIORES (não repita): ${JSON.stringify(previous_diagnoses)}` : "";
@@ -1748,7 +1762,7 @@ serve(async (req) => {
       '"' + transcription + '"\n\n' +
       "Analise profundamente este áudio seguindo o Método A.X.I.O. para a área " + (areaNames[area] || area) + ".\n\n" +
       "IMPORTANTE:\n" +
-      '1. Primeiro, valide se o conteúdo condiz com a área "' + (areaNames[area]) + '". Se o usuário falar predominantemente de outro tema, defina focus_valid=false. IMPORTANTE: Seja tolerante com áudios curtos ou superficiais — se houver QUALQUER menção mínima ao tema do card (mesmo breve), defina focus_valid=true e gere o diagnóstico. Apenas bloqueie se o assunto for COMPLETAMENTE diferente do card selecionado.\n' +
+      '1. Primeiro, valide se o conteúdo condiz com a área "' + (areaNames[area]) + '". REGRA DE FOCO POR PILAR: Para MÃE e PAI, aplique bloqueio estrito — se o usuário falar predominantemente de outra figura, defina focus_valid=false. Para TRAUMAS e RELACIONAMENTOS, aplique escuta terapêutica expandida — aceite menções a pai, mãe, infância e qualquer origem emocional, integrando-as ao diagnóstico. Nesses pilares, só defina focus_valid=false se o conteúdo for COMPROVADAMENTE irrelevante para o processo terapêutico (ex: assuntos banais sem carga emocional). Na dúvida, SEMPRE gere o diagnóstico.\n' +
       "2. Identifique no mínimo 2 e no máximo 4 bloqueios específicos e personalizados.\n" +
       "3. Gere um frequency_score realista (geralmente entre 20-45 para diagnósticos iniciais).\n" +
       "4. Os sentimentos predominantes devem ter entre 3 e 5 itens.\n" +
