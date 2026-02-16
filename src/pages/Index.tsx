@@ -129,8 +129,8 @@ const Index = () => {
               draggable={false}
             />
             <div className="flex flex-col leading-none">
-              <span className="text-sm sm:text-base font-bold tracking-widest text-white">
-                <span className="text-gradient-brand">A.</span>X.I.O.
+              <span className="text-sm sm:text-base font-bold tracking-widest text-gradient-brand">
+                A.X.I.O.
               </span>
             </div>
           </div>
