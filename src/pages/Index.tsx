@@ -284,7 +284,7 @@ const Index = () => {
             Análise do Fator X do Inconsciente de Origem
           </p>
           <p className="text-xs text-muted-foreground mt-4">
-            © 2025 A.X.I.O. Todos os direitos reservados.
+            © 2026 A.X.I.O. Todos os direitos reservados. Marca e Método em processo de registro.
           </p>
         </div>
       </footer>
