@@ -195,62 +195,69 @@ const Index = () => {
       <div className="container mx-auto px-5 sm:px-8 py-14 sm:py-16">
         {/* Quantum Wave Decoration */}
         <div className="relative mb-8 flex justify-center">
-          <svg viewBox="0 0 600 120" className="w-full max-w-3xl h-24 sm:h-32 opacity-55" preserveAspectRatio="xMidYMid meet">
+          <svg viewBox="0 0 600 120" className="w-full max-w-3xl h-24 sm:h-32" preserveAspectRatio="xMidYMid meet" style={{ filter: 'drop-shadow(0 0 8px hsl(175,70%,50%,0.5)) drop-shadow(0 0 20px hsl(260,60%,65%,0.3))' }}>
             <defs>
               <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="hsl(160,80%,65%)" stopOpacity="0" />
-                <stop offset="25%" stopColor="hsl(175,70%,50%)" stopOpacity="0.6" />
-                <stop offset="50%" stopColor="hsl(220,60%,60%)" stopOpacity="0.8" />
-                <stop offset="75%" stopColor="hsl(260,60%,65%)" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="hsl(260,60%,65%)" stopOpacity="0" />
+                <stop offset="0%" stopColor="hsl(160,80%,65%)" stopOpacity="0.1" />
+                <stop offset="20%" stopColor="hsl(175,70%,55%)" stopOpacity="0.9" />
+                <stop offset="50%" stopColor="hsl(220,70%,65%)" stopOpacity="1" />
+                <stop offset="80%" stopColor="hsl(260,65%,70%)" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="hsl(260,60%,65%)" stopOpacity="0.1" />
               </linearGradient>
               <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="hsl(260,60%,65%)" stopOpacity="0" />
-                <stop offset="30%" stopColor="hsl(260,60%,65%)" stopOpacity="0.4" />
-                <stop offset="60%" stopColor="hsl(175,70%,50%)" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="hsl(175,70%,50%)" stopOpacity="0" />
+                <stop offset="0%" stopColor="hsl(260,65%,70%)" stopOpacity="0.1" />
+                <stop offset="25%" stopColor="hsl(260,65%,70%)" stopOpacity="0.8" />
+                <stop offset="55%" stopColor="hsl(175,75%,55%)" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="hsl(175,70%,50%)" stopOpacity="0.1" />
               </linearGradient>
+              <filter id="waveGlow">
+                <feGaussianBlur stdDeviation="2" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
             </defs>
             {/* Wave 1 - main */}
-            <path d="M0,60 Q75,20 150,60 T300,60 T450,60 T600,60" fill="none" stroke="url(#waveGrad)" strokeWidth="2">
+            <path d="M0,60 Q75,20 150,60 T300,60 T450,60 T600,60" fill="none" stroke="url(#waveGrad)" strokeWidth="2.5" filter="url(#waveGlow)">
               <animate attributeName="d" dur="4s" repeatCount="indefinite" values="M0,60 Q75,20 150,60 T300,60 T450,60 T600,60;M0,60 Q75,100 150,60 T300,60 T450,60 T600,60;M0,60 Q75,20 150,60 T300,60 T450,60 T600,60" />
             </path>
             {/* Wave 2 - counter */}
-            <path d="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60" fill="none" stroke="url(#waveGrad)" strokeWidth="1.5" opacity="0.5">
+            <path d="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60" fill="none" stroke="url(#waveGrad)" strokeWidth="2" opacity="0.8" filter="url(#waveGlow)">
               <animate attributeName="d" dur="5s" repeatCount="indefinite" values="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60;M0,60 Q75,20 150,60 T300,60 T450,60 T600,60;M0,60 Q75,100 150,60 T300,60 T450,60 T600,60" />
             </path>
             {/* Wave 3 - upper */}
-            <path d="M0,40 Q100,15 200,40 T400,40 T600,40" fill="none" stroke="url(#waveGrad2)" strokeWidth="1.2" opacity="0.4">
+            <path d="M0,40 Q100,15 200,40 T400,40 T600,40" fill="none" stroke="url(#waveGrad2)" strokeWidth="1.8" opacity="0.7">
               <animate attributeName="d" dur="6s" repeatCount="indefinite" values="M0,40 Q100,15 200,40 T400,40 T600,40;M0,40 Q100,65 200,40 T400,40 T600,40;M0,40 Q100,15 200,40 T400,40 T600,40" />
             </path>
             {/* Wave 4 - lower */}
-            <path d="M0,80 Q100,105 200,80 T400,80 T600,80" fill="none" stroke="url(#waveGrad2)" strokeWidth="1.2" opacity="0.4">
+            <path d="M0,80 Q100,105 200,80 T400,80 T600,80" fill="none" stroke="url(#waveGrad2)" strokeWidth="1.8" opacity="0.7">
               <animate attributeName="d" dur="7s" repeatCount="indefinite" values="M0,80 Q100,105 200,80 T400,80 T600,80;M0,80 Q100,55 200,80 T400,80 T600,80;M0,80 Q100,105 200,80 T400,80 T600,80" />
             </path>
             {/* Wave 5 - wide top */}
-            <path d="M0,25 Q150,5 300,25 T600,25" fill="none" stroke="url(#waveGrad)" strokeWidth="0.8" opacity="0.25">
+            <path d="M0,25 Q150,5 300,25 T600,25" fill="none" stroke="url(#waveGrad)" strokeWidth="1.2" opacity="0.5">
               <animate attributeName="d" dur="8s" repeatCount="indefinite" values="M0,25 Q150,5 300,25 T600,25;M0,25 Q150,45 300,25 T600,25;M0,25 Q150,5 300,25 T600,25" />
             </path>
             {/* Wave 6 - wide bottom */}
-            <path d="M0,95 Q150,115 300,95 T600,95" fill="none" stroke="url(#waveGrad)" strokeWidth="0.8" opacity="0.25">
+            <path d="M0,95 Q150,115 300,95 T600,95" fill="none" stroke="url(#waveGrad)" strokeWidth="1.2" opacity="0.5">
               <animate attributeName="d" dur="9s" repeatCount="indefinite" values="M0,95 Q150,115 300,95 T600,95;M0,95 Q150,75 300,95 T600,95;M0,95 Q150,115 300,95 T600,95" />
             </path>
             {/* Wave 7 - fine detail */}
-            <path d="M0,50 Q50,35 100,50 T200,50 T300,50 T400,50 T500,50 T600,50" fill="none" stroke="url(#waveGrad2)" strokeWidth="0.6" opacity="0.3">
+            <path d="M0,50 Q50,35 100,50 T200,50 T300,50 T400,50 T500,50 T600,50" fill="none" stroke="url(#waveGrad2)" strokeWidth="1" opacity="0.6">
               <animate attributeName="d" dur="3.5s" repeatCount="indefinite" values="M0,50 Q50,35 100,50 T200,50 T300,50 T400,50 T500,50 T600,50;M0,50 Q50,65 100,50 T200,50 T300,50 T400,50 T500,50 T600,50;M0,50 Q50,35 100,50 T200,50 T300,50 T400,50 T500,50 T600,50" />
             </path>
             {/* Wave 8 - fine detail lower */}
-            <path d="M0,70 Q50,85 100,70 T200,70 T300,70 T400,70 T500,70 T600,70" fill="none" stroke="url(#waveGrad)" strokeWidth="0.6" opacity="0.3">
+            <path d="M0,70 Q50,85 100,70 T200,70 T300,70 T400,70 T500,70 T600,70" fill="none" stroke="url(#waveGrad)" strokeWidth="1" opacity="0.6">
               <animate attributeName="d" dur="4.5s" repeatCount="indefinite" values="M0,70 Q50,85 100,70 T200,70 T300,70 T400,70 T500,70 T600,70;M0,70 Q50,55 100,70 T200,70 T300,70 T400,70 T500,70 T600,70;M0,70 Q50,85 100,70 T200,70 T300,70 T400,70 T500,70 T600,70" />
             </path>
             {/* Center glow */}
-            <circle cx="300" cy="60" r="5" fill="hsl(175,70%,50%)" opacity="0.5">
-              <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.3;0.7;0.3" />
-              <animate attributeName="r" dur="3s" repeatCount="indefinite" values="4;6;4" />
+            <circle cx="300" cy="60" r="6" fill="hsl(175,70%,55%)" opacity="0.8" filter="url(#waveGlow)">
+              <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.5;1;0.5" />
+              <animate attributeName="r" dur="3s" repeatCount="indefinite" values="4;7;4" />
             </circle>
-            <circle cx="300" cy="60" r="18" fill="none" stroke="hsl(175,70%,50%)" strokeWidth="0.5" opacity="0.2">
-              <animate attributeName="r" dur="4s" repeatCount="indefinite" values="14;22;14" />
-              <animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0.15;0.3;0.15" />
+            <circle cx="300" cy="60" r="18" fill="none" stroke="hsl(175,70%,55%)" strokeWidth="0.8" opacity="0.4">
+              <animate attributeName="r" dur="4s" repeatCount="indefinite" values="14;24;14" />
+              <animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0.25;0.5;0.25" />
             </circle>
           </svg>
         </div>
