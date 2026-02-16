@@ -9,6 +9,7 @@ import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
+import axioLogo from "@/assets/axio-logo.png";
 import OnboardingBanner from "@/components/OnboardingBanner";
 
 const Index = () => {
@@ -139,6 +140,7 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-4 pt-20 pb-12">
           <OnboardingBanner />
           <div className="max-w-3xl mx-auto text-center">
+            <img src={axioLogo} alt="A.X.I.O. Logo" className="h-16 sm:h-20 mx-auto mb-6 drop-shadow-[0_0_15px_hsl(175,70%,50%,0.4)] hue-rotate-0 brightness-110" />
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight px-2">
               <span className="text-foreground">Bem-vindo ao </span>
               <span className="text-gradient-cyan">A.X.I.O.</span>
