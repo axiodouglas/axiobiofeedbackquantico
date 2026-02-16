@@ -68,7 +68,7 @@ export const AreaCard = ({
       )}
 
       {/* Hover glow effect */}
-      <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-primary/20 via-transparent to-primary/20 opacity-0 blur transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-primary/20 via-[hsl(260,60%,65%,0.1)] to-primary/20 opacity-0 blur transition-opacity duration-500 group-hover:opacity-100" />
     </div>
   );
 };

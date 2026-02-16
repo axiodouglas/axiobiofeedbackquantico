@@ -115,6 +115,7 @@ export default {
       },
       backgroundImage: {
         "gradient-cyan": "linear-gradient(135deg, hsl(175, 70%, 50%) 0%, hsl(185, 75%, 40%) 100%)",
+        "gradient-brand": "linear-gradient(135deg, hsl(160, 80%, 65%) 0%, hsl(175, 70%, 50%) 30%, hsl(260, 60%, 65%) 100%)",
         "gradient-dark": "linear-gradient(180deg, hsl(220, 15%, 6%) 0%, hsl(220, 15%, 4%) 100%)",
         "gradient-radial-cyan": "radial-gradient(ellipse at center, hsl(175, 70%, 30%, 0.3) 0%, transparent 70%)",
       },

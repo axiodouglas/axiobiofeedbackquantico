@@ -5,7 +5,7 @@ import AuthorSection from "@/components/venda/AuthorSection";
 import TestimonialsSection from "@/components/venda/TestimonialsSection";
 import BenefitsSection from "@/components/venda/BenefitsSection";
 import CtaBanner from "@/components/venda/CtaBanner";
-import axioIcon from "@/assets/axio-icon.png";
+import axioLogoX from "@/assets/axio-logo-x.png";
 
 const APP_URL = "https://axiobiofeedbackquantico.lovable.app";
 
@@ -15,7 +15,8 @@ const VendaOficial = () => {
       {/* Ambient nebula effects */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute w-[60%] h-[50%] top-[5%] left-[-10%] rounded-full opacity-10 blur-[100px] bg-[radial-gradient(ellipse,hsl(175_70%_50%/0.6),transparent_70%)] animate-pulse-glow" />
-        <div className="absolute w-[40%] h-[40%] bottom-[10%] right-[-5%] rounded-full opacity-10 blur-[100px] bg-[radial-gradient(ellipse,hsl(270_50%_55%/0.5),transparent_70%)]" />
+        <div className="absolute w-[40%] h-[40%] bottom-[10%] right-[-5%] rounded-full opacity-10 blur-[100px] bg-[radial-gradient(ellipse,hsl(260_60%_65%/0.5),transparent_70%)]" />
+        <div className="absolute w-[30%] h-[30%] top-[40%] left-[40%] rounded-full opacity-[0.06] blur-[80px] bg-[radial-gradient(ellipse,hsl(260_60%_55%/0.6),transparent_70%)]" />
       </div>
 
       {/* Hero Section */}
@@ -23,14 +24,13 @@ const VendaOficial = () => {
         <div className="max-w-3xl mx-auto space-y-8">
           <div className="flex flex-col items-center gap-1">
             <img
-              src={axioIcon}
+              src={axioLogoX}
               alt="A.X.I.O."
               className="h-[100px] w-auto object-contain"
-              style={{ mixBlendMode: "screen", filter: "brightness(1.3) contrast(1.1)" }}
               draggable={false}
             />
             <span className="text-2xl sm:text-3xl font-extrabold tracking-widest text-foreground">
-              <span className="text-primary">A.</span>X.I.O.
+              <span className="text-gradient-brand">A.</span>X.I.O.
             </span>
             <span className="text-xs sm:text-sm font-medium tracking-wider text-muted-foreground">
               Análise do Fator X do Inconsciente de Origem
@@ -43,11 +43,11 @@ const VendaOficial = () => {
 
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground px-2 uppercase">
             Reprograme suas Crenças com{" "}
-            <span className="text-gradient-cyan">A.X.I.O.</span>
+            <span className="text-gradient-brand">A.X.I.O.</span>
           </h1>
 
           {/* YouTube Video */}
-          <div className="relative w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.15)]">
+          <div className="relative w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.1),0_0_60px_hsl(260,60%,65%,0.08)]">
             <iframe
               src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1&mute=1&loop=1&playlist=W0LV-4LHwCI&playsinline=1"
               title="AXIO - Vídeo de Vendas"
@@ -109,7 +109,7 @@ const VendaOficial = () => {
               <span className="text-sm font-semibold text-primary">Inspiração</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
-              A ciência que prova: <span className="text-gradient-cyan">a mente cura o corpo.</span>
+              A ciência que prova: <span className="text-gradient-brand">a mente cura o corpo.</span>
             </h2>
           </div>
 
