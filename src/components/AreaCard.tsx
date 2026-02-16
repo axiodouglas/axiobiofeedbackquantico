@@ -54,16 +54,16 @@ export const AreaCard = ({
 
       {/* Premium Lock */}
       {isLocked && (
-        <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5">
-          <Lock className="h-2.5 w-2.5 text-primary-foreground" />
-          <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+      <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5">
+          <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+          <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
         </div>
       )}
 
       {/* Free badge */}
       {badge && !isLocked && (
-        <div className="absolute right-3 top-3 rounded-full bg-primary px-2 py-0.5">
-          <span className="text-[10px] font-semibold text-primary-foreground">{badge}</span>
+        <div className="absolute right-3 top-3 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5">
+          <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">{badge}</span>
         </div>
       )}
 

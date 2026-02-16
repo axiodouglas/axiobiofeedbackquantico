@@ -270,9 +270,9 @@ const Index = () => {
               onClick={() => isPremium ? navigate("/community") : navigate("/planos")}
             >
               {!isPremium && (
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
-                  <Lock className="h-2.5 w-2.5 text-primary-foreground" />
-                  <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                  <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                  <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
                 </div>
               )}
               <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
@@ -290,9 +290,9 @@ const Index = () => {
               onClick={() => isPremium ? navigate("/meditation-structure") : navigate("/planos")}
             >
               {!isPremium && (
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
-                  <Lock className="h-2.5 w-2.5 text-primary-foreground" />
-                  <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                  <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                  <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
                 </div>
               )}
               <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
@@ -311,9 +311,9 @@ const Index = () => {
             onClick={() => isPremium ? navigate("/oraculo") : navigate("/planos")}
           >
             {!isPremium && (
-              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary px-2 py-0.5 z-20">
-                <Lock className="h-2.5 w-2.5 text-primary-foreground" />
-                <span className="text-[10px] font-semibold text-primary-foreground">Premium</span>
+              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
               </div>
             )}
             <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
