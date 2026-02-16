@@ -121,7 +121,7 @@ const Index = () => {
       {/* Top Navigation */}
       <nav className="absolute top-0 left-0 right-0 z-20 py-4">
         <div className="container mx-auto px-4 flex items-center justify-between">
-          <span className="text-gradient-cyan font-bold text-lg">A.X.I.O.</span>
+          <img src={axioLogo} alt="A.X.I.O." className="h-8 drop-shadow-[0_0_10px_hsl(175,70%,50%,0.4)] brightness-110 [filter:brightness(1.1)_sepia(1)_saturate(3)_hue-rotate(140deg)]" />
           <UserMenu />
         </div>
       </nav>
@@ -140,7 +140,6 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-4 pt-20 pb-12">
           <OnboardingBanner />
           <div className="max-w-3xl mx-auto text-center">
-            <img src={axioLogo} alt="A.X.I.O. Logo" className="h-16 sm:h-20 mx-auto mb-6 drop-shadow-[0_0_15px_hsl(175,70%,50%,0.4)] hue-rotate-0 brightness-110" />
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight px-2">
               <span className="text-foreground">Bem-vindo ao </span>
               <span className="text-gradient-cyan">A.X.I.O.</span>
