@@ -9,7 +9,7 @@ import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
-import AxioLogo from "@/components/AxioLogo";
+import axioIcon from "@/assets/axio-icon.png";
 import OnboardingBanner from "@/components/OnboardingBanner";
 
 const Index = () => {
@@ -119,9 +119,15 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background noise">
       {/* Top Navigation */}
-      <nav className="absolute top-0 left-0 right-0 z-20 py-4 bg-black/90 backdrop-blur-sm border-b border-primary/10">
+      <nav className="absolute top-0 left-0 right-0 z-20 py-3 bg-black/90 backdrop-blur-sm border-b border-primary/10">
         <div className="container mx-auto px-4 flex items-center justify-between">
-          <AxioLogo size="md" />
+          <img
+            src={axioIcon}
+            alt="A.X.I.O."
+            className="h-14 w-auto object-contain shrink-0"
+            style={{ background: "transparent" }}
+            draggable={false}
+          />
           <UserMenu />
         </div>
       </nav>
@@ -140,10 +146,13 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-4 pt-20 pb-12">
           <OnboardingBanner />
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight px-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-2 tracking-tight px-2">
               <span className="text-foreground">Bem-vindo ao </span>
               <span className="text-gradient-cyan">A.X.I.O.</span>
             </h1>
+            <p className="text-sm sm:text-base text-white/60 font-medium tracking-wider mb-4">
+              Análise do Fator X do Inconsciente de Origem
+            </p>
 
             <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mx-auto mb-8 leading-relaxed px-2">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
