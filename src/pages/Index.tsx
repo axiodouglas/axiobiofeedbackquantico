@@ -144,7 +144,7 @@ const Index = () => {
           <img
             src={neuralWavesCyan}
             alt="Neural waves"
-            className="w-full h-[480px] object-cover object-center opacity-60"
+            className="w-full h-[700px] sm:h-[600px] object-cover object-center opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/60 to-background" />
         </div>
