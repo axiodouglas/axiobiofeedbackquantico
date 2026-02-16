@@ -121,19 +121,29 @@ const Index = () => {
       {/* Top Navigation */}
       <nav className="absolute top-0 left-0 right-0 z-20 py-2 bg-black/90 backdrop-blur-sm border-b border-primary/10">
         <div className="container mx-auto px-[15px] flex items-center justify-between">
-          <img
-            src={axioIcon}
-            alt="A.X.I.O."
-            className="h-[60px] w-auto object-contain shrink-0"
-            style={{
-              background: "transparent",
-              border: "none",
-              boxShadow: "none",
-              mixBlendMode: "screen",
-              filter: "brightness(1.3) contrast(1.1)",
-            }}
-            draggable={false}
-          />
+          <div className="flex items-center gap-3" style={{ background: "transparent" }}>
+            <img
+              src={axioIcon}
+              alt="A.X.I.O."
+              className="h-[48px] w-auto object-contain shrink-0"
+              style={{
+                background: "transparent",
+                border: "none",
+                boxShadow: "none",
+                mixBlendMode: "screen",
+                filter: "brightness(1.3) contrast(1.1)",
+              }}
+              draggable={false}
+            />
+            <div className="flex flex-col leading-none">
+              <span className="text-sm sm:text-base font-bold tracking-widest text-white">
+                <span className="text-primary">A.</span>X.I.O.
+              </span>
+              <span className="text-[8px] sm:text-[9px] font-medium tracking-wider text-white/50">
+                Análise do Fator X do Inconsciente de Origem
+              </span>
+            </div>
+          </div>
           <UserMenu />
         </div>
       </nav>
