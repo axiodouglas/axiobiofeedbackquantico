@@ -93,11 +93,11 @@ const Checkout = () => {
               <span className="text-sm font-medium text-primary">Premium A.X.I.O.</span>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Escolha Seu Plano de Transformação
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 px-2">
+              Escolha Seu Plano de <span className="text-gradient-brand">Transformação</span>
             </h1>
             
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
               Desbloqueie todo o poder da reprogramação quântica e transforme 
               todas as áreas da sua vida com acesso completo ao A.X.I.O.
             </p>
@@ -120,11 +120,11 @@ const Checkout = () => {
           </div>
 
           {/* Plans Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-12">
             {plans.map((plan) => (
               <div
                 key={plan.id}
-                className={`relative rounded-2xl border-2 p-6 transition-all hover:scale-105 ${
+                className={`relative rounded-2xl border-2 p-4 sm:p-6 transition-all hover:scale-[1.02] sm:hover:scale-105 ${
                   plan.popular
                     ? "border-primary bg-gradient-to-b from-primary/10 to-card"
                     : "border-border bg-card"

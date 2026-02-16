@@ -20,34 +20,34 @@ const VendaOficial = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative z-10 min-h-[90vh] flex flex-col items-center justify-center text-center px-4 py-20">
-        <div className="max-w-3xl mx-auto space-y-8">
+      <section className="relative z-10 min-h-[85vh] sm:min-h-[90vh] flex flex-col items-center justify-center text-center px-4 sm:px-6 py-12 sm:py-20">
+        <div className="max-w-3xl mx-auto space-y-6 sm:space-y-8 w-full">
           <div className="flex flex-col items-center gap-1">
             <img
               src={axioLogoX}
               alt="A.X.I.O."
-              className="h-[100px] w-auto object-contain"
+              className="h-[70px] sm:h-[100px] w-auto object-contain"
               draggable={false}
             />
-            <span className="text-2xl sm:text-3xl font-extrabold tracking-widest text-foreground">
+            <span className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-widest text-foreground">
               <span className="text-gradient-brand">A.</span>X.I.O.
             </span>
-            <span className="text-xs sm:text-sm font-medium tracking-wider text-muted-foreground">
+            <span className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wider text-muted-foreground">
               Análise do Fator X do Inconsciente de Origem
             </span>
           </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 mb-2">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-semibold text-primary tracking-wide">MÉTODO A.X.I.O.</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 sm:px-5 py-1.5 sm:py-2">
+            <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
+            <span className="text-xs sm:text-sm font-semibold text-gradient-brand tracking-wide">MÉTODO A.X.I.O.</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground px-2 uppercase">
+          <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-foreground px-2 uppercase">
             Reprograme suas Crenças com{" "}
             <span className="text-gradient-brand">A.X.I.O.</span>
           </h1>
 
           {/* YouTube Video */}
-          <div className="relative w-full max-w-2xl mx-auto aspect-video rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.1),0_0_60px_hsl(260,60%,65%,0.08)]">
+          <div className="relative w-full max-w-2xl mx-auto aspect-video rounded-xl sm:rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_30px_hsl(175,70%,50%,0.1),0_0_60px_hsl(260,60%,65%,0.08)]">
             <iframe
               src="https://www.youtube.com/embed/W0LV-4LHwCI?rel=0&autoplay=1&mute=1&loop=1&playlist=W0LV-4LHwCI&playsinline=1"
               title="AXIO - Vídeo de Vendas"
@@ -58,15 +58,15 @@ const VendaOficial = () => {
             />
           </div>
 
-          <div className="pt-6 flex flex-col items-center gap-4">
-            <Button variant="cyan" size="xl" className="text-sm sm:text-base md:text-lg px-6 sm:px-10 py-5 sm:py-6 rounded-2xl" asChild>
+          <div className="pt-4 sm:pt-6 flex flex-col items-center gap-3 sm:gap-4">
+            <Button variant="premium" size="xl" className="text-xs sm:text-sm md:text-base px-5 sm:px-10 py-4 sm:py-6 rounded-xl sm:rounded-2xl w-full max-w-sm" asChild>
               <a href="https://axiobiofeedbackquantico.lovable.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Brain className="h-5 w-5" />
+                <Brain className="h-4 w-4 sm:h-5 sm:w-5" />
                 COMEÇAR DIAGNÓSTICO GRÁTIS
               </a>
             </Button>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
-              Teste Grátis: <span className="text-primary font-semibold">Pilar Mãe</span> — A mãe é a base da segurança e prosperidade. Entenda como essa conexão molda suas crenças hoje.
+            <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto px-2">
+              Teste Grátis: <span className="text-gradient-brand font-semibold">Pilar Mãe</span> — A mãe é a base da segurança e prosperidade. Entenda como essa conexão molda suas crenças hoje.
             </p>
           </div>
         </div>
@@ -91,24 +91,24 @@ const VendaOficial = () => {
       <TestimonialsSection />
 
       {/* Social Proof Quote */}
-      <section className="relative z-10 py-16 px-4">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
-          <p className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground italic leading-snug px-2">
+      <section className="relative z-10 py-10 sm:py-16 px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
+          <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground italic leading-snug px-2">
             "A voz é a impressão digital emocional. Quando você a usa como ferramenta de cura, o subconsciente não tem escolha senão obedecer."
           </p>
-          <p className="text-primary font-semibold">— Método A.X.I.O.</p>
+          <p className="text-gradient-brand font-semibold text-sm sm:text-base">— Método A.X.I.O.</p>
         </div>
       </section>
 
       {/* Joe Dispenza Authority Block */}
-      <section className="relative z-10 py-20 px-4">
+      <section className="relative z-10 py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 mb-4">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-sm font-semibold text-primary">Inspiração</span>
+          <div className="text-center mb-8 sm:mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 sm:px-5 py-1.5 sm:py-2 mb-4">
+              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
+              <span className="text-xs sm:text-sm font-semibold text-gradient-brand">Inspiração</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground px-2">
               A ciência que prova: <span className="text-gradient-brand">a mente cura o corpo.</span>
             </h2>
           </div>
@@ -149,8 +149,8 @@ const VendaOficial = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-border py-8 text-center text-xs text-muted-foreground space-y-1">
-        <p className="font-semibold">A.X.I.O. - Análise do Fator X do Inconsciente de Origem</p>
+      <footer className="relative z-10 border-t border-border py-6 sm:py-8 text-center text-xs text-muted-foreground space-y-1 px-4">
+        <p className="font-semibold text-gradient-brand">A.X.I.O. - Análise do Fator X do Inconsciente de Origem</p>
         <p>© 2026 A.X.I.O. Todos os direitos reservados. Marca e Método em processo de registro.</p>
       </footer>
     </div>

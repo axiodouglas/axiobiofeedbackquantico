@@ -16,9 +16,9 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         // A.X.I.O. Custom Variants - Cyan Theme
-        cyan: "bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(185,75%,40%)] text-[hsl(220,15%,4%)] font-semibold shadow-[0_4px_20px_hsl(175,70%,50%,0.35)] hover:shadow-[0_6px_30px_hsl(175,70%,50%,0.5)] hover:-translate-y-0.5 active:translate-y-0",
-        cyanOutline: "border-2 border-primary text-primary bg-transparent hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(175,70%,50%,0.2)]",
-        premium: "bg-gradient-to-r from-[hsl(175,70%,50%)] via-[hsl(180,75%,48%)] to-[hsl(185,75%,40%)] text-[hsl(220,15%,4%)] font-bold shadow-[0_4px_25px_hsl(175,70%,50%,0.4)] hover:shadow-[0_8px_35px_hsl(175,70%,50%,0.6)] hover:-translate-y-1 active:translate-y-0",
+        cyan: "bg-gradient-to-r from-[hsl(175,70%,50%)] via-[hsl(220,60%,55%)] to-[hsl(260,60%,65%)] text-[hsl(220,15%,4%)] font-semibold shadow-[0_4px_20px_hsl(175,70%,50%,0.3),0_4px_20px_hsl(260,60%,65%,0.2)] hover:shadow-[0_6px_30px_hsl(175,70%,50%,0.45),0_6px_30px_hsl(260,60%,65%,0.3)] hover:-translate-y-0.5 active:translate-y-0",
+        cyanOutline: "border-2 border-primary text-primary bg-transparent hover:bg-primary/10 hover:shadow-[0_0_20px_hsl(175,70%,50%,0.2),0_0_20px_hsl(260,60%,65%,0.15)]",
+        premium: "bg-gradient-to-r from-[hsl(160,80%,65%)] via-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] text-[hsl(220,15%,4%)] font-bold shadow-[0_4px_25px_hsl(175,70%,50%,0.35),0_4px_25px_hsl(260,60%,65%,0.25)] hover:shadow-[0_8px_35px_hsl(175,70%,50%,0.5),0_8px_35px_hsl(260,60%,65%,0.4)] hover:-translate-y-1 active:translate-y-0",
       },
       size: {
         default: "h-10 px-4 py-2",
