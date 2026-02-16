@@ -121,7 +121,7 @@ const Index = () => {
       {/* Top Navigation */}
       <nav className="absolute top-0 left-0 right-0 z-20 py-4">
         <div className="container mx-auto px-4 flex items-center justify-between">
-          <img src={axioLogo} alt="A.X.I.O." className="h-10 drop-shadow-[0_0_10px_hsl(175,70%,50%,0.4)]" />
+          <img src={axioLogo} alt="A.X.I.O." className="h-14 drop-shadow-[0_0_12px_hsl(175,70%,50%,0.5)]" />
           <UserMenu />
         </div>
       </nav>
