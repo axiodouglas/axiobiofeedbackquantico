@@ -5,6 +5,7 @@ import AuthorSection from "@/components/venda/AuthorSection";
 import TestimonialsSection from "@/components/venda/TestimonialsSection";
 import BenefitsSection from "@/components/venda/BenefitsSection";
 import CtaBanner from "@/components/venda/CtaBanner";
+import axioLogo from "@/assets/axio-logo.png";
 
 const APP_URL = "https://axiobiofeedbackquantico.lovable.app";
 
@@ -20,6 +21,7 @@ const VendaOficial = () => {
       {/* Hero Section */}
       <section className="relative z-10 min-h-[90vh] flex flex-col items-center justify-center text-center px-4 py-20">
         <div className="max-w-3xl mx-auto space-y-8">
+          <img src={axioLogo} alt="A.X.I.O. Logo" className="h-16 sm:h-20 mx-auto drop-shadow-[0_0_15px_hsl(175,70%,50%,0.4)] brightness-110" />
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 mb-2">
             <Sparkles className="h-4 w-4 text-primary" />
             <span className="text-sm font-semibold text-primary tracking-wide">MÉTODO A.X.I.O.</span>
