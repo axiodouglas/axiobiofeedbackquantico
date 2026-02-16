@@ -9,7 +9,7 @@ import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
-import axioLogo from "@/assets/axio-logo.png";
+import AxioLogo from "@/components/AxioLogo";
 import OnboardingBanner from "@/components/OnboardingBanner";
 
 const Index = () => {
@@ -119,9 +119,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background noise">
       {/* Top Navigation */}
-      <nav className="absolute top-0 left-0 right-0 z-20 py-3 bg-black/80 backdrop-blur-sm border-b border-primary/10">
+      <nav className="absolute top-0 left-0 right-0 z-20 py-4 bg-black/90 backdrop-blur-sm border-b border-primary/10">
         <div className="container mx-auto px-4 flex items-center justify-between">
-          <img src={axioLogo} alt="A.X.I.O." className="h-16 sm:h-20 drop-shadow-[0_0_14px_hsl(175,70%,50%,0.5)]" />
+          <AxioLogo size="md" />
           <UserMenu />
         </div>
       </nav>
