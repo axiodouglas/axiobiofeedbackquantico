@@ -223,32 +223,8 @@ const Index = () => {
               <animate attributeName="d" dur="4s" repeatCount="indefinite" values="M0,60 Q75,20 150,60 T300,60 T450,60 T600,60;M0,60 Q75,100 150,60 T300,60 T450,60 T600,60;M0,60 Q75,20 150,60 T300,60 T450,60 T600,60" />
             </path>
             {/* Wave 2 - counter */}
-            <path d="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60" fill="none" stroke="url(#waveGrad)" strokeWidth="2" opacity="0.8" filter="url(#waveGlow)">
+            <path d="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60" fill="none" stroke="url(#waveGrad2)" strokeWidth="2" filter="url(#waveGlow)">
               <animate attributeName="d" dur="5s" repeatCount="indefinite" values="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60;M0,60 Q75,20 150,60 T300,60 T450,60 T600,60;M0,60 Q75,100 150,60 T300,60 T450,60 T600,60" />
-            </path>
-            {/* Wave 3 - upper */}
-            <path d="M0,40 Q100,15 200,40 T400,40 T600,40" fill="none" stroke="url(#waveGrad2)" strokeWidth="1.8" opacity="0.7">
-              <animate attributeName="d" dur="6s" repeatCount="indefinite" values="M0,40 Q100,15 200,40 T400,40 T600,40;M0,40 Q100,65 200,40 T400,40 T600,40;M0,40 Q100,15 200,40 T400,40 T600,40" />
-            </path>
-            {/* Wave 4 - lower */}
-            <path d="M0,80 Q100,105 200,80 T400,80 T600,80" fill="none" stroke="url(#waveGrad2)" strokeWidth="1.8" opacity="0.7">
-              <animate attributeName="d" dur="7s" repeatCount="indefinite" values="M0,80 Q100,105 200,80 T400,80 T600,80;M0,80 Q100,55 200,80 T400,80 T600,80;M0,80 Q100,105 200,80 T400,80 T600,80" />
-            </path>
-            {/* Wave 5 - wide top */}
-            <path d="M0,25 Q150,5 300,25 T600,25" fill="none" stroke="url(#waveGrad)" strokeWidth="1.2" opacity="0.5">
-              <animate attributeName="d" dur="8s" repeatCount="indefinite" values="M0,25 Q150,5 300,25 T600,25;M0,25 Q150,45 300,25 T600,25;M0,25 Q150,5 300,25 T600,25" />
-            </path>
-            {/* Wave 6 - wide bottom */}
-            <path d="M0,95 Q150,115 300,95 T600,95" fill="none" stroke="url(#waveGrad)" strokeWidth="1.2" opacity="0.5">
-              <animate attributeName="d" dur="9s" repeatCount="indefinite" values="M0,95 Q150,115 300,95 T600,95;M0,95 Q150,75 300,95 T600,95;M0,95 Q150,115 300,95 T600,95" />
-            </path>
-            {/* Wave 7 - fine detail */}
-            <path d="M0,50 Q50,35 100,50 T200,50 T300,50 T400,50 T500,50 T600,50" fill="none" stroke="url(#waveGrad2)" strokeWidth="1" opacity="0.6">
-              <animate attributeName="d" dur="3.5s" repeatCount="indefinite" values="M0,50 Q50,35 100,50 T200,50 T300,50 T400,50 T500,50 T600,50;M0,50 Q50,65 100,50 T200,50 T300,50 T400,50 T500,50 T600,50;M0,50 Q50,35 100,50 T200,50 T300,50 T400,50 T500,50 T600,50" />
-            </path>
-            {/* Wave 8 - fine detail lower */}
-            <path d="M0,70 Q50,85 100,70 T200,70 T300,70 T400,70 T500,70 T600,70" fill="none" stroke="url(#waveGrad)" strokeWidth="1" opacity="0.6">
-              <animate attributeName="d" dur="4.5s" repeatCount="indefinite" values="M0,70 Q50,85 100,70 T200,70 T300,70 T400,70 T500,70 T600,70;M0,70 Q50,55 100,70 T200,70 T300,70 T400,70 T500,70 T600,70;M0,70 Q50,85 100,70 T200,70 T300,70 T400,70 T500,70 T600,70" />
             </path>
             {/* Center glow */}
             <circle cx="300" cy="60" r="6" fill="hsl(175,70%,55%)" opacity="0.8" filter="url(#waveGlow)">
