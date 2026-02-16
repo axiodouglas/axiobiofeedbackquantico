@@ -124,8 +124,14 @@ const Index = () => {
           <img
             src={axioIcon}
             alt="A.X.I.O."
-            className="h-[100px] w-auto object-contain shrink-0"
-            style={{ background: "transparent", mixBlendMode: "screen", filter: "brightness(1.2)" }}
+            className="h-[60px] w-auto object-contain shrink-0"
+            style={{
+              background: "transparent",
+              border: "none",
+              boxShadow: "none",
+              mixBlendMode: "screen",
+              filter: "brightness(1.3) contrast(1.1)",
+            }}
             draggable={false}
           />
           <UserMenu />
