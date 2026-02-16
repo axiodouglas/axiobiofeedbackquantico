@@ -56,11 +56,24 @@ Deno.serve(async (req) => {
     const action = url.searchParams.get("action");
 
     if (action === "list-users") {
-      // Fetch all profiles
-      const { data: profiles } = await adminClient
+      // Fetch admin user IDs to exclude them
+      const { data: adminRoles } = await adminClient
+        .from("user_roles")
+        .select("user_id")
+        .eq("role", "admin");
+      const adminIds = (adminRoles || []).map((r: any) => r.user_id);
+
+      // Fetch all profiles excluding admins
+      let query = adminClient
         .from("profiles")
         .select("*")
         .order("created_at", { ascending: false });
+
+      if (adminIds.length > 0) {
+        query = query.not("user_id", "in", `(${adminIds.join(",")})`);
+      }
+
+      const { data: profiles } = await query;
 
       return new Response(JSON.stringify({ profiles: profiles || [] }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
