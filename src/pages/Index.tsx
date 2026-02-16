@@ -194,8 +194,8 @@ const Index = () => {
       {/* Main Content */}
       <div className="container mx-auto px-5 sm:px-8 py-14 sm:py-16">
         {/* Quantum Wave Decoration */}
-        <div className="relative mb-6 flex justify-center">
-          <svg viewBox="0 0 400 60" className="w-full max-w-md h-auto opacity-40" preserveAspectRatio="xMidYMid meet">
+        <div className="relative mb-8 flex justify-center">
+          <svg viewBox="0 0 400 60" className="w-full max-w-2xl h-20 sm:h-24 opacity-50" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="hsl(160,80%,65%)" stopOpacity="0" />
@@ -205,13 +205,13 @@ const Index = () => {
                 <stop offset="100%" stopColor="hsl(260,60%,65%)" stopOpacity="0" />
               </linearGradient>
             </defs>
-            <path d="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30" fill="none" stroke="url(#waveGrad)" strokeWidth="1.5">
+            <path d="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30" fill="none" stroke="url(#waveGrad)" strokeWidth="2">
               <animate attributeName="d" dur="4s" repeatCount="indefinite" values="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30;M0,30 Q50,50 100,30 T200,30 T300,30 T400,30;M0,30 Q50,10 100,30 T200,30 T300,30 T400,30" />
             </path>
-            <path d="M0,30 Q50,50 100,30 T200,30 T300,30 T400,30" fill="none" stroke="url(#waveGrad)" strokeWidth="1" opacity="0.5">
+            <path d="M0,30 Q50,50 100,30 T200,30 T300,30 T400,30" fill="none" stroke="url(#waveGrad)" strokeWidth="1.5" opacity="0.5">
               <animate attributeName="d" dur="5s" repeatCount="indefinite" values="M0,30 Q50,50 100,30 T200,30 T300,30 T400,30;M0,30 Q50,10 100,30 T200,30 T300,30 T400,30;M0,30 Q50,50 100,30 T200,30 T300,30 T400,30" />
             </path>
-            <circle cx="200" cy="30" r="3" fill="hsl(175,70%,50%)" opacity="0.6">
+            <circle cx="200" cy="30" r="4" fill="hsl(175,70%,50%)" opacity="0.6">
               <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.3;0.8;0.3" />
             </circle>
           </svg>
