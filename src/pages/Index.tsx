@@ -175,22 +175,22 @@ const Index = () => {
             {!isPremium && !freeDiagnosisUsed && (
               <Button 
                 variant="cyan" 
-                size="xl" 
-                className="group transition-transform duration-200 hover:scale-[1.03]"
+                size="lg" 
+                className="group transition-transform duration-200 hover:scale-[1.03] max-w-xs w-full"
                 onClick={handleFreeArea}
               >
-                <Mic className="h-5 w-5 transition-transform group-hover:scale-110" />
+                <Mic className="h-4 w-4 transition-transform group-hover:scale-110" />
                 Iniciar Diagnóstico Gratuito
               </Button>
             )}
             {!isPremium && freeDiagnosisUsed && (
               <Button 
                 variant="cyan" 
-                size="xl" 
-                className="group transition-transform duration-200 hover:scale-[1.03]"
+                size="lg" 
+                className="group transition-transform duration-200 hover:scale-[1.03] max-w-xs w-full"
                 onClick={() => navigate("/planos")}
               >
-                <Crown className="h-5 w-5 transition-transform group-hover:scale-110" />
+                <Crown className="h-4 w-4 transition-transform group-hover:scale-110" />
                 Adquirir Premium
               </Button>
             )}
@@ -200,6 +200,30 @@ const Index = () => {
 
       {/* Main Content */}
       <div className="container mx-auto px-5 sm:px-8 py-14 sm:py-16">
+        {/* Quantum Wave Decoration */}
+        <div className="relative mb-6 flex justify-center">
+          <svg viewBox="0 0 400 60" className="w-full max-w-md h-auto opacity-40" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="hsl(175,70%,50%)" stopOpacity="0" />
+                <stop offset="30%" stopColor="hsl(175,70%,50%)" stopOpacity="0.6" />
+                <stop offset="50%" stopColor="hsl(185,75%,55%)" stopOpacity="0.8" />
+                <stop offset="70%" stopColor="hsl(175,70%,50%)" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="hsl(175,70%,50%)" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path d="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30" fill="none" stroke="url(#waveGrad)" strokeWidth="1.5">
+              <animate attributeName="d" dur="4s" repeatCount="indefinite" values="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30;M0,30 Q50,50 100,30 T200,30 T300,30 T400,30;M0,30 Q50,10 100,30 T200,30 T300,30 T400,30" />
+            </path>
+            <path d="M0,30 Q50,50 100,30 T200,30 T300,30 T400,30" fill="none" stroke="url(#waveGrad)" strokeWidth="1" opacity="0.5">
+              <animate attributeName="d" dur="5s" repeatCount="indefinite" values="M0,30 Q50,50 100,30 T200,30 T300,30 T400,30;M0,30 Q50,10 100,30 T200,30 T300,30 T400,30;M0,30 Q50,50 100,30 T200,30 T300,30 T400,30" />
+            </path>
+            <circle cx="200" cy="30" r="3" fill="hsl(175,70%,50%)" opacity="0.6">
+              <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.3;0.8;0.3" />
+            </circle>
+          </svg>
+        </div>
+
         <div className="mb-10 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Os 4 Pilares da Crença</h2>
           <p className="text-muted-foreground max-w-lg mx-auto text-sm leading-relaxed">
@@ -244,9 +268,6 @@ const Index = () => {
                 <h3 className="font-bold text-foreground text-xl leading-tight">Comunidade</h3>
                 <p className="text-sm text-muted-foreground mt-0.5">Relatos de transformação</p>
               </div>
-              <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '8%', animationDuration: '3s' }}>💬</span>
-              <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4s', animationDelay: '1s' }}>🗨️</span>
-              <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>💬</span>
             </div>
 
             {/* Meditação Card */}
@@ -267,9 +288,6 @@ const Index = () => {
                 <h3 className="font-bold text-foreground text-xl leading-tight">Entenda a Meditação A.X.I.O.</h3>
                 <p className="text-sm text-muted-foreground mt-0.5">5 etapas da reprogramação</p>
               </div>
-              <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '8%', animationDuration: '3s' }}>🪷</span>
-              <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4.5s', animationDelay: '1.5s' }}>🧘</span>
-              <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>🪷</span>
             </div>
           </div>
 
@@ -291,9 +309,6 @@ const Index = () => {
               <h3 className="font-bold text-foreground text-xl leading-tight">Oráculo A.X.I.O.</h3>
               <p className="text-sm text-muted-foreground mt-0.5">Tire dúvidas sobre crenças e comportamento</p>
             </div>
-            <span className="absolute text-2xl opacity-25 animate-bounce" style={{ right: '8%', bottom: '8%', animationDuration: '3s' }}>🔮</span>
-            <span className="absolute text-xl opacity-20 animate-bounce" style={{ right: '22%', bottom: '18%', animationDuration: '4s', animationDelay: '1s' }}>✨</span>
-            <span className="absolute text-2xl opacity-20 animate-bounce" style={{ right: '5%', bottom: '28%', animationDuration: '3.5s', animationDelay: '0.5s' }}>👁️</span>
           </div>
         </div>
       </div>
