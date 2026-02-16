@@ -139,9 +139,6 @@ const Index = () => {
               <span className="text-sm sm:text-base font-bold tracking-widest text-white">
                 <span className="text-primary">A.</span>X.I.O.
               </span>
-              <span className="text-[8px] sm:text-[9px] font-medium tracking-wider text-white/50">
-                Análise do Fator X do Inconsciente de Origem
-              </span>
             </div>
           </div>
           <UserMenu />
