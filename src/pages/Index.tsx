@@ -9,7 +9,7 @@ import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
-import axioIcon from "@/assets/axio-icon.png";
+import axioLogoX from "@/assets/axio-logo-x.png";
 import OnboardingBanner from "@/components/OnboardingBanner";
 
 const Index = () => {
@@ -121,23 +121,16 @@ const Index = () => {
       {/* Top Navigation */}
       <nav className="absolute top-0 left-0 right-0 z-20 py-3 bg-black/80 backdrop-blur-md border-b border-primary/5">
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
-          <div className="flex items-center gap-3" style={{ background: "transparent" }}>
+          <div className="flex items-center gap-2.5">
             <img
-              src={axioIcon}
+              src={axioLogoX}
               alt="A.X.I.O."
-              className="h-[48px] w-auto object-contain shrink-0"
-              style={{
-                background: "transparent",
-                border: "none",
-                boxShadow: "none",
-                mixBlendMode: "screen",
-                filter: "brightness(1.3) contrast(1.1)",
-              }}
+              className="h-[42px] w-auto object-contain shrink-0"
               draggable={false}
             />
             <div className="flex flex-col leading-none">
               <span className="text-sm sm:text-base font-bold tracking-widest text-white">
-                <span className="text-primary">A.</span>X.I.O.
+                <span className="text-gradient-brand">A.</span>X.I.O.
               </span>
             </div>
           </div>
@@ -161,7 +154,7 @@ const Index = () => {
           <div className="max-w-3xl mx-auto text-center bg-card/30 backdrop-blur-[10px] border border-white/[0.08] rounded-2xl px-6 py-10 sm:px-10 sm:py-14 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 tracking-tight px-2">
               <span className="text-foreground">Bem-vindo ao </span>
-              <span className="text-gradient-cyan">A.X.I.O.</span>
+              <span className="text-gradient-brand">A.X.I.O.</span>
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground font-medium tracking-wider mb-5">
               Análise do Fator X do Inconsciente de Origem
@@ -205,11 +198,11 @@ const Index = () => {
           <svg viewBox="0 0 400 60" className="w-full max-w-md h-auto opacity-40" preserveAspectRatio="xMidYMid meet">
             <defs>
               <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="hsl(175,70%,50%)" stopOpacity="0" />
-                <stop offset="30%" stopColor="hsl(175,70%,50%)" stopOpacity="0.6" />
-                <stop offset="50%" stopColor="hsl(185,75%,55%)" stopOpacity="0.8" />
-                <stop offset="70%" stopColor="hsl(175,70%,50%)" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="hsl(175,70%,50%)" stopOpacity="0" />
+                <stop offset="0%" stopColor="hsl(160,80%,65%)" stopOpacity="0" />
+                <stop offset="25%" stopColor="hsl(175,70%,50%)" stopOpacity="0.6" />
+                <stop offset="50%" stopColor="hsl(220,60%,60%)" stopOpacity="0.8" />
+                <stop offset="75%" stopColor="hsl(260,60%,65%)" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="hsl(260,60%,65%)" stopOpacity="0" />
               </linearGradient>
             </defs>
             <path d="M0,30 Q50,10 100,30 T200,30 T300,30 T400,30" fill="none" stroke="url(#waveGrad)" strokeWidth="1.5">
@@ -316,7 +309,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-white/[0.05] bg-card/30 backdrop-blur-sm py-10 mt-16">
         <div className="container mx-auto px-5 sm:px-8 text-center">
-          <p className="text-gradient-cyan font-semibold text-lg mb-2">A.X.I.O.</p>
+          <p className="text-gradient-brand font-semibold text-lg mb-2">A.X.I.O.</p>
           <p className="text-sm text-muted-foreground">
             Análise do Fator X do Inconsciente de Origem
           </p>

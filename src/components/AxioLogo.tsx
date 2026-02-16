@@ -1,4 +1,4 @@
-import axioIcon from "@/assets/axio-icon.png";
+import axioLogoX from "@/assets/axio-logo-x.png";
 
 interface AxioLogoProps {
   className?: string;
@@ -6,9 +6,9 @@ interface AxioLogoProps {
 }
 
 const sizes = {
-  sm: { icon: 81, title: "text-xl", subtitle: "text-[9px]", gap: "gap-2.5" },
-  md: { icon: 108, title: "text-3xl", subtitle: "text-[11px]", gap: "gap-3" },
-  lg: { icon: 144, title: "text-4xl", subtitle: "text-sm", gap: "gap-4" },
+  sm: { icon: 48, title: "text-lg", subtitle: "text-[8px]", gap: "gap-2" },
+  md: { icon: 64, title: "text-2xl", subtitle: "text-[10px]", gap: "gap-2.5" },
+  lg: { icon: 96, title: "text-3xl", subtitle: "text-xs", gap: "gap-3" },
 };
 
 const AxioLogo = ({ className = "", size = "md" }: AxioLogoProps) => {
@@ -17,18 +17,17 @@ const AxioLogo = ({ className = "", size = "md" }: AxioLogoProps) => {
   return (
     <div className={`flex items-center ${s.gap} select-none ${className}`}>
       <img
-        src={axioIcon}
+        src={axioLogoX}
         alt="A.X.I.O. ícone"
         width={s.icon}
         height={s.icon}
         className="shrink-0 object-contain"
-        style={{ background: "transparent" }}
         draggable={false}
       />
 
       <div className="flex flex-col leading-none">
         <span className={`${s.title} font-extrabold tracking-widest`}>
-          <span className="text-primary">A.</span>
+          <span className="text-gradient-brand">A.</span>
           <span className="text-white">X.I.O.</span>
         </span>
         <span className={`${s.subtitle} font-medium tracking-wider text-white/60 mt-1`}>
