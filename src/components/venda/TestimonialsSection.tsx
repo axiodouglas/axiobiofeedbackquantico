@@ -24,13 +24,13 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => (
-  <section className="relative z-10 py-20 px-4">
+  <section className="relative z-10 py-12 sm:py-20 px-4 sm:px-6">
     <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-12">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 px-2">
-          Relatos de quem já <span className="text-gradient-cyan">se transformou</span>
+      <div className="text-center mb-8 sm:mb-12">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 px-2">
+          Relatos de quem já <span className="text-gradient-brand">se transformou</span>
         </h2>
-        <p className="text-muted-foreground px-2">Histórias reais da comunidade AXIO.</p>
+        <p className="text-sm sm:text-base text-muted-foreground px-2">Histórias reais da comunidade AXIO.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

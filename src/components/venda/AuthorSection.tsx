@@ -1,12 +1,12 @@
 import { User } from "lucide-react";
 
 const AuthorSection = () => (
-  <section className="relative z-10 py-16 px-4">
+  <section className="relative z-10 py-10 sm:py-16 px-4 sm:px-6">
     <div className="max-w-3xl mx-auto">
-      <div className="text-center mb-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground px-2">
+      <div className="text-center mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground px-2">
           Por que o AXIO é inovador /{" "}
-          <span className="text-gradient-cyan">Conheça o Autor</span>
+          <span className="text-gradient-brand">Conheça o Autor</span>
         </h2>
       </div>
 

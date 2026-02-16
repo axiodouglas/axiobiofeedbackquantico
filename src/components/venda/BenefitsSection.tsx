@@ -19,28 +19,28 @@ const benefits = [
 ];
 
 const BenefitsSection = () => (
-  <section className="relative z-10 py-20 px-4">
+  <section className="relative z-10 py-12 sm:py-20 px-4 sm:px-6">
     <div className="max-w-5xl mx-auto">
-      <div className="text-center mb-14">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 px-2">
-          O que o <span className="text-gradient-cyan">A.X.I.O.</span> faz por você
+      <div className="text-center mb-8 sm:mb-14">
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 px-2">
+          O que o <span className="text-gradient-brand">A.X.I.O.</span> faz por você
         </h2>
-        <p className="text-muted-foreground max-w-lg mx-auto px-2">
+        <p className="text-sm sm:text-base text-muted-foreground max-w-lg mx-auto px-2">
           Três pilares tecnológicos trabalhando juntos para reprogramar seu subconsciente.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {benefits.map((b, i) => (
           <div
             key={i}
-            className="card-glow rounded-2xl p-8 flex flex-col items-center text-center space-y-4 group hover:scale-[1.02] transition-transform duration-300"
+            className="card-glow rounded-2xl p-5 sm:p-8 flex flex-col items-center text-center space-y-3 sm:space-y-4 group hover:scale-[1.02] transition-transform duration-300"
           >
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:shadow-[0_0_25px_hsl(175,70%,50%,0.3)] transition-shadow">
-              <b.icon className="h-8 w-8 text-primary" />
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:shadow-[0_0_25px_hsl(175,70%,50%,0.3)] transition-shadow">
+              <b.icon className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
             </div>
-            <h3 className="text-lg font-bold text-foreground">{b.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{b.description}</p>
+            <h3 className="text-base sm:text-lg font-bold text-foreground">{b.title}</h3>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{b.description}</p>
           </div>
         ))}
       </div>
