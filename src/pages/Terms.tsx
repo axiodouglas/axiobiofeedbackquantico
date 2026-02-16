@@ -67,9 +67,12 @@ const Terms = () => {
             </p>
           </section>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-12 space-y-1">
+            <p className="text-xs text-muted-foreground font-semibold">
+              A.X.I.O. - Análise do Fator X do Inconsciente de Origem
+            </p>
             <p className="text-xs text-muted-foreground">
-              Última atualização: Fevereiro 2026 • © A.X.I.O. Todos os direitos reservados.
+              Última atualização: Fevereiro 2026 • © 2026 A.X.I.O. Todos os direitos reservados. Marca e Método em processo de registro.
             </p>
           </div>
         </div>

@@ -133,8 +133,9 @@ const VendaOficial = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-border py-8 text-center text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} A.X.I.O. — Todos os direitos reservados.</p>
+      <footer className="relative z-10 border-t border-border py-8 text-center text-xs text-muted-foreground space-y-1">
+        <p className="font-semibold">A.X.I.O. - Análise do Fator X do Inconsciente de Origem</p>
+        <p>© 2026 A.X.I.O. Todos os direitos reservados. Marca e Método em processo de registro.</p>
       </footer>
     </div>
   );
