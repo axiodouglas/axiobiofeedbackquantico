@@ -5,7 +5,7 @@ import AuthorSection from "@/components/venda/AuthorSection";
 import TestimonialsSection from "@/components/venda/TestimonialsSection";
 import BenefitsSection from "@/components/venda/BenefitsSection";
 import CtaBanner from "@/components/venda/CtaBanner";
-import AxioLogo from "@/components/AxioLogo";
+import axioIcon from "@/assets/axio-icon.png";
 
 const APP_URL = "https://axiobiofeedbackquantico.lovable.app";
 
@@ -21,7 +21,21 @@ const VendaOficial = () => {
       {/* Hero Section */}
       <section className="relative z-10 min-h-[90vh] flex flex-col items-center justify-center text-center px-4 py-20">
         <div className="max-w-3xl mx-auto space-y-8">
-          <AxioLogo size="lg" className="mx-auto justify-center" />
+          <div className="flex flex-col items-center gap-1">
+            <img
+              src={axioIcon}
+              alt="A.X.I.O."
+              className="h-[100px] w-auto object-contain"
+              style={{ mixBlendMode: "screen", filter: "brightness(1.3) contrast(1.1)" }}
+              draggable={false}
+            />
+            <span className="text-2xl sm:text-3xl font-extrabold tracking-widest text-foreground">
+              <span className="text-primary">A.</span>X.I.O.
+            </span>
+            <span className="text-xs sm:text-sm font-medium tracking-wider text-muted-foreground">
+              Análise do Fator X do Inconsciente de Origem
+            </span>
+          </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 mb-2">
             <Sparkles className="h-4 w-4 text-primary" />
             <span className="text-sm font-semibold text-primary tracking-wide">MÉTODO A.X.I.O.</span>
