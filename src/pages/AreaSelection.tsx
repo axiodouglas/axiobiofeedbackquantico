@@ -63,16 +63,6 @@ const AreaSelection = () => {
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   const handleSelect = (area: typeof areas[number]) => {
-    // Check 7-day lock for premium users
-    if (isPremium && !isAdmin && lockedAreas[area.id]?.locked) {
-      toast({
-        title: "Pilar em protocolo",
-        description: `Aguarde mais ${lockedAreas[area.id].daysRemaining} dia(s) para regravar este pilar.`,
-        variant: "destructive",
-      });
-      return;
-    }
-
     if (isPremium) {
       navigate(`/recording?area=${area.id}`);
       return;

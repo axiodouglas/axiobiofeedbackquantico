@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Mic, Square, ArrowLeft, Play, AlertTriangle } from "lucide-react";
+import { Mic, Square, ArrowLeft, Play, AlertTriangle, Clock, FileText } from "lucide-react";
+import { AreaDiagnosisList } from "@/components/AreaReportsList";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useAxioAnalysis } from "@/hooks/use-axio-analysis";
@@ -71,22 +72,27 @@ const Recording = () => {
   }, []);
 
   // Gate: non-premium users can only record "mae" and only once
-  // Premium users: enforce 7-day area lock (admins exempt)
+  // Premium users: 7-day area lock just disables the button (no redirect)
+  const isAreaLocked = isPremium && !isAdmin && lockedAreas[area]?.locked;
+
+  // Fetch past diagnoses for this area
+  const [areaDiagnoses, setAreaDiagnoses] = useState<{ id: string; area: string; created_at: string }[]>([]);
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("diagnoses")
+      .select("id, area, created_at")
+      .eq("user_id", user.id)
+      .eq("area", area)
+      .order("created_at", { ascending: false })
+      .limit(10)
+      .then(({ data }) => setAreaDiagnoses(data ?? []));
+  }, [user, area]);
+
   useEffect(() => {
     if (authLoading || freeLoading || lockLoading || adminLoading) return;
 
-    // 7-day lock check for premium (non-admin) users
-    if (isPremium && !isAdmin && lockedAreas[area]?.locked) {
-      toast({
-        title: "Pilar em protocolo",
-        description: `Aguarde mais ${lockedAreas[area].daysRemaining} dia(s) para regravar este pilar. O protocolo de 7 dias garante a neuroplasticidade.`,
-        variant: "destructive",
-      });
-      navigate("/", { replace: true });
-      return;
-    }
-
-    if (isPremium) return; // premium can do anything
+    if (isPremium) return; // premium can do anything (lock handled inline)
 
     // Non-premium trying to access non-mae area
     if (area !== "mae") {
@@ -108,7 +114,7 @@ const Recording = () => {
       });
       navigate("/planos", { replace: true });
     }
-  }, [authLoading, freeLoading, lockLoading, adminLoading, isPremium, isAdmin, area, freeDiagnosisUsed, lockedAreas, navigate, toast]);
+  }, [authLoading, freeLoading, lockLoading, adminLoading, isPremium, isAdmin, area, freeDiagnosisUsed, navigate, toast]);
 
   // Show loading while checks resolve
   if (authLoading || freeLoading || lockLoading || adminLoading) {
@@ -260,17 +266,27 @@ const Recording = () => {
               <Progress value={progressPercent} className="h-2" />
             </div>
 
+            {isAreaLocked && (
+              <div className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 mb-4 text-left">
+                <Clock className="h-5 w-5 text-primary shrink-0" />
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Pilar em protocolo. Aguarde mais <span className="font-semibold text-primary">{lockedAreas[area]?.daysRemaining} dia(s)</span> para regravar. O protocolo de 7 dias garante a neuroplasticidade.
+                </p>
+              </div>
+            )}
+
             {!audioBlob ? (
               <Button
                 variant={isRecording ? "destructive" : "cyan"}
                 size="xl"
                 onClick={isRecording ? stopRecording : startRecording}
                 className="w-full"
+                disabled={isAreaLocked}
               >
                 {isRecording ? (
                   <><Square className="h-5 w-5" /> Parar Gravação</>
                 ) : (
-                  <><Mic className="h-5 w-5" /> Iniciar Gravação</>
+                  <><Mic className="h-5 w-5" /> {isAreaLocked ? "Gravação Bloqueada" : "Iniciar Gravação"}</>
                 )}
               </Button>
             ) : (
@@ -351,6 +367,14 @@ const Recording = () => {
               <li>• Não se preocupe com a perfeição</li>
             </ul>
           </div>
+
+          {/* Past reports for this area */}
+          {areaDiagnoses.length > 0 && (
+            <div className="mt-6">
+              <h3 className="font-semibold text-foreground mb-2 text-sm">Relatórios anteriores — {areaNames[area]}</h3>
+              <AreaDiagnosisList diagnoses={areaDiagnoses} />
+            </div>
+          )}
         </div>
       </div>
     </div>
