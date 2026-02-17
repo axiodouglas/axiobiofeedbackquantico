@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye, Lock, Crown, Sparkles } from "lucide-react";
+import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye, Lock, Crown, Sparkles, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
@@ -329,6 +329,26 @@ const Index = () => {
             <div className="relative z-10">
               <h3 className="font-bold text-foreground text-xl leading-tight">Oráculo A.X.I.O.</h3>
               <p className="text-sm text-muted-foreground mt-0.5">Tire dúvidas sobre crenças e comportamento</p>
+            </div>
+          </div>
+
+          {/* Conselheiro de Performance Card */}
+          <div
+            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
+            onClick={() => isPremium ? navigate("/conselheiro") : navigate("/planos")}
+          >
+            {!isPremium && (
+              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
+              </div>
+            )}
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
+              <BarChart3 className="h-6 w-6" />
+            </div>
+            <div className="relative z-10">
+              <h3 className="font-bold text-foreground text-xl leading-tight">Conselheiro de Performance</h3>
+              <p className="text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
             </div>
           </div>
         </div>

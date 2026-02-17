@@ -101,6 +101,39 @@ export type Database = {
         }
         Relationships: []
       }
+      performance_advices: {
+        Row: {
+          advice_text: string
+          category: string
+          created_at: string
+          frequency_score: number | null
+          id: string
+          tone_analysis: Json | null
+          transcription: string | null
+          user_id: string
+        }
+        Insert: {
+          advice_text: string
+          category: string
+          created_at?: string
+          frequency_score?: number | null
+          id?: string
+          tone_analysis?: Json | null
+          transcription?: string | null
+          user_id: string
+        }
+        Update: {
+          advice_text?: string
+          category?: string
+          created_at?: string
+          frequency_score?: number | null
+          id?: string
+          tone_analysis?: Json | null
+          transcription?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
