@@ -11,9 +11,9 @@ import { cn } from "@/lib/utils";
 const MAX_RECORDING_TIME = 10;
 
 const categories = [
-  { id: "trabalho", label: "Trabalho", icon: Briefcase, description: "Produtividade e carreira" },
-  { id: "reunioes", label: "Reuniões", icon: Users, description: "Comunicação e liderança" },
+  { id: "trabalho", label: "Trabalho", icon: Briefcase, description: "Produtividade, carreira e reuniões" },
   { id: "relacionamentos", label: "Relacionamentos", icon: HeartHandshake, description: "Conexões interpessoais" },
+  { id: "outros", label: "Outros", icon: Users, description: "Outros contextos" },
 ];
 
 interface ToneAnalysis {
