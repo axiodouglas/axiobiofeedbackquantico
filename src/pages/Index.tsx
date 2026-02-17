@@ -23,40 +23,19 @@ const Index = () => {
   const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [hasPaid, setHasPaid] = useState<boolean | null>(null);
-
   useEffect(() => {
-    const checkAccess = async () => {
-      if (!user) { setIsAdmin(false); setHasPaid(false); return; }
-      
-      const [roleRes, subRes] = await Promise.all([
-        supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", user.id)
-          .eq("role", "admin")
-          .maybeSingle(),
-        supabase
-          .from("assinaturas")
-          .select("status_pagamento")
-          .eq("user_id", user.id)
-          .eq("status_pagamento", "pago")
-          .maybeSingle(),
-      ]);
-      
-      setIsAdmin(!!roleRes.data);
-      setHasPaid(!!roleRes.data || !!subRes.data);
+    const checkAdmin = async () => {
+      if (!user) { setIsAdmin(false); return; }
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      setIsAdmin(!!data);
     };
-    checkAccess();
+    checkAdmin();
   }, [user]);
-
-  // Redirect if not logged in or not paid
-  useEffect(() => {
-    if (loading || hasPaid === null) return;
-    if (!user || !hasPaid) {
-      navigate("/venda-oficial", { replace: true });
-    }
-  }, [loading, user, hasPaid, navigate]);
 
   const isPremium = isAdmin || (profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date()));
 
@@ -136,7 +115,7 @@ const Index = () => {
     },
   ];
 
-  if (loading || hasPaid === null || !hasPaid) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Sparkles className="h-8 w-8 text-primary animate-pulse" />
