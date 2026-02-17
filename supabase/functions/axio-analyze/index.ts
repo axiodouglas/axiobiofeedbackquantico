@@ -1694,6 +1694,15 @@ FORMATO DE RESPOSTA (JSON):
     { "name": "Sentimento", "intensity": número de 0 a 100 }
   ],
   "cta_message": "Mensagem personalizada de CTA para o Premium usando o gancho específico do bloqueio encontrado",
+  "somatization_map": [
+    {
+      "body_region": "região do corpo afetada (use EXATAMENTE um destes valores: cabeca, garganta, peito, estomago, ventre, coluna, ombros, maos, pernas)",
+      "organ_or_area": "Órgão ou área específica (ex: Tireoide, Coração, Útero, Estômago)",
+      "emotion": "Emoção reprimida que somatiza nesta região",
+      "description": "Explicação de como o trauma identificado gera somatização nesta área, com base em neurociência e PNL",
+      "intensity": número de 0 a 100
+    }
+  ],
   "is_premium": false
 }
 
@@ -1767,7 +1776,8 @@ serve(async (req) => {
       "3. Gere um frequency_score realista (geralmente entre 20-45 para diagnósticos iniciais).\n" +
       "4. Os sentimentos predominantes devem ter entre 3 e 5 itens.\n" +
       '5. OBRIGATÓRIO: Gere o campo "secondary_impacts" com o mapeamento de como este trauma afeta Financeiro, Saúde e Relacionamentos.\n' +
-      "6. " + premiumInstr + "\n\n" +
+      '6. OBRIGATÓRIO: Gere o campo "somatization_map" com 2 a 4 regiões do corpo onde os sentimentos e traumas identificados podem somatizar. Use neurociência e PNL para mapear emoções reprimidas a órgãos e regiões específicas do corpo. Os valores de body_region DEVEM ser exatamente: cabeca, garganta, peito, estomago, ventre, coluna, ombros, maos ou pernas.\n' +
+      "7. " + premiumInstr + "\n\n" +
       "Responda APENAS com o JSON válido, sem markdown.";
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");

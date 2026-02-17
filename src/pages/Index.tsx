@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import axioLogoX from "@/assets/axio-logo-x.png";
 import OnboardingBanner from "@/components/OnboardingBanner";
-import { AreaDiagnosisList, PerformanceAdviceList } from "@/components/AreaReportsList";
+
 
 const Index = () => {
   const navigate = useNavigate();
@@ -40,34 +40,6 @@ const Index = () => {
 
   const isPremium = isAdmin || (profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date()));
 
-  // Fetch diagnoses grouped by area
-  const [diagByArea, setDiagByArea] = useState<Record<string, { id: string; area: string; created_at: string }[]>>({});
-  const [perfAdvices, setPerfAdvices] = useState<{ id: string; category: string; created_at: string }[]>([]);
-
-  useEffect(() => {
-    if (!user) return;
-    supabase
-      .from("diagnoses")
-      .select("id, area, created_at")
-      .eq("user_id", user.id)
-      .order("created_at", { ascending: false })
-      .then(({ data }) => {
-        const grouped: Record<string, { id: string; area: string; created_at: string }[]> = {};
-        (data ?? []).forEach((d) => {
-          if (!grouped[d.area]) grouped[d.area] = [];
-          grouped[d.area].push(d);
-        });
-        setDiagByArea(grouped);
-      });
-    supabase
-      .from("performance_advices")
-      .select("id, category, created_at")
-      .eq("user_id", user.id)
-      .order("created_at", { ascending: false })
-      .then(({ data }) => {
-        setPerfAdvices(data ?? []);
-      });
-  }, [user]);
 
   const handleFreeArea = () => {
     if (!user) {
@@ -289,22 +261,18 @@ const Index = () => {
         <div className="max-w-lg mx-auto flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4">
             {areas.map((area) => (
-              <div key={area.title} className="flex flex-col">
-                <AreaCard
-                  title={area.title}
-                  description={area.description}
-                  icon={area.icon}
-                  iconColor={area.iconColor}
-                  isPremium={area.isPremium}
-                  isLocked={area.isLocked}
-                  badge={area.badge}
-                  onClick={area.onClick}
-                  compact
-                />
-                {user && (diagByArea[area.areaKey]?.length ?? 0) > 0 && (
-                  <AreaDiagnosisList diagnoses={diagByArea[area.areaKey]} />
-                )}
-              </div>
+              <AreaCard
+                key={area.title}
+                title={area.title}
+                description={area.description}
+                icon={area.icon}
+                iconColor={area.iconColor}
+                isPremium={area.isPremium}
+                isLocked={area.isLocked}
+                badge={area.badge}
+                onClick={area.onClick}
+                compact
+              />
             ))}
           </div>
 
@@ -390,9 +358,6 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
               </div>
             </div>
-            {user && perfAdvices.length > 0 && (
-              <PerformanceAdviceList advices={perfAdvices} />
-            )}
           </div>
         </div>
       </div>

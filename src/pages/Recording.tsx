@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Mic, Square, ArrowLeft, Play, AlertTriangle, Clock, FileText } from "lucide-react";
-import { AreaDiagnosisList } from "@/components/AreaReportsList";
+
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useAxioAnalysis } from "@/hooks/use-axio-analysis";
@@ -75,19 +75,6 @@ const Recording = () => {
   // Premium users: 7-day area lock just disables the button (no redirect)
   const isAreaLocked = isPremium && !isAdmin && lockedAreas[area]?.locked;
 
-  // Fetch past diagnoses for this area
-  const [areaDiagnoses, setAreaDiagnoses] = useState<{ id: string; area: string; created_at: string }[]>([]);
-  useEffect(() => {
-    if (!user) return;
-    supabase
-      .from("diagnoses")
-      .select("id, area, created_at")
-      .eq("user_id", user.id)
-      .eq("area", area)
-      .order("created_at", { ascending: false })
-      .limit(10)
-      .then(({ data }) => setAreaDiagnoses(data ?? []));
-  }, [user, area]);
 
   useEffect(() => {
     if (authLoading || freeLoading || lockLoading || adminLoading) return;
@@ -368,13 +355,6 @@ const Recording = () => {
             </ul>
           </div>
 
-          {/* Past reports for this area */}
-          {areaDiagnoses.length > 0 && (
-            <div className="mt-6">
-              <h3 className="font-semibold text-foreground mb-2 text-sm">Relatórios anteriores — {areaNames[area]}</h3>
-              <AreaDiagnosisList diagnoses={areaDiagnoses} />
-            </div>
-          )}
         </div>
       </div>
     </div>
