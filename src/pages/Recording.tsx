@@ -53,6 +53,7 @@ const Recording = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [confirmed, setConfirmed] = useState(false);
+  const [accessChecked, setAccessChecked] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
@@ -101,9 +102,14 @@ const Recording = () => {
   }, [user, area]);
 
   useEffect(() => {
+    // Only check access once on initial load — never redirect mid-recording
+    if (accessChecked) return;
     if (authLoading || freeLoading || lockLoading || adminLoading) return;
 
-    if (isPremium) return; // premium can do anything (lock handled inline)
+    // Mark as checked so we never run this redirect logic again
+    setAccessChecked(true);
+
+    if (isPremium || isAdmin) return; // premium/admin can do anything
 
     // Non-premium trying to access non-mae area
     if (area !== "mae") {
@@ -125,7 +131,7 @@ const Recording = () => {
       });
       navigate("/planos", { replace: true });
     }
-  }, [authLoading, freeLoading, lockLoading, adminLoading, isPremium, isAdmin, area, freeDiagnosisUsed, navigate, toast]);
+  }, [authLoading, freeLoading, lockLoading, adminLoading, isPremium, isAdmin, area, freeDiagnosisUsed, navigate, toast, accessChecked]);
 
   // Show loading while checks resolve
   if (authLoading || freeLoading || lockLoading || adminLoading) {
