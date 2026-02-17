@@ -25,9 +25,9 @@ const BODY_REGIONS: Record<string, { cx: number; cy: number; label: string }> = 
 };
 
 function getIntensityColor(intensity: number): string {
-  if (intensity >= 70) return "hsl(0, 70%, 55%)";
-  if (intensity >= 40) return "hsl(30, 80%, 55%)";
-  return "hsl(50, 70%, 55%)";
+  if (intensity >= 70) return "hsl(175, 70%, 45%)";
+  if (intensity >= 40) return "hsl(200, 65%, 55%)";
+  return "hsl(260, 55%, 60%)";
 }
 
 export default function SomatizationBodyMap({ somatizationMap }: SomatizationBodyMapProps) {
@@ -43,23 +43,80 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 items-center">
-        {/* Human Body SVG */}
+        {/* Wireframe Human Body SVG */}
         <div className="relative flex-shrink-0">
-          <svg viewBox="0 0 300 420" className="w-[200px] h-[280px] mx-auto" style={{ filter: "drop-shadow(0 0 12px hsl(175,70%,50%,0.15))" }}>
-            {/* Head */}
-            <ellipse cx="150" cy="40" rx="28" ry="32" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" opacity="0.4" />
+          <svg viewBox="0 0 300 420" className="w-[200px] h-[280px] mx-auto" style={{ filter: "drop-shadow(0 0 16px hsl(175,70%,50%,0.25))" }}>
+            <defs>
+              <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="hsl(175, 70%, 55%)" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="hsl(260, 60%, 65%)" stopOpacity="0.6" />
+              </linearGradient>
+              <filter id="nodeGlow">
+                <feGaussianBlur stdDeviation="2" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            {/* Wireframe geometric body - head */}
+            <polygon points="150,10 170,25 175,50 165,65 135,65 125,50 130,25" fill="none" stroke="url(#bodyGrad)" strokeWidth="1.2" opacity="0.7" />
+            {/* Inner head lines */}
+            <line x1="150" y1="10" x2="150" y2="65" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+            <line x1="130" y1="25" x2="170" y2="25" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+            <line x1="125" y1="50" x2="175" y2="50" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+
             {/* Neck */}
-            <line x1="150" y1="72" x2="150" y2="90" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" opacity="0.4" />
-            {/* Torso */}
-            <path d="M115,90 Q110,90 105,100 L95,180 Q92,200 100,240 L110,270 L150,280 L190,270 L200,240 Q208,200 205,180 L195,100 Q190,90 185,90 Z" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" opacity="0.4" />
-            {/* Left arm */}
-            <path d="M105,100 Q80,110 65,150 Q55,180 50,210 Q48,225 55,240 Q58,248 65,255" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" opacity="0.4" />
-            {/* Right arm */}
-            <path d="M195,100 Q220,110 235,150 Q245,180 250,210 Q252,225 245,240 Q242,248 235,255" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" opacity="0.4" />
-            {/* Left leg */}
-            <path d="M120,270 L115,320 Q112,350 110,380 Q108,400 115,410" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" opacity="0.4" />
-            {/* Right leg */}
-            <path d="M180,270 L185,320 Q188,350 190,380 Q192,400 185,410" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" opacity="0.4" />
+            <line x1="140" y1="65" x2="135" y2="85" stroke="url(#bodyGrad)" strokeWidth="1.2" opacity="0.7" />
+            <line x1="160" y1="65" x2="165" y2="85" stroke="url(#bodyGrad)" strokeWidth="1.2" opacity="0.7" />
+
+            {/* Torso wireframe */}
+            <polygon points="110,85 190,85 200,120 205,180 195,240 185,270 150,280 115,270 105,240 95,180 100,120" fill="none" stroke="url(#bodyGrad)" strokeWidth="1.2" opacity="0.7" />
+            {/* Torso inner structure */}
+            <line x1="150" y1="85" x2="150" y2="280" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.2" />
+            <line x1="100" y1="120" x2="200" y2="120" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.2" />
+            <line x1="95" y1="180" x2="205" y2="180" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.2" />
+            <line x1="105" y1="240" x2="195" y2="240" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.2" />
+            {/* Cross braces */}
+            <line x1="110" y1="85" x2="195" y2="240" stroke="url(#bodyGrad)" strokeWidth="0.3" opacity="0.15" />
+            <line x1="190" y1="85" x2="105" y2="240" stroke="url(#bodyGrad)" strokeWidth="0.3" opacity="0.15" />
+
+            {/* Left arm wireframe */}
+            <polyline points="110,85 90,100 70,140 55,190 48,220 55,245 65,260" fill="none" stroke="url(#bodyGrad)" strokeWidth="1.2" opacity="0.7" />
+            <line x1="90" y1="100" x2="100" y2="120" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+            <line x1="70" y1="140" x2="95" y2="155" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+            {/* Left hand */}
+            <polyline points="65,260 58,268 52,275" fill="none" stroke="url(#bodyGrad)" strokeWidth="0.8" opacity="0.5" />
+            <polyline points="65,260 68,270 65,278" fill="none" stroke="url(#bodyGrad)" strokeWidth="0.8" opacity="0.5" />
+
+            {/* Right arm wireframe */}
+            <polyline points="190,85 210,100 230,140 245,190 252,220 245,245 235,260" fill="none" stroke="url(#bodyGrad)" strokeWidth="1.2" opacity="0.7" />
+            <line x1="210" y1="100" x2="200" y2="120" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+            <line x1="230" y1="140" x2="205" y2="155" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+            {/* Right hand */}
+            <polyline points="235,260 242,268 248,275" fill="none" stroke="url(#bodyGrad)" strokeWidth="0.8" opacity="0.5" />
+            <polyline points="235,260 232,270 235,278" fill="none" stroke="url(#bodyGrad)" strokeWidth="0.8" opacity="0.5" />
+
+            {/* Left leg wireframe */}
+            <polyline points="125,270 120,300 115,340 112,370 110,390 115,410" fill="none" stroke="url(#bodyGrad)" strokeWidth="1.2" opacity="0.7" />
+            <line x1="150" y1="280" x2="120" y2="300" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+            <line x1="115" y1="340" x2="130" y2="320" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.2" />
+
+            {/* Right leg wireframe */}
+            <polyline points="175,270 180,300 185,340 188,370 190,390 185,410" fill="none" stroke="url(#bodyGrad)" strokeWidth="1.2" opacity="0.7" />
+            <line x1="150" y1="280" x2="180" y2="300" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.3" />
+            <line x1="185" y1="340" x2="170" y2="320" stroke="url(#bodyGrad)" strokeWidth="0.5" opacity="0.2" />
+
+            {/* Nodes at joints */}
+            {[
+              [150, 10], [130, 25], [170, 25], [125, 50], [175, 50],
+              [110, 85], [190, 85], [100, 120], [200, 120],
+              [55, 190], [245, 190], [115, 340], [185, 340],
+              [150, 280], [115, 410], [185, 410],
+            ].map(([x, y], i) => (
+              <circle key={`node-${i}`} cx={x} cy={y} r="1.5" fill="hsl(175, 70%, 55%)" opacity="0.6" />
+            ))}
 
             {/* Somatization points */}
             {somatizationMap.map((point, i) => {
@@ -69,7 +126,6 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
               const isSelected = selected === i;
               const radius = isSelected ? 16 : 12;
 
-              // Offset x for side regions
               let cx = region.cx;
               if (point.body_region === "maos") {
                 cx = i % 2 === 0 ? 60 : 240;
@@ -78,14 +134,14 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
               return (
                 <g key={i} onClick={() => setSelected(isSelected ? null : i)} className="cursor-pointer">
                   {/* Glow */}
-                  <circle cx={cx} cy={region.cy} r={radius + 8} fill={color} opacity={0.15}>
-                    <animate attributeName="opacity" values="0.1;0.25;0.1" dur="2s" repeatCount="indefinite" />
+                  <circle cx={cx} cy={region.cy} r={radius + 10} fill={color} opacity={0.12}>
+                    <animate attributeName="opacity" values="0.08;0.2;0.08" dur="2.5s" repeatCount="indefinite" />
                   </circle>
                   {/* Outer ring */}
-                  <circle cx={cx} cy={region.cy} r={radius} fill={color} opacity={0.3} stroke={color} strokeWidth={isSelected ? 2 : 1} />
+                  <circle cx={cx} cy={region.cy} r={radius} fill={color} opacity={0.25} stroke={color} strokeWidth={isSelected ? 2 : 1} />
                   {/* Inner dot */}
-                  <circle cx={cx} cy={region.cy} r={5} fill={color} opacity={0.9}>
-                    <animate attributeName="r" values="4;6;4" dur="1.5s" repeatCount="indefinite" />
+                  <circle cx={cx} cy={region.cy} r={4} fill={color} opacity={0.9} filter="url(#nodeGlow)">
+                    <animate attributeName="r" values="3;5;3" dur="1.8s" repeatCount="indefinite" />
                   </circle>
                 </g>
               );

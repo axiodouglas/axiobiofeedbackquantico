@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import axioLogoX from "@/assets/axio-logo-x.png";
-import OnboardingBanner from "@/components/OnboardingBanner";
+
 
 
 const Index = () => {
@@ -163,7 +163,7 @@ const Index = () => {
         </div>
 
         <div className="relative z-10 container mx-auto px-5 sm:px-8 pt-28 pb-16 sm:pt-32 sm:pb-20">
-          <OnboardingBanner />
+          
           <div className="max-w-3xl mx-auto text-center bg-card/30 backdrop-blur-[10px] border border-white/[0.08] rounded-2xl px-6 py-10 sm:px-10 sm:py-14 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 tracking-tight px-2">
               <span className="text-foreground">Bem-vindo ao </span>

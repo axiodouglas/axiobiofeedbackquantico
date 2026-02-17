@@ -224,7 +224,7 @@ const DiagnosisDetail = () => {
           title="Somatização"
           description="Mapa corporal das emoções reprimidas identificadas no seu diagnóstico"
           icon={<Activity className="h-7 w-7" />}
-          iconColor="bg-destructive/20 text-destructive"
+          iconColor="bg-primary/20 text-primary"
           onClick={() => toggleSection("somatization")}
         />
 

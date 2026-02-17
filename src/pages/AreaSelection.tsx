@@ -7,7 +7,7 @@ import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useAreaLock } from "@/hooks/use-area-lock";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import OnboardingBanner from "@/components/OnboardingBanner";
+
 
 const areas = [
   {
@@ -89,7 +89,7 @@ const AreaSelection = () => {
 
   return (
     <div className="min-h-screen bg-background noise flex flex-col">
-      <OnboardingBanner />
+      
       <header className="border-b border-border bg-card/50 py-4">
         <div className="container mx-auto px-4">
           <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">

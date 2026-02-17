@@ -62,7 +62,7 @@ serve(async (req) => {
     // Build the prompt with diagnosis context
     const dr = diagnosis_result;
     const contextParts = [
-      `Nome do usuário: ${user_name || "Querido(a)"}`,
+      `Nome do usuário: ${user_name || "Querido (Diga seu nome)"}`,
       `Título do diagnóstico: ${dr.title || "N/A"}`,
       `Resumo: ${dr.summary || "N/A"}`,
       `Ferida Raiz: ${dr.root_wound || "N/A"}`,
