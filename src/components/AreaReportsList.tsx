@@ -58,15 +58,19 @@ export function PerformanceAdviceList({ advices }: { advices: PerformanceItem[] 
   return (
     <div className="mt-2 space-y-1">
       {advices.slice(0, 5).map((a) => (
-        <div
+        <button
           key={a.id}
-          className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary/30 border border-border/50 text-left"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/conselheiro/${a.id}`);
+          }}
+          className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg bg-secondary/30 border border-border/50 hover:border-primary/30 transition-colors text-left"
         >
           <BarChart3 className="h-3 w-3 text-primary shrink-0" />
           <span className="text-[11px] text-muted-foreground truncate">
             {categoryLabels[a.category] || a.category} — {format(new Date(a.created_at), "dd/MM/yyyy", { locale: ptBR })}
           </span>
-        </div>
+        </button>
       ))}
       {advices.length > 5 && (
         <p className="text-[10px] text-muted-foreground text-center pt-1">
