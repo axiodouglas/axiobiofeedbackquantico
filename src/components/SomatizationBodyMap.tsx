@@ -13,16 +13,17 @@ interface SomatizationBodyMapProps {
   somatizationMap: SomatizationPoint[];
 }
 
-const BODY_REGIONS: Record<string, { label: string }> = {
-  cabeca: { label: "CRANIANO" },
-  garganta: { label: "CERVICAL" },
-  ombros: { label: "DELTOIDE" },
-  peito: { label: "TORÁCICO" },
-  estomago: { label: "GÁSTRICO" },
-  ventre: { label: "PÉLVICO" },
-  coluna: { label: "ESPINHAL" },
-  maos: { label: "CARPAL" },
-  pernas: { label: "FEMORAL" },
+// Percentages relative to image dimensions for dot placement
+const BODY_REGIONS: Record<string, { label: string; x: number; y: number }> = {
+  cabeca: { label: "CRANIANO", x: 50, y: 8 },
+  garganta: { label: "CERVICAL", x: 50, y: 16 },
+  ombros: { label: "DELTOIDE", x: 30, y: 22 },
+  peito: { label: "TORÁCICO", x: 50, y: 28 },
+  estomago: { label: "GÁSTRICO", x: 50, y: 38 },
+  ventre: { label: "PÉLVICO", x: 50, y: 46 },
+  coluna: { label: "ESPINHAL", x: 50, y: 34 },
+  maos: { label: "CARPAL", x: 18, y: 50 },
+  pernas: { label: "FEMORAL", x: 42, y: 65 },
 };
 
 function getIntensityColor(intensity: number): string {
@@ -57,21 +58,51 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
         </span>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 items-start">
-        {/* Imagem do corpo */}
-        <div className="relative flex-shrink-0 rounded-xl overflow-hidden border border-border bg-background/80">
-          <img
-            src={somatizationBody}
-            alt="Mapa de somatização corporal"
-            className="w-[220px] h-auto object-contain mx-auto"
-          />
+      <div className="flex flex-col md:flex-row gap-4 items-center">
+        {/* Imagem do corpo centralizada com pontos */}
+        <div className="relative flex-shrink-0 rounded-xl overflow-hidden border border-border bg-background/80 mx-auto">
+          <div className="relative animate-[pulse_4s_ease-in-out_infinite]" style={{ animationTimingFunction: "ease-in-out" }}>
+            <img
+              src={somatizationBody}
+              alt="Mapa de somatização corporal"
+              className="w-[220px] h-auto object-contain"
+            />
+            {/* Glowing dots on body regions */}
+            {somatizationMap.map((point, i) => {
+              const region = BODY_REGIONS[point.body_region];
+              if (!region) return null;
+              const color = getIntensityColor(point.intensity);
+              const isCritical = point.intensity >= 70;
+              return (
+                <div
+                  key={i}
+                  className="absolute"
+                  style={{
+                    left: `${region.x}%`,
+                    top: `${region.y}%`,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <div
+                    className="h-3 w-3 rounded-full shadow-lg"
+                    style={{
+                      backgroundColor: color,
+                      boxShadow: `0 0 8px 3px ${color}`,
+                    }}
+                  />
+                  {isCritical && (
+                    <div
+                      className="absolute inset-0 h-3 w-3 rounded-full animate-ping"
+                      style={{ backgroundColor: color, opacity: 0.5 }}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
           {/* Barra de status */}
-          <div className="flex items-center justify-between px-2 py-1 bg-background/90 border-t border-border">
+          <div className="flex items-center justify-center px-2 py-1 bg-background/90 border-t border-border">
             <span className="text-[9px] text-muted-foreground tracking-wider">VARREDURA COMPLETA</span>
-            <div className="flex items-center gap-1">
-              <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              <span className="text-[9px] text-primary tracking-wider">AO VIVO</span>
-            </div>
           </div>
         </div>
 
