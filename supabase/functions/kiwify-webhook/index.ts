@@ -45,22 +45,21 @@ Deno.serve(async (req) => {
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + (daysMap[subscriptionType] || 30));
 
-    if (status === "approved" || status === "paid") {
-      // Find user by email
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("user_id")
-        .eq("email", email)
-        .maybeSingle();
+    // Find user by email
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("user_id")
+      .eq("email", email)
+      .maybeSingle();
 
+    if (status === "approved" || status === "paid") {
       if (!profile) {
         console.log("No profile found for email:", email);
-        // Save to assinaturas anyway for later matching
         await supabase.from("assinaturas").upsert(
           {
             user_id: "00000000-0000-0000-0000-000000000000",
             email,
-            status_pagamento: status,
+            status_pagamento: "pago",
             kiwify_order_id: orderId,
           },
           { onConflict: "kiwify_order_id" }
@@ -70,7 +69,6 @@ Deno.serve(async (req) => {
         });
       }
 
-      // Update profile to premium
       await supabase
         .from("profiles")
         .update({
@@ -80,18 +78,36 @@ Deno.serve(async (req) => {
         })
         .eq("user_id", profile.user_id);
 
-      // Record in assinaturas
       await supabase.from("assinaturas").upsert(
         {
           user_id: profile.user_id,
           email,
-          status_pagamento: status,
+          status_pagamento: "pago",
           kiwify_order_id: orderId,
         },
         { onConflict: "kiwify_order_id" }
       );
 
       console.log("User activated:", email, subscriptionType);
+    } else if (status === "refunded") {
+      if (profile) {
+        await supabase
+          .from("profiles")
+          .update({
+            is_premium: false,
+            subscription_type: null,
+            subscription_expires_at: null,
+          })
+          .eq("user_id", profile.user_id);
+
+        await supabase
+          .from("assinaturas")
+          .update({ status_pagamento: "reembolsado" })
+          .eq("user_id", profile.user_id)
+          .eq("kiwify_order_id", orderId);
+
+        console.log("User refunded:", email);
+      }
     }
 
     return new Response(JSON.stringify({ success: true }), {
