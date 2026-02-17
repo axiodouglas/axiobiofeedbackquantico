@@ -1798,7 +1798,7 @@ serve(async (req) => {
           { role: "user", content: userPrompt },
         ],
         temperature: 0.7,
-        max_tokens: 3000,
+        max_tokens: 8000,
       }),
     });
 
@@ -1818,10 +1818,36 @@ serve(async (req) => {
     // Parse the JSON response, handling potential markdown wrapping
     let diagnosis;
     try {
-      const cleanContent = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-      diagnosis = JSON.parse(cleanContent);
+      let cleanContent = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+      // Fix truncated JSON by attempting to close open braces/brackets
+      try {
+        diagnosis = JSON.parse(cleanContent);
+      } catch (_firstTry) {
+        // Try to salvage truncated JSON by closing open structures
+        let openBraces = 0;
+        let openBrackets = 0;
+        let inString = false;
+        let escaped = false;
+        for (const ch of cleanContent) {
+          if (escaped) { escaped = false; continue; }
+          if (ch === '\\') { escaped = true; continue; }
+          if (ch === '"') { inString = !inString; continue; }
+          if (inString) continue;
+          if (ch === '{') openBraces++;
+          if (ch === '}') openBraces--;
+          if (ch === '[') openBrackets++;
+          if (ch === ']') openBrackets--;
+        }
+        // If we're inside a string, close it
+        if (inString) cleanContent += '"';
+        // Close any open brackets and braces
+        for (let i = 0; i < openBrackets; i++) cleanContent += ']';
+        for (let i = 0; i < openBraces; i++) cleanContent += '}';
+        diagnosis = JSON.parse(cleanContent);
+        console.warn("Recovered truncated JSON response successfully");
+      }
     } catch (e) {
-      console.error("Failed to parse AI response:", content);
+      console.error("Failed to parse AI response (length:", content.length, "):", content.substring(0, 500));
       throw new Error("Failed to parse AI diagnosis");
     }
 
