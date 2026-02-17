@@ -29,6 +29,7 @@ import VendaOficial from "./pages/VendaOficial";
 import Convite from "./pages/Convite";
 import Admin from "./pages/Admin";
 import PerformanceAdvisor from "./pages/PerformanceAdvisor";
+import PerformanceAdviceDetail from "./pages/PerformanceAdviceDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -73,6 +74,11 @@ const App = () => (
               <Route path="/conselheiro" element={
                 <ProtectedRoute requirePremium>
                   <PerformanceAdvisor />
+                </ProtectedRoute>
+              } />
+              <Route path="/conselheiro/:id" element={
+                <ProtectedRoute requirePremium>
+                  <PerformanceAdviceDetail />
                 </ProtectedRoute>
               } />
               <Route path="/admin" element={<Admin />} />

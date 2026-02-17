@@ -141,7 +141,7 @@ const Recording = () => {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: { echoCancellation: true, noiseSuppression: true, sampleRate: 44100 },
       });
-      const mediaRecorder = new MediaRecorder(stream);
+      const mediaRecorder = new MediaRecorder(stream, { mimeType: MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : 'audio/webm' });
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
 
@@ -150,9 +150,22 @@ const Recording = () => {
       };
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-        setAudioBlob(blob);
+        try {
+          const blob = new Blob(audioChunksRef.current, { type: mediaRecorder.mimeType || "audio/webm" });
+          setAudioBlob(blob);
+        } catch (e) {
+          console.error("Error creating audio blob:", e);
+        }
         stream.getTracks().forEach((track) => track.stop());
+      };
+
+      mediaRecorder.onerror = (event: any) => {
+        console.error("MediaRecorder error:", event?.error);
+        stream.getTracks().forEach((track) => track.stop());
+        setIsRecording(false);
+        isRecordingRef.current = false;
+        if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+        toast({ title: "Erro na gravação", description: "Tente novamente.", variant: "destructive" });
       };
 
       mediaRecorder.start(1000);
@@ -177,7 +190,7 @@ const Recording = () => {
       }, 1000);
     } catch (error) {
       console.error("Error accessing microphone:", error);
-      alert("Não foi possível acessar o microfone. Por favor, permita o acesso.");
+      toast({ title: "Microfone indisponível", description: "Permita o acesso ao microfone nas configurações do navegador.", variant: "destructive" });
     }
   };
 

@@ -301,7 +301,7 @@ const PerformanceAdvisor = () => {
               ) : (
                 <>
                   <p className="text-sm text-muted-foreground mb-6">
-                    Grave <span className="text-primary font-semibold">10 segundos</span> de áudio falando sobre sua situação atual
+                    Grave até <span className="text-primary font-semibold">30 segundos</span> de áudio falando sobre sua situação atual
                   </p>
 
                   {isRecording && (
