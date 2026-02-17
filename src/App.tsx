@@ -28,6 +28,7 @@ import Plans from "./pages/Plans";
 import VendaOficial from "./pages/VendaOficial";
 import Convite from "./pages/Convite";
 import Admin from "./pages/Admin";
+import PerformanceAdvisor from "./pages/PerformanceAdvisor";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -69,6 +70,11 @@ const App = () => (
               <Route path="/terms" element={<Terms />} />
               <Route path="/venda-oficial" element={<SalesErrorBoundary><VendaOficial /></SalesErrorBoundary>} />
               <Route path="/convite" element={<Convite />} />
+              <Route path="/conselheiro" element={
+                <ProtectedRoute requirePremium>
+                  <PerformanceAdvisor />
+                </ProtectedRoute>
+              } />
               <Route path="/admin" element={<Admin />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
