@@ -6,8 +6,9 @@ import { AreaCard } from "@/components/AreaCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Brain, Sparkles, Mic, AlertTriangle, DollarSign, Stethoscope, Users } from "lucide-react";
+import { ArrowLeft, Brain, Sparkles, Mic, AlertTriangle, DollarSign, Stethoscope, Users, Activity } from "lucide-react";
 import MeditationScript from "@/components/MeditationScript";
+import SomatizationBodyMap from "@/components/SomatizationBodyMap";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
@@ -51,7 +52,7 @@ const DiagnosisDetail = () => {
   const [diagnosis, setDiagnosis] = useState<DiagnosisData | null>(null);
   const [commands, setCommands] = useState<QuantumCommand[]>([]);
   const [loadingData, setLoadingData] = useState(true);
-  const [activeSection, setActiveSection] = useState<"report" | "commands" | "meditation" | null>(null);
+  const [activeSection, setActiveSection] = useState<"report" | "commands" | "meditation" | "somatization" | null>(null);
 
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
@@ -214,6 +215,23 @@ const DiagnosisDetail = () => {
                   )}
                 </div>
               )}
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Somatização Card */}
+        <AreaCard
+          title="Somatização"
+          description="Mapa corporal das emoções reprimidas identificadas no seu diagnóstico"
+          icon={<Activity className="h-7 w-7" />}
+          iconColor="bg-destructive/20 text-destructive"
+          onClick={() => toggleSection("somatization")}
+        />
+
+        {activeSection === "somatization" && dr && (
+          <Card className="border-primary/20 animate-in fade-in-50 slide-in-from-top-2 duration-200">
+            <CardContent className="pt-6">
+              <SomatizationBodyMap somatizationMap={dr.somatization_map || []} />
             </CardContent>
           </Card>
         )}
