@@ -14,10 +14,10 @@ Deno.serve(async (req) => {
     const body = await req.json();
     console.log("Kiwify webhook received:", JSON.stringify(body));
 
-    const orderId = body.order_id || body.subscription_id;
-    const status = body.order_status || body.subscription_status;
-    const email = body.Customer?.email || body.customer?.email;
-    const productName = body.Product?.name || body.product?.name || "";
+    const orderId = body.order_id || body.subscription_id || body.id;
+    const status = body.order_status || body.subscription_status || body.status;
+    const email = body.Customer?.email || body.customer?.email || body.email;
+    const productName = body.offer_name || body.Product?.name || body.product?.name || body.product_name || "";
 
     if (!email) {
       return new Response(JSON.stringify({ error: "Email not found in payload" }), {
