@@ -7,7 +7,7 @@ import BenefitsSection from "@/components/venda/BenefitsSection";
 import CtaBanner from "@/components/venda/CtaBanner";
 import axioLogoX from "@/assets/axio-logo-x.png";
 
-const APP_URL = "https://axiobiofeedbackquantico.lovable.app";
+const APP_URL = "https://axiobiofeedbackquantico.com";
 
 const VendaOficial = () => {
   return (
@@ -60,7 +60,7 @@ const VendaOficial = () => {
 
           <div className="pt-4 sm:pt-6 flex flex-col items-center gap-3 sm:gap-4">
             <Button variant="premium" size="xl" className="text-xs sm:text-sm md:text-base px-5 sm:px-10 py-4 sm:py-6 rounded-xl sm:rounded-2xl w-full max-w-sm" asChild>
-              <a href="https://axiobiofeedbackquantico.lovable.app" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <a href="https://axiobiofeedbackquantico.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                 <Brain className="h-4 w-4 sm:h-5 sm:w-5" />
                 COMEÇAR DIAGNÓSTICO GRÁTIS
               </a>
