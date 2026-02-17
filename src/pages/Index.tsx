@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import axioLogoX from "@/assets/axio-logo-x.png";
 import OnboardingBanner from "@/components/OnboardingBanner";
+import { AreaDiagnosisList, PerformanceAdviceList } from "@/components/AreaReportsList";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -38,6 +39,35 @@ const Index = () => {
   }, [user]);
 
   const isPremium = isAdmin || (profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date()));
+
+  // Fetch diagnoses grouped by area
+  const [diagByArea, setDiagByArea] = useState<Record<string, { id: string; area: string; created_at: string }[]>>({});
+  const [perfAdvices, setPerfAdvices] = useState<{ id: string; category: string; created_at: string }[]>([]);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("diagnoses")
+      .select("id, area, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        const grouped: Record<string, { id: string; area: string; created_at: string }[]> = {};
+        (data ?? []).forEach((d) => {
+          if (!grouped[d.area]) grouped[d.area] = [];
+          grouped[d.area].push(d);
+        });
+        setDiagByArea(grouped);
+      });
+    supabase
+      .from("performance_advices")
+      .select("id, category, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .then(({ data }) => {
+        setPerfAdvices(data ?? []);
+      });
+  }, [user]);
 
   const handleFreeArea = () => {
     if (!user) {
@@ -78,6 +108,7 @@ const Index = () => {
   const areas = [
     {
       title: "Mãe",
+      areaKey: "mae",
       description: "Bloqueios na relação materna",
       icon: <Heart className="h-5 w-5" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
@@ -88,6 +119,7 @@ const Index = () => {
     },
     {
       title: "Pai",
+      areaKey: "pai",
       description: "Força paterna e ação no mundo",
       icon: <UserCheck className="h-5 w-5" />,
       iconColor: "bg-primary/20 text-primary",
@@ -97,6 +129,7 @@ const Index = () => {
     },
     {
       title: "Traumas",
+      areaKey: "traumas",
       description: "Perdas, abusos e eventos externos",
       icon: <Flame className="h-5 w-5" />,
       iconColor: "bg-axio-family/20 text-axio-family",
@@ -106,6 +139,7 @@ const Index = () => {
     },
     {
       title: "Relacionamentos",
+      areaKey: "relacionamento",
       description: "Projeções dos seus traumas nas pessoas",
       icon: <HeartHandshake className="h-5 w-5" />,
       iconColor: "bg-axio-relationship/20 text-axio-relationship",
@@ -255,18 +289,22 @@ const Index = () => {
         <div className="max-w-lg mx-auto flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-4">
             {areas.map((area) => (
-              <AreaCard
-                key={area.title}
-                title={area.title}
-                description={area.description}
-                icon={area.icon}
-                iconColor={area.iconColor}
-                isPremium={area.isPremium}
-                isLocked={area.isLocked}
-                badge={area.badge}
-                onClick={area.onClick}
-                compact
-              />
+              <div key={area.title} className="flex flex-col">
+                <AreaCard
+                  title={area.title}
+                  description={area.description}
+                  icon={area.icon}
+                  iconColor={area.iconColor}
+                  isPremium={area.isPremium}
+                  isLocked={area.isLocked}
+                  badge={area.badge}
+                  onClick={area.onClick}
+                  compact
+                />
+                {user && (diagByArea[area.areaKey]?.length ?? 0) > 0 && (
+                  <AreaDiagnosisList diagnoses={diagByArea[area.areaKey]} />
+                )}
+              </div>
             ))}
           </div>
 
@@ -333,23 +371,28 @@ const Index = () => {
           </div>
 
           {/* Conselheiro de Performance Card */}
-          <div
-            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
-            onClick={() => isPremium ? navigate("/conselheiro") : navigate("/planos")}
-          >
-            {!isPremium && (
-              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
-                <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
-                <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
+          <div>
+            <div
+              className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
+              onClick={() => isPremium ? navigate("/conselheiro") : navigate("/planos")}
+            >
+              {!isPremium && (
+                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                  <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                  <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
+                </div>
+              )}
+              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
+                <BarChart3 className="h-6 w-6" />
               </div>
+              <div className="relative z-10">
+                <h3 className="font-bold text-foreground text-xl leading-tight">Conselheiro de Performance</h3>
+                <p className="text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
+              </div>
+            </div>
+            {user && perfAdvices.length > 0 && (
+              <PerformanceAdviceList advices={perfAdvices} />
             )}
-            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-              <BarChart3 className="h-6 w-6" />
-            </div>
-            <div className="relative z-10">
-              <h3 className="font-bold text-foreground text-xl leading-tight">Conselheiro de Performance</h3>
-              <p className="text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
-            </div>
           </div>
         </div>
       </div>

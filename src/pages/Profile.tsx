@@ -7,8 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sparkles, ArrowLeft, Calendar, Crown, Pencil, Check, X, FileText } from "lucide-react";
-import { AreaCard } from "@/components/AreaCard";
+import { Sparkles, ArrowLeft, Calendar, Crown, Pencil, Check, X } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useToast } from "@/hooks/use-toast";
@@ -149,14 +148,6 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        {/* Meus Relatórios - AreaCard */}
-        <AreaCard
-          title="Meus Relatórios"
-          description="Acesse seus diagnósticos, comandos quânticos e meditações"
-          icon={<FileText className="h-7 w-7" />}
-          iconColor="bg-primary/20 text-primary"
-          onClick={() => navigate("/meus-relatorios")}
-        />
       </div>
     </div>
   );
