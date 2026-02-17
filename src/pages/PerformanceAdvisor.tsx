@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Mic, Square, ArrowLeft, Briefcase, Users, HeartHandshake, Loader2, Shield, BarChart3, Brain, Zap, Activity } from "lucide-react";
+import { Mic, Square, ArrowLeft, Briefcase, Users, HeartHandshake, Loader2, Shield, BarChart3, Brain, Zap, Activity, Play, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/hooks/use-auth";
@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { PerformanceAdviceList } from "@/components/AreaReportsList";
 
 const MAX_RECORDING_TIME = 30;
+const MAX_DAILY_RECORDINGS = 10;
 
 const categories = [
   { id: "trabalho", label: "Trabalho", icon: Briefcase, description: "Produtividade, carreira e reuniões" },
@@ -43,6 +44,7 @@ const PerformanceAdvisor = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<AdviceResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -52,17 +54,32 @@ const PerformanceAdvisor = () => {
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   const [pastAdvices, setPastAdvices] = useState<{ id: string; category: string; created_at: string }[]>([]);
+  const [todayCount, setTodayCount] = useState(0);
+
+  const audioUrl = useMemo(() => {
+    if (!audioBlob) return null;
+    return URL.createObjectURL(audioBlob);
+  }, [audioBlob]);
 
   useEffect(() => {
     if (!user) return;
+    // Get today's count
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
     supabase
       .from("performance_advices")
       .select("id, category, created_at")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false })
-      .limit(10)
-      .then(({ data }) => setPastAdvices(data ?? []));
-  }, [user]);
+      .limit(50)
+      .then(({ data }) => {
+        const all = data ?? [];
+        setPastAdvices(all.slice(0, 10));
+        const todayRecordings = all.filter(a => new Date(a.created_at) >= todayStart);
+        setTodayCount(todayRecordings.length);
+      });
+  }, [user, result]);
 
   useEffect(() => {
     return () => {
@@ -76,13 +93,19 @@ const PerformanceAdvisor = () => {
       toast({ title: "Selecione uma categoria", variant: "destructive" });
       return;
     }
+    if (todayCount >= MAX_DAILY_RECORDINGS) {
+      toast({ title: "Limite diário atingido", description: `Máximo de ${MAX_DAILY_RECORDINGS} gravações por dia.`, variant: "destructive" });
+      return;
+    }
     setError(null);
     setResult(null);
+    setAudioBlob(null);
 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
-      const recorder = new MediaRecorder(stream);
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : 'audio/webm';
+      const recorder = new MediaRecorder(stream, { mimeType });
       mediaRecorderRef.current = recorder;
       chunksRef.current = [];
 
@@ -90,20 +113,35 @@ const PerformanceAdvisor = () => {
         if (e.data.size > 0) chunksRef.current.push(e.data);
       };
 
-      recorder.onstop = async () => {
+      recorder.onstop = () => {
         stream.getTracks().forEach((t) => t.stop());
-        const blob = new Blob(chunksRef.current, { type: "audio/webm" });
-        await analyzeAudio(blob);
+        try {
+          const blob = new Blob(chunksRef.current, { type: recorder.mimeType || "audio/webm" });
+          setAudioBlob(blob);
+        } catch (e) {
+          console.error("Error creating audio blob:", e);
+          toast({ title: "Erro ao processar áudio", variant: "destructive" });
+        }
       };
 
-      recorder.start();
+      recorder.onerror = (event: any) => {
+        console.error("MediaRecorder error:", event?.error);
+        stream.getTracks().forEach((t) => t.stop());
+        setIsRecording(false);
+        if (timerRef.current) clearInterval(timerRef.current);
+        toast({ title: "Erro na gravação", variant: "destructive" });
+      };
+
+      recorder.start(1000);
       setIsRecording(true);
       setRecordingTime(0);
 
       timerRef.current = setInterval(() => {
         setRecordingTime((prev) => {
           if (prev >= MAX_RECORDING_TIME - 1) {
-            recorder.stop();
+            if (mediaRecorderRef.current?.state === "recording") {
+              mediaRecorderRef.current.stop();
+            }
             setIsRecording(false);
             if (timerRef.current) clearInterval(timerRef.current);
             return MAX_RECORDING_TIME;
@@ -114,21 +152,24 @@ const PerformanceAdvisor = () => {
     } catch {
       toast({ title: "Permita o acesso ao microfone", variant: "destructive" });
     }
-  }, [selectedCategory, toast]);
+  }, [selectedCategory, toast, todayCount]);
 
   const stopRecording = useCallback(() => {
-    mediaRecorderRef.current?.stop();
+    if (mediaRecorderRef.current?.state === "recording") {
+      mediaRecorderRef.current.stop();
+    }
     setIsRecording(false);
     if (timerRef.current) clearInterval(timerRef.current);
   }, []);
 
-  const analyzeAudio = async (blob: Blob) => {
+  const analyzeAudio = async () => {
+    if (!audioBlob) return;
     setIsAnalyzing(true);
     setError(null);
 
     try {
       const formData = new FormData();
-      formData.append("audio", blob, "performance.webm");
+      formData.append("audio", audioBlob, "performance.webm");
       formData.append("category", selectedCategory!);
 
       const { data, error: fnError } = await supabase.functions.invoke("performance-advisor", {
@@ -145,6 +186,7 @@ const PerformanceAdvisor = () => {
       }
 
       setResult(data as AdviceResult);
+      setAudioBlob(null);
     } catch (err: any) {
       setError(err?.message || "Erro ao analisar áudio");
     } finally {
@@ -157,6 +199,7 @@ const PerformanceAdvisor = () => {
     setError(null);
     setRecordingTime(0);
     setSelectedCategory(null);
+    setAudioBlob(null);
   };
 
   const emotionLabels: Record<string, string> = {
@@ -170,6 +213,8 @@ const PerformanceAdvisor = () => {
     determinação: "Determinação",
     frustração: "Frustração",
   };
+
+  const dailyLimitReached = todayCount >= MAX_DAILY_RECORDINGS;
 
   return (
     <div className="min-h-screen bg-background noise">
@@ -187,6 +232,15 @@ const PerformanceAdvisor = () => {
       </nav>
 
       <div className="container mx-auto px-4 py-8 max-w-lg">
+        {/* Daily limit info */}
+        <div className="flex items-start gap-2 rounded-xl bg-card/30 border border-white/[0.04] p-3 mb-6">
+          <Info className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+          <p className="text-xs text-muted-foreground">
+            <span className="font-semibold text-foreground">{todayCount}/{MAX_DAILY_RECORDINGS}</span> gravações hoje. 
+            Limite de {MAX_DAILY_RECORDINGS} por dia. Os registros são excluídos automaticamente ao final do dia.
+          </p>
+        </div>
+
         {/* Result View */}
         {result ? (
           <div className="space-y-6 animate-in fade-in duration-500">
@@ -298,6 +352,37 @@ const PerformanceAdvisor = () => {
                   <Loader2 className="h-12 w-12 text-primary animate-spin mx-auto" />
                   <p className="text-sm text-muted-foreground">Analisando tom vocal e gerando conselho...</p>
                 </div>
+              ) : audioBlob && !isRecording ? (
+                /* Audio preview with listen/re-record */
+                <div className="space-y-4">
+                  <p className="text-sm text-primary font-medium">✓ Áudio gravado com sucesso!</p>
+
+                  {audioUrl && (
+                    <div className="bg-secondary/30 border border-border rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1.5">
+                        <Play className="h-3.5 w-3.5" />
+                        Ouça seu áudio antes de enviar:
+                      </p>
+                      <audio src={audioUrl} controls className="w-full h-10" />
+                    </div>
+                  )}
+
+                  <div className="flex gap-3">
+                    <Button
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => {
+                        setAudioBlob(null);
+                        setRecordingTime(0);
+                      }}
+                    >
+                      Regravar
+                    </Button>
+                    <Button variant="cyan" className="flex-1" onClick={analyzeAudio}>
+                      Confirmar e Analisar
+                    </Button>
+                  </div>
+                </div>
               ) : (
                 <>
                   <p className="text-sm text-muted-foreground mb-6">
@@ -320,10 +405,10 @@ const PerformanceAdvisor = () => {
                       size="xl"
                       className="w-full max-w-xs mx-auto"
                       onClick={startRecording}
-                      disabled={!selectedCategory}
+                      disabled={!selectedCategory || dailyLimitReached}
                     >
                       <Mic className="h-5 w-5" />
-                      Gravar Áudio
+                      {dailyLimitReached ? "Limite Diário Atingido" : "Gravar Áudio"}
                     </Button>
                   ) : (
                     <Button

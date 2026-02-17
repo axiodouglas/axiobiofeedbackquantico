@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Mic, Square, ArrowLeft, Play, AlertTriangle, Clock, FileText } from "lucide-react";
 import { AreaDiagnosisList } from "@/components/AreaReportsList";
-import SomatizationBodyMap from "@/components/SomatizationBodyMap";
+
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useAxioAnalysis } from "@/hooks/use-axio-analysis";
@@ -79,7 +79,7 @@ const Recording = () => {
 
   // Fetch past diagnoses and last diagnosis result for somatization
   const [areaDiagnoses, setAreaDiagnoses] = useState<{ id: string; area: string; created_at: string }[]>([]);
-  const [lastSomatizationMap, setLastSomatizationMap] = useState<any[] | null>(null);
+  
 
   useEffect(() => {
     if (!user) return;
@@ -92,12 +92,6 @@ const Recording = () => {
       .limit(10)
       .then(({ data }) => {
         setAreaDiagnoses((data ?? []).map(d => ({ id: d.id, area: d.area, created_at: d.created_at })));
-        // Extract somatization from latest diagnosis
-        const latest = data?.[0];
-        const dr = latest?.diagnosis_result as any;
-        if (dr?.somatization_map) {
-          setLastSomatizationMap(dr.somatization_map);
-        }
       });
   }, [user, area]);
 
@@ -406,12 +400,6 @@ const Recording = () => {
             </div>
           )}
 
-          {/* Somatization from last diagnosis */}
-          {lastSomatizationMap && lastSomatizationMap.length > 0 && (
-            <div className="mt-6 bg-card border border-border rounded-2xl p-6">
-              <SomatizationBodyMap somatizationMap={lastSomatizationMap} />
-            </div>
-          )}
 
         </div>
       </div>

@@ -12,7 +12,7 @@ interface MeditationScriptProps {
 }
 
 function generateMeditationScript(userName: string, dr: any): string {
-  const name = userName || "Querido(a)";
+  const name = userName || "Querido (Diga seu nome)";
   const blocks = (dr?.blocks || []).map((b: any) => b.name);
   const traumas = blocks.length > 0 ? blocks.join(", ") : "dores do passado";
   const sentiments = (dr?.predominant_sentiments || []).map((s: any) => s.name);
