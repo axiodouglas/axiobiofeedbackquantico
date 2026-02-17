@@ -4,7 +4,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 const BLOCKED_KEYWORDS = [
@@ -21,7 +21,7 @@ function containsBlockedContent(text: string): boolean {
   return BLOCKED_KEYWORDS.some((kw) => lower.includes(kw));
 }
 
-const VALID_CATEGORIES = ["trabalho", "reunioes", "relacionamentos"];
+const VALID_CATEGORIES = ["trabalho", "relacionamentos", "outros"];
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -160,9 +160,9 @@ serve(async (req) => {
     }
 
     const categoryLabels: Record<string, string> = {
-      trabalho: "Trabalho e Produtividade",
-      reunioes: "Reuniões e Comunicação",
+      trabalho: "Trabalho, Produtividade e Reuniões",
       relacionamentos: "Relacionamentos Interpessoais",
+      outros: "Outros Contextos de Performance",
     };
 
     // Generate advice based on voice tone + content
