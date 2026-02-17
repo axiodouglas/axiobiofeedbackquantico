@@ -84,10 +84,10 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
                   }}
                 >
                   <div
-                    className="h-3 w-3 rounded-full shadow-lg"
+                    className="h-3.5 w-3.5 rounded-full"
                     style={{
-                      backgroundColor: color,
-                      boxShadow: `0 0 8px 3px ${color}`,
+                      backgroundColor: "rgba(255,255,255,0.85)",
+                      boxShadow: `0 0 12px 6px ${color}, 0 0 24px 10px ${color}, 0 0 4px 2px rgba(255,255,255,0.9)`,
                     }}
                   />
                   {isCritical && (
