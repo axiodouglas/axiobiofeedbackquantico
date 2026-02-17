@@ -27,6 +27,7 @@ const ProtectedRoute = ({ children, requirePremium = false }: ProtectedRouteProp
     check();
   }, [user, requirePremium]);
 
+  // Wait for auth AND profile to load before making premium decisions
   if (loading || (requirePremium && isAdmin === null)) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -39,8 +40,17 @@ const ProtectedRoute = ({ children, requirePremium = false }: ProtectedRouteProp
     return <Navigate to="/auth" replace />;
   }
 
+  // If we require premium, wait for profile to be loaded before redirecting
+  if (requirePremium && profile === null) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Sparkles className="h-8 w-8 text-primary animate-pulse" />
+      </div>
+    );
+  }
+
   if (requirePremium && !profile?.is_premium && !isAdmin) {
-    return <Navigate to="/checkout" replace />;
+    return <Navigate to="/planos" replace />;
   }
 
   return <>{children}</>;

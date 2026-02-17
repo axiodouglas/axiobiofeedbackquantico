@@ -12,7 +12,7 @@ import Auth from "./pages/Auth";
 import Recording from "./pages/Recording";
 import Processing from "./pages/Processing";
 import Report from "./pages/Report";
-import Checkout from "./pages/Checkout";
+
 import AreaSelection from "./pages/AreaSelection";
 import HowItWorks from "./pages/HowItWorks";
 import Community from "./pages/Community";
@@ -48,7 +48,7 @@ const App = () => (
               <Route path="/recording" element={<ProtectedRoute><Recording /></ProtectedRoute>} />
               <Route path="/processing" element={<Processing />} />
               <Route path="/report" element={<Report />} />
-              <Route path="/checkout" element={<Checkout />} />
+              
               <Route path="/area-selection" element={<AreaSelection />} />
               <Route path="/como-funciona" element={<HowItWorks />} />
               <Route path="/community" element={
