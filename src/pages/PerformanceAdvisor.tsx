@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+import { PerformanceAdviceList } from "@/components/AreaReportsList";
 
 const MAX_RECORDING_TIME = 10;
 
@@ -49,6 +50,19 @@ const PerformanceAdvisor = () => {
   const streamRef = useRef<MediaStream | null>(null);
 
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
+
+  const [pastAdvices, setPastAdvices] = useState<{ id: string; category: string; created_at: string }[]>([]);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("performance_advices")
+      .select("id, category, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(10)
+      .then(({ data }) => setPastAdvices(data ?? []));
+  }, [user]);
 
   useEffect(() => {
     return () => {
@@ -342,6 +356,14 @@ const PerformanceAdvisor = () => {
                 Este recurso possui filtro de segurança. Menções a violência, drogas ou atividades ilícitas serão bloqueadas automaticamente.
               </p>
             </div>
+          </div>
+        )}
+
+        {/* Past advices */}
+        {pastAdvices.length > 0 && (
+          <div className="mt-6">
+            <h3 className="font-semibold text-foreground mb-2 text-sm">Relatórios anteriores</h3>
+            <PerformanceAdviceList advices={pastAdvices} />
           </div>
         )}
       </div>
