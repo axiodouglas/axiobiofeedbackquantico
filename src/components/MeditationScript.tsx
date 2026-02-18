@@ -102,6 +102,12 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
     a.href = audioUrl;
     a.download = `meditacao-axio-${new Date().toISOString().slice(0, 10)}.mp3`;
     a.click();
+    // Libera o blob da memória após o download ser iniciado
+    setTimeout(() => {
+      URL.revokeObjectURL(audioUrl);
+      setAudioUrl(null);
+      setRecordingTime(0);
+    }, 1000);
   };
 
   // saveToProfile removed — only Download and Regravar available
