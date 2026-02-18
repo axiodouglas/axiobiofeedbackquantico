@@ -195,12 +195,7 @@ const Index = () => {
         <div className="max-w-lg mx-auto flex flex-col gap-4">
           {/* Crenças Limitantes - Central Card */}
           <div
-            className={`group relative overflow-hidden rounded-2xl border bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${
-              isLocked
-                ? "border-primary/20 opacity-70"
-                : "border-primary/30 hover:border-primary/60 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.2)] hover:scale-[1.01]"
-            }`}
-            onClick={handleDiagnosis}
+            className="group relative overflow-hidden rounded-2xl border border-primary/30 bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 p-6"
           >
             {isLocked && (
               <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary/20 px-2 py-0.5 z-20">
@@ -214,22 +209,37 @@ const Index = () => {
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
               </div>
             )}
-            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-14 w-14 shrink-0">
-              <Brain className="h-7 w-7" />
+            <div className="flex items-start gap-4">
+              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-14 w-14 shrink-0">
+                <Brain className="h-7 w-7" />
+              </div>
+              <div>
+                <h3 className="font-bold text-foreground text-xl leading-tight">Crenças Limitantes</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Diagnóstico completo: Mãe, Pai, Traumas e Relacionamentos em uma única análise
+                </p>
+              </div>
             </div>
-            <div className="relative z-10">
-              <h3 className="font-bold text-foreground text-xl leading-tight">Crenças Limitantes</h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                {isLocked
-                  ? `Protocolo ativo. Foque na meditação por mais ${daysRemaining} dia(s).`
-                  : "Diagnóstico completo: Mãe, Pai, Traumas e Relacionamentos em uma única análise"
-                }
-              </p>
-              {!isPremium && !freeDiagnosisUsed && (
-                <span className="inline-block mt-1.5 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
-                  1ª Análise Gratuita
-                </span>
-              )}
+            <div className="flex gap-2 mt-4">
+              <Button
+                variant="cyan"
+                size="sm"
+                className="flex-1"
+                onClick={handleDiagnosis}
+                disabled={isLocked}
+              >
+                <Mic className="h-3.5 w-3.5" />
+                {isLocked ? `Aguarde ${daysRemaining}d` : !isPremium && !freeDiagnosisUsed ? "Análise Gratuita" : "Novo Diagnóstico"}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex-1"
+                onClick={() => navigate("/meus-relatorios")}
+              >
+                <Eye className="h-3.5 w-3.5" />
+                Ver Relatórios
+              </Button>
             </div>
           </div>
 
