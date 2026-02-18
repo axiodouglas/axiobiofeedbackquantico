@@ -31,7 +31,7 @@ const BODY_REGIONS: Record<string, { label: string; x: number; y: number }> = {
 function getIntensityColor(intensity: number): string {
   if (intensity >= 70) return "hsl(260, 60%, 65%)";
   if (intensity >= 40) return "hsl(175, 70%, 50%)";
-  return "hsl(210, 50%, 55%)";
+  return "hsl(175, 50%, 45%)";
 }
 
 function getIntensityLabel(intensity: number): string {
