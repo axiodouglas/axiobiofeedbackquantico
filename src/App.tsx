@@ -62,7 +62,7 @@ const App = () => (
               <Route path="/meus-relatorios/:date" element={<ReportsByDate />} />
               <Route path="/meditation-structure" element={<MeditationStructure />} />
               <Route path="/oraculo" element={
-                <ProtectedRoute requirePremium>
+                <ProtectedRoute requireFullPlan>
                   <Oracle />
                 </ProtectedRoute>
               } />
@@ -72,12 +72,12 @@ const App = () => (
               <Route path="/venda-oficial" element={<SalesErrorBoundary><VendaOficial /></SalesErrorBoundary>} />
               <Route path="/convite" element={<Convite />} />
               <Route path="/conselheiro" element={
-                <ProtectedRoute requirePremium>
+                <ProtectedRoute requireFullPlan>
                   <PerformanceAdvisor />
                 </ProtectedRoute>
               } />
               <Route path="/conselheiro/:id" element={
-                <ProtectedRoute requirePremium>
+                <ProtectedRoute requireFullPlan>
                   <PerformanceAdviceDetail />
                 </ProtectedRoute>
               } />

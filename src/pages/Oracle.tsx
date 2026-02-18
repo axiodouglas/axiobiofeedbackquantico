@@ -1,34 +1,58 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Send } from "lucide-react";
+import { ArrowLeft, Send, AlertTriangle } from "lucide-react";
 import oracleBg from "@/assets/oracle-bg.jpg";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import UserMenu from "@/components/UserMenu";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/oracle-chat`;
-
+const MAX_DAILY_QUESTIONS = 1;
 
 const Oracle = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const sendingRef = useRef(false);
   const [userDiagnoses, setUserDiagnoses] = useState<any[]>([]);
+  const [todayQuestions, setTodayQuestions] = useState(0);
+  const [dailyLimitReached, setDailyLimitReached] = useState(false);
+
+  // Track daily usage via localStorage
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    const key = `oracle_usage_${user?.id}_${today}`;
+    const count = parseInt(localStorage.getItem(key) || "0", 10);
+    setTodayQuestions(count);
+    setDailyLimitReached(count >= MAX_DAILY_QUESTIONS);
+  }, [user]);
+
+  const incrementDailyUsage = () => {
+    const today = new Date().toISOString().slice(0, 10);
+    const key = `oracle_usage_${user?.id}_${today}`;
+    const newCount = todayQuestions + 1;
+    localStorage.setItem(key, newCount.toString());
+    setTodayQuestions(newCount);
+    if (newCount >= MAX_DAILY_QUESTIONS) {
+      setDailyLimitReached(true);
+    }
+  };
 
   useEffect(() => {
     const fetchDiagnoses = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) return;
       const { data } = await supabase
         .from("diagnoses")
         .select("area, frequency_score, diagnosis_result")
-        .eq("user_id", user.id)
+        .eq("user_id", authUser.id)
         .order("created_at", { ascending: false })
         .limit(10);
       if (data) setUserDiagnoses(data);
@@ -43,6 +67,9 @@ const Oracle = () => {
   const send = async () => {
     const text = input.trim();
     if (!text || isLoading || sendingRef.current) return;
+
+    if (dailyLimitReached) return;
+
     sendingRef.current = true;
     setInput("");
     const userMsg: Msg = { role: "user", content: text };
@@ -106,10 +133,13 @@ const Oracle = () => {
               });
             }
           } catch {
-            // Skip malformed SSE lines instead of re-buffering (prevents infinite loop)
+            // Skip malformed SSE lines
           }
         }
       }
+
+      // Increment daily usage after successful response
+      incrementDailyUsage();
     } catch (e: any) {
       setMessages((prev) => [
         ...prev,
@@ -145,7 +175,10 @@ const Oracle = () => {
             <div className="text-center mt-auto mb-4 space-y-2">
               <p className="text-foreground font-semibold text-base">Tire suas dúvidas sobre crenças e comportamento</p>
               <p className="text-muted-foreground text-xs max-w-sm mx-auto leading-relaxed">
-                Sou especialista em crenças limitantes, somatização, PNL e neurociência comportamental. Pergunte sobre como suas crenças afetam seu corpo, seus relacionamentos e sua vida. Para gerar diagnósticos, comandos e meditações, grave um áudio nos pilares.
+                Sou especialista em crenças limitantes, somatização, PNL e neurociência comportamental. Pergunte sobre como suas crenças afetam seu corpo, seus relacionamentos e sua vida.
+              </p>
+              <p className="text-xs text-primary font-medium mt-2">
+                Limite: {MAX_DAILY_QUESTIONS} pergunta por dia • {todayQuestions}/{MAX_DAILY_QUESTIONS} utilizada(s) hoje
               </p>
             </div>
           )}
@@ -172,6 +205,14 @@ const Oracle = () => {
         </div>
 
         <div className="w-full max-w-2xl mx-auto px-4 pb-6 pt-2 shrink-0">
+          {dailyLimitReached && (
+            <div className="flex items-center gap-2 rounded-xl bg-primary/5 border border-primary/20 p-3 mb-3">
+              <AlertTriangle className="h-4 w-4 text-primary shrink-0" />
+              <p className="text-xs text-muted-foreground">
+                Limite diário atingido. Volte amanhã para uma nova pergunta.
+              </p>
+            </div>
+          )}
           <div className="flex gap-2 items-end">
             <Textarea
               value={input}
@@ -179,15 +220,16 @@ const Oracle = () => {
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
               }}
-              placeholder="Pergunte sobre crenças, somatização, PNL..."
+              placeholder={dailyLimitReached ? "Limite diário atingido" : "Pergunte sobre crenças, somatização, PNL..."}
               className="min-h-[48px] max-h-[120px] resize-none bg-card/40 backdrop-blur-md border-border/50 focus:border-primary/50 text-sm placeholder:text-muted-foreground/60"
               rows={1}
+              disabled={dailyLimitReached}
             />
             <Button
               variant="cyan"
               size="icon"
               onClick={send}
-              disabled={isLoading || !input.trim()}
+              disabled={isLoading || !input.trim() || dailyLimitReached}
               className="shrink-0 h-12 w-12 animate-glow"
             >
               <Send className="h-5 w-5" />

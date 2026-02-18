@@ -12,19 +12,20 @@ import { useAreaLock } from "@/hooks/use-area-lock";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-const MAX_RECORDING_TIME = 180;
+const MAX_RECORDING_TIME = 120;
 const MAX_AUDIO_SIZE_MB = 10;
-const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento"];
+const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento", "crencas_limitantes"];
 
 const areaNames: Record<string, string> = {
   pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamento: "Relacionamentos",
+  crencas_limitantes: "Crenças Limitantes",
 };
 
 const Recording = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const rawArea = searchParams.get("area") || "pai";
-  const area = VALID_AREAS.includes(rawArea) ? rawArea : "pai";
+  const rawArea = searchParams.get("area") || "crencas_limitantes";
+  const area = VALID_AREAS.includes(rawArea) ? rawArea : "crencas_limitantes";
 
   const { user, profile, loading: authLoading } = useAuth();
   const { freeDiagnosisUsed, loading: freeLoading } = useFreeDiagnosisUsed(user?.id);
@@ -73,13 +74,9 @@ const Recording = () => {
     };
   }, []);
 
-  // Gate: non-premium users can only record "mae" and only once
-  // Premium users: 7-day area lock just disables the button (no redirect)
   const isAreaLocked = isPremium && !isAdmin && lockedAreas[area]?.locked;
 
-  // Fetch past diagnoses and last diagnosis result for somatization
   const [areaDiagnoses, setAreaDiagnoses] = useState<{ id: string; area: string; created_at: string }[]>([]);
-  
 
   useEffect(() => {
     if (!user) return;
@@ -96,38 +93,23 @@ const Recording = () => {
   }, [user, area]);
 
   useEffect(() => {
-    // Only check access once on initial load — never redirect mid-recording
     if (accessChecked) return;
     if (authLoading || freeLoading || lockLoading || adminLoading) return;
-
-    // Mark as checked so we never run this redirect logic again
     setAccessChecked(true);
 
-    if (isPremium || isAdmin) return; // premium/admin can do anything
-
-    // Non-premium trying to access non-mae area
-    if (area !== "mae") {
-      toast({
-        title: "Acesso restrito",
-        description: "Assine um plano para liberar todos os pilares.",
-        variant: "destructive",
-      });
-      navigate("/planos", { replace: true });
-      return;
-    }
+    if (isPremium || isAdmin) return;
 
     // Non-premium already used free diagnosis
     if (freeDiagnosisUsed) {
       toast({
         title: "Diagnóstico gratuito já utilizado",
-        description: "Você já utilizou seu diagnóstico gratuito. Assine um plano para liberar todos os pilares.",
+        description: "Você já utilizou seu diagnóstico gratuito. Assine um plano para continuar.",
         variant: "destructive",
       });
       navigate("/planos", { replace: true });
     }
   }, [authLoading, freeLoading, lockLoading, adminLoading, isPremium, isAdmin, area, freeDiagnosisUsed, navigate, toast, accessChecked]);
 
-  // Show loading while checks resolve
   if (authLoading || freeLoading || lockLoading || adminLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -270,21 +252,21 @@ const Recording = () => {
         <div className="max-w-md w-full text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2">
             <span className="text-sm font-medium text-primary">
-              Diagnóstico {areaNames[area]}
+              {areaNames[area] || "Crenças Limitantes"}
             </span>
           </div>
 
           <h1 className="text-3xl font-bold mb-4 text-foreground">Grave seu Áudio</h1>
           <p className="text-muted-foreground mb-8">
-            Fale sobre sua situação atual na área {areaNames[area]?.toLowerCase()}.
-            O que você sente? Quais são seus desafios?
+            Fale sobre seus sentimentos, bloqueios e padrões que percebe em relação à sua mãe, pai, traumas e relacionamentos. 
+            O que te limita? O que se repete na sua vida?
           </p>
 
           <div className="bg-card border border-border rounded-2xl p-8 mb-6">
             <div className="text-5xl font-mono font-bold text-foreground mb-4">
               {formatTime(recordingTime)}
             </div>
-            <div className="text-sm text-muted-foreground mb-6">Máximo: 3 minutos</div>
+            <div className="text-sm text-muted-foreground mb-6">Máximo: 2 minutos</div>
 
             <div className="mb-8">
               <Progress value={progressPercent} className="h-2" />
@@ -294,7 +276,7 @@ const Recording = () => {
               <div className="flex items-center gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 mb-4 text-left">
                 <Clock className="h-5 w-5 text-primary shrink-0" />
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Pilar em protocolo. Aguarde mais <span className="font-semibold text-primary">{lockedAreas[area]?.daysRemaining} dia(s)</span> para regravar. O protocolo de 7 dias garante a neuroplasticidade.
+                  Protocolo ativo. Aguarde mais <span className="font-semibold text-primary">{lockedAreas[area]?.daysRemaining} dia(s)</span> para regravar. Foque na sua meditação atual.
                 </p>
               </div>
             )}
@@ -328,23 +310,21 @@ const Recording = () => {
                 )}
 
                 {!confirmed && !isUploading && !isAnalyzing && (
-                  <>
-                    <div className="flex gap-3">
-                      <Button
-                        variant="outline"
-                        className="flex-1"
-                        onClick={() => {
-                          setAudioBlob(null);
-                          setRecordingTime(0);
-                        }}
-                      >
-                        Regravar
-                      </Button>
-                      <Button variant="cyan" className="flex-1" onClick={() => setConfirmed(true)}>
-                        Confirmar e Gerar Relatório
-                      </Button>
-                    </div>
-                  </>
+                  <div className="flex gap-3">
+                    <Button
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => {
+                        setAudioBlob(null);
+                        setRecordingTime(0);
+                      }}
+                    >
+                      Regravar
+                    </Button>
+                    <Button variant="cyan" className="flex-1" onClick={() => setConfirmed(true)}>
+                      Confirmar e Gerar Relatório
+                    </Button>
+                  </div>
                 )}
 
                 {confirmed && !isUploading && !isAnalyzing && (
@@ -376,7 +356,7 @@ const Recording = () => {
           <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 mb-4">
             <p className="text-sm font-semibold text-primary mb-1">⚠️ IMPORTANTE</p>
             <p className="text-sm text-foreground leading-relaxed">
-              Seja o mais detalhista possível. Fale sobre sentimentos, memórias e fatos.{" "}
+              Seja o mais detalhista possível. Fale sobre sentimentos, memórias e fatos sobre sua mãe, pai, traumas e relacionamentos.{" "}
               <strong className="text-primary">Grave em silêncio absoluto, sem música de fundo.</strong>{" "}
               Sua voz é o único comando e autoridade sobre seu corpo.
             </p>
@@ -386,21 +366,18 @@ const Recording = () => {
             <h3 className="font-semibold text-foreground mb-2">Dicas para um bom diagnóstico:</h3>
             <ul className="text-sm text-muted-foreground space-y-1">
               <li>• Fale em um ambiente silencioso</li>
+              <li>• Aborde todos os pilares: mãe, pai, traumas e relacionamentos</li>
               <li>• Seja honesto sobre seus sentimentos</li>
               <li>• Descreva situações específicas</li>
-              <li>• Não se preocupe com a perfeição</li>
             </ul>
           </div>
 
-          {/* Past reports for this area */}
           {areaDiagnoses.length > 0 && (
             <div className="mt-6">
               <h3 className="font-semibold text-foreground mb-2 text-sm">Relatórios anteriores</h3>
               <AreaDiagnosisList diagnoses={areaDiagnoses} />
             </div>
           )}
-
-
         </div>
       </div>
     </div>

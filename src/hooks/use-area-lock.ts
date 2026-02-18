@@ -12,12 +12,13 @@ interface AreaLockState {
   loading: boolean;
 }
 
+const LOCK_DAYS = 21;
+
 export function useAreaLock(userId: string | undefined, isAdmin: boolean = false): AreaLockState {
   const [lockedAreas, setLockedAreas] = useState<Record<string, AreaLockInfo>>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Admins bypass all locks
     if (isAdmin) {
       setLockedAreas({});
       setLoading(false);
@@ -42,17 +43,17 @@ export function useAreaLock(userId: string | undefined, isAdmin: boolean = false
         return;
       }
 
-      const areas = ["mae", "pai", "traumas", "relacionamento"];
+      const areas = ["mae", "pai", "traumas", "relacionamento", "crencas_limitantes"];
       const locks: Record<string, AreaLockInfo> = {};
 
       for (const area of areas) {
         const latest = diagnoses.find((d) => d.area === area);
         if (latest) {
           const daysSince = differenceInDays(new Date(), new Date(latest.created_at));
-          if (daysSince < 7) {
+          if (daysSince < LOCK_DAYS) {
             locks[area] = {
               locked: true,
-              daysRemaining: 7 - daysSince,
+              daysRemaining: LOCK_DAYS - daysSince,
             };
           }
         }

@@ -23,7 +23,7 @@ function isRateLimited(ip: string): boolean {
   return entry.count > RATE_LIMIT_MAX;
 }
 
-const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento"];
+const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento", "crencas_limitantes"];
 const MAX_AUDIO_SIZE_BYTES = 10 * 1024 * 1024; // 10MB
 
 serve(async (req) => {

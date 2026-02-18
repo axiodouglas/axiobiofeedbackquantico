@@ -1,23 +1,20 @@
 import { useState, useEffect } from "react";
-import { Heart, UserCheck, Flame, Mic, Brain, MessageSquare, Moon, HeartHandshake, Eye, Lock, Crown, Sparkles, BarChart3 } from "lucide-react";
+import { Brain, Mic, MessageSquare, Moon, Eye, Lock, Crown, Sparkles, BarChart3, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AreaCard } from "@/components/AreaCard";
 import UserMenu from "@/components/UserMenu";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
+import { useAreaLock } from "@/hooks/use-area-lock";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import axioLogoX from "@/assets/axio-logo-x.png";
 
-
-
 const Index = () => {
   const navigate = useNavigate();
   const { user, profile, loading, refreshProfile } = useAuth();
 
-  // Force profile refresh on every app open
   useEffect(() => {
     if (user) refreshProfile();
   }, [user]);
@@ -39,87 +36,36 @@ const Index = () => {
   }, [user]);
 
   const isPremium = isAdmin || (profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date()));
+  const isFullAccess = isAdmin || (isPremium && (profile?.subscription_type === "trimestral" || profile?.subscription_type === "semestral"));
 
+  const { lockedAreas } = useAreaLock(user?.id, isAdmin);
+  const isLocked = lockedAreas["crencas_limitantes"]?.locked;
+  const daysRemaining = lockedAreas["crencas_limitantes"]?.daysRemaining;
 
-  const handleFreeArea = () => {
+  const handleDiagnosis = () => {
     if (!user) {
       navigate("/auth");
+      return;
+    }
+    if (isLocked) {
+      toast({
+        title: "Protocolo ativo",
+        description: `Aguarde ${daysRemaining} dia(s) para realizar um novo diagnóstico. Foque na sua meditação atual.`,
+        variant: "destructive",
+      });
       return;
     }
     if (!isPremium && freeDiagnosisUsed) {
       toast({
         title: "Diagnóstico cortesia já utilizado",
-        description: "Você já utilizou seu diagnóstico cortesia. Assine um plano para liberar todos os pilares.",
+        description: "Você já utilizou seu diagnóstico gratuito. Assine um plano para continuar.",
         variant: "destructive",
       });
       navigate("/planos");
       return;
     }
-    navigate("/recording?area=mae");
+    navigate("/recording?area=crencas_limitantes");
   };
-
-  const handlePremiumArea = (area: string) => {
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
-    if (!isPremium) {
-      if (freeDiagnosisUsed) {
-        toast({
-          title: "Diagnóstico cortesia já utilizado",
-          description: "Você já utilizou seu diagnóstico cortesia. Assine um plano para liberar todos os pilares.",
-          variant: "destructive",
-        });
-      }
-      navigate("/planos");
-      return;
-    }
-    navigate(`/recording?area=${area}`);
-  };
-
-  const areas = [
-    {
-      title: "Mãe",
-      areaKey: "mae",
-      description: "Bloqueios na relação materna",
-      icon: <Heart className="h-5 w-5" />,
-      iconColor: "bg-axio-relationship/20 text-axio-relationship",
-      isPremium: false,
-      isLocked: !isPremium && freeDiagnosisUsed,
-      badge: isPremium ? undefined : freeDiagnosisUsed ? "Já utilizado" : "Gratuito",
-      onClick: handleFreeArea,
-    },
-    {
-      title: "Pai",
-      areaKey: "pai",
-      description: "Força paterna e ação no mundo",
-      icon: <UserCheck className="h-5 w-5" />,
-      iconColor: "bg-primary/20 text-primary",
-      isPremium: !isPremium,
-      isLocked: !isPremium,
-      onClick: () => handlePremiumArea("pai"),
-    },
-    {
-      title: "Traumas",
-      areaKey: "traumas",
-      description: "Perdas, abusos e eventos externos",
-      icon: <Flame className="h-5 w-5" />,
-      iconColor: "bg-axio-family/20 text-axio-family",
-      isPremium: !isPremium,
-      isLocked: !isPremium,
-      onClick: () => handlePremiumArea("traumas"),
-    },
-    {
-      title: "Relacionamentos",
-      areaKey: "relacionamento",
-      description: "Projeções dos seus traumas nas pessoas",
-      icon: <HeartHandshake className="h-5 w-5" />,
-      iconColor: "bg-axio-relationship/20 text-axio-relationship",
-      isPremium: !isPremium,
-      isLocked: !isPremium,
-      onClick: () => handlePremiumArea("relacionamento"),
-    },
-  ];
 
   if (loading) {
     return (
@@ -151,7 +97,7 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero Section with Glassmorphism */}
+      {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 w-full">
           <img
@@ -163,7 +109,6 @@ const Index = () => {
         </div>
 
         <div className="relative z-10 container mx-auto px-5 sm:px-8 pt-28 pb-16 sm:pt-32 sm:pb-20">
-          
           <div className="max-w-3xl mx-auto text-center bg-card/30 backdrop-blur-[10px] border border-white/[0.08] rounded-2xl px-6 py-10 sm:px-10 sm:py-14 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 tracking-tight px-2">
               <span className="text-foreground">Bem-vindo ao </span>
@@ -172,7 +117,6 @@ const Index = () => {
             <p className="text-sm sm:text-base text-muted-foreground font-medium tracking-wider mb-5">
               Análise do Fator X do Inconsciente de Origem
             </p>
-
             <p className="text-base sm:text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto mb-10 leading-relaxed px-2">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
               Descubra a raiz dos seus bloqueios e cure sua linhagem.
@@ -183,7 +127,7 @@ const Index = () => {
                 variant="cyan" 
                 size="lg" 
                 className="group transition-transform duration-200 hover:scale-[1.03] max-w-xs w-full"
-                onClick={handleFreeArea}
+                onClick={handleDiagnosis}
               >
                 <Mic className="h-4 w-4 transition-transform group-hover:scale-110" />
                 Iniciar Diagnóstico Gratuito
@@ -231,15 +175,12 @@ const Index = () => {
                 </feMerge>
               </filter>
             </defs>
-            {/* Wave 1 - main */}
             <path d="M0,60 Q75,20 150,60 T300,60 T450,60 T600,60" fill="none" stroke="url(#waveGrad)" strokeWidth="2.5" filter="url(#waveGlow)">
               <animate attributeName="d" dur="4s" repeatCount="indefinite" values="M0,60 Q75,20 150,60 T300,60 T450,60 T600,60;M0,60 Q75,100 150,60 T300,60 T450,60 T600,60;M0,60 Q75,20 150,60 T300,60 T450,60 T600,60" />
             </path>
-            {/* Wave 2 - counter */}
             <path d="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60" fill="none" stroke="url(#waveGrad2)" strokeWidth="2" filter="url(#waveGlow)">
               <animate attributeName="d" dur="5s" repeatCount="indefinite" values="M0,60 Q75,100 150,60 T300,60 T450,60 T600,60;M0,60 Q75,20 150,60 T300,60 T450,60 T600,60;M0,60 Q75,100 150,60 T300,60 T450,60 T600,60" />
             </path>
-            {/* Center glow */}
             <circle cx="300" cy="60" r="6" fill="hsl(175,70%,55%)" opacity="0.8" filter="url(#waveGlow)">
               <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.5;1;0.5" />
               <animate attributeName="r" dur="3s" repeatCount="indefinite" values="4;7;4" />
@@ -251,82 +192,96 @@ const Index = () => {
           </svg>
         </div>
 
-        <div className="mb-10 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">Os 4 Pilares da Crença</h2>
-          <p className="text-muted-foreground max-w-lg mx-auto text-sm leading-relaxed">
-            O método A.X.I.O. investiga as 4 raízes inconscientes que moldam seus padrões de vida: Mãe, Pai, Traumas e Relacionamentos. Através da análise vocal, identificamos os bloqueios emocionais de origem e geramos comandos quânticos personalizados para reprogramar sua linhagem.
-          </p>
-        </div>
-
         <div className="max-w-lg mx-auto flex flex-col gap-4">
-          <div className="grid grid-cols-2 gap-4">
-            {areas.map((area) => (
-              <AreaCard
-                key={area.title}
-                title={area.title}
-                description={area.description}
-                icon={area.icon}
-                iconColor={area.iconColor}
-                isPremium={area.isPremium}
-                isLocked={area.isLocked}
-                badge={area.badge}
-                onClick={area.onClick}
-                compact
-              />
-            ))}
-          </div>
-
-          <div className="flex flex-col gap-4 flex-1">
-            {/* Comunidade Card */}
-            <div
-              className={`flex-1 group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
-              onClick={() => isPremium ? navigate("/community") : navigate("/planos")}
-            >
-              {!isPremium && (
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
-                  <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
-                  <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
-                </div>
-              )}
-              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-                <MessageSquare className="h-6 w-6" />
+          {/* Crenças Limitantes - Central Card */}
+          <div
+            className={`group relative overflow-hidden rounded-2xl border bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${
+              isLocked
+                ? "border-primary/20 opacity-70"
+                : "border-primary/30 hover:border-primary/60 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.2)] hover:scale-[1.01]"
+            }`}
+            onClick={handleDiagnosis}
+          >
+            {isLocked && (
+              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary/20 px-2 py-0.5 z-20">
+                <Clock className="h-2.5 w-2.5 text-primary" />
+                <span className="text-[10px] font-semibold text-primary">{daysRemaining} dias</span>
               </div>
-              <div className="relative z-10">
-                <h3 className="font-bold text-foreground text-xl leading-tight">Comunidade</h3>
-                <p className="text-sm text-muted-foreground mt-0.5">Relatos de transformação</p>
+            )}
+            {!isPremium && freeDiagnosisUsed && (
+              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
               </div>
+            )}
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-14 w-14 shrink-0">
+              <Brain className="h-7 w-7" />
             </div>
-
-            {/* Meditação Card */}
-            <div
-              className={`flex-1 group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
-              onClick={() => isPremium ? navigate("/meditation-structure") : navigate("/planos")}
-            >
-              {!isPremium && (
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
-                  <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
-                  <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
-                </div>
+            <div className="relative z-10">
+              <h3 className="font-bold text-foreground text-xl leading-tight">Crenças Limitantes</h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                {isLocked
+                  ? `Protocolo ativo. Foque na meditação por mais ${daysRemaining} dia(s).`
+                  : "Diagnóstico completo: Mãe, Pai, Traumas e Relacionamentos em uma única análise"
+                }
+              </p>
+              {!isPremium && !freeDiagnosisUsed && (
+                <span className="inline-block mt-1.5 text-[10px] font-semibold bg-primary text-primary-foreground rounded-full px-2 py-0.5">
+                  1ª Análise Gratuita
+                </span>
               )}
-              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-                <Moon className="h-6 w-6" />
-              </div>
-              <div className="relative z-10">
-                <h3 className="font-bold text-foreground text-xl leading-tight">Entenda a Meditação A.X.I.O.</h3>
-                <p className="text-sm text-muted-foreground mt-0.5">5 etapas da reprogramação</p>
-              </div>
             </div>
           </div>
 
-          {/* Oráculo Card */}
+          {/* Comunidade Card */}
           <div
             className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
-            onClick={() => isPremium ? navigate("/oraculo") : navigate("/planos")}
+            onClick={() => isPremium ? navigate("/community") : navigate("/planos")}
           >
             {!isPremium && (
               <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
                 <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
+              </div>
+            )}
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
+              <MessageSquare className="h-6 w-6" />
+            </div>
+            <div className="relative z-10">
+              <h3 className="font-bold text-foreground text-xl leading-tight">Comunidade</h3>
+              <p className="text-sm text-muted-foreground mt-0.5">Relatos de transformação</p>
+            </div>
+          </div>
+
+          {/* Meditação Card */}
+          <div
+            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
+            onClick={() => isPremium ? navigate("/meditation-structure") : navigate("/planos")}
+          >
+            {!isPremium && (
+              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
+              </div>
+            )}
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
+              <Moon className="h-6 w-6" />
+            </div>
+            <div className="relative z-10">
+              <h3 className="font-bold text-foreground text-xl leading-tight">Entenda a Meditação A.X.I.O.</h3>
+              <p className="text-sm text-muted-foreground mt-0.5">5 etapas da reprogramação</p>
+            </div>
+          </div>
+
+          {/* Oráculo Card - Trimestral+ */}
+          <div
+            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isFullAccess ? 'opacity-80' : ''}`}
+            onClick={() => isFullAccess ? navigate("/oraculo") : navigate("/planos")}
+          >
+            {!isFullAccess && (
+              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Trimestral+</span>
               </div>
             )}
             <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
@@ -338,25 +293,23 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Conselheiro de Performance Card */}
-          <div>
-            <div
-              className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
-              onClick={() => isPremium ? navigate("/conselheiro") : navigate("/planos")}
-            >
-              {!isPremium && (
-                <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
-                  <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
-                  <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
-                </div>
-              )}
-              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-                <BarChart3 className="h-6 w-6" />
+          {/* Conselheiro de Performance Card - Trimestral+ */}
+          <div
+            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isFullAccess ? 'opacity-80' : ''}`}
+            onClick={() => isFullAccess ? navigate("/conselheiro") : navigate("/planos")}
+          >
+            {!isFullAccess && (
+              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
+                <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
+                <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Trimestral+</span>
               </div>
-              <div className="relative z-10">
-                <h3 className="font-bold text-foreground text-xl leading-tight">Conselheiro de Performance</h3>
-                <p className="text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
-              </div>
+            )}
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
+              <BarChart3 className="h-6 w-6" />
+            </div>
+            <div className="relative z-10">
+              <h3 className="font-bold text-foreground text-xl leading-tight">Conselheiro de Performance</h3>
+              <p className="text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
             </div>
           </div>
         </div>
