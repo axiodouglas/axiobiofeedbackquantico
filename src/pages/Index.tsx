@@ -231,15 +231,17 @@ const Index = () => {
                 <Mic className="h-3.5 w-3.5" />
                 {isLocked ? `Aguarde ${daysRemaining}d` : !isPremium && !freeDiagnosisUsed ? "Análise Gratuita" : "Novo Diagnóstico"}
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="flex-1"
-                onClick={() => navigate("/meus-relatorios")}
-              >
-                <Eye className="h-3.5 w-3.5" />
-                Ver Relatórios
-              </Button>
+              {user && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => navigate("/meus-relatorios")}
+                >
+                  <Eye className="h-3.5 w-3.5" />
+                  Ver Relatórios
+                </Button>
+              )}
             </div>
           </div>
 
