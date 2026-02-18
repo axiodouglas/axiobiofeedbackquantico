@@ -6,7 +6,7 @@ import { AreaCard } from "@/components/AreaCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Brain, Sparkles, Mic, AlertTriangle, DollarSign, Stethoscope, Users, Activity } from "lucide-react";
+import { ArrowLeft, Brain, Sparkles, Mic, AlertTriangle, DollarSign, Stethoscope, Users, Activity, Lock, Crown } from "lucide-react";
 import MeditationScript from "@/components/MeditationScript";
 import SomatizationBodyMap from "@/components/SomatizationBodyMap";
 import { format } from "date-fns";
@@ -17,9 +17,7 @@ const areaLabels: Record<string, string> = {
   mae: "Mãe",
   traumas: "Traumas",
   relacionamento: "Relacionamentos",
-  financeiro: "Financeiro",
-  saude: "Saúde",
-  familiar: "Familiar",
+  crencas_limitantes: "Crenças Limitantes",
 };
 
 interface DiagnosisData {
@@ -109,6 +107,12 @@ const DiagnosisDetail = () => {
     setActiveSection(activeSection === section ? null : section);
   };
 
+  // Free users see partial report (first half of blocks only)
+  const isPartial = !isPremium;
+  const visibleBlocks = isPartial && dr?.blocks?.length > 0
+    ? dr.blocks.slice(0, Math.ceil(dr.blocks.length / 2))
+    : dr?.blocks || [];
+
   return (
     <div className="min-h-screen bg-background noise">
       <nav className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur-md py-3">
@@ -127,10 +131,26 @@ const DiagnosisDetail = () => {
       </nav>
 
       <div className="container mx-auto px-4 py-8 max-w-3xl space-y-4">
-        {/* 3 AreaCards */}
+        {/* Partial report banner for free users */}
+        {isPartial && (
+          <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 flex items-start gap-3">
+            <Crown className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">Relatório Parcial</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Você está vendo apenas metade da análise. Assine um plano para acessar o relatório completo, meditação e comandos quânticos.
+              </p>
+              <Button variant="cyan" size="sm" className="mt-3" onClick={() => navigate("/planos")}>
+                <Crown className="h-3.5 w-3.5" /> Desbloquear Completo
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Relatório */}
         <AreaCard
-          title="Relatório A.X.I.O."
-          description="Visualize seu diagnóstico completo com bloqueios e sentimentos identificados"
+          title={isPartial ? "Relatório A.X.I.O. (Parcial)" : "Relatório A.X.I.O."}
+          description="Visualize seu diagnóstico com bloqueios e sentimentos identificados"
           icon={<Brain className="h-7 w-7" />}
           iconColor="bg-primary/20 text-primary"
           onClick={() => toggleSection("report")}
@@ -161,29 +181,43 @@ const DiagnosisDetail = () => {
                 </div>
               )}
 
-              {dr.blocks?.length > 0 && (
+              {visibleBlocks.length > 0 && (
                 <div className="space-y-3">
                   <h3 className="text-base font-bold text-foreground flex items-center gap-2">
                     <AlertTriangle className="h-4 w-4 text-destructive" />
-                    Bloqueios Identificados
+                    Bloqueios Identificados {isPartial && <span className="text-xs text-muted-foreground font-normal">(parcial)</span>}
                   </h3>
-                  {dr.blocks.map((block: any, i: number) => (
+                  {visibleBlocks.map((block: any, i: number) => (
                     <div key={i} className="bg-secondary/30 border border-border rounded-xl p-4">
                       <h4 className="text-sm font-semibold text-foreground mb-1">{i + 1}. {block.name}</h4>
                       <p className="text-xs text-muted-foreground">{block.description}</p>
                     </div>
                   ))}
+                  {isPartial && dr.blocks?.length > visibleBlocks.length && (
+                    <div className="relative rounded-xl border border-dashed border-primary/20 bg-card/30 p-4 text-center">
+                      <Lock className="h-5 w-5 text-primary/50 mx-auto mb-2" />
+                      <p className="text-xs text-muted-foreground">+{dr.blocks.length - visibleBlocks.length} bloqueios ocultos no plano gratuito</p>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {dr.root_wound && (
+              {/* Root wound and secondary impacts - premium only */}
+              {!isPartial && dr.root_wound && (
                 <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-4">
                   <h3 className="font-semibold text-foreground text-sm mb-1">🔍 Ferida Raiz</h3>
                   <p className="text-sm text-muted-foreground italic">"{dr.root_wound}"</p>
                 </div>
               )}
 
-              {dr.secondary_impacts && (
+              {isPartial && dr.root_wound && (
+                <div className="relative rounded-xl border border-dashed border-primary/20 bg-card/30 p-4 text-center">
+                  <Lock className="h-5 w-5 text-primary/50 mx-auto mb-2" />
+                  <p className="text-xs text-muted-foreground">Ferida Raiz disponível no plano Premium</p>
+                </div>
+              )}
+
+              {!isPartial && dr.secondary_impacts && (
                 <div className="space-y-2">
                   <h3 className="text-base font-bold text-foreground">📊 Impacto nas 3 Áreas</h3>
                   {dr.secondary_impacts.financeiro && (
@@ -215,20 +249,29 @@ const DiagnosisDetail = () => {
                   )}
                 </div>
               )}
+
+              {isPartial && dr.secondary_impacts && (
+                <div className="relative rounded-xl border border-dashed border-primary/20 bg-card/30 p-4 text-center">
+                  <Lock className="h-5 w-5 text-primary/50 mx-auto mb-2" />
+                  <p className="text-xs text-muted-foreground">Impacto nas 3 Áreas disponível no plano Premium</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         )}
 
-        {/* Somatização Card */}
+        {/* Somatização - premium only */}
         <AreaCard
           title="Somatização"
-          description="Mapa corporal das emoções reprimidas identificadas no seu diagnóstico"
+          description={isPremium ? "Mapa corporal das emoções reprimidas identificadas no seu diagnóstico" : "Disponível apenas nos Planos Premium"}
           icon={<Activity className="h-7 w-7" />}
           iconColor="bg-primary/20 text-primary"
-          onClick={() => toggleSection("somatization")}
+          isPremium={!isPremium}
+          isLocked={!isPremium}
+          onClick={() => isPremium ? toggleSection("somatization") : navigate("/planos")}
         />
 
-        {activeSection === "somatization" && dr && (
+        {activeSection === "somatization" && isPremium && dr && (
           <Card className="border-primary/20 animate-in fade-in-50 slide-in-from-top-2 duration-200">
             <CardContent className="pt-6">
               <SomatizationBodyMap somatizationMap={dr.somatization_map || []} />
@@ -236,6 +279,7 @@ const DiagnosisDetail = () => {
           </Card>
         )}
 
+        {/* Comandos - premium only */}
         <AreaCard
           title="Comandos Quânticos da Semana"
           description={isPremium ? "Seus comandos personalizados para manhã, tarde e noite" : "Disponível apenas nos Planos Premium"}
@@ -279,6 +323,7 @@ const DiagnosisDetail = () => {
           </Card>
         )}
 
+        {/* Meditação - premium only */}
         <AreaCard
           title="Meditação da Semana"
           description={isPremium ? "Roteiro personalizado com gravação da sua própria voz" : "Disponível apenas nos Planos Premium"}

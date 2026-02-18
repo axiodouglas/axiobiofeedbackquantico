@@ -1,18 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Crown, Check, Sparkles } from "lucide-react";
+import { ArrowLeft, Crown, Check, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
 import UserMenu from "@/components/UserMenu";
-
-const sharedFeatures = [
-  "Acesso liberado para Crenças sobre Mãe, Pai, Traumas e Relacionamentos",
-  "Relatório personalizado",
-  "Comandos Quânticos personalizados",
-  "Meditação personalizada",
-  "Acesso ao Oráculo AXIO",
-  "Acesso à Comunidade AXIO",
-];
 
 const plans = [
   {
@@ -21,7 +12,15 @@ const plans = [
     period: "/mês",
     badge: null,
     highlight: false,
-    features: sharedFeatures,
+    features: [
+      { text: "Diagnóstico completo de Crenças Limitantes", included: true },
+      { text: "Relatório AXIO completo", included: true },
+      { text: "Comandos Quânticos personalizados", included: true },
+      { text: "Meditação personalizada", included: true },
+      { text: "Acesso à Comunidade AXIO", included: true },
+      { text: "Oráculo AXIO", included: false },
+      { text: "Conselheiro de Performance", included: false },
+    ],
     link: "https://pay.kiwify.com.br/yobcEvI",
   },
   {
@@ -30,7 +29,15 @@ const plans = [
     period: "/mês",
     badge: "16% OFF",
     highlight: false,
-    features: sharedFeatures,
+    features: [
+      { text: "Diagnóstico completo de Crenças Limitantes", included: true },
+      { text: "Relatório AXIO completo", included: true },
+      { text: "Comandos Quânticos personalizados", included: true },
+      { text: "Meditação personalizada", included: true },
+      { text: "Acesso à Comunidade AXIO", included: true },
+      { text: "Oráculo AXIO (1 pergunta/dia)", included: true },
+      { text: "Conselheiro de Performance (1 análise/dia)", included: true },
+    ],
     link: "https://pay.kiwify.com.br/JZ6HiAu",
   },
   {
@@ -39,7 +46,15 @@ const plans = [
     period: "/mês",
     badge: "33% OFF",
     highlight: true,
-    features: sharedFeatures,
+    features: [
+      { text: "Diagnóstico completo de Crenças Limitantes", included: true },
+      { text: "Relatório AXIO completo", included: true },
+      { text: "Comandos Quânticos personalizados", included: true },
+      { text: "Meditação personalizada", included: true },
+      { text: "Acesso à Comunidade AXIO", included: true },
+      { text: "Oráculo AXIO (1 pergunta/dia)", included: true },
+      { text: "Conselheiro de Performance (1 análise/dia)", included: true },
+    ],
     link: "https://pay.kiwify.com.br/R3VE945",
   },
 ];
@@ -118,9 +133,13 @@ const Plans = () => {
 
                 <ul className="space-y-1.5 flex-1 mb-3">
                   {plan.features.map((feat, i) => (
-                    <li key={i} className="flex items-start gap-1.5 text-xs text-foreground/80">
-                      <Check className="h-3 w-3 text-primary mt-0.5 shrink-0" />
-                      <span>{feat}</span>
+                    <li key={i} className={`flex items-start gap-1.5 text-xs ${feat.included ? "text-foreground/80" : "text-muted-foreground/50"}`}>
+                      {feat.included ? (
+                        <Check className="h-3 w-3 text-primary mt-0.5 shrink-0" />
+                      ) : (
+                        <X className="h-3 w-3 text-muted-foreground/40 mt-0.5 shrink-0" />
+                      )}
+                      <span className={!feat.included ? "line-through" : ""}>{feat.text}</span>
                     </li>
                   ))}
                 </ul>

@@ -7,14 +7,15 @@ import { Sparkles } from "lucide-react";
 interface ProtectedRouteProps {
   children: React.ReactNode;
   requirePremium?: boolean;
+  requireFullPlan?: boolean;
 }
 
-const ProtectedRoute = ({ children, requirePremium = false }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ children, requirePremium = false, requireFullPlan = false }: ProtectedRouteProps) => {
   const { user, profile, loading } = useAuth();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (!requirePremium || !user) { setIsAdmin(false); return; }
+    if ((!requirePremium && !requireFullPlan) || !user) { setIsAdmin(false); return; }
     const check = async () => {
       const { data } = await supabase
         .from("user_roles")
@@ -25,10 +26,9 @@ const ProtectedRoute = ({ children, requirePremium = false }: ProtectedRouteProp
       setIsAdmin(!!data);
     };
     check();
-  }, [user, requirePremium]);
+  }, [user, requirePremium, requireFullPlan]);
 
-  // Wait for auth AND profile to load before making premium decisions
-  if (loading || (requirePremium && isAdmin === null)) {
+  if (loading || ((requirePremium || requireFullPlan) && isAdmin === null)) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Sparkles className="h-8 w-8 text-primary animate-pulse" />
@@ -40,8 +40,7 @@ const ProtectedRoute = ({ children, requirePremium = false }: ProtectedRouteProp
     return <Navigate to="/auth" replace />;
   }
 
-  // If we require premium, wait for profile to be loaded before redirecting
-  if (requirePremium && profile === null) {
+  if ((requirePremium || requireFullPlan) && profile === null) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Sparkles className="h-8 w-8 text-primary animate-pulse" />
@@ -49,7 +48,14 @@ const ProtectedRoute = ({ children, requirePremium = false }: ProtectedRouteProp
     );
   }
 
-  if (requirePremium && !profile?.is_premium && !isAdmin) {
+  const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
+  const isFullAccess = isPremium && (profile?.subscription_type === "trimestral" || profile?.subscription_type === "semestral");
+
+  if (requireFullPlan && !isFullAccess && !isAdmin) {
+    return <Navigate to="/planos" replace />;
+  }
+
+  if (requirePremium && !isPremium && !isAdmin) {
     return <Navigate to="/planos" replace />;
   }
 

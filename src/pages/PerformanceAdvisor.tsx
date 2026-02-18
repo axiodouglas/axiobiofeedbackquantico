@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { PerformanceAdviceList } from "@/components/AreaReportsList";
 
 const MAX_RECORDING_TIME = 30;
-const MAX_DAILY_RECORDINGS = 10;
+const MAX_DAILY_RECORDINGS = 1;
 
 const categories = [
   { id: "trabalho", label: "Trabalho", icon: Briefcase, description: "Produtividade, carreira e reuniões" },

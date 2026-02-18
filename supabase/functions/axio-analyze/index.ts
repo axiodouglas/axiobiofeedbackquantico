@@ -1714,7 +1714,7 @@ Para modo PREMIUM, adicione:
   "is_premium": true
 }`;
 
-const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento"];
+const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento", "crencas_limitantes"];
 const MAX_TRANSCRIPTION_LENGTH = 10000;
 
 serve(async (req) => {
@@ -1759,20 +1759,30 @@ serve(async (req) => {
 
     const areaNames: Record<string, string> = {
       pai: "Pai", mae: "Mãe", traumas: "Traumas Adicionais", relacionamento: "Relacionamentos",
+      crencas_limitantes: "Crenças Limitantes (Análise Unificada)",
     };
 
     const previousDiagStr = previous_diagnoses ? `DIAGNÓSTICOS ANTERIORES (não repita): ${JSON.stringify(previous_diagnoses)}` : "";
     const premiumInstr = is_premium ? "Inclua análise profunda, comando quântico e foco de meditação." : "Foque na ferida raiz e gere um CTA persuasivo para o Premium. Use esta frase como base do CTA: 'Você descobriu a raiz. Agora, desbloqueie os Comandos com sua própria voz e cure sua linhagem de Pai e Traumas no Premium.'";
+
+    const isUnified = area === "crencas_limitantes";
+    const focusRule = isUnified
+      ? '1. ANÁLISE UNIFICADA: Este é o modo "Crenças Limitantes". O usuário pode e deve falar sobre TODOS os pilares (Mãe, Pai, Traumas e Relacionamentos) em uma única gravação. Aplique escuta terapêutica expandida total — aceite QUALQUER conteúdo emocional, terapêutico ou de autoconhecimento. Só defina focus_valid=false se o conteúdo for COMPROVADAMENTE irrelevante (assuntos banais sem carga emocional). Na dúvida, SEMPRE gere o diagnóstico. Analise TODOS os 4 pilares identificando bloqueios em cada um.\n'
+      : '1. Primeiro, valide se o conteúdo condiz com a área "' + (areaNames[area]) + '". REGRA DE FOCO POR PILAR: Para MÃE e PAI, aplique bloqueio estrito — se o usuário falar predominantemente de outra figura, defina focus_valid=false. Para TRAUMAS e RELACIONAMENTOS, aplique escuta terapêutica expandida — aceite menções a pai, mãe, infância e qualquer origem emocional, integrando-as ao diagnóstico. Nesses pilares, só defina focus_valid=false se o conteúdo for COMPROVADAMENTE irrelevante para o processo terapêutico (ex: assuntos banais sem carga emocional). Na dúvida, SEMPRE gere o diagnóstico.\n';
+
+    const blockCount = isUnified
+      ? "2. Identifique no mínimo 4 e no máximo 8 bloqueios específicos e personalizados, cobrindo os 4 pilares (Mãe, Pai, Traumas, Relacionamentos).\n"
+      : "2. Identifique no mínimo 2 e no máximo 4 bloqueios específicos e personalizados.\n";
 
     const userPrompt = "ÁREA SELECIONADA: " + (areaNames[area] || area) + "\n" +
       "MODO: " + (is_premium ? "PREMIUM" : "GRATUITO") + "\n" +
       previousDiagStr + "\n\n" +
       "TRANSCRIÇÃO DO ÁUDIO DO USUÁRIO:\n" +
       '"' + transcription + '"\n\n' +
-      "Analise profundamente este áudio seguindo o Método A.X.I.O. para a área " + (areaNames[area] || area) + ".\n\n" +
+      "Analise profundamente este áudio seguindo o Método A.X.I.O." + (isUnified ? " cobrindo TODOS os 4 pilares (Mãe, Pai, Traumas e Relacionamentos)." : " para a área " + (areaNames[area] || area) + ".") + "\n\n" +
       "IMPORTANTE:\n" +
-      '1. Primeiro, valide se o conteúdo condiz com a área "' + (areaNames[area]) + '". REGRA DE FOCO POR PILAR: Para MÃE e PAI, aplique bloqueio estrito — se o usuário falar predominantemente de outra figura, defina focus_valid=false. Para TRAUMAS e RELACIONAMENTOS, aplique escuta terapêutica expandida — aceite menções a pai, mãe, infância e qualquer origem emocional, integrando-as ao diagnóstico. Nesses pilares, só defina focus_valid=false se o conteúdo for COMPROVADAMENTE irrelevante para o processo terapêutico (ex: assuntos banais sem carga emocional). Na dúvida, SEMPRE gere o diagnóstico.\n' +
-      "2. Identifique no mínimo 2 e no máximo 4 bloqueios específicos e personalizados.\n" +
+      focusRule +
+      blockCount +
       "3. Gere um frequency_score realista (geralmente entre 20-45 para diagnósticos iniciais).\n" +
       "4. Os sentimentos predominantes devem ter entre 3 e 5 itens.\n" +
       '5. OBRIGATÓRIO: Gere o campo "secondary_impacts" com o mapeamento de como este trauma afeta Financeiro, Saúde e Relacionamentos.\n' +
