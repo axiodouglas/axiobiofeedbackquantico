@@ -2,8 +2,7 @@ import { Sparkles, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VisualShowcase from "@/components/VisualShowcase";
 import AuthorSection from "@/components/venda/AuthorSection";
-import TestimonialsSection from "@/components/venda/TestimonialsSection";
-import BenefitsSection from "@/components/venda/BenefitsSection";
+import FeaturesSection from "@/components/venda/FeaturesSection";
 import CtaBanner from "@/components/venda/CtaBanner";
 import axioLogoX from "@/assets/axio-logo-x.png";
 
@@ -70,33 +69,20 @@ const VendaOficial = () => {
         </div>
       </section>
 
-      {/* Author Section */}
-      <AuthorSection />
-
       {/* Visual Showcase — Carousel */}
       <VisualShowcase />
 
       {/* CTA Banner 1 */}
       <CtaBanner text="Comece sua transformação agora" />
 
-      {/* Benefits Section */}
-      <BenefitsSection />
+      {/* All Features — detailed */}
+      <FeaturesSection />
 
       {/* CTA Banner 2 */}
       <CtaBanner text="Liberte-se das crenças que te limitam" />
 
-      {/* Testimonials */}
-      <TestimonialsSection />
-
-      {/* Social Proof Quote */}
-      <section className="relative z-10 py-10 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-6">
-          <p className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground italic leading-snug px-2">
-            "A voz é a impressão digital emocional. Quando você a usa como ferramenta de cura, o subconsciente não tem escolha senão obedecer."
-          </p>
-          <p className="text-gradient-brand font-semibold text-sm sm:text-base">— Método A.X.I.O.</p>
-        </div>
-      </section>
+      {/* Author + Meditation Innovation */}
+      <AuthorSection />
 
       {/* Joe Dispenza Authority Block */}
       <section className="relative z-10 py-12 sm:py-20 px-4 sm:px-6">
@@ -145,6 +131,9 @@ const VendaOficial = () => {
           </div>
         </div>
       </section>
+
+      {/* Final CTA */}
+      <CtaBanner text="Sua transformação começa agora" />
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-border py-6 sm:py-8 text-center text-xs text-muted-foreground space-y-1 px-4">
