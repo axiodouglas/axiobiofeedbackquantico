@@ -7,15 +7,15 @@ const testimonials = [
   },
   {
     author: "Helena M.",
-    text: "Eu tinha pavor de olhar para trás por causa dos abusos que sofri na infância. A raiva e a tristeza me consumiam. Com a meditação de traumas, hoje sinto que a situação ficou no passado. Finalmente tenho paz.",
+    text: "Eu carregava crenças limitantes herdadas da infância sem perceber. O diagnóstico revelou padrões que eu repetia há décadas. Hoje sinto que finalmente tenho paz.",
   },
   {
     author: "Felipe G.",
-    text: "O diagnóstico da Mãe mostrou exatamente por que eu tinha tanto medo de faltar dinheiro. Era uma crença dela que eu carregava. Ouvir o loop dormindo mudou meu mindset em poucos dias.",
+    text: "O diagnóstico mostrou exatamente as crenças limitantes que me travavam financeiramente. Eram padrões inconscientes que eu carregava. Ouvir o loop dormindo mudou meu mindset em poucos dias.",
   },
   {
     author: "Juliana P.",
-    text: "Minha saúde melhorou depois que limpei o rancor que tinha da minha linhagem materna. Incrível como a gente guarda lixo emocional no corpo sem saber.",
+    text: "Minha saúde melhorou depois que identifiquei as crenças limitantes que carregava no corpo. Incrível como a gente guarda lixo emocional sem saber.",
   },
   {
     author: "Sonia K.",

@@ -1,4 +1,4 @@
-import { Sparkles, Brain, Download } from "lucide-react";
+import { Sparkles, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VisualShowcase from "@/components/VisualShowcase";
 import AuthorSection from "@/components/venda/AuthorSection";
@@ -6,8 +6,6 @@ import TestimonialsSection from "@/components/venda/TestimonialsSection";
 import BenefitsSection from "@/components/venda/BenefitsSection";
 import CtaBanner from "@/components/venda/CtaBanner";
 import axioLogoX from "@/assets/axio-logo-x.png";
-
-const APP_URL = "https://axiobiofeedbackquantico.com";
 
 const VendaOficial = () => {
   return (
@@ -42,8 +40,8 @@ const VendaOficial = () => {
           </div>
 
           <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-foreground px-2 uppercase">
-            Reprograme suas Crenças com{" "}
-            <span className="text-gradient-brand">A.X.I.O.</span>
+            Identifique e reprograme suas{" "}
+            <span className="text-gradient-brand">Crenças Limitantes</span>
           </h1>
 
           {/* YouTube Video */}
@@ -66,13 +64,13 @@ const VendaOficial = () => {
               </a>
             </Button>
             <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto px-2">
-              Teste Grátis: <span className="text-gradient-brand font-semibold">Pilar Mãe</span> — A mãe é a base da segurança e prosperidade. Entenda como essa conexão molda suas crenças hoje.
+              Teste Grátis: descubra suas <span className="text-gradient-brand font-semibold">Crenças Limitantes</span> — entenda quais padrões inconscientes estão travando sua vida e como reprogramá-los.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Author Section - below video */}
+      {/* Author Section */}
       <AuthorSection />
 
       {/* Visual Showcase — Carousel */}
