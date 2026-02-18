@@ -15,15 +15,17 @@ interface SomatizationBodyMapProps {
 
 // Percentages relative to image dimensions for dot placement
 const BODY_REGIONS: Record<string, { label: string; x: number; y: number }> = {
-  cabeca: { label: "CRANIANO", x: 50, y: 8 },
-  garganta: { label: "CERVICAL", x: 50, y: 16 },
-  ombros: { label: "DELTOIDE", x: 30, y: 22 },
-  peito: { label: "TORÁCICO", x: 50, y: 28 },
-  estomago: { label: "GÁSTRICO", x: 50, y: 38 },
-  ventre: { label: "PÉLVICO", x: 50, y: 46 },
-  coluna: { label: "ESPINHAL", x: 50, y: 34 },
-  maos: { label: "CARPAL", x: 18, y: 50 },
-  pernas: { label: "FEMORAL", x: 42, y: 65 },
+  cabeca: { label: "CRANIANO", x: 50, y: 10 },
+  garganta: { label: "CERVICAL", x: 50, y: 18 },
+  ombros: { label: "DELTOIDE", x: 28, y: 24 },
+  peito: { label: "TORÁCICO", x: 50, y: 32 },
+  coluna: { label: "ESPINHAL", x: 50, y: 40 },
+  estomago: { label: "GÁSTRICO", x: 50, y: 45 },
+  ventre: { label: "PÉLVICO", x: 50, y: 52 },
+  maos: { label: "CARPAL", x: 20, y: 55 },
+  pernas: { label: "FEMORAL", x: 42, y: 72 },
+  joelhos: { label: "PATELAR", x: 42, y: 80 },
+  pes: { label: "PODAL", x: 42, y: 92 },
 };
 
 function getIntensityColor(intensity: number): string {
