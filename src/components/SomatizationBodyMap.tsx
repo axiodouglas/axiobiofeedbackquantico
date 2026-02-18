@@ -63,44 +63,18 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
       <div className="flex flex-col md:flex-row gap-4 items-center">
         {/* Imagem do corpo centralizada com pontos */}
         <div className="relative flex-shrink-0 rounded-xl overflow-hidden border border-border bg-background/80 mx-auto">
-          <div className="relative animate-[pulse_4s_ease-in-out_infinite]" style={{ animationTimingFunction: "ease-in-out" }}>
+          <div
+            className="relative"
+            style={{
+              filter: "drop-shadow(0 0 18px hsl(260, 60%, 65%)) drop-shadow(0 0 40px hsl(175, 70%, 50%))",
+              animation: "pulse 4s ease-in-out infinite",
+            }}
+          >
             <img
               src={somatizationBody}
               alt="Mapa de somatização corporal"
               className="w-[220px] h-auto object-contain"
             />
-            {/* Glowing dots on body regions */}
-            {somatizationMap.map((point, i) => {
-              const region = BODY_REGIONS[point.body_region];
-              if (!region) return null;
-              const color = getIntensityColor(point.intensity);
-              const isCritical = point.intensity >= 70;
-              return (
-                <div
-                  key={i}
-                  className="absolute"
-                  style={{
-                    left: `${region.x}%`,
-                    top: `${region.y}%`,
-                    transform: "translate(-50%, -50%)",
-                  }}
-                >
-                  <div
-                    className="h-3.5 w-3.5 rounded-full"
-                    style={{
-                      backgroundColor: "rgba(255,255,255,0.85)",
-                      boxShadow: `0 0 12px 6px ${color}, 0 0 24px 10px ${color}, 0 0 4px 2px rgba(255,255,255,0.9)`,
-                    }}
-                  />
-                  {isCritical && (
-                    <div
-                      className="absolute inset-0 h-3 w-3 rounded-full animate-ping"
-                      style={{ backgroundColor: color, opacity: 0.5 }}
-                    />
-                  )}
-                </div>
-              );
-            })}
           </div>
           {/* Barra de status */}
           <div className="flex items-center justify-center px-2 py-1 bg-background/90 border-t border-border">
