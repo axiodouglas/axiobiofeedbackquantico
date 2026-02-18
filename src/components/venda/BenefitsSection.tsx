@@ -4,17 +4,17 @@ const benefits = [
   {
     icon: Mic,
     title: "Diagnóstico por Biofeedback de Áudio",
-    description: "Sua voz carrega padrões emocionais invisíveis. Nossa IA analisa frequências, micro-hesitações e entonação para revelar traumas ocultos no subconsciente.",
+    description: "Sua voz carrega padrões emocionais invisíveis. Nossa IA analisa frequências, micro-hesitações e entonação para revelar crenças limitantes ocultas no subconsciente.",
   },
   {
     icon: Brain,
     title: "Meditações Personalizadas com sua Voz",
-    description: "Você irá gravar a meditação com a sua própria voz e isso é o que vai te dar controle sobre seu subconsciente.",
+    description: "Grave a meditação com sua própria voz para reprogramar as crenças limitantes identificadas no diagnóstico.",
   },
   {
     icon: MessageCircle,
     title: "Oráculo AXIO para Dúvidas Profundas",
-    description: "Um conselheiro quântico treinado em PNL, Neurociência e Física Quântica para tirar suas dúvidas sobre suas crenças.",
+    description: "Um conselheiro inteligente treinado em PNL, Neurociência e Física Quântica para ajudar você a entender e superar suas crenças limitantes.",
   },
 ];
 
@@ -26,7 +26,7 @@ const BenefitsSection = () => (
           O que o <span className="text-gradient-brand">A.X.I.O.</span> faz por você
         </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-lg mx-auto px-2">
-          Três pilares tecnológicos trabalhando juntos para reprogramar seu subconsciente.
+          Três ferramentas trabalhando juntas para identificar e reprogramar suas crenças limitantes.
         </p>
       </div>
 

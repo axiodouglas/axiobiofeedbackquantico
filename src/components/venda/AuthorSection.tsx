@@ -22,24 +22,24 @@ const AuthorSection = () => (
         </div>
 
         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-          As crenças são uma das maiores travas no processo de autoconhecimento. Eu sei disso porque também
+          As crenças limitantes são uma das maiores travas no processo de autoconhecimento. Eu sei disso porque também
           passei por dificuldades intensas — foram{" "}
           <span className="text-primary font-medium">8 anos de constantes crises de pânico</span>,
-          enfrentando traumas e crenças que pareciam impossíveis de superar.
+          enfrentando crenças que pareciam impossíveis de superar.
         </p>
         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
           Com a evolução da inteligência artificial, vi a oportunidade de unir o que me ajudou com meu
-          conhecimento e vivência de cura de inúmeros traumas e crenças. Depois de muitos estudos, compreendi
-          que nossa mente cria barreiras para acessar o subconsciente — e quanto mais traumas e crenças,
+          conhecimento e vivência de cura. Depois de muitos estudos, compreendi
+          que nossa mente cria barreiras para acessar o subconsciente — e quanto mais crenças limitantes acumulamos,
           mais bloqueios surgem.
         </p>
         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
           Descobri que{" "}
           <span className="text-primary font-medium">
-            tudo parte do pai e da mãe, e se ramifica para relacionamentos e traumas
+            nossas crenças limitantes são a raiz de tudo que trava nossas vidas
           </span>{" "}
-          — esses são os pilares de tudo que trava nossas vidas. Foi assim que criei o A.X.I.O.: um app que
-          ajuda você a se conhecer através das crenças e da meditação personalizada com sua própria voz.
+          — elas moldam nossos relacionamentos, saúde e prosperidade. Foi assim que criei o A.X.I.O.: um app que
+          ajuda você a identificar e reprogramar essas crenças através da análise de voz e meditação personalizada.
         </p>
       </div>
     </div>

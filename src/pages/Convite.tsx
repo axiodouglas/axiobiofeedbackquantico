@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 const testimonials = [
   {
     name: "Camila R.",
-    text: "Eu não acreditava que só a minha voz podia revelar tanto. No primeiro diagnóstico, chorei de alívio. Finalmente entendi por que eu repetia os mesmos padrões com minha mãe.",
+    text: "Eu não acreditava que só a minha voz podia revelar tanto. No primeiro diagnóstico, chorei de alívio. Finalmente entendi por que eu repetia os mesmos padrões limitantes.",
   },
   {
     name: "Rafael M.",
@@ -13,7 +13,7 @@ const testimonials = [
   },
   {
     name: "Juliana S.",
-    text: "O diagnóstico do pilar Mãe me mostrou feridas que eu carregava há 30 anos sem perceber. Só esse primeiro passo já mudou completamente minha forma de ver a vida.",
+    text: "O diagnóstico me mostrou crenças limitantes que eu carregava há 30 anos sem perceber. Só esse primeiro passo já mudou completamente minha forma de ver a vida.",
   },
 ];
 
@@ -48,12 +48,12 @@ const Convite = () => {
           </div>
 
           <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight text-foreground px-2">
-            Sua mente tem o poder de{" "}
-            <span className="text-gradient-cyan">curar sua história.</span>
+            Identifique suas{" "}
+            <span className="text-gradient-cyan">Crenças Limitantes.</span>
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto px-2">
-            Descubra os bloqueios inconscientes herdados da sua relação materna através de uma análise de voz com inteligência quântica. <span className="text-foreground font-medium">100% gratuito. Sem cartão.</span>
+            Descubra quais crenças limitantes estão travando sua vida através de uma análise de voz com inteligência artificial. <span className="text-foreground font-medium">100% gratuito. Sem cartão.</span>
           </p>
 
           <Button
@@ -92,7 +92,7 @@ const Convite = () => {
               Desde então, Dispenza dedicou sua vida a provar cientificamente que <span className="text-primary font-semibold">ao mudar os padrões da mente subconsciente, é possível transformar a saúde, os relacionamentos e o destino de uma pessoa.</span> Milhares de casos documentados confirmam: a mente é a farmácia mais poderosa do universo.
             </p>
             <p className="text-sm sm:text-base text-muted-foreground italic mt-4">
-              O método A.X.I.O. se baseia neste mesmo princípio: identificar e reprogramar os padrões subconscientes que limitam sua vida — começando pela raiz mais profunda: a relação com a Mãe.
+              O método A.X.I.O. se baseia neste mesmo princípio: identificar e reprogramar as crenças limitantes que travam sua vida — revelando padrões inconscientes através da sua voz.
             </p>
           </div>
         </div>
@@ -105,7 +105,7 @@ const Convite = () => {
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2">
               O que dizem após o <span className="text-gradient-cyan">primeiro diagnóstico</span>
             </h2>
-            <p className="text-sm text-muted-foreground">Experiências reais de pessoas que testaram o pilar Mãe</p>
+            <p className="text-sm text-muted-foreground">Experiências reais de pessoas que identificaram suas crenças limitantes</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
