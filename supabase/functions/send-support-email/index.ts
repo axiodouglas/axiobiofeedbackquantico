@@ -48,7 +48,7 @@ serve(async (req) => {
         from: "AXIO Suporte <suporte@axiomail.com>",
         to: ["suporteaxio@gmail.com"],
         subject: subject || `[Suporte AXIO] Mensagem de ${name || "Usuário"}`,
-        reply_to: email,
+        reply_to: "suporteaxio@gmail.com",
         html: `
           <h2>Nova mensagem de suporte</h2>
           <p><strong>Nome:</strong> ${name || "Não informado"}</p>
