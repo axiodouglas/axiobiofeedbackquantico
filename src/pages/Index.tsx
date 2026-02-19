@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Brain, Mic, MessageSquare, Moon, Eye, Lock, Crown, Sparkles, BarChart3, Clock } from "lucide-react";
+import { Brain, Mic, MessageSquare, Moon, Eye, Lock, Crown, Sparkles, BarChart3, Clock, BookOpen, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import UserMenu from "@/components/UserMenu";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import axioLogoX from "@/assets/axio-logo-x.png";
+import bookPoderSubconsciente from "@/assets/book-poder-subconsciente.jpg";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -192,7 +193,7 @@ const Index = () => {
           </svg>
         </div>
 
-        <div className="max-w-lg mx-auto flex flex-col gap-4">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Crenças Limitantes - Central Card */}
           <div
             className="group relative overflow-hidden rounded-2xl border border-primary/30 bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 p-6"
@@ -322,6 +323,43 @@ const Index = () => {
             <div className="relative z-10">
               <h3 className="font-bold text-foreground text-xl leading-tight">Conselheiro de Performance</h3>
               <p className="text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
+            </div>
+          </div>
+
+          {/* Livros Indicados Card */}
+          <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] transition-all duration-300 p-6 md:col-span-2">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
+                <BookOpen className="h-6 w-6" />
+              </div>
+              <h3 className="font-bold text-foreground text-xl leading-tight">Livros Indicados</h3>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+              <img
+                src={bookPoderSubconsciente}
+                alt="O Poder do Subconsciente - Dr. Joseph Murphy"
+                className="w-28 h-auto rounded-lg shadow-lg shrink-0"
+                draggable={false}
+              />
+              <div className="flex flex-col gap-3 text-center sm:text-left">
+                <div>
+                  <h4 className="font-semibold text-foreground text-base">O Poder do Subconsciente</h4>
+                  <p className="text-xs text-muted-foreground">Dr. Joseph Murphy</p>
+                </div>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  Um clássico atemporal que revela como utilizar o poder da mente subconsciente para transformar sua vida. 
+                  Murphy ensina técnicas práticas para reprogramar crenças limitantes e alcançar saúde, prosperidade e paz interior.
+                </p>
+                <Button
+                  variant="cyanOutline"
+                  size="sm"
+                  className="self-center sm:self-start text-xs h-8 px-4 opacity-80 hover:opacity-100"
+                  onClick={() => window.open("#", "_blank")}
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  Adquirir Livro
+                </Button>
+              </div>
             </div>
           </div>
         </div>
