@@ -249,7 +249,7 @@ const Index = () => {
 
           {/* Comunidade Card */}
           <div
-            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
+            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex flex-col items-start gap-2.5 sm:flex-row sm:items-start sm:gap-4 ${!isPremium ? 'opacity-80' : ''}`}
             onClick={() => isPremium ? navigate("/community") : navigate("/planos")}
           >
             {!isPremium && (
@@ -258,10 +258,10 @@ const Index = () => {
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
               </div>
             )}
-            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-              <MessageSquare className="h-6 w-6" />
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-10 w-10 sm:h-12 sm:w-12 shrink-0">
+              <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div className="relative z-10">
+            <div className="relative z-10 min-w-0">
               <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Comunidade</h3>
               <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Relatos de transformação</p>
             </div>
@@ -269,7 +269,7 @@ const Index = () => {
 
           {/* Meditação Card */}
           <div
-            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isPremium ? 'opacity-80' : ''}`}
+            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex flex-col items-start gap-2.5 sm:flex-row sm:items-start sm:gap-4 ${!isPremium ? 'opacity-80' : ''}`}
             onClick={() => isPremium ? navigate("/meditation-structure") : navigate("/planos")}
           >
             {!isPremium && (
@@ -278,18 +278,18 @@ const Index = () => {
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
               </div>
             )}
-            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-              <Moon className="h-6 w-6" />
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-10 w-10 sm:h-12 sm:w-12 shrink-0">
+              <Moon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div className="relative z-10">
-              <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Entenda a Meditação A.X.I.O.</h3>
+            <div className="relative z-10 min-w-0">
+              <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Meditação A.X.I.O.</h3>
               <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">5 etapas da reprogramação</p>
             </div>
           </div>
 
           {/* Oráculo Card - Trimestral+ */}
           <div
-            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isFullAccess ? 'opacity-80' : ''}`}
+            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex flex-col items-start gap-2.5 sm:flex-row sm:items-start sm:gap-4 ${!isFullAccess ? 'opacity-80' : ''}`}
             onClick={() => isFullAccess ? navigate("/oraculo") : navigate("/planos")}
           >
             {!isFullAccess && (
@@ -298,18 +298,18 @@ const Index = () => {
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Trimestral+</span>
               </div>
             )}
-            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-              <Eye className="h-6 w-6" />
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-10 w-10 sm:h-12 sm:w-12 shrink-0">
+              <Eye className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div className="relative z-10">
+            <div className="relative z-10 min-w-0">
               <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Oráculo A.X.I.O.</h3>
-              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Tire dúvidas sobre crenças e comportamento</p>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Dúvidas sobre crenças</p>
             </div>
           </div>
 
           {/* Conselheiro de Performance Card - Trimestral+ */}
           <div
-            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-6 flex items-start gap-4 ${!isFullAccess ? 'opacity-80' : ''}`}
+            className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex flex-col items-start gap-2.5 sm:flex-row sm:items-start sm:gap-4 ${!isFullAccess ? 'opacity-80' : ''}`}
             onClick={() => isFullAccess ? navigate("/conselheiro") : navigate("/planos")}
           >
             {!isFullAccess && (
@@ -318,25 +318,25 @@ const Index = () => {
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Trimestral+</span>
               </div>
             )}
-            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-              <BarChart3 className="h-6 w-6" />
+            <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-10 w-10 sm:h-12 sm:w-12 shrink-0">
+              <BarChart3 className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div className="relative z-10">
+            <div className="relative z-10 min-w-0">
               <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Conselheiro de Performance</h3>
-              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Análise vocal profissional</p>
             </div>
           </div>
 
           {/* Livros Indicados Card */}
           {user && (
             <div
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex items-start gap-3 sm:gap-4"
+              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex flex-col items-start gap-2.5 sm:flex-row sm:items-start sm:gap-4"
               onClick={() => navigate("/livros")}
             >
-              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-                <BookOpen className="h-6 w-6" />
+              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-10 w-10 sm:h-12 sm:w-12 shrink-0">
+                <BookOpen className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
-              <div className="relative z-10">
+              <div className="relative z-10 min-w-0">
                 <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Livros Indicados</h3>
                 <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Leituras para sua evolução</p>
               </div>
