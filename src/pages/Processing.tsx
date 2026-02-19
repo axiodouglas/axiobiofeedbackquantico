@@ -18,7 +18,7 @@ const Processing = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const area = searchParams.get("area") || "pai";
+  const area = searchParams.get("area") || "crencas_limitantes";
   const { user } = useAuth();
   const audioFromState = useRef<string | null>(location.state?.audioBase64 || null);
 
@@ -255,7 +255,7 @@ const Processing = () => {
 
   const handleGoHome = () => {
     cleanupAttempt();
-    navigate("/area-selection");
+    navigate("/");
   };
 
   const diagnosisIdRef = useRef<string | null>(null);
