@@ -328,8 +328,7 @@ const Index = () => {
           </div>
 
           {/* Livros Indicados Card */}
-          {user && (
-            <div
+          <div
               className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex flex-col items-start gap-2.5 sm:flex-row sm:items-start sm:gap-4"
               onClick={() => navigate("/livros")}
             >
@@ -340,8 +339,7 @@ const Index = () => {
                 <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Livros Indicados</h3>
                 <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Leituras para sua evolução</p>
               </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
 
