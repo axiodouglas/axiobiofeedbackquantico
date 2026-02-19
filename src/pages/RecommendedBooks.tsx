@@ -12,7 +12,7 @@ const books = [
     title: "O Poder do Subconsciente",
     author: "Dr. Joseph Murphy",
     description: "Um clássico que revela como utilizar o poder da mente subconsciente para reprogramar crenças limitantes e alcançar saúde e prosperidade.",
-    link: "#",
+    link: "https://amzn.to/4cCYLCP",
   },
   {
     image: bookCureSe,
