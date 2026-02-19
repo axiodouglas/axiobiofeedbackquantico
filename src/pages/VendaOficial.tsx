@@ -69,8 +69,8 @@ const VendaOficial = () => {
         </div>
       </section>
 
-      {/* Visual Showcase — Carousel */}
-      <VisualShowcase />
+      {/* Author + Meditation Innovation */}
+      <AuthorSection />
 
       {/* CTA Banner 1 */}
       <CtaBanner text="Comece sua transformação agora" />
@@ -81,56 +81,8 @@ const VendaOficial = () => {
       {/* CTA Banner 2 */}
       <CtaBanner text="Liberte-se das crenças que te limitam" />
 
-      {/* Author + Meditation Innovation */}
-      <AuthorSection />
-
-      {/* Joe Dispenza Authority Block */}
-      <section className="relative z-10 py-12 sm:py-20 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8 sm:mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 sm:px-5 py-1.5 sm:py-2 mb-4">
-              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
-              <span className="text-xs sm:text-sm font-semibold text-gradient-brand">Inspiração</span>
-            </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground px-2">
-              A ciência que prova: <span className="text-gradient-brand">a mente cura o corpo.</span>
-            </h2>
-          </div>
-
-          <div className="card-glow rounded-2xl p-6 sm:p-8 space-y-5">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center text-xl font-bold text-primary shrink-0">JD</div>
-              <div>
-                <h3 className="text-base font-bold text-foreground">Dr. Joe Dispenza</h3>
-                <span className="text-xs text-muted-foreground">Neurocientista &amp; Autor</span>
-              </div>
-            </div>
-
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Em 1986, Joe Dispenza foi atropelado por um carro durante uma competição de triatlo. O acidente
-              destruiu 6 vértebras da sua coluna. Os médicos foram unânimes: ele precisaria de uma cirurgia com
-              implante de hastes metálicas — e mesmo assim, provavelmente nunca mais andaria normalmente.
-            </p>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Joe recusou a cirurgia. Em vez disso, decidiu usar exclusivamente o poder da sua mente para se curar.
-              Durante 9 semanas e meia, deitado de bruços, ele dedicou horas por dia a um único exercício:
-              <span className="text-primary font-medium"> reconstruir mentalmente sua coluna, vértebra por vértebra,
-              enviando comandos claros e repetitivos ao seu corpo.</span>
-            </p>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Em 10 semanas, Joe estava de pé. Em 12 semanas, voltou a treinar. Sem cirurgia. Sem hastes metálicas.
-              Apenas o poder da mente sobre a matéria.
-            </p>
-
-            <div className="bg-primary/5 border border-primary/15 rounded-xl p-4 mt-3">
-              <p className="text-sm text-primary italic text-center leading-relaxed">
-                "Seu corpo não sabe a diferença entre uma experiência real e uma que você cria mentalmente com a mesma intensidade emocional."
-                <span className="block text-xs text-primary/70 mt-1.5">— Dr. Joe Dispenza</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Visual Showcase — Carousel */}
+      <VisualShowcase />
 
       {/* Final CTA */}
       <CtaBanner text="Sua transformação começa agora" />
