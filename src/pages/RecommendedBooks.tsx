@@ -19,21 +19,21 @@ const books = [
     title: "Cure-se a Si Próprio",
     author: "Dr. Joe Dispenza",
     description: "Evidências científicas de que o pensamento pode alterar a biologia do corpo, com meditações e práticas para ativar a autocura.",
-    link: "#",
+    link: "https://amzn.to/4tKuPeb",
   },
   {
     image: bookVocePlacebo,
     title: "Você é o Placebo",
     author: "Dr. Joe Dispenza",
     description: "Como mudanças no pensamento e nas emoções podem reprogramar o corpo e criar uma nova realidade pessoal.",
-    link: "#",
+    link: "https://amzn.to/4tLuQyk",
   },
   {
     image: bookCorpoHolografico,
     title: "Corpo Holográfico",
     author: "Ruslan Haidar",
     description: "Segredos sobre purificação e consciência. A tecnologia divina do corpo e verdades ocultas sobre a purificação humana.",
-    link: "#",
+    link: "https://amzn.to/40kXEAg",
   },
 ];
 const RecommendedBooks = () => {
