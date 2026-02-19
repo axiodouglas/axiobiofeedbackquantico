@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Brain, Mic, MessageSquare, Moon, Eye, Lock, Crown, Sparkles, BarChart3, Clock, BookOpen, ExternalLink, ChevronDown } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Brain, Mic, MessageSquare, Moon, Eye, Lock, Crown, Sparkles, BarChart3, Clock, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import UserMenu from "@/components/UserMenu";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import axioLogoX from "@/assets/axio-logo-x.png";
-import bookPoderSubconsciente from "@/assets/book-poder-subconsciente.jpg";
+
 
 const Index = () => {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ const Index = () => {
   const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [booksOpen, setBooksOpen] = useState(false);
+  
   useEffect(() => {
     const checkAdmin = async () => {
       if (!user) { setIsAdmin(false); return; }
@@ -198,7 +197,7 @@ const Index = () => {
         <div className="max-w-4xl mx-auto grid grid-cols-2 gap-3 sm:gap-4">
           {/* Crenças Limitantes - Central Card */}
           <div
-            className="group relative overflow-hidden rounded-2xl border border-primary/30 bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 p-6"
+            className="col-span-2 group relative overflow-hidden rounded-2xl border border-primary/30 bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 p-4 sm:p-6"
           >
             {isLocked && (
               <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary/20 px-2 py-0.5 z-20">
@@ -212,13 +211,13 @@ const Index = () => {
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
               </div>
             )}
-            <div className="flex items-start gap-4">
-              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-14 w-14 shrink-0">
-                <Brain className="h-7 w-7" />
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 sm:h-14 sm:w-14 shrink-0">
+                <Brain className="h-6 w-6 sm:h-7 sm:w-7" />
               </div>
               <div>
-                <h3 className="font-bold text-foreground text-xl leading-tight">Crenças Limitantes</h3>
-                <p className="text-sm text-muted-foreground mt-1">
+                <h3 className="font-bold text-foreground text-base sm:text-xl leading-tight">Crenças Limitantes</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                   Diagnóstico completo: Mãe, Pai, Traumas e Relacionamentos em uma única análise
                 </p>
               </div>
@@ -227,7 +226,7 @@ const Index = () => {
               <Button
                 variant="cyan"
                 size="sm"
-                className="flex-1"
+                className="flex-1 text-xs sm:text-sm"
                 onClick={handleDiagnosis}
                 disabled={isLocked}
               >
@@ -238,7 +237,7 @@ const Index = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="flex-1"
+                  className="flex-1 text-xs sm:text-sm"
                   onClick={() => navigate("/meus-relatorios")}
                 >
                   <Eye className="h-3.5 w-3.5" />
@@ -263,8 +262,8 @@ const Index = () => {
               <MessageSquare className="h-6 w-6" />
             </div>
             <div className="relative z-10">
-              <h3 className="font-bold text-foreground text-xl leading-tight">Comunidade</h3>
-              <p className="text-sm text-muted-foreground mt-0.5">Relatos de transformação</p>
+              <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Comunidade</h3>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Relatos de transformação</p>
             </div>
           </div>
 
@@ -283,8 +282,8 @@ const Index = () => {
               <Moon className="h-6 w-6" />
             </div>
             <div className="relative z-10">
-              <h3 className="font-bold text-foreground text-xl leading-tight">Entenda a Meditação A.X.I.O.</h3>
-              <p className="text-sm text-muted-foreground mt-0.5">5 etapas da reprogramação</p>
+              <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Entenda a Meditação A.X.I.O.</h3>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">5 etapas da reprogramação</p>
             </div>
           </div>
 
@@ -303,8 +302,8 @@ const Index = () => {
               <Eye className="h-6 w-6" />
             </div>
             <div className="relative z-10">
-              <h3 className="font-bold text-foreground text-xl leading-tight">Oráculo A.X.I.O.</h3>
-              <p className="text-sm text-muted-foreground mt-0.5">Tire dúvidas sobre crenças e comportamento</p>
+              <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Oráculo A.X.I.O.</h3>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Tire dúvidas sobre crenças e comportamento</p>
             </div>
           </div>
 
@@ -323,55 +322,25 @@ const Index = () => {
               <BarChart3 className="h-6 w-6" />
             </div>
             <div className="relative z-10">
-              <h3 className="font-bold text-foreground text-xl leading-tight">Conselheiro de Performance</h3>
-              <p className="text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
+              <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Conselheiro de Performance</h3>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Análise vocal para Trabalho, Reuniões ou Relacionamentos</p>
             </div>
           </div>
 
-          {/* Livros Indicados Card - Collapsible */}
+          {/* Livros Indicados Card */}
           {user && (
-            <Collapsible open={booksOpen} onOpenChange={setBooksOpen} className="col-span-2">
-              <CollapsibleTrigger asChild>
-                <div className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] transition-all duration-300 p-6 cursor-pointer">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
-                      <BookOpen className="h-6 w-6" />
-                    </div>
-                    <h3 className="font-bold text-foreground text-xl leading-tight flex-1">Livros Indicados</h3>
-                    <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${booksOpen ? 'rotate-180' : ''}`} />
-                  </div>
-                </div>
-              </CollapsibleTrigger>
-              <CollapsibleContent className="mt-2 rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] p-6">
-                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-                  <img
-                    src={bookPoderSubconsciente}
-                    alt="O Poder do Subconsciente - Dr. Joseph Murphy"
-                    className="w-28 h-auto rounded-lg shadow-lg shrink-0"
-                    draggable={false}
-                  />
-                  <div className="flex flex-col gap-3 text-center sm:text-left">
-                    <div>
-                      <h4 className="font-semibold text-foreground text-base">O Poder do Subconsciente</h4>
-                      <p className="text-xs text-muted-foreground">Dr. Joseph Murphy</p>
-                    </div>
-                    <p className="text-sm text-foreground/70 leading-relaxed">
-                      Um clássico atemporal que revela como utilizar o poder da mente subconsciente para transformar sua vida. 
-                      Murphy ensina técnicas práticas para reprogramar crenças limitantes e alcançar saúde, prosperidade e paz interior.
-                    </p>
-                    <Button
-                      variant="cyanOutline"
-                      size="sm"
-                      className="self-center sm:self-start text-xs h-8 px-4 opacity-80 hover:opacity-100"
-                      onClick={(e) => { e.stopPropagation(); window.open("#", "_blank"); }}
-                    >
-                      <ExternalLink className="h-3 w-3" />
-                      Adquirir Livro
-                    </Button>
-                  </div>
-                </div>
-              </CollapsibleContent>
-            </Collapsible>
+            <div
+              className="group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex items-start gap-3 sm:gap-4"
+              onClick={() => navigate("/livros")}
+            >
+              <div className="flex items-center justify-center rounded-2xl bg-primary/20 text-primary h-12 w-12 shrink-0">
+                <BookOpen className="h-6 w-6" />
+              </div>
+              <div className="relative z-10">
+                <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Livros Indicados</h3>
+                <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Leituras para sua evolução</p>
+              </div>
+            </div>
           )}
         </div>
       </div>
