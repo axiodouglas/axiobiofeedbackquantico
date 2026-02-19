@@ -20,7 +20,6 @@ serve(async (req) => {
       );
     }
 
-    // Validate inputs
     if (message.length > 2000 || email.length > 255 || (name && name.length > 100)) {
       return new Response(
         JSON.stringify({ error: "Dados excedem o limite permitido" }),
@@ -38,33 +37,39 @@ serve(async (req) => {
       );
     }
 
+    const payload = {
+      from: "AXIO Suporte <onboarding@resend.dev>",
+      to: ["douglasoficial333@gmail.com"],
+      subject: subject || `[Suporte AXIO] Mensagem de ${name || "Usuário"}`,
+      reply_to: email,
+      html: `
+        <h2>Nova mensagem de suporte</h2>
+        <p><strong>Nome:</strong> ${name || "Não informado"}</p>
+        <p><strong>E-mail do usuário:</strong> ${email}</p>
+        <p><strong>⚠️ Para responder, use este e-mail:</strong> ${email}</p>
+        <hr/>
+        <p>${message.replace(/\n/g, "<br/>")}</p>
+      `,
+    };
+
+    console.log("Enviando e-mail via Resend para:", payload.to);
+
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
-      body: JSON.stringify({
-        from: "AXIO Suporte <onboarding@resend.dev>",
-        to: ["douglasoficial333@gmail.com"],
-        subject: subject || `[Suporte AXIO] Mensagem de ${name || "Usuário"}`,
-        reply_to: email,
-        html: `
-          <h2>Nova mensagem de suporte</h2>
-          <p><strong>Nome:</strong> ${name || "Não informado"}</p>
-          <p><strong>E-mail do usuário:</strong> ${email}</p>
-          <p><strong>⚠️ Responda diretamente para este e-mail:</strong> ${email}</p>
-          <hr/>
-          <p>${message.replace(/\n/g, "<br/>")}</p>
-        `,
-      }),
+      body: JSON.stringify(payload),
     });
 
+    const responseText = await res.text();
+    console.log("Resend status:", res.status, "response:", responseText);
+
     if (!res.ok) {
-      const errorData = await res.text();
-      console.error("Resend error:", errorData);
+      console.error("Resend error:", res.status, responseText);
       return new Response(
-        JSON.stringify({ error: "Falha ao enviar e-mail" }),
+        JSON.stringify({ error: "Falha ao enviar e-mail", detail: responseText }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
