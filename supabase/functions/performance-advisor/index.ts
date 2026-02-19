@@ -123,7 +123,7 @@ serve(async (req) => {
           role: "user",
           content: [
             { type: "text", text: "Transcreva este áudio em português brasileiro. Retorne APENAS o texto transcrito." },
-            { type: "input_audio", input_audio: { data: base64Audio, format: "webm" } },
+            { type: "input_audio", input_audio: { data: base64Audio, format: "wav" } },
           ],
         }],
         temperature: 0.1,
@@ -132,6 +132,8 @@ serve(async (req) => {
     });
 
     if (!transcribeResponse.ok) {
+      const errBody = await transcribeResponse.text();
+      console.error("Transcribe API error:", transcribeResponse.status, errBody);
       return new Response(JSON.stringify({ error: "Falha ao processar áudio. Tente novamente." }), {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
