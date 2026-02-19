@@ -30,6 +30,7 @@ import Convite from "./pages/Convite";
 import Admin from "./pages/Admin";
 import PerformanceAdvisor from "./pages/PerformanceAdvisor";
 import PerformanceAdviceDetail from "./pages/PerformanceAdviceDetail";
+import RecommendedBooks from "./pages/RecommendedBooks";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -82,6 +83,7 @@ const App = () => (
                 </ProtectedRoute>
               } />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/livros" element={<ProtectedRoute><RecommendedBooks /></ProtectedRoute>} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
