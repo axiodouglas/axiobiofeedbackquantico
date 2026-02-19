@@ -6,19 +6,21 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import showcaseHome from "@/assets/showcase-home.jpg";
-import showcasePilares from "@/assets/showcase-pilares.jpg";
-import showcaseRelatorio from "@/assets/showcase-relatorio.jpg";
-import showcaseFuncionalidades from "@/assets/showcase-funcionalidades.jpg";
-import showcaseGravacao from "@/assets/showcase-gravacao.jpg";
-import showcaseOraculo from "@/assets/showcase-oraculo.jpg";
+import showcaseHome from "@/assets/showcase-home-new.jpg";
+import showcaseGravacao from "@/assets/showcase-gravacao-new.jpg";
+import showcaseRelatorio from "@/assets/showcase-relatorio-new.jpg";
+import showcaseFerida from "@/assets/showcase-ferida-new.jpg";
+import showcaseSomatizacao from "@/assets/showcase-somatizacao-new.jpg";
+import showcaseFuncoes from "@/assets/showcase-funcoes-new.jpg";
+import showcaseOraculo from "@/assets/showcase-oraculo-new.jpg";
 
 const screens = [
   { src: showcaseHome, alt: "Tela inicial AXIO" },
-  { src: showcasePilares, alt: "Os 4 Pilares da Crença" },
   { src: showcaseGravacao, alt: "Gravação de áudio AXIO" },
-  { src: showcaseRelatorio, alt: "Relatório e diagnóstico AXIO" },
-  { src: showcaseFuncionalidades, alt: "Funcionalidades AXIO" },
+  { src: showcaseRelatorio, alt: "Relatório AXIO" },
+  { src: showcaseFerida, alt: "Ferida Raiz e Impactos" },
+  { src: showcaseSomatizacao, alt: "Mapa de Somatização" },
+  { src: showcaseFuncoes, alt: "Funcionalidades AXIO" },
   { src: showcaseOraculo, alt: "Oráculo AXIO" },
 ];
 

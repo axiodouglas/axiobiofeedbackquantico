@@ -84,9 +84,6 @@ const VendaOficial = () => {
       {/* Visual Showcase — Carousel */}
       <VisualShowcase />
 
-      {/* Final CTA */}
-      <CtaBanner text="Sua transformação começa agora" />
-
       {/* Footer */}
       <footer className="relative z-10 border-t border-border py-6 sm:py-8 text-center text-xs text-muted-foreground space-y-1 px-4">
         <p className="font-semibold text-gradient-brand">A.X.I.O. - Análise do Fator X do Inconsciente de Origem</p>
