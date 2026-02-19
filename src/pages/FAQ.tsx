@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import UserMenu from "@/components/UserMenu";
+import { useToast } from "@/hooks/use-toast";
 
 const faqItems = [
   {
@@ -53,6 +54,7 @@ const faqItems = [
 
 const FAQ = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [supportOpen, setSupportOpen] = useState(false);
   const [supportName, setSupportName] = useState("");
   const [supportEmail, setSupportEmail] = useState("");
@@ -61,7 +63,10 @@ const FAQ = () => {
   const [sent, setSent] = useState(false);
 
   const handleSendSupport = async () => {
-    if (!supportMessage.trim() || !supportEmail.trim()) return;
+    if (!supportMessage.trim() || !supportEmail.trim()) {
+      toast({ title: "Preencha e-mail e mensagem antes de enviar.", variant: "destructive" });
+      return;
+    }
     setSending(true);
     try {
       const { error } = await supabase.functions.invoke("send-support-email", {
@@ -77,8 +82,13 @@ const FAQ = () => {
       setSupportName("");
       setSupportEmail("");
       setTimeout(() => { setSent(false); setSupportOpen(false); }, 4000);
-    } catch {
-      // silently fail
+    } catch (err: any) {
+      console.error("Erro ao enviar suporte:", err);
+      toast({
+        title: "Erro ao enviar mensagem",
+        description: "Tente novamente em instantes ou entre em contato pelo e-mail suporteaxio@gmail.com",
+        variant: "destructive",
+      });
     } finally {
       setSending(false);
     }
