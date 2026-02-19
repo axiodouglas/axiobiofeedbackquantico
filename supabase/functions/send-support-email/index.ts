@@ -45,7 +45,7 @@ serve(async (req) => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "AXIO Suporte <onboarding@resend.dev>",
+        from: "AXIO Suporte <suporte@axiomail.com>",
         to: ["suporteaxio@gmail.com"],
         subject: subject || `[Suporte AXIO] Mensagem de ${name || "Usuário"}`,
         reply_to: email,

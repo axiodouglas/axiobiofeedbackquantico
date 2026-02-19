@@ -88,7 +88,7 @@ serve(async (req) => {
             Authorization: `Bearer ${RESEND_API_KEY}`,
           },
           body: JSON.stringify({
-            from: "AXIO <onboarding@resend.dev>",
+            from: "AXIO <suporte@axiomail.com>",
             to: [recipient.email],
             subject: emailSubject,
             html: `
