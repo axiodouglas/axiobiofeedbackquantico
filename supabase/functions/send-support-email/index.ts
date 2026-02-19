@@ -46,13 +46,14 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         from: "AXIO Suporte <onboarding@resend.dev>",
-        to: ["suporteaxio@gmail.com"],
+        to: ["douglasoficial333@gmail.com"],
         subject: subject || `[Suporte AXIO] Mensagem de ${name || "Usuário"}`,
-        reply_to: "suporteaxio@gmail.com",
+        reply_to: email,
         html: `
           <h2>Nova mensagem de suporte</h2>
           <p><strong>Nome:</strong> ${name || "Não informado"}</p>
-          <p><strong>E-mail:</strong> ${email}</p>
+          <p><strong>E-mail do usuário:</strong> ${email}</p>
+          <p><strong>⚠️ Responda diretamente para este e-mail:</strong> ${email}</p>
           <hr/>
           <p>${message.replace(/\n/g, "<br/>")}</p>
         `,
