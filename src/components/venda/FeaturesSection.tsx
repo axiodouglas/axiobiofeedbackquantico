@@ -2,14 +2,12 @@ import {
   Mic,
   Brain,
   MessageCircle,
-  BarChart3,
   Users,
   Music,
   FileText,
   Activity,
   Zap,
   Heart,
-  TrendingUp,
   Sparkles,
 } from "lucide-react";
 
@@ -62,20 +60,6 @@ const features = [
     title: "Conselheiro de Performance",
     description:
       "Grave um áudio rápido sobre qualquer decisão importante. O conselheiro mede sua energia e frequência emocional naquele momento e te dá um parecer se você está em estado de clareza ou sob influência de crenças limitantes para tomar a decisão.",
-  },
-  {
-    icon: BarChart3,
-    tag: "Gráficos",
-    title: "Gráficos de Evolução Emocional",
-    description:
-      "Acompanhe sua evolução semana a semana com gráficos visuais. Veja quais sentimentos predominam, como sua frequência emocional está mudando ao longo do tempo e o progresso da reprogramação das suas crenças.",
-  },
-  {
-    icon: TrendingUp,
-    tag: "Escala Hawkins",
-    title: "Escala de Consciência de Hawkins",
-    description:
-      "Cada diagnóstico posiciona você na Escala de Hawkins — um mapa de frequência emocional que vai de vergonha e medo até paz e iluminação. Acompanhe sua ascensão de frequência ao longo da jornada.",
   },
   {
     icon: Users,

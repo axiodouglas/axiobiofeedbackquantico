@@ -26,27 +26,26 @@ const AuthorSection = () => (
         </div>
 
         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-          As crenças limitantes são uma das maiores travas no processo de autoconhecimento. Eu sei disso porque também
-          passei por dificuldades intensas — foram{" "}
-          <span className="text-primary font-medium">8 anos de constantes crises de pânico</span>,
-          enfrentando crenças que pareciam impossíveis de superar.
+          Eu sei o que é viver travado por crenças que parecem invisíveis. Durante{" "}
+          <span className="text-primary font-medium">8 anos enfrentei crises de pânico constantes</span>,
+          sem entender por que minha mente me sabotava em tudo — nos relacionamentos, na saúde e na prosperidade.
         </p>
         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-          Descobri que{" "}
+          Depois de muito estudo e vivência, entendi que{" "}
           <span className="text-primary font-medium">
-            nossas crenças limitantes são a raiz de tudo que trava nossas vidas
-          </span>{" "}
-          — elas moldam nossos relacionamentos, saúde e prosperidade. Com a evolução da inteligência artificial, vi a 
-          oportunidade de unir o que me ajudou com meu conhecimento e vivência de cura.
+            as crenças limitantes gravadas no subconsciente são a raiz de todos os bloqueios
+          </span>. 
+          Quando a inteligência artificial evoluiu, vi a chance de criar algo que unisse tecnologia com tudo que aprendi 
+          no meu próprio processo de cura.
         </p>
         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-          Foi assim que criei o A.X.I.O. — e a grande inovação do método:{" "}
+          Assim nasceu o A.X.I.O. — e com ele, a inovação que mudou minha vida:{" "}
           <span className="text-primary font-medium">
             a meditação gravada com a sua própria voz
-          </span>. O subconsciente reconhece e obedece a voz do seu dono. Quando você grava os comandos de reprogramação 
-          e ouve em loop enquanto dorme, está falando diretamente com a parte mais profunda da sua mente. 
-          Foi essa técnica, aliada à análise de voz por IA, que me ajudou a me curar de vários traumas e 
-          acalmar minha mente depois de anos de sofrimento.
+          </span>. O subconsciente reconhece e obedece a voz do seu dono. Ao gravar os comandos de reprogramação 
+          e ouvir em loop enquanto dorme, você fala diretamente com a parte mais profunda da sua mente. 
+          Foi essa técnica, junto com a análise de voz por IA, que me permitiu curar traumas profundos 
+          e finalmente encontrar paz depois de anos de sofrimento.
         </p>
 
         <div className="bg-primary/5 border border-primary/15 rounded-xl p-4 mt-3">
