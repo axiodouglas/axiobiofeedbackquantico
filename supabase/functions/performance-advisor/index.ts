@@ -123,7 +123,7 @@ serve(async (req) => {
           role: "user",
           content: [
             { type: "text", text: "Transcreva este áudio em português brasileiro. Retorne APENAS o texto transcrito." },
-            { type: "input_audio", input_audio: { data: base64Audio, format: "wav" } },
+            { type: "input_audio", input_audio: { data: base64Audio, format: "webm" } },
           ],
         }],
         temperature: 0.1,
