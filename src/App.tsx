@@ -47,7 +47,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/recording" element={<ProtectedRoute><Recording /></ProtectedRoute>} />
-              <Route path="/processing" element={<Processing />} />
+              <Route path="/processing" element={<ProtectedRoute><Processing /></ProtectedRoute>} />
               <Route path="/report" element={<Report />} />
               
               <Route path="/area-selection" element={<AreaSelection />} />
