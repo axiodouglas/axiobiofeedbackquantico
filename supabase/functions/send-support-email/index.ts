@@ -1,9 +1,25 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+// Simple HTML entity escaping to prevent XSS in emails
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// Email format validation
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && !email.includes("..");
+}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -11,6 +27,28 @@ serve(async (req) => {
   }
 
   try {
+    // Require authentication
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: "Não autorizado" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+    const userClient = createClient(supabaseUrl, anonKey, {
+      global: { headers: { Authorization: authHeader } },
+    });
+    const { data: { user }, error: userError } = await userClient.auth.getUser();
+    if (userError || !user) {
+      return new Response(
+        JSON.stringify({ error: "Não autorizado" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const { name, email, message, subject } = await req.json();
 
     if (!email || !message) {
@@ -20,35 +58,30 @@ serve(async (req) => {
       );
     }
 
-    if (message.length > 2000 || email.length > 255 || (name && name.length > 100)) {
+    if (!isValidEmail(email) || message.length > 2000 || email.length > 255 || (name && name.length > 100) || (subject && subject.length > 200)) {
       return new Response(
-        JSON.stringify({ error: "Dados excedem o limite permitido" }),
+        JSON.stringify({ error: "Dados inválidos ou excedem o limite permitido" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-
-    if (!RESEND_API_KEY) {
-      console.error("RESEND_API_KEY not configured");
-      return new Response(
-        JSON.stringify({ error: "Serviço de e-mail não configurado" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    const safeName = escapeHtml((name || "Não informado").substring(0, 100));
+    const safeEmail = escapeHtml(email.substring(0, 255));
+    const safeMessage = escapeHtml(message.substring(0, 2000));
+    const safeSubject = escapeHtml((subject || `[Suporte AXIO] Mensagem de ${safeName}`).substring(0, 200));
 
     const payload = {
       from: "AXIO Suporte <onboarding@resend.dev>",
       to: ["douglasoficial333@gmail.com"],
-      subject: subject || `[Suporte AXIO] Mensagem de ${name || "Usuário"}`,
+      subject: safeSubject,
       reply_to: email,
       html: `
         <h2>Nova mensagem de suporte</h2>
-        <p><strong>Nome:</strong> ${name || "Não informado"}</p>
-        <p><strong>E-mail do usuário:</strong> ${email}</p>
-        <p><strong>⚠️ Para responder, use este e-mail:</strong> ${email}</p>
+        <p><strong>Nome:</strong> ${safeName}</p>
+        <p><strong>E-mail do usuário:</strong> ${safeEmail}</p>
+        <p><strong>⚠️ Para responder, use este e-mail:</strong> ${safeEmail}</p>
         <hr/>
-        <p>${message.replace(/\n/g, "<br/>")}</p>
+        <p>${safeMessage.replace(/\n/g, "<br/>")}</p>
       `,
     };
 
@@ -81,7 +114,7 @@ serve(async (req) => {
   } catch (error) {
     console.error("Error:", error.message);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Erro interno do servidor" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
