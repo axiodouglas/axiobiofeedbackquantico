@@ -66,8 +66,21 @@ serve(async (req) => {
 
     const { subject, message } = await req.json();
 
-    const emailSubject = subject || "Uma ótima sexta-feira do Método AXIO! ✨";
-    const emailBody = message || "Olá! Passando para desejar uma excelente sexta-feira. Que hoje seja um dia de clareza mental e liberação. Lembre-se: sua voz é a autoridade sobre sua realidade. Vamos reprogramar?";
+    if (subject && subject.length > 200) {
+      return new Response(JSON.stringify({ error: "Assunto muito longo" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (message && message.length > 5000) {
+      return new Response(JSON.stringify({ error: "Mensagem muito longa" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const emailSubject = (subject || "Uma ótima sexta-feira do Método AXIO! ✨").substring(0, 200);
+    const emailBody = (message || "Olá! Passando para desejar uma excelente sexta-feira. Que hoje seja um dia de clareza mental e liberação. Lembre-se: sua voz é a autoridade sobre sua realidade. Vamos reprogramar?").substring(0, 5000);
 
     const recipients = (profiles || [])
       .filter((p: { email: string | null }) => p.email)
@@ -126,7 +139,8 @@ serve(async (req) => {
       }
     );
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error("Broadcast error:", error.message);
+    return new Response(JSON.stringify({ error: "Erro interno do servidor" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
