@@ -7,26 +7,27 @@ const corsHeaders = {
 };
 
 const COMMAND_SYSTEM_PROMPT = `Você é o Gerador de Comandos Quânticos do Método A.X.I.O.
-Sua função é criar 3 comandos CURTOS e IMPACTANTES (manhã, tarde e noite) baseados no diagnóstico do usuário.
+Sua função é criar 3 comandos CURTOS e IMPACTANTES (manhã, tarde e noite) baseados no diagnóstico único do usuário.
 
 REGRAS ABSOLUTAS:
-- Use o nome do usuário. NUNCA use "Querido(a)" — sempre use o nome real.
-- Cada comando deve ter NO MÁXIMO 2-3 frases curtas e diretas.
-- Linguagem em primeira pessoa, como se o usuário falasse consigo mesmo.
-- Referência direta ao trauma/ferida raiz do diagnóstico.
+- TODOS os comandos DEVEM começar com exatamente a frase: "Querido (Diga seu nome)," — isso é um padrão fixo e imutável para todas as pessoas e todos os comandos.
+- Após essa abertura, o comando deve ser 100% personalizado com base no diagnóstico específico daquela pessoa: ferida raiz, bloqueios, sentimentos e áreas de impacto.
+- Cada comando deve ter NO MÁXIMO 2-3 frases curtas e diretas após a abertura.
+- Linguagem em primeira pessoa, como se o usuário falasse consigo mesmo após a abertura.
+- Referência direta ao trauma/ferida raiz e bloqueios do diagnóstico — NUNCA genérico.
 - Fácil de memorizar e repetir de olhos fechados.
-- NUNCA use termos genéricos. Cada comando deve ser único para aquele diagnóstico.
+- NUNCA use o nome real da pessoa — sempre a abertura padrão "Querido (Diga seu nome),".
 
-ESTRUTURA:
+ESTRUTURA OBRIGATÓRIA:
 
 🌅 MANHÃ (Identidade e Segurança):
-"(Nome), eu sou seguro(a). A dor de [TRAUMA ESPECÍFICO] não me define mais. Eu ocupo meu lugar no mundo com força e confiança. (Repetir 3x)"
+"Querido (Diga seu nome), eu sou seguro(a). A dor de [TRAUMA ESPECÍFICO DO DIAGNÓSTICO] não me define mais. Eu ocupo meu lugar no mundo com força e confiança. (Repetir 3x)"
 
 ☀️ TARDE (Merecimento e Ação):
-"(Nome), eu libero [BLOQUEIO ESPECÍFICO]. Eu mereço prosperar e ser feliz. Eu sou a autoridade da minha vida. (Repetir 3x)"
+"Querido (Diga seu nome), eu libero [BLOQUEIO ESPECÍFICO DO DIAGNÓSTICO]. Eu mereço prosperar e ser feliz. Eu sou a autoridade da minha vida. (Repetir 3x)"
 
 🌙 NOITE (Limpeza e Entrega):
-"(Nome), eu solto [REFERÊNCIA À FERIDA DE ORIGEM]. Meu corpo descansa na verdade de que somos completos. Amanhã será livre e abundante. (Repetir 3x)"
+"Querido (Diga seu nome), eu solto [REFERÊNCIA DIRETA À FERIDA RAIZ DO DIAGNÓSTICO]. Meu corpo descansa na verdade de que somos completos. Amanhã será livre e abundante. (Repetir 3x)"
 
 Responda APENAS com um JSON válido no formato:
 {
@@ -62,7 +63,6 @@ serve(async (req) => {
     // Build the prompt with diagnosis context
     const dr = diagnosis_result;
     const contextParts = [
-      `Nome do usuário: ${user_name || "Querido (Diga seu nome)"}`,
       `Título do diagnóstico: ${dr.title || "N/A"}`,
       `Resumo: ${dr.summary || "N/A"}`,
       `Ferida Raiz: ${dr.root_wound || "N/A"}`,
@@ -76,7 +76,7 @@ serve(async (req) => {
       if (dr.secondary_impacts.relacionamentos) contextParts.push(`Impacto Relacionamentos: ${dr.secondary_impacts.relacionamentos}`);
     }
 
-    const userPrompt = `Com base neste diagnóstico A.X.I.O., gere os 3 comandos quânticos personalizados:\n\n${contextParts.join("\n")}\n\nResponda APENAS com o JSON válido.`;
+    const userPrompt = `Com base neste diagnóstico A.X.I.O. único, gere os 3 comandos quânticos personalizados. OBRIGATÓRIO: todos devem iniciar com "Querido (Diga seu nome)," e o restante deve referenciar diretamente os elementos específicos deste diagnóstico:\n\n${contextParts.join("\n")}\n\nResponda APENAS com o JSON válido.`;
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY not configured");
