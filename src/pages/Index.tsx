@@ -283,7 +283,7 @@ const Index = () => {
             </div>
             <div className="relative z-10 min-w-0">
               <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Meditação A.X.I.O.</h3>
-              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">5 etapas da reprogramação</p>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Meditação exclusiva para cada pessoa</p>
             </div>
           </div>
 
@@ -303,7 +303,7 @@ const Index = () => {
             </div>
             <div className="relative z-10 min-w-0">
               <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Oráculo A.X.I.O.</h3>
-              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Dúvidas sobre crenças</p>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Tire suas dúvidas sobre crenças limitantes</p>
             </div>
           </div>
 
@@ -323,7 +323,7 @@ const Index = () => {
             </div>
             <div className="relative z-10 min-w-0">
               <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Conselheiro de Performance</h3>
-              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Análise vocal profissional</p>
+              <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Tome suas decisões com base em sua energia</p>
             </div>
           </div>
 
