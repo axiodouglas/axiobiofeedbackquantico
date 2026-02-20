@@ -29,7 +29,7 @@ export function useFreeDiagnosisUsed(userId: string | undefined) {
         .from("diagnoses")
         .select("id", { count: "exact", head: true })
         .eq("user_id", userId)
-        .eq("area", "mae");
+        .eq("area", "crencas_limitantes");
 
       // Only count diagnoses created after the reset date
       if (profile?.free_diagnosis_reset_at) {
