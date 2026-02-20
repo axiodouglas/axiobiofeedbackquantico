@@ -11,44 +11,56 @@ import { useToast } from "@/hooks/use-toast";
 
 const faqItems = [
   {
-    q: "Por que o Método AXIO é diferente de outros apps?",
-    a: "Porque usamos a sua própria voz para reprogramar o seu subconsciente, atacando a crença raiz identificada pelo nosso Biofeedback vocal.",
+    q: "Como funciona o AXIO?",
+    a: "Você grava um trecho curto da sua voz falando livremente. O nosso Biofeedback vocal analisa padrões de frequência no seu áudio e gera um relatório exclusivo identificando suas crenças limitantes, bloqueios emocionais e a ferida de origem. Com base nisso, o app cria a sua meditação personalizada para reprogramar o subconsciente.",
+  },
+  {
+    q: "Como devo gravar o meu áudio?",
+    a: "Grave em um ambiente silencioso, com apenas a sua voz. Fale de forma calma, pausada e natural — não precisa ser perfeito. O importante é que seja somente você falando, sem música, sem ruído de fundo e sem outras vozes. Sua voz é o dado que alimenta a análise.",
+  },
+  {
+    q: "Posso colocar música de fundo na gravação?",
+    a: "Não. A gravação deve conter somente a sua voz. Música ou qualquer outro som interfere diretamente na leitura das frequências vocais e compromete a precisão do seu diagnóstico.",
+  },
+  {
+    q: "A meditação é igual para todo mundo?",
+    a: "Não. A sua meditação é 100% exclusiva. Ela é gerada com base no seu relatório, que por sua vez é gerado com base na sua própria voz. Cada pessoa recebe um roteiro único com o seu nome, suas crenças identificadas e sua ferida de origem. Nenhuma meditação é igual à outra.",
   },
   {
     q: "Como devo ouvir a meditação?",
-    a: "O protocolo AXIO foi desenhado para ser ouvido durante o sono em loop. Ao dormir, sua mente consciente relaxa, permitindo que a reprogramação penetre diretamente no subconsciente.",
+    a: "A meditação AXIO é para ouvir em loop durante o sono, não junto com a gravação. Você grava o roteiro com a sua própria voz, baixa o arquivo e coloca para tocar em repetição enquanto dorme. Durante o sono, a mente consciente relaxa e a reprogramação age diretamente no subconsciente.",
   },
   {
-    q: "Qual a importância de escrever a meditação à mão?",
-    a: "A escrita ativa o Córtex Pré-Frontal, transformando o trauma emocional em uma informação lógica, o que potencializa a limpeza que ocorrerá enquanto você dorme.",
+    q: "Posso ouvir a meditação enquanto faço outras coisas?",
+    a: "O protocolo é ouvir durante o sono em loop. Pode até ouvir em outros momentos, mas o resultado mais profundo acontece durante o sono, quando o cérebro está em estado theta e receptivo à reprogramação.",
   },
   {
-    q: "Posso gravar mais de um pilar no mesmo dia?",
-    a: "O app é liberado, mas o ideal para resultados reais é gravar um pilar por vez e seguir o protocolo de 7 dias ouvindo a meditação todas as noites. Se você não seguir o protocolo e fizer de forma aleatória, os resultados ficam comprometidos e sob sua própria responsabilidade.",
+    q: "Por que preciso gravar com a minha própria voz?",
+    a: "Porque o seu subconsciente reconhece e obedece a sua própria voz como uma autoridade absoluta. Uma voz externa não tem o mesmo impacto neurológico. Ao ouvir a si mesmo enquanto dorme, você ativa o protocolo mais direto de reprogramação que existe.",
   },
   {
-    q: "Por que devo usar a minha própria voz?",
-    a: "O seu subconsciente aceita a sua voz como uma ordem absoluta. Ouvir a si mesmo é a chave para a transformação real.",
+    q: "Qual a importância de escrever a meditação à mão antes de gravar?",
+    a: "A escrita ativa o Córtex Pré-Frontal e transforma o conteúdo emocional em uma informação processada racionalmente. Isso prepara o terreno para a limpeza que acontecerá enquanto você dorme. É uma etapa do processo, não opcional.",
   },
   {
-    q: "O Oráculo AXIO pode me dar diagnósticos?",
-    a: "O Oráculo complementa o seu relatório com base na PNL e Neurociência, ajudando você a entender a origem comportamental dos seus bloqueios.",
+    q: "O que é o Oráculo AXIO?",
+    a: "O Oráculo é um assistente inteligente que complementa o seu relatório. Você pode fazer perguntas sobre suas crenças limitantes, padrões de comportamento e bloqueios identificados, e ele responde com base em Neurociência e PNL aplicadas ao seu diagnóstico.",
   },
   {
-    q: "Como o app identifica bloqueios no meu áudio?",
-    a: "Analisamos padrões de frequência e termos específicos que revelam onde a sua energia emocional está estagnada.",
+    q: "O que é o Conselheiro de Performance?",
+    a: "É uma ferramenta que analisa o seu estado emocional e de energia por meio da voz e entrega orientações práticas para tomada de decisões. Ideal para momentos em que você precisa de clareza antes de agir.",
   },
   {
-    q: "Como deve ser a minha gravação de voz?",
-    a: "O áudio é composto apenas pela sua voz. Ao gravar, fale de forma calma, pausada e relaxada. Não precisa ser perfeito, apenas leia o roteiro com tranquilidade. Sua mente reconhece sua voz como a maior autoridade que existe.",
+    q: "O que acontece após as primeiras noites ouvindo em loop?",
+    a: "É comum relatar mais clareza mental, leveza emocional e uma percepção diferente sobre situações que antes geravam reação automática. O cérebro começa a substituir padrões antigos por novos caminhos neurais à medida que o protocolo é repetido.",
   },
   {
-    q: "O que sinto após as primeiras noites de loop?",
-    a: "É comum sentir mais clareza mental e uma leveza emocional, pois o seu cérebro está substituindo caminhos neurais antigos por novos padrões de força.",
+    q: "Como faço para acessar meu relatório?",
+    a: "Após a gravação e análise, o seu relatório fica salvo na seção 'Meus Relatórios'. Lá você encontra todo o histórico de diagnósticos com os bloqueios identificados, a ferida de origem e a meditação gerada para cada sessão.",
   },
   {
     q: "Como faço para assinar ou mudar meu plano?",
-    a: "Você pode escolher ou alterar seu plano diretamente no menu 'Planos de Assinatura', localizado no ícone da coroa no menu superior. Lá você encontra as melhores opções de desconto.",
+    a: "Acesse o ícone da coroa no menu superior para ver os planos disponíveis. Lá você encontra as opções com os melhores descontos e pode escolher ou alterar sua assinatura a qualquer momento.",
   },
 ];
 
