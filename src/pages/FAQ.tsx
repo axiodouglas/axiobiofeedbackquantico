@@ -28,7 +28,7 @@ const faqItems = [
   },
   {
     q: "Como devo ouvir a meditação?",
-    a: "A meditação AXIO é para ouvir em loop durante o sono, não junto com a gravação. Você grava o roteiro com a sua própria voz, baixa o arquivo e coloca para tocar em repetição enquanto dorme. Durante o sono, a mente consciente relaxa e a reprogramação age diretamente no subconsciente.",
+    a: "A meditação AXIO é para ouvir em loop durante o sono. Você grava o roteiro com a sua própria voz, baixa o arquivo e coloca para tocar em repetição enquanto dorme. Durante o sono, a mente consciente relaxa e a reprogramação age diretamente no subconsciente.",
   },
   {
     q: "Posso ouvir a meditação enquanto faço outras coisas?",
