@@ -118,12 +118,34 @@ const Recording = () => {
     );
   }
 
+  const getSupportedMimeType = (): string => {
+    const types = [
+      "audio/webm;codecs=opus",
+      "audio/webm",
+      "audio/ogg;codecs=opus",
+      "audio/mp4;codecs=mp4a.40.2",
+      "audio/mp4",
+    ];
+    for (const type of types) {
+      if (MediaRecorder.isTypeSupported(type)) return type;
+    }
+    return "";
+  };
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: { echoCancellation: true, noiseSuppression: true, sampleRate: 44100 },
       });
-      const mediaRecorder = new MediaRecorder(stream, { mimeType: MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : 'audio/webm' });
+      const mimeType = getSupportedMimeType();
+      const recorderOptions = mimeType ? { mimeType } : {};
+      let mediaRecorder: MediaRecorder;
+      try {
+        mediaRecorder = new MediaRecorder(stream, recorderOptions);
+      } catch {
+        // Fallback: let browser choose the format
+        mediaRecorder = new MediaRecorder(stream);
+      }
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
 
@@ -170,9 +192,19 @@ const Recording = () => {
           return prev + 1;
         });
       }, 1000);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error accessing microphone:", error);
-      toast({ title: "Microfone indisponível", description: "Permita o acesso ao microfone nas configurações do navegador.", variant: "destructive" });
+      const isPermissionDenied = error?.name === "NotAllowedError" || error?.name === "PermissionDeniedError";
+      const isNotFound = error?.name === "NotFoundError" || error?.name === "DevicesNotFoundError";
+      toast({
+        title: isPermissionDenied ? "Permissão Negada" : isNotFound ? "Microfone Não Encontrado" : "Erro Ao Acessar Microfone",
+        description: isPermissionDenied
+          ? "Permita o acesso ao microfone nas configurações do navegador e tente novamente."
+          : isNotFound
+          ? "Nenhum microfone foi detectado no seu dispositivo."
+          : "Não foi possível iniciar a gravação. Verifique se outro app está usando o microfone e tente novamente.",
+        variant: "destructive",
+      });
     }
   };
 
