@@ -138,7 +138,7 @@ const DiagnosisDetail = () => {
             <div>
               <p className="text-sm font-semibold text-foreground">Relatório Parcial</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Você está vendo apenas metade da análise. Assine um plano para acessar o relatório completo, meditação e comandos quânticos.
+                Você Está Vendo Apenas Metade Da Análise. Assine Um Plano Para Acessar O Relatório Completo, Meditação E Comandos Quânticos.
               </p>
               <Button variant="cyan" size="sm" className="mt-3" onClick={() => navigate("/planos")}>
                 <Crown className="h-3.5 w-3.5" /> Desbloquear Completo
@@ -185,7 +185,7 @@ const DiagnosisDetail = () => {
                 <div className="space-y-3">
                   <h3 className="text-base font-bold text-foreground flex items-center gap-2">
                     <AlertTriangle className="h-4 w-4 text-destructive" />
-                    Bloqueios Identificados {isPartial && <span className="text-xs text-muted-foreground font-normal">(parcial)</span>}
+                    Bloqueios Identificados {isPartial && <span className="text-xs text-muted-foreground font-normal">(Parcial)</span>}
                   </h3>
                   {visibleBlocks.map((block: any, i: number) => (
                     <div key={i} className="bg-secondary/30 border border-border rounded-xl p-4">
@@ -303,16 +303,16 @@ const DiagnosisDetail = () => {
                 </p>
               </div>
               {[
-                { key: "manha", label: "🌅 Manhã — Identidade e Segurança", cmd: commandsByType.manha },
-                { key: "dia", label: "☀️ Tarde — Merecimento e Ação", cmd: commandsByType.dia },
-                { key: "noite", label: "🌙 Noite — Limpeza e Entrega", cmd: commandsByType.noite },
+                { key: "manha", label: "🌅 Manhã — Identidade E Segurança", cmd: commandsByType.manha },
+                { key: "dia", label: "☀️ Tarde — Merecimento E Ação", cmd: commandsByType.dia },
+                { key: "noite", label: "🌙 Noite — Limpeza E Entrega", cmd: commandsByType.noite },
               ].map((p) => (
                 <div key={p.key} className="bg-secondary/30 border border-border rounded-xl p-4">
                   <h4 className="text-sm font-semibold text-foreground mb-2">{p.label}</h4>
                   {p.cmd ? (
                     <>
                       <p className="text-sm text-muted-foreground leading-relaxed">{p.cmd.command_text}</p>
-                      <p className="text-[10px] text-primary/70 mt-2 italic">Repita 3 vezes com convicção.</p>
+                      <p className="text-[10px] text-primary/70 mt-2 italic">Repita 3 Vezes Com Convicção.</p>
                     </>
                   ) : (
                     <p className="text-xs text-muted-foreground italic">Comando será gerado após o diagnóstico.</p>

@@ -127,12 +127,12 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
           Instrução Importante
         </p>
         <p className="text-[11px] text-muted-foreground leading-relaxed">
-          Redija esta meditação em uma folha de papel antes de gravar. Isso faz parte do processo de limpeza emocional e fortalece seu córtex pré-frontal. Depois, grave com calma lendo o roteiro. Ouça em loop durante o sono por 7 noites.
+          Redija Esta Meditação Em Uma Folha De Papel Antes De Gravar. Isso Faz Parte Do Processo De Limpeza Emocional E Fortalece Seu Córtex Pré-Frontal. Depois, Grave Com Calma Lendo O Roteiro. Ouça Em Loop Durante O Sono Por 7 Noites.
         </p>
         <p className="text-[11px] text-muted-foreground leading-relaxed mt-1.5">
-          Se tiver alguma dúvida acesse e entenda{" "}
+          Se Tiver Alguma Dúvida Acesse E Entenda{" "}
           <Link to="/" className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors font-medium">
-            nossa meditação na home
+            Nossa Meditação Na Home
           </Link>
           .
         </p>
@@ -147,7 +147,7 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
       <div className="bg-secondary/20 border border-border rounded-lg p-3 space-y-2">
         <p className="text-xs font-semibold text-foreground flex items-center gap-1.5">
           <Mic className="h-3.5 w-3.5 text-primary" />
-          Gravação da Meditação
+          Gravação Da Meditação
         </p>
 
         <div className="flex items-center gap-2 flex-wrap">
