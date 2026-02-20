@@ -28,93 +28,93 @@ const categoryLabels: Record<Category, string> = {
 const mockPosts: Post[] = [
   {
     id: "1",
-    author: "Ricardo S.",
-    category: "relacionamento",
-    content: "Fiz o pilar Pai e foi pesado. Eu não conseguia nem ligar para o meu pai sem travar. Depois de 3 noites ouvindo minha própria voz, consegui conversar com ele sem mágoa. Parece que saiu um peso do peito.",
-    likes: 24,
+    author: "Camila R.",
+    category: "conquistas",
+    content: "Me fez muito bem. Aprendi coisas sobre mim que nunca tinha parado para enxergar.",
+    likes: 34,
     liked: false,
-    date: "02/02/2026",
+    date: "10/02/2026",
   },
   {
     id: "2",
-    author: "Helena M.",
+    author: "Lucas M.",
     category: "saude",
-    content: "Eu tinha pavor de olhar para trás por causa dos abusos que sofri na infância. A raiva e a tristeza me consumiam. Com a meditação de traumas, hoje sinto que a situação ficou no passado. Finalmente tenho paz.",
-    likes: 31,
+    content: "A meditação é incrível. Depois que comecei a ouvir o áudio antes de dormir, meu sono melhorou muito.",
+    likes: 27,
     liked: false,
-    date: "04/02/2026",
+    date: "11/02/2026",
   },
   {
     id: "3",
-    author: "Felipe G.",
-    category: "financeiro",
-    content: "O diagnóstico da Mãe mostrou exatamente por que eu tinha tanto medo de faltar dinheiro. Era uma crença dela que eu carregava. Ouvir o loop dormindo mudou meu mindset em poucos dias.",
-    likes: 18,
+    author: "Fernanda A.",
+    category: "saude",
+    content: "Tinha um medo enorme de dirigir desde um susto que levei anos atrás. Com a meditação consegui acalmar esse trauma. Hoje dirijo tranquila.",
+    likes: 41,
     liked: false,
-    date: "05/02/2026",
+    date: "12/02/2026",
   },
   {
     id: "4",
-    author: "Beatriz R.",
-    category: "relacionamento",
-    content: "Sempre repetia o mesmo padrão nos meus relacionamentos, aceitando menos do que mereço. O AXIO me mostrou que eu buscava a aprovação que não tive do meu pai. Abri os olhos.",
-    likes: 27,
+    author: "Rafael T.",
+    category: "conquistas",
+    content: "O diagnóstico foi surpreendente. Identificou exatamente o que eu sentia mas não conseguia nomear.",
+    likes: 19,
     liked: false,
-    date: "06/02/2026",
+    date: "12/02/2026",
   },
   {
     id: "5",
-    author: "Tiago J.",
-    category: "saude",
-    content: "O oráculo me ajudou a entender por que eu somatizava minha ansiedade na garganta. Era tudo o que eu não dizia para a minha família. O alívio físico foi imediato.",
-    likes: 15,
+    author: "Mariana C.",
+    category: "relacionamento",
+    content: "Entendi padrões que eu repetia nos meus relacionamentos sem perceber. Foi revelador.",
+    likes: 23,
     liked: false,
-    date: "07/02/2026",
+    date: "13/02/2026",
   },
   {
     id: "6",
-    author: "Clara V.",
-    category: "conquistas",
-    content: "A escrita manual antes de dormir realmente faz a diferença. Sinto que meu cérebro organiza a dor enquanto escrevo e a meditação limpa tudo enquanto durmo.",
-    likes: 33,
+    author: "Diego P.",
+    category: "saude",
+    content: "A meditação me ajudou a soltar uma ansiedade que eu já nem lembrava de onde vinha. Sinto o corpo mais leve.",
+    likes: 38,
     liked: false,
-    date: "08/02/2026",
+    date: "14/02/2026",
   },
   {
     id: "7",
-    author: "Marcos O.",
+    author: "Priscila N.",
     category: "conquistas",
-    content: "Achei que não ia conseguir gravar minha voz com calma, mas segui a dica e fiz relaxado. É estranho no começo, mas o resultado de ouvir a si mesmo é muito potente.",
-    likes: 20,
+    content: "Gravar a própria voz parece estranho no começo mas é muito poderoso. Me surpreendi com o resultado.",
+    likes: 16,
     liked: false,
-    date: "08/02/2026",
+    date: "15/02/2026",
   },
   {
     id: "8",
-    author: "Juliana P.",
-    category: "saude",
-    content: "Minha saúde melhorou depois que limpei o rancor que tinha da minha linhagem materna. Incrível como a gente guarda lixo emocional no corpo sem saber.",
-    likes: 38,
+    author: "Bruno S.",
+    category: "financeiro",
+    content: "Tinha uma trava enorme para ganhar dinheiro. Depois do diagnóstico entendi de onde vinha. Mudou minha visão.",
+    likes: 29,
     liked: false,
-    date: "09/02/2026",
+    date: "16/02/2026",
   },
   {
     id: "9",
-    author: "André L.",
-    category: "financeiro",
-    content: "Fiz o diagnóstico gratuito e não acreditei na precisão. Identificou um bloqueio de merecimento que me travava no trabalho há anos. Já assinei o semestral.",
-    likes: 42,
+    author: "Juliana F.",
+    category: "saude",
+    content: "Aprendi muito sobre mim mesma. A meditação é simples e ao mesmo tempo muito profunda.",
+    likes: 45,
     liked: false,
-    date: "09/02/2026",
+    date: "17/02/2026",
   },
   {
     id: "10",
-    author: "Sonia K.",
+    author: "Thiago K.",
     category: "conquistas",
-    content: "Estou no meu quinto dia de protocolo de loop noturno. O sono está muito mais profundo e eu acordo com uma disposição que não tinha antes. O AXIO é transformador.",
-    likes: 45,
+    content: "O AXIO me fez parar e olhar para dentro. Foi a coisa mais útil que fiz por mim mesmo em muito tempo.",
+    likes: 52,
     liked: false,
-    date: "10/02/2026",
+    date: "18/02/2026",
   },
 ];
 
@@ -229,44 +229,6 @@ const Community = () => {
               </div>
             </div>
           )}
-
-          {/* Inspiração Quântica - Joe Dispenza pinned */}
-          <div className="mb-8">
-            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary" />
-              Inspiração Quântica
-            </h2>
-            <div className="bg-gradient-to-br from-primary/10 via-card to-card border border-primary/20 rounded-xl p-5 space-y-3">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-lg font-bold text-primary">JD</div>
-                <div>
-                  <h3 className="text-sm font-bold text-foreground">Dr. Joe Dispenza</h3>
-                  <span className="text-[11px] text-muted-foreground">Neurocientista &amp; Autor</span>
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Em 1986, Joe Dispenza foi atropelado por um carro durante uma competição de triatlo. O acidente
-                destruiu 6 vértebras da sua coluna. Os médicos foram unânimes: ele precisaria de uma cirurgia com
-                implante de hastes metálicas — e mesmo assim, provavelmente nunca mais andaria normalmente.
-              </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Joe recusou a cirurgia. Em vez disso, decidiu usar exclusivamente o poder da sua mente para se curar.
-                Durante 9 semanas e meia, deitado de bruços, ele dedicou horas por dia a um único exercício:
-                <span className="text-primary font-medium"> reconstruir mentalmente sua coluna, vértebra por vértebra,
-                enviando comandos claros e repetitivos ao seu corpo.</span>
-              </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Em 10 semanas, Joe estava de pé. Em 12 semanas, voltou a treinar. Sem cirurgia. Sem hastes metálicas.
-                Apenas o poder da mente sobre a matéria.
-              </p>
-              <div className="bg-primary/5 border border-primary/15 rounded-lg p-3 mt-2">
-                <p className="text-xs text-primary italic text-center">
-                  &quot;Seu corpo não sabe a diferença entre uma experiência real e uma que você cria mentalmente com a mesma intensidade emocional.&quot;
-                  <span className="block text-[10px] text-primary/70 mt-1">— Dr. Joe Dispenza</span>
-                </p>
-              </div>
-            </div>
-          </div>
 
           <div className="space-y-4">
             {filteredPosts.map((post) => (
