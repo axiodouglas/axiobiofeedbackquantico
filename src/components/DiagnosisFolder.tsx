@@ -43,7 +43,7 @@ export default function DiagnosisFolder({ diagnosis, isPremium, userId, userName
   const [commandsLoaded, setCommandsLoaded] = useState(false);
 
   const daysLeft = 90 - differenceInDays(new Date(), new Date(diagnosis.created_at));
-  const expiresLabel = daysLeft <= 0 ? "expirado" : `expira em ${daysLeft}d`;
+  const expiresLabel = daysLeft <= 0 ? "Expirado" : `Expira Em ${daysLeft}d`;
   const expiresUrgent = daysLeft <= 7;
 
   const handleOpen = async (isOpen: boolean) => {
@@ -95,7 +95,7 @@ export default function DiagnosisFolder({ diagnosis, isPremium, userId, userName
           open={subOpen === "report"}
           onToggle={() => toggleSub("report")}
         >
-          {dr ? <ReportContent diagnosis={dr} /> : <EmptyState text="Relatório não disponível." />}
+          {dr ? <ReportContent diagnosis={dr} /> : <EmptyState text="Relatório Não Disponível." />}
         </SubFolder>
 
         {/* Sub-folder: Comandos */}
@@ -196,7 +196,7 @@ function ReportContent({ diagnosis }: { diagnosis: any }) {
       {diagnosis.blocks?.length > 0 && (
         <div className="space-y-2">
           <p className="text-xs font-bold text-foreground flex items-center gap-1">
-            <AlertTriangle className="h-3 w-3 text-destructive" /> Bloqueios
+            <AlertTriangle className="h-3 w-3 text-destructive" /> Bloqueios Identificados
           </p>
           {diagnosis.blocks.map((b: any, i: number) => (
             <div key={i} className="bg-secondary/30 border border-border rounded-lg p-2.5">
@@ -256,9 +256,9 @@ const RITUAL_INTRO = `A cura AXIO exige que sua mente lógica se cale para que s
 
 function CommandsContent({ commands }: { commands: { manha?: QuantumCommand; dia?: QuantumCommand; noite?: QuantumCommand } }) {
   const periods = [
-    { key: "manha", label: "🌅 Manhã — Identidade e Segurança", cmd: commands.manha },
-    { key: "dia", label: "☀️ Tarde — Merecimento e Ação", cmd: commands.dia },
-    { key: "noite", label: "🌙 Noite — Limpeza e Entrega", cmd: commands.noite },
+    { key: "manha", label: "🌅 Manhã — Identidade E Segurança", cmd: commands.manha },
+    { key: "dia", label: "☀️ Tarde — Merecimento E Ação", cmd: commands.dia },
+    { key: "noite", label: "🌙 Noite — Limpeza E Entrega", cmd: commands.noite },
   ];
   return (
     <div className="space-y-4">
@@ -280,10 +280,10 @@ function CommandsContent({ commands }: { commands: { manha?: QuantumCommand; dia
           {p.cmd ? (
             <p className="text-xs text-muted-foreground leading-relaxed">{p.cmd.command_text}</p>
           ) : (
-            <p className="text-[11px] text-muted-foreground italic">Comando será gerado após o diagnóstico.</p>
+            <p className="text-[11px] text-muted-foreground italic">Comando Será Gerado Após O Diagnóstico.</p>
           )}
           {p.cmd && (
-            <p className="text-[10px] text-primary/70 mt-2 italic">Repita 3 vezes com convicção.</p>
+            <p className="text-[10px] text-primary/70 mt-2 italic">Repita 3 Vezes Com Convicção.</p>
           )}
         </div>
       ))}
@@ -294,3 +294,4 @@ function CommandsContent({ commands }: { commands: { manha?: QuantumCommand; dia
 function EmptyState({ text }: { text: string }) {
   return <p className="text-xs text-muted-foreground italic text-center py-2">{text}</p>;
 }
+
