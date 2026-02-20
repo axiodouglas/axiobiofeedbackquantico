@@ -1,0 +1,9 @@
+{
+  "appId": "app.lovable.96204916f4d34b1c8d22113567d9c4ea",
+  "appName": "A.X.I.O. Biofeedback Quântico",
+  "webDir": "dist",
+  "server": {
+    "url": "https://96204916-f4d3-4b1c-8d22-113567d9c4ea.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
+  }
+}
