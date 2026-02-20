@@ -13,6 +13,7 @@ const areaLabels: Record<string, string> = {
   mae: "Mãe",
   traumas: "Traumas",
   relacionamento: "Relacionamentos",
+  crencas_limitantes: "Crenças Limitantes",
 };
 
 interface DiagnosisData {

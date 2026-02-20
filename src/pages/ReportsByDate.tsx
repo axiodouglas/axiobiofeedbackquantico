@@ -14,6 +14,7 @@ const areaLabels: Record<string, string> = {
   mae: "Mãe",
   traumas: "Traumas",
   relacionamento: "Relacionamentos",
+  crencas_limitantes: "Crenças Limitantes",
 };
 
 const areaIcons: Record<string, string> = {
@@ -21,6 +22,7 @@ const areaIcons: Record<string, string> = {
   mae: "👩",
   traumas: "🧠",
   relacionamento: "❤️",
+  crencas_limitantes: "🧩",
 };
 
 interface Diagnosis {
