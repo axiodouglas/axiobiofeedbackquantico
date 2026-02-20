@@ -281,7 +281,7 @@ const DiagnosisDetail = () => {
 
         {/* Comandos - premium only */}
         <AreaCard
-          title="Comandos Quânticos da Semana"
+          title="Comandos Quânticos"
           description={isPremium ? "Seus comandos personalizados para manhã, tarde e noite" : "Disponível apenas nos Planos Premium"}
           icon={<Sparkles className="h-7 w-7" />}
           iconColor="bg-primary/20 text-primary"
