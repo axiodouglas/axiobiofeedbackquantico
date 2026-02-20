@@ -1,4 +1,3 @@
-import { useState } from "react";
 import somatizationBody from "@/assets/somatization-body.jpeg";
 
 interface SomatizationPoint {
@@ -41,8 +40,6 @@ function getIntensityLabel(intensity: number): string {
 }
 
 export default function SomatizationBodyMap({ somatizationMap }: SomatizationBodyMapProps) {
-  const [selected, setSelected] = useState<number | null>(null);
-
   if (!somatizationMap || somatizationMap.length === 0) return null;
 
   return (
@@ -89,9 +86,7 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
           </div>
           {somatizationMap.map((point, i) => {
             const region = BODY_REGIONS[point.body_region];
-            const isSelected = selected === i;
             const isCritical = point.intensity >= 70;
-            // Gradient: cyan for moderate/low, lilac for critical
             const barColorFrom = isCritical ? "hsl(260, 60%, 65%)" : "hsl(175, 70%, 50%)";
             const barColorTo = isCritical ? "hsl(290, 55%, 55%)" : "hsl(200, 60%, 50%)";
             const badgeColor = getIntensityColor(point.intensity);
@@ -99,12 +94,7 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
             return (
               <div
                 key={i}
-                onClick={() => setSelected(isSelected ? null : i)}
-                className={`rounded-lg border p-3 cursor-pointer transition-all duration-200 ${
-                  isSelected
-                    ? "border-primary/40 bg-primary/5"
-                    : "border-border/60 bg-secondary/10 hover:border-primary/20"
-                }`}
+                className="rounded-lg border border-border/60 bg-secondary/10 p-3"
               >
                 <div className="flex items-center gap-2 mb-1">
                   <div className="relative">
@@ -126,11 +116,9 @@ export default function SomatizationBodyMap({ somatizationMap }: SomatizationBod
                   {" · "}
                   <span className="italic">{point.emotion}</span>
                 </p>
-                {isSelected && (
-                  <p className="text-xs text-muted-foreground leading-relaxed mt-2 border-t border-border/40 pt-2 animate-in fade-in-50 duration-200">
-                    {point.description}
-                  </p>
-                )}
+                <p className="text-xs text-muted-foreground leading-relaxed mt-2 border-t border-border/40 pt-2">
+                  {point.description}
+                </p>
                 <div className="mt-2 flex items-center gap-2">
                   <div className="flex-1 bg-muted/50 rounded-full h-1.5">
                     <div
