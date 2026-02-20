@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Download, FileText, Play, Square } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 interface MeditationScriptProps {
   userName: string;
@@ -127,6 +128,13 @@ export default function MeditationScript({ userName, diagnosisResult, diagnosisI
         </p>
         <p className="text-[11px] text-muted-foreground leading-relaxed">
           Redija esta meditação em uma folha de papel antes de gravar. Isso faz parte do processo de limpeza emocional e fortalece seu córtex pré-frontal. Depois, grave com calma lendo o roteiro. Ouça em loop durante o sono por 7 noites.
+        </p>
+        <p className="text-[11px] text-muted-foreground leading-relaxed mt-1.5">
+          Se tiver alguma dúvida acesse e entenda{" "}
+          <Link to="/" className="text-primary underline underline-offset-2 hover:text-primary/80 transition-colors font-medium">
+            nossa meditação na home
+          </Link>
+          .
         </p>
       </div>
 
