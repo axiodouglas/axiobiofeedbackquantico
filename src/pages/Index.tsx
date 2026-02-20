@@ -282,7 +282,7 @@ const Index = () => {
               <Moon className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="relative z-10 min-w-0">
-              <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Meditação A.X.I.O.</h3>
+              <h3 className="font-bold text-foreground text-sm sm:text-xl leading-tight">Entenda nossa meditação</h3>
               <p className="text-[11px] sm:text-sm text-muted-foreground mt-0.5">Meditação exclusiva para cada pessoa</p>
             </div>
           </div>
