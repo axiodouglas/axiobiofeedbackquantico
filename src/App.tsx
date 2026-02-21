@@ -83,7 +83,7 @@ const App = () => (
                 </ProtectedRoute>
               } />
               <Route path="/admin" element={<Admin />} />
-              <Route path="/livros" element={<ProtectedRoute><RecommendedBooks /></ProtectedRoute>} />
+              <Route path="/livros" element={<RecommendedBooks />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
