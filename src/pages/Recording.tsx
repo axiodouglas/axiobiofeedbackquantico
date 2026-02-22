@@ -12,7 +12,8 @@ import { useAreaLock } from "@/hooks/use-area-lock";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
-const MAX_RECORDING_TIME = 120;
+const MAX_RECORDING_TIME_DEFAULT = 120;
+const MAX_RECORDING_TIME_ADMIN = 600; // 10 minutes for admin
 const MAX_AUDIO_SIZE_MB = 10;
 const VALID_AREAS = ["pai", "mae", "traumas", "relacionamento", "crencas_limitantes"];
 
@@ -180,14 +181,14 @@ const Recording = () => {
 
       timerRef.current = setInterval(() => {
         setRecordingTime((prev) => {
-          if (prev >= MAX_RECORDING_TIME - 1) {
+          if (prev >= maxTime - 1) {
             if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
               mediaRecorderRef.current.stop();
               isRecordingRef.current = false;
               if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
             }
             setIsRecording(false);
-            return MAX_RECORDING_TIME;
+            return maxTime;
           }
           return prev + 1;
         });
@@ -267,7 +268,8 @@ const Recording = () => {
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const progressPercent = (recordingTime / MAX_RECORDING_TIME) * 100;
+  const maxTime = isAdmin ? MAX_RECORDING_TIME_ADMIN : MAX_RECORDING_TIME_DEFAULT;
+  const progressPercent = (recordingTime / maxTime) * 100;
 
   return (
     <div className="min-h-screen bg-background noise flex flex-col">
@@ -298,7 +300,7 @@ const Recording = () => {
             <div className="text-5xl font-mono font-bold text-foreground mb-4">
               {formatTime(recordingTime)}
             </div>
-            <div className="text-sm text-muted-foreground mb-6">Máximo: 2 minutos</div>
+            <div className="text-sm text-muted-foreground mb-6">Máximo: {isAdmin ? "10" : "2"} minutos</div>
 
             <div className="mb-8">
               <Progress value={progressPercent} className="h-2" />
