@@ -31,6 +31,7 @@ import Admin from "./pages/Admin";
 import PerformanceAdvisor from "./pages/PerformanceAdvisor";
 import PerformanceAdviceDetail from "./pages/PerformanceAdviceDetail";
 import RecommendedBooks from "./pages/RecommendedBooks";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +47,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/recording" element={<ProtectedRoute><Recording /></ProtectedRoute>} />
               <Route path="/processing" element={<ProtectedRoute><Processing /></ProtectedRoute>} />
               <Route path="/report" element={<Report />} />
