@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Brain, Mail, Lock, User, ArrowLeft, Sparkles, CheckCircle } from "lucide-react";
+import { Brain, Mail, Lock, User, ArrowLeft, Sparkles, CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 
 const Auth = () => {
   const navigate = useNavigate();
   const { user, signIn, signUp } = useAuth();
+  const { toast } = useToast();
   const [isLogin, setIsLogin] = useState(true);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
 
   // If already logged in, redirect to home
   useEffect(() => {
@@ -54,6 +58,46 @@ const Auth = () => {
     setLoading(false);
   };
 
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccessMessage(null);
+    if (!email) {
+      setError("Digite seu e-mail.");
+      return;
+    }
+    setLoading(true);
+
+    // Check if user exists by trying to look up profile
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("email", email)
+      .maybeSingle();
+
+    if (!profileData) {
+      setError("Este e-mail não está cadastrado. Crie uma conta primeiro.");
+      setLoading(false);
+      return;
+    }
+
+    const { error: err } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setLoading(false);
+
+    if (err) {
+      setError("Erro ao enviar o link. Tente novamente.");
+      return;
+    }
+
+    toast({
+      title: "Link enviado com sucesso!",
+      description: "Verifique sua caixa de entrada e spam.",
+    });
+    setSuccessMessage("Link de recuperação enviado! Verifique seu e-mail.");
+  };
+
   return (
     <div className="min-h-screen bg-background noise flex flex-col">
       {/* Header */}
@@ -77,124 +121,195 @@ const Auth = () => {
               </div>
             </div>
             <h1 className="text-2xl font-bold text-foreground">
-              {isLogin ? "Entrar no" : "Criar conta no"}{" "}
-              <span className="text-gradient-cyan">A.X.I.O.</span>
+              {isForgotPassword ? "Recuperar Senha" : isLogin ? "Entrar no" : "Criar conta no"}{" "}
+              {!isForgotPassword && <span className="text-gradient-cyan">A.X.I.O.</span>}
+              {isForgotPassword && <span className="text-gradient-cyan">A.X.I.O.</span>}
             </h1>
             <p className="text-sm text-muted-foreground mt-2">
-              {isLogin
-                ? "Acesse seus diagnósticos e conteúdos Premium"
-                : "Crie sua conta para salvar seus diagnósticos"}
+              {isForgotPassword
+                ? "Digite seu e-mail para receber o link de recuperação"
+                : isLogin
+                  ? "Acesse seus diagnósticos e conteúdos Premium"
+                  : "Crie sua conta para salvar seus diagnósticos"}
             </p>
           </div>
 
           {/* Form */}
           <div className="bg-card border border-border rounded-2xl p-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {!isLogin && (
+            {isForgotPassword ? (
+              <form onSubmit={handleForgotPassword} className="space-y-4">
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    type="text"
-                    placeholder="Nome completo"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    type="email"
+                    placeholder="E-mail cadastrado"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     className="pl-10 bg-secondary/50 border-border"
                   />
                 </div>
-              )}
 
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="email"
-                  placeholder="E-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="pl-10 bg-secondary/50 border-border"
-                />
-              </div>
+                {error && (
+                  <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-3">
+                    <p className="text-sm text-destructive">{error}</p>
+                  </div>
+                )}
 
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="password"
-                  placeholder="Senha (mínimo 6 caracteres)"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  minLength={6}
-                  className="pl-10 bg-secondary/50 border-border"
-                />
-              </div>
+                {successMessage && (
+                  <div className="bg-primary/10 border border-primary/30 rounded-lg p-3 flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                    <p className="text-sm text-primary">{successMessage}</p>
+                  </div>
+                )}
 
-              {error && (
-                <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-3">
-                  <p className="text-sm text-destructive">{error}</p>
-                </div>
-              )}
+                <Button type="submit" variant="cyan" size="lg" className="w-full" disabled={loading}>
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 animate-spin" />
+                      Enviando...
+                    </span>
+                  ) : "Enviar Link de Recuperação"}
+                </Button>
+              </form>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {!isLogin && (
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      type="text"
+                      placeholder="Nome completo"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      className="pl-10 bg-secondary/50 border-border"
+                    />
+                  </div>
+                )}
 
-              {successMessage && (
-                <div className="bg-primary/10 border border-primary/30 rounded-lg p-3 flex items-start gap-2">
-                  <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                  <p className="text-sm text-primary">{successMessage}</p>
-                </div>
-              )}
-
-              {!isLogin && (
-                <div className="flex items-start gap-2">
-                  <Checkbox
-                    id="terms"
-                    checked={acceptedTerms}
-                    onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
-                    className="mt-0.5"
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="pl-10 bg-secondary/50 border-border"
                   />
-                  <label htmlFor="terms" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                    Li e aceito os{" "}
+                </div>
+
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    type="password"
+                    placeholder="Senha (mínimo 6 caracteres)"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={6}
+                    className="pl-10 bg-secondary/50 border-border"
+                  />
+                </div>
+
+                {isLogin && (
+                  <div className="text-right">
                     <button
                       type="button"
-                      onClick={(e) => { e.preventDefault(); setTermsOpen(true); }}
-                      className="text-primary underline hover:text-primary/80 transition-colors"
+                      onClick={() => {
+                        setIsForgotPassword(true);
+                        setError(null);
+                        setSuccessMessage(null);
+                      }}
+                      className="text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
-                      Termos de Uso e Segurança de Dados
+                      Esqueci minha senha
                     </button>
-                  </label>
-                </div>
-              )}
-
-              <Button
-                type="submit"
-                variant="cyan"
-                size="lg"
-                className="w-full"
-                disabled={loading || (!isLogin && !acceptedTerms)}
-              >
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 animate-spin" />
-                    {isLogin ? "Entrando..." : "Criando conta..."}
-                  </span>
-                ) : isLogin ? "Entrar" : "Criar Conta"}
-              </Button>
-            </form>
-
-            <div className="mt-6 text-center">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsLogin(!isLogin);
-                  setError(null);
-                  setSuccessMessage(null);
-                  setAcceptedTerms(false);
-                }}
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                {isLogin ? (
-                  <>Não tem conta? <span className="text-primary font-medium">Cadastre-se</span></>
-                ) : (
-                  <>Já tem conta? <span className="text-primary font-medium">Entre aqui</span></>
+                  </div>
                 )}
-              </button>
+
+                {error && (
+                  <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-3">
+                    <p className="text-sm text-destructive">{error}</p>
+                  </div>
+                )}
+
+                {successMessage && (
+                  <div className="bg-primary/10 border border-primary/30 rounded-lg p-3 flex items-start gap-2">
+                    <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                    <p className="text-sm text-primary">{successMessage}</p>
+                  </div>
+                )}
+
+                {!isLogin && (
+                  <div className="flex items-start gap-2">
+                    <Checkbox
+                      id="terms"
+                      checked={acceptedTerms}
+                      onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
+                      className="mt-0.5"
+                    />
+                    <label htmlFor="terms" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
+                      Li e aceito os{" "}
+                      <button
+                        type="button"
+                        onClick={(e) => { e.preventDefault(); setTermsOpen(true); }}
+                        className="text-primary underline hover:text-primary/80 transition-colors"
+                      >
+                        Termos de Uso e Segurança de Dados
+                      </button>
+                    </label>
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  variant="cyan"
+                  size="lg"
+                  className="w-full"
+                  disabled={loading || (!isLogin && !acceptedTerms)}
+                >
+                  {loading ? (
+                    <span className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 animate-spin" />
+                      {isLogin ? "Entrando..." : "Criando conta..."}
+                    </span>
+                  ) : isLogin ? "Entrar" : "Criar Conta"}
+                </Button>
+              </form>
+            )}
+
+            <div className="mt-6 text-center space-y-2">
+              {isForgotPassword ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsForgotPassword(false);
+                    setError(null);
+                    setSuccessMessage(null);
+                  }}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <span className="text-primary font-medium">← Voltar ao Login</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsLogin(!isLogin);
+                    setError(null);
+                    setSuccessMessage(null);
+                    setAcceptedTerms(false);
+                  }}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {isLogin ? (
+                    <>Não tem conta? <span className="text-primary font-medium">Cadastre-se</span></>
+                  ) : (
+                    <>Já tem conta? <span className="text-primary font-medium">Entre aqui</span></>
+                  )}
+                </button>
+              )}
             </div>
           </div>
         </div>
