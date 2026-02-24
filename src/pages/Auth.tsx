@@ -68,20 +68,7 @@ const Auth = () => {
     }
     setLoading(true);
 
-    // Check if user exists by trying to look up profile
-    const { data: profileData } = await supabase
-      .from("profiles")
-      .select("id")
-      .eq("email", email)
-      .maybeSingle();
-
-    if (!profileData) {
-      setError("Este e-mail não está cadastrado. Crie uma conta primeiro.");
-      setLoading(false);
-      return;
-    }
-
-    const { error: err } = await supabase.auth.resetPasswordForEmail(email, {
+    const { error: err } = await supabase.auth.resetPasswordForEmail(email.trim(), {
       redirectTo: `${window.location.origin}/reset-password`,
     });
     setLoading(false);
