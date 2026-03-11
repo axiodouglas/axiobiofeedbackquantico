@@ -127,11 +127,24 @@ export default function ReportsByDate() {
             {diagnoses.map((d) => {
               const areaLock = lockedAreas[d.area];
               const isLocked = false; // Reports are always viewable
+              const daysLeft = (() => {
+                const created = new Date(d.created_at);
+                const expiryDays = isPremium ? 180 : 7;
+                const expiryDate = new Date(created.getTime() + expiryDays * 24 * 60 * 60 * 1000);
+                return Math.max(0, Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
+              })();
+
+              const description = isPremium && areaLock?.locked
+                ? `Protocolo ativo — ${areaLock.daysRemaining} dia(s)`
+                : isPremium
+                  ? `Salvo por 6 meses — ${daysLeft} dia(s) restante(s)`
+                  : `Expira em ${daysLeft} dia(s) — Assine para manter`;
+
               return (
                 <AreaCard
                   key={d.id}
                   title={areaLabels[d.area] || d.area}
-                  description={areaLock?.locked ? `Protocolo ativo — ${areaLock.daysRemaining} dia(s)` : "Toque para ver relatório, comandos e meditação"}
+                  description={description}
                   icon={<span className="text-2xl">{areaIcons[d.area] || "📋"}</span>}
                   iconColor="bg-primary/20 text-primary"
                   isLocked={isLocked}

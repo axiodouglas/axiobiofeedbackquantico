@@ -52,15 +52,45 @@ Deno.serve(async (req) => {
       });
     }
 
-    const cutoffDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    // Free users: 7 days, Premium users: 180 days (6 months)
+    const freeCutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const premiumCutoff = new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString();
 
-    // 1. Find expired diagnoses
-    const { data: expiredDiagnoses, error: fetchError } = await supabase
+    // Get all premium user IDs
+    const { data: premiumProfiles } = await supabase
+      .from("profiles")
+      .select("user_id")
+      .eq("is_premium", true);
+
+    const premiumUserIds = (premiumProfiles || []).map((p) => p.user_id);
+
+    // 1a. Find expired free user diagnoses (7 days)
+    let freeQuery = supabase
       .from("diagnoses")
       .select("id, audio_url, user_id")
-      .lt("created_at", cutoffDate);
+      .lt("created_at", freeCutoff);
 
-    if (fetchError) throw fetchError;
+    if (premiumUserIds.length > 0) {
+      // Exclude premium users from the 7-day cleanup
+      freeQuery = freeQuery.not("user_id", "in", `(${premiumUserIds.join(",")})`);
+    }
+
+    const { data: freeExpired, error: freeError } = await freeQuery;
+    if (freeError) throw freeError;
+
+    // 1b. Find expired premium user diagnoses (180 days)
+    let premiumExpired: any[] = [];
+    if (premiumUserIds.length > 0) {
+      const { data, error } = await supabase
+        .from("diagnoses")
+        .select("id, audio_url, user_id")
+        .lt("created_at", premiumCutoff)
+        .in("user_id", premiumUserIds);
+      if (error) throw error;
+      premiumExpired = data || [];
+    }
+
+    const expiredDiagnoses = [...(freeExpired || []), ...premiumExpired];
 
     if (!expiredDiagnoses || expiredDiagnoses.length === 0) {
       return new Response(
