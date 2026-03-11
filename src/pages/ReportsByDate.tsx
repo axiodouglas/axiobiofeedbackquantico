@@ -33,11 +33,13 @@ interface Diagnosis {
 
 export default function ReportsByDate() {
   const { date } = useParams<{ date: string }>();
-  const { user, loading } = useAuth();
+  const { user, profile, loading } = useAuth();
   const navigate = useNavigate();
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const { lockedAreas } = useAreaLock(user?.id);
+
+  const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   useEffect(() => {
     if (!loading && !user) navigate("/auth");
