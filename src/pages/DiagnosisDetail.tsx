@@ -134,12 +134,12 @@ const DiagnosisDetail = () => {
           <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 flex items-start gap-3">
             <Crown className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-foreground">Relatório Parcial</p>
+              <p className="text-sm font-semibold text-foreground">Relatório Gratuito</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Você Está Vendo Apenas Metade Da Análise. Assine Um Plano Para Acessar O Relatório Completo, Meditação E Comandos Quânticos.
+                Assine um plano para acessar a Ferida Raiz, Impacto nas 3 Áreas, Meditação, Comandos Quânticos e Somatização.
               </p>
               <Button variant="cyan" size="sm" className="mt-3" onClick={() => navigate("/planos")}>
-                <Crown className="h-3.5 w-3.5" /> Desbloquear Completo
+                <Crown className="h-3.5 w-3.5" /> Adquirir Premium
               </Button>
             </div>
           </div>
