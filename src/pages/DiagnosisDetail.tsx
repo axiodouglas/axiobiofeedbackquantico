@@ -107,11 +107,9 @@ const DiagnosisDetail = () => {
     setActiveSection(activeSection === section ? null : section);
   };
 
-  // Free users see partial report (first half of blocks only)
+  // Free users see all blocks but Ferida Raiz and Impacto nas 3 Áreas remain locked
   const isPartial = !isPremium;
-  const visibleBlocks = isPartial && dr?.blocks?.length > 0
-    ? dr.blocks.slice(0, Math.ceil(dr.blocks.length / 2))
-    : dr?.blocks || [];
+  const visibleBlocks = dr?.blocks || [];
 
   return (
     <div className="min-h-screen bg-background noise">
