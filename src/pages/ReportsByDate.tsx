@@ -89,15 +89,30 @@ export default function ReportsByDate() {
       <div className="container mx-auto px-4 py-8 max-w-3xl space-y-6">
         <h1 className="text-2xl font-bold text-foreground">{displayDate}</h1>
 
-        {/* Intro sobre bloqueio semanal */}
-        {Object.keys(lockedAreas).length > 0 && (
+        {/* Info banner based on subscription status */}
+        {isPremium && Object.keys(lockedAreas).length > 0 && (
           <div className="flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4">
             <Clock className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-semibold text-foreground">Protocolo de Reprogramação Ativo</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Pratique os comandos quânticos e a meditação diariamente para consolidar a reprogramação neural.
+                Pratique os comandos quânticos e a meditação diariamente para consolidar a reprogramação neural. Seus relatórios ficam salvos por 6 meses.
               </p>
+            </div>
+          </div>
+        )}
+
+        {!isPremium && (
+          <div className="flex items-start gap-3 rounded-xl border border-destructive/20 bg-destructive/5 p-4">
+            <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">Relatório Gratuito</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Este relatório será excluído após 7 dias. Assine um plano Premium para manter seus relatórios salvos por 6 meses.
+              </p>
+              <Button variant="cyan" size="sm" className="mt-3" onClick={() => navigate("/planos")}>
+                <Crown className="h-3.5 w-3.5" /> Adquirir Premium
+              </Button>
             </div>
           </div>
         )}
