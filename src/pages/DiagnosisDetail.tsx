@@ -185,18 +185,12 @@ const DiagnosisDetail = () => {
                     <AlertTriangle className="h-4 w-4 text-destructive" />
                     Bloqueios Identificados {isPartial && <span className="text-xs text-muted-foreground font-normal">(Parcial)</span>}
                   </h3>
-                  {visibleBlocks.map((block: any, i: number) => (
+              {visibleBlocks.map((block: any, i: number) => (
                     <div key={i} className="bg-secondary/30 border border-border rounded-xl p-4">
                       <h4 className="text-sm font-semibold text-foreground mb-1">{i + 1}. {block.name}</h4>
                       <p className="text-xs text-muted-foreground">{block.description}</p>
                     </div>
                   ))}
-                  {isPartial && dr.blocks?.length > visibleBlocks.length && (
-                    <div className="relative rounded-xl border border-dashed border-primary/20 bg-card/30 p-4 text-center">
-                      <Lock className="h-5 w-5 text-primary/50 mx-auto mb-2" />
-                      <p className="text-xs text-muted-foreground">+{dr.blocks.length - visibleBlocks.length} bloqueios ocultos no plano gratuito</p>
-                    </div>
-                  )}
                 </div>
               )}
 
