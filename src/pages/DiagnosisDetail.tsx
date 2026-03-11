@@ -183,7 +183,7 @@ const DiagnosisDetail = () => {
                 <div className="space-y-3">
                   <h3 className="text-base font-bold text-foreground flex items-center gap-2">
                     <AlertTriangle className="h-4 w-4 text-destructive" />
-                    Bloqueios Identificados {isPartial && <span className="text-xs text-muted-foreground font-normal">(Parcial)</span>}
+                    Bloqueios Identificados
                   </h3>
               {visibleBlocks.map((block: any, i: number) => (
                     <div key={i} className="bg-secondary/30 border border-border rounded-xl p-4">
