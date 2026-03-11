@@ -227,11 +227,25 @@ const Index = () => {
                 variant="cyan"
                 size="sm"
                 className="flex-1 text-xs sm:text-sm"
-                onClick={handleDiagnosis}
-                disabled={isLocked}
+                onClick={() => {
+                  if (!isPremium && (freeDiagnosisUsed || isLocked)) {
+                    navigate("/planos");
+                  } else {
+                    handleDiagnosis();
+                  }
+                }}
               >
-                <Mic className="h-3.5 w-3.5" />
-                {isLocked ? `Aguarde ${daysRemaining}d` : !isPremium && !freeDiagnosisUsed ? "Análise Gratuita" : "Novo Diagnóstico"}
+                {!isPremium && (freeDiagnosisUsed || isLocked) ? (
+                  <>
+                    <Crown className="h-3.5 w-3.5" />
+                    Adquirir Premium
+                  </>
+                ) : (
+                  <>
+                    <Mic className="h-3.5 w-3.5" />
+                    {!isPremium && !freeDiagnosisUsed ? "Análise Gratuita" : "Novo Diagnóstico"}
+                  </>
+                )}
               </Button>
               {user && (
                 <Button
