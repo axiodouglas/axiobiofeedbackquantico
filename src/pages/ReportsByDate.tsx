@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAreaLock } from "@/hooks/use-area-lock";
 import { AreaCard } from "@/components/AreaCard";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Sparkles, Activity, Lock, Clock } from "lucide-react";
+import { ArrowLeft, Sparkles, Activity, Lock, Clock, AlertTriangle, Crown } from "lucide-react";
 import UserMenu from "@/components/UserMenu";
 import { format } from "date-fns";
 
