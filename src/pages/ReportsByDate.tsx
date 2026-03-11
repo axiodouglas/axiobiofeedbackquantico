@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAreaLock } from "@/hooks/use-area-lock";
 import { AreaCard } from "@/components/AreaCard";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Sparkles, Activity, Lock, Clock } from "lucide-react";
+import { ArrowLeft, Sparkles, Activity, Lock, Clock, AlertTriangle, Crown } from "lucide-react";
 import UserMenu from "@/components/UserMenu";
 import { format } from "date-fns";
 
@@ -33,11 +33,13 @@ interface Diagnosis {
 
 export default function ReportsByDate() {
   const { date } = useParams<{ date: string }>();
-  const { user, loading } = useAuth();
+  const { user, profile, loading } = useAuth();
   const navigate = useNavigate();
   const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const { lockedAreas } = useAreaLock(user?.id);
+
+  const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
 
   useEffect(() => {
     if (!loading && !user) navigate("/auth");
@@ -87,15 +89,30 @@ export default function ReportsByDate() {
       <div className="container mx-auto px-4 py-8 max-w-3xl space-y-6">
         <h1 className="text-2xl font-bold text-foreground">{displayDate}</h1>
 
-        {/* Intro sobre bloqueio semanal */}
-        {Object.keys(lockedAreas).length > 0 && (
+        {/* Info banner based on subscription status */}
+        {isPremium && Object.keys(lockedAreas).length > 0 && (
           <div className="flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4">
             <Clock className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-semibold text-foreground">Protocolo de Reprogramação Ativo</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Pratique os comandos quânticos e a meditação diariamente para consolidar a reprogramação neural.
+                Pratique os comandos quânticos e a meditação diariamente para consolidar a reprogramação neural. Seus relatórios ficam salvos por 6 meses.
               </p>
+            </div>
+          </div>
+        )}
+
+        {!isPremium && (
+          <div className="flex items-start gap-3 rounded-xl border border-destructive/20 bg-destructive/5 p-4">
+            <AlertTriangle className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">Relatório Gratuito</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Este relatório será excluído após 7 dias. Assine um plano Premium para manter seus relatórios salvos por 6 meses.
+              </p>
+              <Button variant="cyan" size="sm" className="mt-3" onClick={() => navigate("/planos")}>
+                <Crown className="h-3.5 w-3.5" /> Adquirir Premium
+              </Button>
             </div>
           </div>
         )}
@@ -110,11 +127,24 @@ export default function ReportsByDate() {
             {diagnoses.map((d) => {
               const areaLock = lockedAreas[d.area];
               const isLocked = false; // Reports are always viewable
+              const daysLeft = (() => {
+                const created = new Date(d.created_at);
+                const expiryDays = isPremium ? 180 : 7;
+                const expiryDate = new Date(created.getTime() + expiryDays * 24 * 60 * 60 * 1000);
+                return Math.max(0, Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
+              })();
+
+              const description = isPremium && areaLock?.locked
+                ? `Protocolo ativo — ${areaLock.daysRemaining} dia(s)`
+                : isPremium
+                  ? `Salvo por 6 meses — ${daysLeft} dia(s) restante(s)`
+                  : `Expira em ${daysLeft} dia(s) — Assine para manter`;
+
               return (
                 <AreaCard
                   key={d.id}
                   title={areaLabels[d.area] || d.area}
-                  description={areaLock?.locked ? `Protocolo ativo — ${areaLock.daysRemaining} dia(s)` : "Toque para ver relatório, comandos e meditação"}
+                  description={description}
                   icon={<span className="text-2xl">{areaIcons[d.area] || "📋"}</span>}
                   iconColor="bg-primary/20 text-primary"
                   isLocked={isLocked}
