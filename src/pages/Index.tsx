@@ -199,13 +199,7 @@ const Index = () => {
           <div
             className="col-span-2 group relative overflow-hidden rounded-2xl border border-primary/30 bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 p-4 sm:p-6"
           >
-            {isLocked && (
-              <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-primary/20 px-2 py-0.5 z-20">
-                <Clock className="h-2.5 w-2.5 text-primary" />
-                <span className="text-[10px] font-semibold text-primary">{daysRemaining} dias</span>
-              </div>
-            )}
-            {!isPremium && freeDiagnosisUsed && (
+            {!isPremium && (freeDiagnosisUsed || isLocked) && (
               <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
                 <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
@@ -227,11 +221,25 @@ const Index = () => {
                 variant="cyan"
                 size="sm"
                 className="flex-1 text-xs sm:text-sm"
-                onClick={handleDiagnosis}
-                disabled={isLocked}
+                onClick={() => {
+                  if (!isPremium && (freeDiagnosisUsed || isLocked)) {
+                    navigate("/planos");
+                  } else {
+                    handleDiagnosis();
+                  }
+                }}
               >
-                <Mic className="h-3.5 w-3.5" />
-                {isLocked ? `Aguarde ${daysRemaining}d` : !isPremium && !freeDiagnosisUsed ? "Análise Gratuita" : "Novo Diagnóstico"}
+                {!isPremium && (freeDiagnosisUsed || isLocked) ? (
+                  <>
+                    <Crown className="h-3.5 w-3.5" />
+                    Adquirir Premium
+                  </>
+                ) : (
+                  <>
+                    <Mic className="h-3.5 w-3.5" />
+                    {!isPremium && !freeDiagnosisUsed ? "Análise Gratuita" : "Novo Diagnóstico"}
+                  </>
+                )}
               </Button>
               {user && (
                 <Button

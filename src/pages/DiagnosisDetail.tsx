@@ -107,11 +107,9 @@ const DiagnosisDetail = () => {
     setActiveSection(activeSection === section ? null : section);
   };
 
-  // Free users see partial report (first half of blocks only)
+  // Free users see all blocks but Ferida Raiz and Impacto nas 3 Áreas remain locked
   const isPartial = !isPremium;
-  const visibleBlocks = isPartial && dr?.blocks?.length > 0
-    ? dr.blocks.slice(0, Math.ceil(dr.blocks.length / 2))
-    : dr?.blocks || [];
+  const visibleBlocks = dr?.blocks || [];
 
   return (
     <div className="min-h-screen bg-background noise">
@@ -136,12 +134,12 @@ const DiagnosisDetail = () => {
           <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 flex items-start gap-3">
             <Crown className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-foreground">Relatório Parcial</p>
+              <p className="text-sm font-semibold text-foreground">Relatório Gratuito</p>
               <p className="text-xs text-muted-foreground mt-1">
-                Você Está Vendo Apenas Metade Da Análise. Assine Um Plano Para Acessar O Relatório Completo, Meditação E Comandos Quânticos.
+                Assine um plano para acessar a Ferida Raiz, Impacto nas 3 Áreas, Meditação, Comandos Quânticos e Somatização.
               </p>
               <Button variant="cyan" size="sm" className="mt-3" onClick={() => navigate("/planos")}>
-                <Crown className="h-3.5 w-3.5" /> Desbloquear Completo
+                <Crown className="h-3.5 w-3.5" /> Adquirir Premium
               </Button>
             </div>
           </div>
@@ -149,7 +147,7 @@ const DiagnosisDetail = () => {
 
         {/* Relatório */}
         <AreaCard
-          title={isPartial ? "Relatório A.X.I.O. (Parcial)" : "Relatório A.X.I.O."}
+          title="Relatório A.X.I.O."
           description="Visualize seu diagnóstico com bloqueios e sentimentos identificados"
           icon={<Brain className="h-7 w-7" />}
           iconColor="bg-primary/20 text-primary"
@@ -185,20 +183,14 @@ const DiagnosisDetail = () => {
                 <div className="space-y-3">
                   <h3 className="text-base font-bold text-foreground flex items-center gap-2">
                     <AlertTriangle className="h-4 w-4 text-destructive" />
-                    Bloqueios Identificados {isPartial && <span className="text-xs text-muted-foreground font-normal">(Parcial)</span>}
+                    Bloqueios Identificados
                   </h3>
-                  {visibleBlocks.map((block: any, i: number) => (
+              {visibleBlocks.map((block: any, i: number) => (
                     <div key={i} className="bg-secondary/30 border border-border rounded-xl p-4">
                       <h4 className="text-sm font-semibold text-foreground mb-1">{i + 1}. {block.name}</h4>
                       <p className="text-xs text-muted-foreground">{block.description}</p>
                     </div>
                   ))}
-                  {isPartial && dr.blocks?.length > visibleBlocks.length && (
-                    <div className="relative rounded-xl border border-dashed border-primary/20 bg-card/30 p-4 text-center">
-                      <Lock className="h-5 w-5 text-primary/50 mx-auto mb-2" />
-                      <p className="text-xs text-muted-foreground">+{dr.blocks.length - visibleBlocks.length} bloqueios ocultos no plano gratuito</p>
-                    </div>
-                  )}
                 </div>
               )}
 
