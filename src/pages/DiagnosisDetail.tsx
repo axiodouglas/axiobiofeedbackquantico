@@ -147,7 +147,7 @@ const DiagnosisDetail = () => {
 
         {/* Relatório */}
         <AreaCard
-          title={isPartial ? "Relatório A.X.I.O. (Parcial)" : "Relatório A.X.I.O."}
+          title="Relatório A.X.I.O."
           description="Visualize seu diagnóstico com bloqueios e sentimentos identificados"
           icon={<Brain className="h-7 w-7" />}
           iconColor="bg-primary/20 text-primary"
