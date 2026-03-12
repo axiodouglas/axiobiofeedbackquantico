@@ -28,13 +28,15 @@ const MAX_AUDIO_SIZE_BYTES = 10 * 1024 * 1024;
 async function logAiUsage(supabaseUrl: string, serviceKey: string, userId: string, actionType: string, cost: number) {
   try {
     const client = createClient(supabaseUrl, serviceKey);
-    await client.from("ai_usage_logs").insert({
+    const { error } = await client.from("ai_usage_logs").insert({
       user_id: userId,
       action_type: actionType,
       estimated_cost: cost,
     });
+    if (error) { console.error("logAiUsage insert error:", JSON.stringify(error)); }
+    else { console.log("logAiUsage success:", actionType, cost, userId); }
   } catch (e) {
-    console.warn("Failed to log AI usage:", e);
+    console.error("logAiUsage exception:", e);
   }
 }
 
