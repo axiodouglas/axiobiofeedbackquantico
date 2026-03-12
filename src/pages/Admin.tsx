@@ -94,6 +94,8 @@ const Admin = () => {
     } catch { navigate("/"); }
   };
 
+  const [totalAiCost, setTotalAiCost] = useState(0);
+
   const loadUsers = async () => {
     setLoading(true);
     const session = await supabase.auth.getSession();
@@ -104,6 +106,7 @@ const Admin = () => {
     );
     const result = await res.json();
     setProfiles(result.profiles || []);
+    setTotalAiCost(result.total_ai_cost || 0);
     setLoading(false);
   };
 
