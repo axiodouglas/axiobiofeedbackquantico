@@ -288,6 +288,44 @@ const Admin = () => {
           ))}
         </div>
 
+        {/* ── AI Cost Breakdown ── */}
+        <Card className="bg-[hsl(215,14%,9%)] border-0 rounded-xl">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+              <Cpu className="h-4 w-4" style={{ color: "hsl(35, 90%, 55%)" }} />
+              Consumo de IA em Tempo Real
+              <span className="ml-auto flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] text-emerald-400">LIVE</span>
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {Object.entries(costByType).map(([type, cost]) => (
+                <div key={type} className="bg-muted/20 rounded-lg p-3">
+                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
+                    {COST_TYPE_LABELS[type] || type}
+                  </p>
+                  <p className="text-lg font-bold font-mono" style={{ color: "hsl(35, 90%, 55%)" }}>
+                    ${cost.toFixed(2)}
+                  </p>
+                </div>
+              ))}
+              <div className="bg-muted/20 rounded-lg p-3">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Total Chamadas</p>
+                <p className="text-lg font-bold font-mono text-foreground">{totalCalls}</p>
+              </div>
+              <div className="bg-muted/20 rounded-lg p-3 border border-amber-500/20">
+                <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Custo Acumulado</p>
+                <p className="text-lg font-bold font-mono" style={{ color: "hsl(35, 90%, 55%)" }}>
+                  ${totalAiCost.toFixed(2)}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* ── Charts Row ── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Revenue Area Chart */}
