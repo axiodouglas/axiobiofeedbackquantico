@@ -23,7 +23,7 @@ const Terms = () => {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-foreground mb-3">1. Aceitação dos Termos</h2>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Ao utilizar o A.X.I.O. — Análise do Fator X do Inconsciente de Origem, você concorda com todos os termos e condições aqui descritos. O uso continuado da plataforma constitui aceitação integral destes termos.
+              Ao utilizar o A.X.I.O. Biofeedback Quântico, você concorda com todos os termos e condições aqui descritos. O uso continuado da plataforma constitui aceitação integral destes termos.
             </p>
           </section>
 
