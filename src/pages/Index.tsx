@@ -117,7 +117,7 @@ const Index = () => {
               <span className="text-gradient-brand">A.X.I.O.</span>
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground font-medium tracking-wider mb-5">
-              Análise do Fator X do Inconsciente de Origem
+              Biofeedback Quântico
             </p>
             <p className="text-base sm:text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto mb-10 leading-relaxed px-2">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
