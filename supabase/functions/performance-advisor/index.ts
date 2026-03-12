@@ -276,6 +276,9 @@ Retorne APENAS o JSON válido, sem markdown.`,
       console.error("Insert error:", insertError);
     }
 
+    // Log AI usage cost (transcription + advice = $0.03)
+    await logAiUsage(user.id, "performance_advisor", 0.03);
+
     return new Response(JSON.stringify({
       transcription,
       tone_analysis: parsed.tone_analysis,
