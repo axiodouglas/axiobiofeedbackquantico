@@ -229,7 +229,7 @@ const Admin = () => {
             { icon: Users, label: "Usuários Totais", value: totalUsers, spark: sparkData(totalUsers), color: "hsl(175, 70%, 50%)" },
             { icon: Crown, label: "Assinantes Premium", value: premiumUsers, spark: sparkData(premiumUsers), color: "hsl(263, 70%, 58%)" },
             { icon: DollarSign, label: "MRR", value: `R$ ${estimatedRevenue.toFixed(0)}`, spark: sparkData(Math.round(estimatedRevenue / 10)), color: "hsl(160, 60%, 45%)" },
-            { icon: Percent, label: "Taxa de Conversão", value: `${conversionRate}%`, spark: sparkData(Number(conversionRate)), color: "hsl(199, 89%, 48%)" },
+            { icon: Cpu, label: "Custo Total IA", value: `$${totalAiCost.toFixed(2)}`, spark: sparkData(Math.round(totalAiCost * 10)), color: "hsl(35, 90%, 55%)" },
           ].map((m, i) => (
             <Card key={i} className="bg-[hsl(215,14%,9%)] border-0 rounded-xl shadow-lg hover:shadow-[0_0_30px_hsl(175,70%,50%,0.07)] transition-shadow">
               <CardContent className="p-5">
