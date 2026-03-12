@@ -369,11 +369,12 @@ const Admin = () => {
               <Table>
                 <TableHeader>
                   <TableRow className="border-border/30 hover:bg-transparent">
-                    <TableHead className="text-xs font-medium text-muted-foreground">Usuário</TableHead>
-                    <TableHead className="text-xs font-medium text-muted-foreground">Cadastro</TableHead>
-                    <TableHead className="text-xs font-medium text-muted-foreground">Plano</TableHead>
-                    <TableHead className="text-xs font-medium text-muted-foreground">Status</TableHead>
-                    <TableHead className="text-xs font-medium text-muted-foreground text-right">Ações</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Usuário</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Cadastro</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Plano</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Custo IA</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Status</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
