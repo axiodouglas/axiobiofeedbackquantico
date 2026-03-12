@@ -86,8 +86,7 @@ const VendaOficial = () => {
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-border py-6 sm:py-8 text-center text-xs text-muted-foreground space-y-1 px-4">
-        <p className="font-semibold text-gradient-brand">A.X.I.O. - Análise do Fator X do Inconsciente de Origem</p>
-        <p>© 2026 A.X.I.O. Todos os direitos reservados. Marca e Método em processo de registro.</p>
+        <p>© 2026 <strong className="font-bold">A.X.I.O. Biofeedback Quântico</strong>. Todos os direitos reservados. Marca e Método Registrados. Proibida reprodução total ou parcial. Proteção sob a Lei nº 9.279/96.</p>
       </footer>
     </div>
   );
