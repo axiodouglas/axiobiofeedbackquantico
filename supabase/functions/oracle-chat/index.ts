@@ -149,6 +149,9 @@ BLOQUEIO ABSOLUTO (HARD WALL):
       });
     }
 
+    // Log oracle usage cost
+    await logAiUsage(user!.id, "oracle", 0.01);
+
     return new Response(response.body, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
