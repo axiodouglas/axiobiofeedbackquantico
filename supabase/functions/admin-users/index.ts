@@ -74,15 +74,19 @@ Deno.serve(async (req) => {
       // Fetch AI usage costs per user
       const { data: usageLogs } = await adminClient
         .from("ai_usage_logs")
-        .select("user_id, estimated_cost");
+        .select("user_id, estimated_cost, action_type");
 
-      // Aggregate costs per user
+      // Aggregate costs per user and by type
       const costMap: Record<string, number> = {};
       let totalSystemCost = 0;
+      const costByType: Record<string, number> = {};
+      let totalCalls = 0;
       (usageLogs || []).forEach((log: any) => {
         const cost = Number(log.estimated_cost) || 0;
         costMap[log.user_id] = (costMap[log.user_id] || 0) + cost;
         totalSystemCost += cost;
+        costByType[log.action_type] = (costByType[log.action_type] || 0) + cost;
+        totalCalls++;
       });
 
       // Attach cost to each profile
@@ -94,6 +98,8 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ 
         profiles: profilesWithCost,
         total_ai_cost: totalSystemCost,
+        cost_by_type: costByType,
+        total_calls: totalCalls,
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
