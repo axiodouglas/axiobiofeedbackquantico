@@ -1,6 +1,16 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+async function logAiUsage(userId: string, actionType: string, cost: number) {
+  try {
+    const url = Deno.env.get("SUPABASE_URL");
+    const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!url || !key) return;
+    const client = createClient(url, key);
+    await client.from("ai_usage_logs").insert({ user_id: userId, action_type: actionType, estimated_cost: cost });
+  } catch (e) { console.warn("Failed to log AI usage:", e); }
+}
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -109,7 +119,7 @@ BLOQUEIO ABSOLUTO (HARD WALL):
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model: "google/gemini-2.5-flash-lite",
         messages: [
           { role: "system", content: systemPrompt },
           ...messages,
@@ -138,6 +148,9 @@ BLOQUEIO ABSOLUTO (HARD WALL):
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+
+    // Log oracle usage cost
+    await logAiUsage(user!.id, "oracle", 0.01);
 
     return new Response(response.body, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },

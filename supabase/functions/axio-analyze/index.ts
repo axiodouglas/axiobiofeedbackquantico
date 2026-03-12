@@ -1,6 +1,16 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
+async function logAiUsage(userId: string | null, actionType: string, cost: number) {
+  if (!userId) return;
+  try {
+    const url = Deno.env.get("SUPABASE_URL");
+    const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!url || !key) return;
+    const client = createClient(url, key);
+    await client.from("ai_usage_logs").insert({ user_id: userId, action_type: actionType, estimated_cost: cost });
+  } catch (e) { console.warn("Failed to log AI usage:", e); }
+}
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
@@ -1732,7 +1742,7 @@ serve(async (req) => {
       );
     }
 
-    const { transcription, area, is_premium, previous_diagnoses } = await req.json();
+    const { transcription, area, is_premium, previous_diagnoses, user_id } = await req.json();
 
     if (!transcription || !area) {
       return new Response(
@@ -1802,7 +1812,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "google/gemini-2.5-flash-lite",
         messages: [
           { role: "system", content: AXIO_SYSTEM_PROMPT },
           { role: "user", content: userPrompt },
@@ -1860,6 +1870,9 @@ serve(async (req) => {
       console.error("Failed to parse AI response (length:", content.length, "):", content.substring(0, 500));
       throw new Error("Failed to parse AI diagnosis");
     }
+
+    // Log analysis cost
+    await logAiUsage(user_id || null, "diagnosis", 0.02);
 
     return new Response(JSON.stringify(diagnosis), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

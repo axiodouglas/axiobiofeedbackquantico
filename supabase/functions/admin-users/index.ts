@@ -24,7 +24,6 @@ Deno.serve(async (req) => {
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
 
-    // Verify the calling user is admin
     const userClient = createClient(supabaseUrl, anonKey, {
       global: { headers: { Authorization: authHeader } },
     });
@@ -36,7 +35,6 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Check admin role
     const adminClient = createClient(supabaseUrl, supabaseServiceKey);
     const { data: roleData } = await adminClient
       .from("user_roles")
@@ -56,14 +54,12 @@ Deno.serve(async (req) => {
     const action = url.searchParams.get("action");
 
     if (action === "list-users") {
-      // Fetch admin user IDs to exclude them
       const { data: adminRoles } = await adminClient
         .from("user_roles")
         .select("user_id")
         .eq("role", "admin");
       const adminIds = (adminRoles || []).map((r: any) => r.user_id);
 
-      // Fetch all profiles excluding admins
       let query = adminClient
         .from("profiles")
         .select("*")
@@ -75,7 +71,30 @@ Deno.serve(async (req) => {
 
       const { data: profiles } = await query;
 
-      return new Response(JSON.stringify({ profiles: profiles || [] }), {
+      // Fetch AI usage costs per user
+      const { data: usageLogs } = await adminClient
+        .from("ai_usage_logs")
+        .select("user_id, estimated_cost");
+
+      // Aggregate costs per user
+      const costMap: Record<string, number> = {};
+      let totalSystemCost = 0;
+      (usageLogs || []).forEach((log: any) => {
+        const cost = Number(log.estimated_cost) || 0;
+        costMap[log.user_id] = (costMap[log.user_id] || 0) + cost;
+        totalSystemCost += cost;
+      });
+
+      // Attach cost to each profile
+      const profilesWithCost = (profiles || []).map((p: any) => ({
+        ...p,
+        ai_cost: costMap[p.user_id] || 0,
+      }));
+
+      return new Response(JSON.stringify({ 
+        profiles: profilesWithCost,
+        total_ai_cost: totalSystemCost,
+      }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }

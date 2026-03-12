@@ -23,7 +23,7 @@ const Terms = () => {
           <section className="mb-8">
             <h2 className="text-xl font-semibold text-foreground mb-3">1. Aceitação dos Termos</h2>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Ao utilizar o A.X.I.O. — Análise do Fator X do Inconsciente de Origem, você concorda com todos os termos e condições aqui descritos. O uso continuado da plataforma constitui aceitação integral destes termos.
+              Ao utilizar o A.X.I.O. Biofeedback Quântico, você concorda com todos os termos e condições aqui descritos. O uso continuado da plataforma constitui aceitação integral destes termos.
             </p>
           </section>
 
@@ -69,7 +69,7 @@ const Terms = () => {
 
           <div className="text-center mt-12 space-y-1">
             <p className="text-xs text-muted-foreground font-semibold">
-              A.X.I.O. - Análise do Fator X do Inconsciente de Origem
+              A.X.I.O. Biofeedback Quântico
             </p>
             <p className="text-xs text-muted-foreground">
               Última atualização: Fevereiro 2026 • © 2026 <strong className="font-bold">A.X.I.O. Biofeedback Quântico</strong>. Todos os direitos reservados. Marca e Método Registrados. Proibida reprodução total ou parcial. Proteção sob a Lei nº 9.279/96.

@@ -31,7 +31,7 @@ const AxioLogo = ({ className = "", size = "md" }: AxioLogoProps) => {
           <span className="text-white">X.I.O.</span>
         </span>
         <span className={`${s.subtitle} font-medium tracking-wider text-white/60 mt-1`}>
-          Análise do Fator X do Inconsciente de Origem
+          Biofeedback Quântico
         </span>
       </div>
     </div>

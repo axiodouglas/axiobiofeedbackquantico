@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Users, Crown, DollarSign, FileText, ArrowLeft, Sparkles,
-  AlertTriangle, Eye, Search, TrendingUp, BarChart3, Percent
+  AlertTriangle, Eye, Search, TrendingUp, BarChart3, Percent, Cpu
 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -29,6 +29,7 @@ interface ProfileRow {
   subscription_type: string | null;
   subscription_expires_at: string | null;
   created_at: string;
+  ai_cost?: number;
 }
 
 const PLAN_PRICES: Record<string, number> = {
@@ -93,6 +94,8 @@ const Admin = () => {
     } catch { navigate("/"); }
   };
 
+  const [totalAiCost, setTotalAiCost] = useState(0);
+
   const loadUsers = async () => {
     setLoading(true);
     const session = await supabase.auth.getSession();
@@ -103,6 +106,7 @@ const Admin = () => {
     );
     const result = await res.json();
     setProfiles(result.profiles || []);
+    setTotalAiCost(result.total_ai_cost || 0);
     setLoading(false);
   };
 
@@ -225,7 +229,7 @@ const Admin = () => {
             { icon: Users, label: "Usuários Totais", value: totalUsers, spark: sparkData(totalUsers), color: "hsl(175, 70%, 50%)" },
             { icon: Crown, label: "Assinantes Premium", value: premiumUsers, spark: sparkData(premiumUsers), color: "hsl(263, 70%, 58%)" },
             { icon: DollarSign, label: "MRR", value: `R$ ${estimatedRevenue.toFixed(0)}`, spark: sparkData(Math.round(estimatedRevenue / 10)), color: "hsl(160, 60%, 45%)" },
-            { icon: Percent, label: "Taxa de Conversão", value: `${conversionRate}%`, spark: sparkData(Number(conversionRate)), color: "hsl(199, 89%, 48%)" },
+            { icon: Cpu, label: "Custo Total IA", value: `$${totalAiCost.toFixed(2)}`, spark: sparkData(Math.round(totalAiCost * 10)), color: "hsl(35, 90%, 55%)" },
           ].map((m, i) => (
             <Card key={i} className="bg-[hsl(215,14%,9%)] border-0 rounded-xl shadow-lg hover:shadow-[0_0_30px_hsl(175,70%,50%,0.07)] transition-shadow">
               <CardContent className="p-5">
@@ -365,11 +369,12 @@ const Admin = () => {
               <Table>
                 <TableHeader>
                   <TableRow className="border-border/30 hover:bg-transparent">
-                    <TableHead className="text-xs font-medium text-muted-foreground">Usuário</TableHead>
-                    <TableHead className="text-xs font-medium text-muted-foreground">Cadastro</TableHead>
-                    <TableHead className="text-xs font-medium text-muted-foreground">Plano</TableHead>
-                    <TableHead className="text-xs font-medium text-muted-foreground">Status</TableHead>
-                    <TableHead className="text-xs font-medium text-muted-foreground text-right">Ações</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Usuário</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Cadastro</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Plano</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Custo IA</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground">Status</TableHead>
+                     <TableHead className="text-xs font-medium text-muted-foreground text-right">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -395,8 +400,11 @@ const Admin = () => {
                           <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold ${PLAN_TAG_COLORS[planLabel] || PLAN_TAG_COLORS.Gratuito}`}>
                             {planLabel}
                           </span>
-                        </TableCell>
-                        <TableCell>
+                         </TableCell>
+                         <TableCell className="text-xs font-mono text-amber-400">
+                           ${(p.ai_cost || 0).toFixed(2)}
+                         </TableCell>
+                         <TableCell>
                           {p.is_premium ? (
                             <Badge className={`text-[10px] border ${active ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30" : "bg-red-500/15 text-red-400 border-red-500/30"}`}>
                               {active ? "Ativo" : "Inativo"}
@@ -423,7 +431,7 @@ const Admin = () => {
                   })}
                   {filteredProfiles.length === 0 && (
                     <TableRow>
-                      <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                      <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
                         Nenhum usuário encontrado.
                       </TableCell>
                     </TableRow>

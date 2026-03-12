@@ -117,7 +117,7 @@ const Index = () => {
               <span className="text-gradient-brand">A.X.I.O.</span>
             </h1>
             <p className="text-sm sm:text-base text-muted-foreground font-medium tracking-wider mb-5">
-              Análise do Fator X do Inconsciente de Origem
+              Biofeedback Quântico
             </p>
             <p className="text-base sm:text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto mb-10 leading-relaxed px-2">
               Sistema de Biofeedback Quântico para reprogramação de padrões limitantes. 
@@ -356,7 +356,7 @@ const Index = () => {
         <div className="container mx-auto px-5 sm:px-8 text-center">
           <p className="text-gradient-brand font-semibold text-lg mb-2">A.X.I.O.</p>
           <p className="text-sm text-muted-foreground">
-            Análise do Fator X do Inconsciente de Origem
+            Biofeedback Quântico
           </p>
           <p className="text-xs text-muted-foreground mt-4">
             © 2026 <strong className="font-bold">A.X.I.O. Biofeedback Quântico</strong>. Todos os direitos reservados. Marca e Método Registrados. Proibida reprodução total ou parcial. Proteção sob a Lei nº 9.279/96.
