@@ -400,8 +400,11 @@ const Admin = () => {
                           <span className={`inline-flex items-center rounded-md border px-2 py-0.5 text-[10px] font-semibold ${PLAN_TAG_COLORS[planLabel] || PLAN_TAG_COLORS.Gratuito}`}>
                             {planLabel}
                           </span>
-                        </TableCell>
-                        <TableCell>
+                         </TableCell>
+                         <TableCell className="text-xs font-mono text-amber-400">
+                           ${(p.ai_cost || 0).toFixed(2)}
+                         </TableCell>
+                         <TableCell>
                           {p.is_premium ? (
                             <Badge className={`text-[10px] border ${active ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30" : "bg-red-500/15 text-red-400 border-red-500/30"}`}>
                               {active ? "Ativo" : "Inativo"}
