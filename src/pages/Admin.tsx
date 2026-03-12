@@ -301,14 +301,14 @@ const Admin = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {Object.entries(costByType).map(([type, cost]) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              {["transcription", "diagnosis", "oracle", "performance_advisor"].map((type) => (
                 <div key={type} className="bg-muted/20 rounded-lg p-3">
                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
-                    {COST_TYPE_LABELS[type] || type}
+                    {COST_TYPE_LABELS[type]}
                   </p>
                   <p className="text-lg font-bold font-mono" style={{ color: "hsl(35, 90%, 55%)" }}>
-                    ${cost.toFixed(2)}
+                    ${(costByType[type] || 0).toFixed(2)}
                   </p>
                 </div>
               ))}
