@@ -1871,6 +1871,9 @@ serve(async (req) => {
       throw new Error("Failed to parse AI diagnosis");
     }
 
+    // Log analysis cost
+    await logAiUsage(user_id || null, "diagnosis", 0.02);
+
     return new Response(JSON.stringify(diagnosis), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
