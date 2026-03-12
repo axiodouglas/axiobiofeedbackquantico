@@ -30,7 +30,7 @@ const VendaOficial = () => {
               <span className="text-gradient-brand">A.</span>X.I.O.
             </span>
             <span className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wider text-muted-foreground">
-              Análise do Fator X do Inconsciente de Origem
+              Biofeedback Quântico
             </span>
           </div>
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 sm:px-5 py-1.5 sm:py-2">

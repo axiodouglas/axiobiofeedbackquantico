@@ -313,7 +313,7 @@ const Auth = () => {
               <section>
                 <h3 className="text-foreground font-semibold mb-2">1. Natureza do Serviço</h3>
                 <p>
-                  O A.X.I.O. — Análise do Fator X do Inconsciente de Origem — é uma ferramenta de autoconhecimento
+                  O A.X.I.O. Biofeedback Quântico é uma ferramenta de autoconhecimento
                   e desenvolvimento pessoal baseada em inteligência artificial. Os diagnósticos e comandos de
                   reprogramação gerados pela plataforma têm caráter exclusivamente informativo e educacional,
                   <strong className="text-foreground"> não substituindo tratamento médico, psicológico ou psiquiátrico profissional</strong>.

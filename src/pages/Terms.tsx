@@ -69,7 +69,7 @@ const Terms = () => {
 
           <div className="text-center mt-12 space-y-1">
             <p className="text-xs text-muted-foreground font-semibold">
-              A.X.I.O. - Análise do Fator X do Inconsciente de Origem
+              A.X.I.O. Biofeedback Quântico
             </p>
             <p className="text-xs text-muted-foreground">
               Última atualização: Fevereiro 2026 • © 2026 <strong className="font-bold">A.X.I.O. Biofeedback Quântico</strong>. Todos os direitos reservados. Marca e Método Registrados. Proibida reprodução total ou parcial. Proteção sob a Lei nº 9.279/96.

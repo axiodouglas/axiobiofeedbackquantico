@@ -356,7 +356,7 @@ const Index = () => {
         <div className="container mx-auto px-5 sm:px-8 text-center">
           <p className="text-gradient-brand font-semibold text-lg mb-2">A.X.I.O.</p>
           <p className="text-sm text-muted-foreground">
-            Análise do Fator X do Inconsciente de Origem
+            Biofeedback Quântico
           </p>
           <p className="text-xs text-muted-foreground mt-4">
             © 2026 <strong className="font-bold">A.X.I.O. Biofeedback Quântico</strong>. Todos os direitos reservados. Marca e Método Registrados. Proibida reprodução total ou parcial. Proteção sob a Lei nº 9.279/96.
