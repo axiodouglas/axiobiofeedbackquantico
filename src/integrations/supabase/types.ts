@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_usage_logs: {
+        Row: {
+          action_type: string
+          created_at: string
+          estimated_cost: number
+          id: string
+          user_id: string
+        }
+        Insert: {
+          action_type: string
+          created_at?: string
+          estimated_cost?: number
+          id?: string
+          user_id: string
+        }
+        Update: {
+          action_type?: string
+          created_at?: string
+          estimated_cost?: number
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       assinaturas: {
         Row: {
           created_at: string
