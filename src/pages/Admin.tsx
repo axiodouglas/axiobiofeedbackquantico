@@ -66,6 +66,13 @@ const Sparkline = ({ data, color }: { data: number[]; color: string }) => {
   );
 };
 
+const COST_TYPE_LABELS: Record<string, string> = {
+  transcription: "Transcrições",
+  diagnosis: "Diagnósticos",
+  oracle: "Oráculo",
+  performance_advisor: "Conselheiro",
+};
+
 const Admin = () => {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -76,12 +83,45 @@ const Admin = () => {
   const [reportOpen, setReportOpen] = useState(false);
   const [reportLoading, setReportLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [totalAiCost, setTotalAiCost] = useState(0);
+  const [costByType, setCostByType] = useState<Record<string, number>>({});
+  const [totalCalls, setTotalCalls] = useState(0);
 
   useEffect(() => {
     if (authLoading) return;
     if (!user) { navigate("/"); return; }
     checkAdminAndLoad();
   }, [user, authLoading]);
+
+  // Realtime subscription for AI usage updates
+  useEffect(() => {
+    if (!isAdmin) return;
+    const channel = supabase
+      .channel('ai-usage-realtime')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'ai_usage_logs' },
+        (payload) => {
+          const newLog = payload.new as any;
+          const cost = Number(newLog.estimated_cost) || 0;
+          setTotalAiCost(prev => prev + cost);
+          setTotalCalls(prev => prev + 1);
+          setCostByType(prev => ({
+            ...prev,
+            [newLog.action_type]: (prev[newLog.action_type] || 0) + cost,
+          }));
+          // Update user cost in profiles list
+          setProfiles(prev => prev.map(p => 
+            p.user_id === newLog.user_id 
+              ? { ...p, ai_cost: (p.ai_cost || 0) + cost }
+              : p
+          ));
+        }
+      )
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, [isAdmin]);
 
   const checkAdminAndLoad = async () => {
     try {
@@ -94,8 +134,6 @@ const Admin = () => {
     } catch { navigate("/"); }
   };
 
-  const [totalAiCost, setTotalAiCost] = useState(0);
-
   const loadUsers = async () => {
     setLoading(true);
     const session = await supabase.auth.getSession();
@@ -107,6 +145,8 @@ const Admin = () => {
     const result = await res.json();
     setProfiles(result.profiles || []);
     setTotalAiCost(result.total_ai_cost || 0);
+    setCostByType(result.cost_by_type || {});
+    setTotalCalls(result.total_calls || 0);
     setLoading(false);
   };
 
