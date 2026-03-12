@@ -430,11 +430,9 @@ const Admin = () => {
                     );
                   })}
                   {filteredProfiles.length === 0 && (
-                     <TableRow>
-                       <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
-                         Nenhum usuário encontrado.
-                       </TableCell>
-                     </TableRow>
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
+                        Nenhum usuário encontrado.
                       </TableCell>
                     </TableRow>
                   )}
