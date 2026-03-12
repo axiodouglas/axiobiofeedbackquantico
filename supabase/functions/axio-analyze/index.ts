@@ -1742,7 +1742,7 @@ serve(async (req) => {
       );
     }
 
-    const { transcription, area, is_premium, previous_diagnoses } = await req.json();
+    const { transcription, area, is_premium, previous_diagnoses, user_id } = await req.json();
 
     if (!transcription || !area) {
       return new Response(
