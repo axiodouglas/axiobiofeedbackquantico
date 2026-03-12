@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Users, Crown, DollarSign, FileText, ArrowLeft, Sparkles,
-  AlertTriangle, Eye, Search, TrendingUp, BarChart3, Percent
+  AlertTriangle, Eye, Search, TrendingUp, BarChart3, Percent, Cpu
 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
