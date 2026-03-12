@@ -359,7 +359,7 @@ const Index = () => {
             Análise do Fator X do Inconsciente de Origem
           </p>
           <p className="text-xs text-muted-foreground mt-4">
-            © 2026 A.X.I.O. Todos os direitos reservados. Marca e Método em processo de registro.
+            © 2026 <strong className="font-bold">A.X.I.O. Biofeedback Quântico</strong>. Todos os direitos reservados. Marca e Método Registrados. Proibida reprodução total ou parcial. Proteção sob a Lei nº 9.279/96.
           </p>
         </div>
       </footer>

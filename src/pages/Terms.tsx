@@ -72,7 +72,7 @@ const Terms = () => {
               A.X.I.O. - Análise do Fator X do Inconsciente de Origem
             </p>
             <p className="text-xs text-muted-foreground">
-              Última atualização: Fevereiro 2026 • © 2026 A.X.I.O. Todos os direitos reservados. Marca e Método em processo de registro.
+              Última atualização: Fevereiro 2026 • © 2026 <strong className="font-bold">A.X.I.O. Biofeedback Quântico</strong>. Todos os direitos reservados. Marca e Método Registrados. Proibida reprodução total ou parcial. Proteção sob a Lei nº 9.279/96.
             </p>
           </div>
         </div>
