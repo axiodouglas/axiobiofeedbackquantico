@@ -29,6 +29,7 @@ interface ProfileRow {
   subscription_type: string | null;
   subscription_expires_at: string | null;
   created_at: string;
+  ai_cost?: number;
 }
 
 const PLAN_PRICES: Record<string, number> = {
