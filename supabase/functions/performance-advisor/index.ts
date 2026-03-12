@@ -6,10 +6,12 @@ async function logAiUsage(userId: string, actionType: string, cost: number) {
   try {
     const url = Deno.env.get("SUPABASE_URL");
     const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (!url || !key) return;
+    if (!url || !key) { console.warn("logAiUsage skipped: missing env vars"); return; }
     const client = createClient(url, key);
-    await client.from("ai_usage_logs").insert({ user_id: userId, action_type: actionType, estimated_cost: cost });
-  } catch (e) { console.warn("Failed to log AI usage:", e); }
+    const { error } = await client.from("ai_usage_logs").insert({ user_id: userId, action_type: actionType, estimated_cost: cost });
+    if (error) { console.error("logAiUsage insert error:", JSON.stringify(error)); }
+    else { console.log("logAiUsage success:", actionType, cost, userId); }
+  } catch (e) { console.error("logAiUsage exception:", e); }
 }
 
 const corsHeaders = {
