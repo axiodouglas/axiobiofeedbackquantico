@@ -46,11 +46,15 @@ Deno.serve(async (req) => {
     expiresAt.setDate(expiresAt.getDate() + (daysMap[subscriptionType] || 30));
 
     // Find user by email
-    const { data: profile } = await supabase
+    // Use limit(1) to handle duplicate emails gracefully
+    const { data: profiles } = await supabase
       .from("profiles")
       .select("user_id")
       .eq("email", email)
-      .maybeSingle();
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    const profile = profiles && profiles.length > 0 ? profiles[0] : null;
 
     if (status === "approved" || status === "paid") {
       if (!profile) {
