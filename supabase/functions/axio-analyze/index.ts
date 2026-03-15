@@ -13,6 +13,8 @@ async function logAiUsage(userId: string | null, actionType: string, cost: numbe
     else { console.log("logAiUsage success:", actionType, cost, userId); }
   } catch (e) { console.error("logAiUsage exception:", e); }
 }
+
+const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
