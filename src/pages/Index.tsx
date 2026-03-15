@@ -258,9 +258,9 @@ const Index = () => {
           {/* Comunidade Card */}
           <div
             className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-card/60 backdrop-blur-sm shadow-[0_4px_24px_rgba(0,0,0,0.2)] hover:border-primary/30 hover:shadow-[0_4px_30px_hsl(175,70%,50%,0.12)] hover:scale-[1.01] transition-all duration-300 cursor-pointer p-4 sm:p-6 flex flex-col items-start gap-2.5 sm:flex-row sm:items-start sm:gap-4 ${!isPremium ? 'opacity-80' : ''}`}
-            onClick={() => isPremium ? navigate("/community") : navigate("/planos")}
+            onClick={() => !user ? navigate("/auth") : isPremium ? navigate("/community") : navigate("/planos")}
           >
-            {!isPremium && (
+            {user && !isPremium && (
               <div className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-gradient-to-r from-[hsl(175,70%,50%)] to-[hsl(260,60%,65%)] px-2 py-0.5 z-20">
                 <Lock className="h-2.5 w-2.5 text-[hsl(220,15%,4%)]" />
                 <span className="text-[10px] font-semibold text-[hsl(220,15%,4%)]">Premium</span>
