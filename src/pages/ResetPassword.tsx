@@ -52,7 +52,14 @@ const ResetPassword = () => {
     setLoading(false);
 
     if (err) {
-      setError("Erro ao atualizar a senha. Tente novamente.");
+      console.error("Reset password error:", err.message);
+      if (err.message.includes("same_password")) {
+        setError("A nova senha deve ser diferente da senha atual.");
+      } else if (err.message.includes("session")) {
+        setError("Sessão expirada. Solicite um novo link de recuperação.");
+      } else {
+        setError("Erro ao atualizar a senha. Tente solicitar um novo link de recuperação.");
+      }
       return;
     }
 
