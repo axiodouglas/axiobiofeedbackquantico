@@ -34,8 +34,8 @@ const Index = () => {
     window.addEventListener("subscription-expired", handleExpired);
     return () => window.removeEventListener("subscription-expired", handleExpired);
   }, [toast]);
-  const [isAdmin, setIsAdmin] = useState(false);
-  
+
+
   useEffect(() => {
     const checkAdmin = async () => {
       if (!user) { setIsAdmin(false); return; }
