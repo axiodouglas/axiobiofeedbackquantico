@@ -39,18 +39,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .eq("user_id", userId)
         .single();
       if (data) {
-        // Auto-lock expired subscriptions
+        // Check if subscription is expired
         const isExpired = data.is_premium && data.subscription_expires_at && new Date(data.subscription_expires_at) < new Date();
         if (isExpired) {
-          // Reset to free status and grant a new free diagnosis
-          await supabase
-            .from("profiles")
-            .update({ is_premium: false, free_diagnosis_reset_at: new Date().toISOString() } as any)
-            .eq("user_id", userId);
+          // Call edge function to properly downgrade and clean up data
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+              await supabase.functions.invoke("expire-subscription", {
+                headers: { Authorization: `Bearer ${session.access_token}` },
+              });
+            }
+          } catch (e) {
+            console.error("Error calling expire-subscription:", e);
+          }
           setProfile({
             ...data,
             is_premium: false,
+            subscription_type: null,
+            subscription_expires_at: null,
           });
+          // Show expiration toast (import is already available via context)
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent("subscription-expired"));
+          }, 500);
         } else {
           setProfile({
             ...data,

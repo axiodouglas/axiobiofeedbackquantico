@@ -15,14 +15,27 @@ import axioLogoX from "@/assets/axio-logo-x.png";
 const Index = () => {
   const navigate = useNavigate();
   const { user, profile, loading, refreshProfile } = useAuth();
+  const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
+  const { toast } = useToast();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (user) refreshProfile();
   }, [user]);
-  const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
-  const { toast } = useToast();
-  const [isAdmin, setIsAdmin] = useState(false);
-  
+
+  useEffect(() => {
+    const handleExpired = () => {
+      toast({
+        title: "Plano finalizado",
+        description: "Seu plano expirou. Seus relatórios anteriores foram removidos. Você pode continuar usando o app normalmente ou adquirir um novo plano.",
+        variant: "destructive",
+      });
+    };
+    window.addEventListener("subscription-expired", handleExpired);
+    return () => window.removeEventListener("subscription-expired", handleExpired);
+  }, [toast]);
+
+
   useEffect(() => {
     const checkAdmin = async () => {
       if (!user) { setIsAdmin(false); return; }
