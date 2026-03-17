@@ -19,6 +19,18 @@ const Index = () => {
   useEffect(() => {
     if (user) refreshProfile();
   }, [user]);
+
+  useEffect(() => {
+    const handleExpired = () => {
+      toast({
+        title: "Plano finalizado",
+        description: "Seu plano expirou. Seus relatórios anteriores foram removidos. Você pode continuar usando o app normalmente ou adquirir um novo plano.",
+        variant: "destructive",
+      });
+    };
+    window.addEventListener("subscription-expired", handleExpired);
+    return () => window.removeEventListener("subscription-expired", handleExpired);
+  }, [toast]);
   const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
   const [isAdmin, setIsAdmin] = useState(false);
