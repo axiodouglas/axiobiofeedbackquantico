@@ -52,6 +52,7 @@ const Oracle = () => {
   }, [user, isAdmin]);
 
   const incrementDailyUsage = () => {
+    if (isAdmin) return; // Admin doesn't track usage
     const today = new Date().toISOString().slice(0, 10);
     const key = `oracle_usage_${user?.id}_${today}`;
     const newCount = todayQuestions + 1;

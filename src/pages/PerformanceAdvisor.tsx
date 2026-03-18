@@ -227,7 +227,7 @@ const PerformanceAdvisor = () => {
     frustração: "Frustração",
   };
 
-  const dailyLimitReached = todayCount >= MAX_DAILY_RECORDINGS;
+  const dailyLimitReached = !isAdmin && todayCount >= MAX_DAILY_RECORDINGS;
 
   return (
     <div className="min-h-screen bg-background noise">
