@@ -106,7 +106,7 @@ const PerformanceAdvisor = () => {
       toast({ title: "Selecione uma categoria", variant: "destructive" });
       return;
     }
-    if (todayCount >= MAX_DAILY_RECORDINGS) {
+    if (!isAdmin && todayCount >= MAX_DAILY_RECORDINGS) {
       toast({ title: "Limite diário atingido", description: `Máximo de ${MAX_DAILY_RECORDINGS} gravações por dia.`, variant: "destructive" });
       return;
     }
