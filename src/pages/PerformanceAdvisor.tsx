@@ -45,6 +45,7 @@ const PerformanceAdvisor = () => {
   const [result, setResult] = useState<AdviceResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -52,6 +53,18 @@ const PerformanceAdvisor = () => {
   const streamRef = useRef<MediaStream | null>(null);
 
   const isPremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
+
+  // Check admin role
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .eq("role", "admin")
+      .maybeSingle()
+      .then(({ data }) => setIsAdmin(!!data));
+  }, [user]);
 
   const [pastAdvices, setPastAdvices] = useState<{ id: string; category: string; created_at: string }[]>([]);
   const [todayCount, setTodayCount] = useState(0);
@@ -93,7 +106,7 @@ const PerformanceAdvisor = () => {
       toast({ title: "Selecione uma categoria", variant: "destructive" });
       return;
     }
-    if (todayCount >= MAX_DAILY_RECORDINGS) {
+    if (!isAdmin && todayCount >= MAX_DAILY_RECORDINGS) {
       toast({ title: "Limite diário atingido", description: `Máximo de ${MAX_DAILY_RECORDINGS} gravações por dia.`, variant: "destructive" });
       return;
     }
@@ -214,7 +227,7 @@ const PerformanceAdvisor = () => {
     frustração: "Frustração",
   };
 
-  const dailyLimitReached = todayCount >= MAX_DAILY_RECORDINGS;
+  const dailyLimitReached = !isAdmin && todayCount >= MAX_DAILY_RECORDINGS;
 
   return (
     <div className="min-h-screen bg-background noise">
