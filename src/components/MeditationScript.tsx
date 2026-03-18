@@ -13,29 +13,90 @@ interface MeditationScriptProps {
 }
 
 function generateMeditationScript(_userName: string, dr: any): string {
-  const saudacao = "Querido(a) (diga seu nome)";
   const blocks = (dr?.blocks || []).map((b: any) => b.name);
-  const traumas = blocks.length > 0 ? blocks.join(", ") : "dores do passado";
   const sentiments = (dr?.predominant_sentiments || []).map((s: any) => s.name);
-  const sentimentText = sentiments.length > 0 ? sentiments.join(", ") : "sentimentos guardados";
   const rootWound = dr?.root_wound || "feridas de origem";
+  const somatMap = dr?.somatization_map || [];
 
-  // PASSO 1 - ACESSO
-  const acesso = `${saudacao}, eu agora fecho os meus olhos e dou um comando de paz ao meu corpo. Eu falo com cada parte de mim que viveu em estado de alerta. Coração, acalme-se. É seguro relaxar. Eu baixo a guarda agora, porque tudo o que faremos aqui é por amor a nós mesmos. Eu me conecto com o mais profundo do nosso ser. Corpo, ouça a minha voz: está tudo bem agora. Nós podemos soltar as amarras e tudo o que nos impede de acessar a nossa verdade.`;
+  // Build personalized body references from somatization map
+  const bodyParts = somatMap.map((s: any) => ({
+    organ: s.organ_or_area || s.body_region,
+    emotion: s.emotion,
+  }));
 
-  // PASSO 2 - VALIDAÇÃO
-  const validacao = `Eu olho agora para nós e reconheço a dor de ${rootWound}. Eu valido cada sentimento de ${traumas}. Eu acolho essa ferida sem qualquer julgamento. Eu digo a essa dor: eu finalmente te vejo e nunca mais vou te abandonar. Eu sei que sentimos ${sentimentText} e está tudo bem. Eu reconheço onde essa dor se instala no meu corpo e, neste momento, eu dou permissão para que cada tensão se dissolva. Eu solto o peso dos meus ombros, relaxo o meu pescoço e acalmo o meu ventre. Ao validar o que sinto, eu permito que essa energia flua livremente, sem resistência. Eu estou seguro(a) em meu próprio corpo. Não precisamos mais lutar contra o que sentimos. Nós apenas reconhecemos e deixamos fluir.`;
+  // Organ relaxation phrases from somatization
+  const organRelax = bodyParts.length > 0
+    ? bodyParts.map((p: any) => p.organ).join(", ")
+    : "estômago, intestinos, fígado, rins";
 
-  // PASSO 3 - DESASSOCIAÇÃO
-  const desassociacao = `Corpo, nós iniciamos agora o desligamento total. Eu ordeno o corte de todos os vínculos, lealdades cegas e pactos que nos prendem ao sofrimento da nossa linhagem. Eu não sou a dor dos meus ancestrais. Eu rescindo todo contrato de codependência. Eu libero agora toda tensão acumulada. Eu permito que meus órgãos relaxem. Eu solto a necessidade de me defender. Eu quebro toda lealdade invisível a familiares, pessoas ou situações. Eu me desassocio de toda energia que não é nossa. Eu devolvo o que não me pertence com amor, mas recupero agora toda a minha força vital. Eu sou livre(a) da aprovação deles. Nós estamos livres agora.`;
+  // Sentiment phrases for step 2
+  const sentimentList = sentiments.length > 0 ? sentiments : ["dores guardadas"];
+  const firstSentiment = sentimentList[0];
+  const otherSentiments = sentimentList.slice(1);
 
-  // PASSO 4 - INSTALAÇÃO
-  const instalacao = `Onde antes havia ${rootWound}, agora eu instalo segurança, amor próprio e confiança plena. Eu instalo a consciência da minha soberania. Eu sou digno(a) e inteiro(a). Corpo, sinta essa nova verdade entrando em cada parte de mim. Nós agora ocupamos o nosso lugar com segurança e alegria. Nós somos dignos(as) de prosperidade, saúde e relacionamentos saudáveis. Eu retomo meu direito ao prazer, à alegria e à minha voz. Minha identidade é restaurada agora. ${saudacao}, essa é a nossa nova realidade e ela começa agora.`;
+  // Block phrases for step 2
+  const blockList = blocks.length > 0 ? blocks : ["dores do passado"];
 
-  // PASSO 5 - GRATIDÃO
-  const gratidao = `Eu agradeço profundamente a cada pessoa, à nossa mãe, ao nosso pai e a todas as situações que nos moldaram, mas que agora deixamos ir. Eu agradeço ao meu corpo por permitir essa limpeza. Sinto a vida correndo livre, meus pulmões expandindo e meu ventre aquecido. Nós vamos relembrar tudo isso de novo, corpo, porque já é real na nossa vida. Está feito, está selado. Gratidão. ${saudacao}, durma em paz agora, nós estamos seguros(as).`;
+  // Build somatization cut phrases for step 3
+  const somatCutPhrases = bodyParts.length > 0
+    ? bodyParts.map((p: any) => `problemas em ${p.organ.toLowerCase()}`).join(", ")
+    : "desconfortos, doenças, dores de cabeça, problemas de intestino, problemas de pele";
 
-  return `${acesso}\n\n${validacao}\n\n${desassociacao}\n\n${instalacao}\n\n${gratidao}`;
+  // Build activation phrases for step 4 from somatization
+  const activationPhrases = bodyParts.length > 0
+    ? bodyParts.map((p: any) => {
+        const emotions = (p.emotion || "").split(",").map((e: string) => e.trim());
+        const negEmotion = emotions[0] || "dor";
+        // Map negative to positive
+        const positiveMap: Record<string, string> = {
+          "vergonha": "orgulho de ser quem somos",
+          "medo": "coragem e confiança plena",
+          "ansiedade": "calma e serenidade profunda",
+          "culpa": "perdão e leveza",
+          "raiva": "paz e aceitação",
+          "tristeza": "alegria genuína",
+          "insegurança": "certeza do nosso valor",
+          "rejeição": "acolhimento e pertencimento",
+          "abandono": "segurança de que nunca mais estaremos sozinhos(as)",
+          "indignidade": "dignidade e merecimento",
+          "humilhação": "respeito próprio e honra",
+          "dependência": "autonomia e liberdade",
+          "autossabotagem": "confiança e prosperidade natural",
+          "impotência": "poder pessoal restaurado",
+        };
+        const negLower = negEmotion.toLowerCase();
+        const positive = Object.entries(positiveMap).find(([k]) => negLower.includes(k))?.[1]
+          || "paz e restauração completa";
+        return `Onde havia ${negLower} em ${p.organ.toLowerCase()}, agora sentimos ${positive}.`;
+      }).join("\n")
+    : `Onde havia dor, agora sentimos alívio e restauração.\nOnde havia medo, agora sentimos coragem e confiança.\nOnde havia peso, agora sentimos leveza e liberdade.`;
+
+  // PASSO 1 — Relaxamento
+  const relaxamento = `Querido(a) corpo, agora que o dia acabou, vamos aproveitar esse momento juntos. Vamos dar uma ordem de paz para cada parte de nós. Coração, agora você pode descansar, pode relaxar e tirar todo o peso que carrega. Você agora está seguro(a) e pode liberar toda a tensão que guarda. Pulmões, deixem o ar entrar e sair de um jeito bem leve, sem pressa, só fluindo. É hora de soltar as defesas, tirar o peso dos ombros e deixar a mente aberta para ouvir uma história nova.
+
+Nossa mente descansa agora. Nossos órgãos, que trabalharam tanto, recebem esse descanso. ${organRelax}... podem relaxar agora. Estamos em casa, estamos seguros(as) e não precisamos mais lutar contra nada.`;
+
+  // PASSO 2 — Reconhecimento e Validação
+  const validacao = `Olhamos agora para dentro de nós com muito carinho e reconhecemos cada dor e cada trava que guardamos. ${firstSentiment.charAt(0).toUpperCase() + firstSentiment.slice(1)}, eu te vejo. Eu sei que sentimos ${firstSentiment} desde muito cedo, mesmo que na época a gente não entendesse o que aquilo significava. Eu solto agora todo o julgamento sobre esse sentimento. Eu reconheço que sentimos ${firstSentiment}, mas também compreendo que isso ficou no passado. Nós não precisamos mais carregar esse peso conosco e soltamos agora esse sentimento.
+
+${otherSentiments.length > 0 ? `Eu vejo também ${otherSentiments.join(", ")} e cada marca de ${blockList.join(", ")}. ` : `Eu vejo cada marca de ${blockList.join(", ")}. `}Eu compreendo cada um desses sentimentos em nós. Eu aceito a nossa história e reconheço a dor de ${rootWound}. Eu digo para a nossa criança interior: "Está tudo bem, nós finalmente te vemos e você nunca mais vai passar por isso sozinho(a)". Enquanto olhamos para essas lembranças, sentimos que essa energia pesada já começa a se descolar de nós. Nós reconhecemos onde essa dor se instalou no corpo e damos permissão para que ela comece a se dissolver agora.`;
+
+  // PASSO 3 — Limpeza e Corte
+  const limpeza = `Tudo o que eu esteja inconscientemente ativando em nosso corpo para manter viva a dor de ${rootWound}, como ${somatCutPhrases}, travando nossa prosperidade e o nosso crescimento, eu corto, desligo e cancelo agora instantaneamente.
+
+Agora, em cima de nós, surge uma bola de luz perolada. Esta luz é a energia da criação, que tem o poder de criar e desfazer qualquer coisa nesse universo. Ela começa a descer pelo nosso corpo, limpando todo sentimento de ${sentimentList.join(" e ")}, dissolvendo todo bloqueio que esteja nos impedindo de viver plenamente. Essa luz passa por cada órgão, cada nervo e cada parte do nosso corpo, desintegrando tudo o que não nos pertence. Sentimos a limpeza em ${organRelax} e em toda a nossa estrutura. Tudo o que estava travado agora se dissolve nessa luz.`;
+
+  // PASSO 4 — Ativação e Instalação
+  const ativacao = `${activationPhrases}
+
+Nós mandamos no nosso corpo. Somos dignos(as) de receber o melhor da vida agora. O sucesso já está vindo. A cura já aconteceu. Cada célula nossa vibra nessa nova frequência. Nós ocupamos o nosso lugar com segurança e alegria.`;
+
+  // PASSO 5 — Gratidão e Sono
+  const gratidao = `Agradecemos ao nosso corpo por ser tão forte e por nos trazer de volta para casa. Obrigado(a) a cada órgão nosso por trabalhar com tanto amor. Aos nossos pais, gratidão pela vida, e deixamos eles seguirem o caminho deles enquanto seguimos o nosso.
+
+Obrigado(a) a cada pessoa que passou pela nossa vida, porque tudo nos trouxe até essa paz de agora. Nosso corpo vibra saúde, nosso sangue corre limpo e nosso coração bate calmo. Tudo o que foi dito já é verdade. Está feito. Está selado. A paz é total. Vamos dormir agora com a certeza de que estamos seguros(as). Tudo está bem.`;
+
+  return `${relaxamento}\n\n${validacao}\n\n${limpeza}\n\n${ativacao}\n\n${gratidao}`;
 }
 
 export default function MeditationScript({ userName, diagnosisResult, diagnosisId, userId }: MeditationScriptProps) {
