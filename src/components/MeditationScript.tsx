@@ -12,6 +12,7 @@ interface MeditationScriptProps {
   userId: string;
 }
 
+// Meditation v2 - personalized 5-step format
 function generateMeditationScript(_userName: string, dr: any): string {
   const blocks = (dr?.blocks || []).map((b: any) => b.name);
   const sentiments = (dr?.predominant_sentiments || []).map((s: any) => s.name);
