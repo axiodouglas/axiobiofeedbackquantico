@@ -1816,13 +1816,13 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-lite",
+        model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: AXIO_SYSTEM_PROMPT },
           { role: "user", content: userPrompt },
         ],
         temperature: 0.7,
-        max_tokens: 8000,
+        max_tokens: 12000,
       }),
     });
 
@@ -1873,6 +1873,56 @@ serve(async (req) => {
     } catch (e) {
       console.error("Failed to parse AI response (length:", content.length, "):", content.substring(0, 500));
       throw new Error("Failed to parse AI diagnosis");
+    }
+
+    // Fallback: if somatization_map is missing or empty, generate it separately
+    if (!diagnosis.somatization_map || !Array.isArray(diagnosis.somatization_map) || diagnosis.somatization_map.length === 0) {
+      console.warn("somatization_map missing from main response, generating separately...");
+      try {
+        const somatizationPrompt = `Com base neste diagnóstico, gere APENAS o campo somatization_map como JSON array.
+
+Diagnóstico:
+- Título: ${diagnosis.title || ""}
+- Resumo: ${diagnosis.summary || ""}
+- Ferida Raiz: ${diagnosis.root_wound || ""}
+- Bloqueios: ${JSON.stringify(diagnosis.blocks?.map((b: any) => b.name) || [])}
+- Sentimentos: ${JSON.stringify(diagnosis.predominant_sentiments?.map((s: any) => s.name) || [])}
+
+Gere de 2 a 4 regiões do corpo onde esses traumas somatizam. Use neurociência e PNL.
+Os valores de body_region DEVEM ser exatamente: cabeca, garganta, peito, estomago, ventre, coluna, ombros, maos ou pernas.
+
+Responda APENAS com o JSON array, sem markdown:
+[{"body_region":"...","organ_or_area":"...","emotion":"...","description":"...","intensity":número}]`;
+
+        const somatResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer " + LOVABLE_API_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "google/gemini-2.5-flash",
+            messages: [{ role: "user", content: somatizationPrompt }],
+            temperature: 0.5,
+            max_tokens: 3000,
+          }),
+        });
+
+        if (somatResponse.ok) {
+          const somatResult = await somatResponse.json();
+          const somatContent = somatResult.choices?.[0]?.message?.content?.trim();
+          if (somatContent) {
+            const cleanSomat = somatContent.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+            const somatMap = JSON.parse(cleanSomat);
+            if (Array.isArray(somatMap) && somatMap.length > 0) {
+              diagnosis.somatization_map = somatMap;
+              console.log("somatization_map generated via fallback:", somatMap.length, "regions");
+            }
+          }
+        }
+      } catch (somatErr) {
+        console.error("Fallback somatization generation failed:", somatErr);
+      }
     }
 
     // Log analysis cost
