@@ -24,15 +24,32 @@ const Oracle = () => {
   const [userDiagnoses, setUserDiagnoses] = useState<any[]>([]);
   const [todayQuestions, setTodayQuestions] = useState(0);
   const [dailyLimitReached, setDailyLimitReached] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check admin role
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id)
+      .eq("role", "admin")
+      .maybeSingle()
+      .then(({ data }) => setIsAdmin(!!data));
+  }, [user]);
 
   // Track daily usage via localStorage
   useEffect(() => {
+    if (isAdmin) {
+      setDailyLimitReached(false);
+      return;
+    }
     const today = new Date().toISOString().slice(0, 10);
     const key = `oracle_usage_${user?.id}_${today}`;
     const count = parseInt(localStorage.getItem(key) || "0", 10);
     setTodayQuestions(count);
     setDailyLimitReached(count >= MAX_DAILY_QUESTIONS);
-  }, [user]);
+  }, [user, isAdmin]);
 
   const incrementDailyUsage = () => {
     const today = new Date().toISOString().slice(0, 10);
