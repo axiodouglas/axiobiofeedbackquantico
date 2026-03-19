@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Download, FileText, Play, Square } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { Mic, Download, FileText, Square } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { generateMeditationScript } from "@/lib/meditation-script";
 
 interface MeditationScriptProps {
   userName: string;
@@ -12,129 +12,14 @@ interface MeditationScriptProps {
   userId: string;
 }
 
-// Meditation v3 - personalized 5-step format (updated wording)
-// Positive sentiments to filter out from the wound/pain section
-const POSITIVE_SENTIMENTS = new Set([
-  "esperança", "desejo de superação", "gratidão", "alegria", "amor",
-  "confiança", "coragem", "otimismo", "determinação", "fé",
-  "resiliência", "força", "motivação", "entusiasmo", "paz",
-]);
-
-function isNegativeSentiment(s: string): boolean {
-  return !POSITIVE_SENTIMENTS.has(s.toLowerCase().trim());
-}
-
-// Simplify block names: remove awkward article clashes, make language flow naturally
-function simplifyBlockName(name: string): string {
-  return name
-    .replace(/^[Oo]\s+/g, "")
-    .replace(/^[Aa]\s+/g, "")
-    .replace(/'/g, "'")
-    .trim();
-}
-
-function generateMeditationScript(_userName: string, dr: any): string {
-  const blocks = (dr?.blocks || []).map((b: any) => b.name);
-  const sentiments = (dr?.predominant_sentiments || []).map((s: any) => s.name);
-  const negativeSentiments = sentiments.filter(isNegativeSentiment);
-  const rootWound = dr?.root_wound || "feridas de origem";
-  const somatMap = dr?.somatization_map || [];
-
-  const excludedBodyTerms = [/plexo solar/i, /chakra/i, /chakras/i];
-
-  const bodyParts = somatMap
-    .map((s: any) => ({
-      organ: String(s.organ_or_area || s.body_region || "").trim(),
-      emotion: s.emotion,
-    }))
-    .filter((p: any) => p.organ && !excludedBodyTerms.some((pattern) => pattern.test(p.organ)));
-
-  const uniqueOrgans = Array.from(new Set(bodyParts.map((p: any) => p.organ.toLowerCase())));
-
-  const organRelax = uniqueOrgans.length > 0
-    ? uniqueOrgans.join(", ")
-    : "coração, pulmões, estômago e intestinos";
-
-  const woundSentiments = negativeSentiments.length > 0
-    ? Array.from(new Set(negativeSentiments.map((s: string) => s.toLowerCase().trim())))
-    : ["dores guardadas"];
-
-  const blockList = blocks.length > 0 ? blocks.map(simplifyBlockName) : ["dores do passado"];
-
-  const somatCutPhrases = uniqueOrgans.length > 0
-    ? uniqueOrgans.map((organ: string) => `problemas em ${organ}`).join(", ")
-    : "desconfortos, dores de cabeça, problemas de intestino e tensões no corpo";
-
-  const activationPhrases = bodyParts.length > 0
-    ? bodyParts.map((p: any) => {
-        const emotions = (p.emotion || "").split(",").map((e: string) => e.trim());
-        const negEmotion = emotions[0] || "dor";
-        const positiveMap: Record<string, string> = {
-          "vergonha": "orgulho de ser quem eu sou",
-          "medo": "coragem e confiança plena",
-          "ansiedade": "calma e serenidade profunda",
-          "culpa": "perdão e leveza",
-          "raiva": "paz e aceitação",
-          "tristeza": "alegria genuína",
-          "insegurança": "certeza do meu valor",
-          "rejeição": "acolhimento e pertencimento",
-          "abandono": "segurança de que nunca mais estarei sozinho(a)",
-          "indignidade": "dignidade e merecimento",
-          "humilhação": "respeito próprio e honra",
-          "dependência": "autonomia e liberdade",
-          "autossabotagem": "confiança e prosperidade natural",
-          "impotência": "poder pessoal restaurado",
-          "escassez": "abundância e prosperidade plena",
-          "frustração": "realização e plenitude",
-        };
-        const negLower = negEmotion.toLowerCase();
-        const positive = Object.entries(positiveMap).find(([k]) => negLower.includes(k))?.[1]
-          || "paz e restauração completa";
-        return `Onde havia ${negLower} em ${p.organ.toLowerCase()}, agora sinto ${positive}.`;
-      }).join("\n")
-    : `Onde havia dor, agora sinto alívio e restauração.\nOnde havia medo, agora sinto coragem e confiança.\nOnde havia peso, agora sinto leveza e liberdade.`;
-
-  const relaxamento = `Querido(a) (diga seu nome), eu agora me conecto com meu subconsciente e com o meu corpo, e agora em um estado profundo de paz eu relaxo totalmente cada parte do meu ser.
-
-Eu falo com cada parte de mim que viveu em estado de alerta. Minha mente pode desacelerar agora. Meu subconsciente recebe essa mensagem de paz agora. Coração, acalme-se. Pulmões, deixem o ar entrar e sair de um jeito bem leve, sem pressa, só fluindo. Eu solto as defesas, tiro o peso dos ombros e permito que todo o meu corpo relaxe.
-
-Meus órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax} podem relaxar agora. Eu estou seguro(a) e não preciso mais lutar contra nada.`;
-
-  const validacaoIndividual = woundSentiments.map((sent: string) => {
-    return `Eu acolho e valido a dor da ${sent} e entendo que o que eu sentia era a verdade que eu entendia sobre ela naquele momento. Hoje eu não preciso mais ver dessa forma. Eu solto todo o julgamento sobre esse sentimento.`;
-  }).join("\n\n");
-
-  const blocksValidation = blockList.map((block: string) => {
-    const blockLower = block.charAt(0).toLowerCase() + block.slice(1);
-    return `Eu me conecto com a crença ${blockLower} e reconheço a dor que essa crença deixou em mim.`;
-  }).join("\n\n");
-
-  const validacao = `Agora eu me conecto com todas as crenças que eu tenho e reconheço a dor da ${rootWound.charAt(0).toLowerCase() + rootWound.slice(1)}.
-
-${blocksValidation}
-
-${validacaoIndividual}
-
-Enquanto olho para essas lembranças, sinto que essa energia pesada já começa a se descolar de mim. Eu reconheço onde essa dor se instalou no meu corpo e dou permissão para que ela comece a se dissolver agora.`;
-
-  const limpeza = `Tudo o que eu esteja inconscientemente ativando no meu corpo para manter viva a dor da ${rootWound.charAt(0).toLowerCase() + rootWound.slice(1)}, como ${somatCutPhrases}, travando minha prosperidade e o meu crescimento, eu corto, desligo e cancelo agora instantaneamente.
-
-Agora, em cima de mim, surge uma bola de luz perolada. Esta luz é a energia da criação, que tem o poder de criar e desfazer qualquer coisa nesse universo. Ela começa a descer pelo meu corpo, limpando todo sentimento de ${woundSentiments.join(" e ")}, dissolvendo todo bloqueio que esteja me impedindo de viver plenamente. Essa luz passa por cada órgão, cada nervo e cada parte do meu corpo, desintegrando tudo o que não me pertence. Sinto a limpeza em ${organRelax} e em toda a minha estrutura. Tudo o que estava travado agora se dissolve nessa luz.`;
-
-  const ativacao = `${activationPhrases}
-
-Eu mando no meu corpo. Sou digno(a) de receber o melhor da vida agora. O sucesso já está vindo. A cura já aconteceu. Cada célula minha vibra nessa nova frequência. Eu ocupo o meu lugar com segurança e alegria.`;
-
-  const gratidao = `Agradeço ao meu corpo por ser tão forte e por me trazer de volta para casa. Obrigado(a) a cada órgão meu por trabalhar com tanto amor. Aos meus pais, gratidão pela vida, e deixo eles seguirem o caminho deles enquanto sigo o meu.
-
-Obrigado(a) a cada pessoa que passou pela minha vida, porque tudo me trouxe até essa paz de agora. Meu corpo vibra saúde, meu sangue corre limpo e meu coração bate calmo. Tudo o que foi dito já é verdade. Está feito. Está selado. A paz é total. Vou dormir agora com a certeza de que estou seguro(a). Tudo está bem.`;
-
-  return `${relaxamento}\n\n${validacao}\n\n${limpeza}\n\n${ativacao}\n\n${gratidao}`;
-}
-
-export default function MeditationScript({ userName, diagnosisResult, diagnosisId, userId }: MeditationScriptProps) {
+export default function MeditationScript({
+  userName: _userName,
+  diagnosisResult,
+  diagnosisId: _diagnosisId,
+  userId: _userId,
+}: MeditationScriptProps) {
   const { toast } = useToast();
-  const script = generateMeditationScript(userName, diagnosisResult);
+  const script = generateMeditationScript(diagnosisResult);
 
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
