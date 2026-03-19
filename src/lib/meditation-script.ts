@@ -154,12 +154,19 @@ export function generateMeditationScript(dr: any): string {
   const negativeFeelings = woundSentiments.length > 0 ? woundSentiments : ["dor guardada"];
   const blockList = blocks.length > 0 ? blocks : ["dores do passado"];
 
+  // Deduplicate activation phrases by tracking used positive states
+  const usedPositiveStates = new Set<string>();
   const activationPhrases = bodyParts.length > 0
     ? bodyParts
         .map((part: { organ: string; emotion: string }) => {
           const mainEmotion = normalizeText(part.emotion.split(",")[0] || "dor").toLowerCase();
-          return `Onde havia ${mainEmotion} em ${part.organ.toLowerCase()}, agora sinto ${mapPositiveState(mainEmotion)}.`;
+          const positiveState = mapPositiveState(mainEmotion);
+          // Skip if we already used this exact positive state to avoid repetition
+          if (usedPositiveStates.has(positiveState)) return null;
+          usedPositiveStates.add(positiveState);
+          return `Onde havia ${mainEmotion} em ${part.organ.toLowerCase()}, agora sinto ${positiveState}.`;
         })
+        .filter(Boolean)
         .join("\n")
     : [
         "Onde havia dor, agora sinto alívio e restauração.",
