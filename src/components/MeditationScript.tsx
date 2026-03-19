@@ -68,15 +68,15 @@ function generateMeditationScript(_userName: string, dr: any): string {
         const emotions = (p.emotion || "").split(",").map((e: string) => e.trim());
         const negEmotion = emotions[0] || "dor";
         const positiveMap: Record<string, string> = {
-          "vergonha": "orgulho de ser quem somos",
+          "vergonha": "orgulho de ser quem eu sou",
           "medo": "coragem e confiança plena",
           "ansiedade": "calma e serenidade profunda",
           "culpa": "perdão e leveza",
           "raiva": "paz e aceitação",
           "tristeza": "alegria genuína",
-          "insegurança": "certeza do nosso valor",
+          "insegurança": "certeza do meu valor",
           "rejeição": "acolhimento e pertencimento",
-          "abandono": "segurança de que nunca mais estaremos sozinhos(as)",
+          "abandono": "segurança de que nunca mais estarei sozinho(a)",
           "indignidade": "dignidade e merecimento",
           "humilhação": "respeito próprio e honra",
           "dependência": "autonomia e liberdade",
@@ -88,16 +88,16 @@ function generateMeditationScript(_userName: string, dr: any): string {
         const negLower = negEmotion.toLowerCase();
         const positive = Object.entries(positiveMap).find(([k]) => negLower.includes(k))?.[1]
           || "paz e restauração completa";
-        return `Onde havia ${negLower} em ${p.organ.toLowerCase()}, agora sentimos ${positive}.`;
+        return `Onde havia ${negLower} em ${p.organ.toLowerCase()}, agora sinto ${positive}.`;
       }).join("\n")
-    : `Onde havia dor, agora sentimos alívio e restauração.\nOnde havia medo, agora sentimos coragem e confiança.\nOnde havia peso, agora sentimos leveza e liberdade.`;
+    : `Onde havia dor, agora sinto alívio e restauração.\nOnde havia medo, agora sinto coragem e confiança.\nOnde havia peso, agora sinto leveza e liberdade.`;
 
   // PASSO 1 — Relaxamento (intro fixa + transição personalizada)
   const relaxamento = `Querido(a) (diga seu nome), eu agora me conecto com meu subconsciente e com o meu corpo, e agora em um estado profundo de paz eu relaxo totalmente cada parte do meu ser.
 
 Eu falo com cada parte de mim que viveu em estado de alerta. Coração, acalme-se, é seguro relaxar agora. Pulmões, deixem o ar entrar e sair de um jeito bem leve, sem pressa, só fluindo. É hora de soltar as defesas, tirar o peso dos ombros e deixar a mente aberta.
 
-Nossos órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax}... podem relaxar. Estamos seguros(as) e não precisamos mais lutar contra nada.`;
+Meus órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax}... podem relaxar. Estou seguro(a) e não preciso mais lutar contra nada.`;
 
   // PASSO 2 — Reconhecimento e Validação (um por um, sem sentimentos positivos, sem "eu te vejo e nunca vou te abandonar")
   const validacaoIndividual = woundSentiments.map((sent: string) => {
