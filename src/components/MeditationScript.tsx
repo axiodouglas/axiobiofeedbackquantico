@@ -97,7 +97,7 @@ function generateMeditationScript(_userName: string, dr: any): string {
 
 Eu falo com cada parte de mim que viveu em estado de alerta. Coração, acalme-se, é seguro relaxar agora. Pulmões, deixem o ar entrar e sair de um jeito bem leve, sem pressa, só fluindo. É hora de soltar as defesas, tirar o peso dos ombros e deixar a mente aberta.
 
-Nossos órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax}... podem relaxar. Estamos seguros(as) e não precisamos mais lutar contra nada.`;
+Meus órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax}... podem relaxar. Estou seguro(a) e não preciso mais lutar contra nada.`;
 
   // PASSO 2 — Reconhecimento e Validação (um por um, sem sentimentos positivos, sem "eu te vejo e nunca vou te abandonar")
   const validacaoIndividual = woundSentiments.map((sent: string) => {
