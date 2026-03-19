@@ -73,6 +73,15 @@ function buildBlockReference(block: string): string {
   return cleaned;
 }
 
+function extractCoreWound(rootWound: string): string {
+  // Extract just the core wound name, not the full description
+  const match = rootWound.match(/^([^,.:;]+)/);
+  const core = normalizeText(match?.[1] || rootWound).toLowerCase();
+  // Limit to first ~6 words max to keep it concise
+  const words = core.split(" ");
+  return words.length > 6 ? words.slice(0, 6).join(" ") : core;
+}
+
 function mapPositiveState(emotion: string): string {
   const normalized = normalizeText(emotion).toLowerCase();
 
@@ -85,7 +94,7 @@ function mapPositiveState(emotion: string): string {
     tristeza: "alegria genuína",
     insegurança: "certeza do meu valor",
     rejeição: "acolhimento e pertencimento",
-    abandono: "segurança de que nunca mais estarei sozinho(a)",
+    abandono: "segurança e acolhimento",
     indignidade: "dignidade e merecimento",
     humilhação: "respeito próprio e honra",
     dependência: "autonomia e liberdade",
@@ -93,15 +102,34 @@ function mapPositiveState(emotion: string): string {
     impotência: "poder pessoal restaurado",
     escassez: "abundância e prosperidade plena",
     frustração: "realização e plenitude",
+    peso: "leveza e liberdade",
+    tensão: "fluidez e relaxamento profundo",
+    rigidez: "flexibilidade e entrega",
+    dor: "alívio e restauração",
+    sufocamento: "respiração livre e expansão",
+    aperto: "abertura e acolhimento interno",
+    "falta de suporte": "sustentação e segurança interna",
+    sobrecarga: "equilíbrio e leveza",
+    desamparo: "amparo e proteção",
+    solidão: "conexão e presença",
   };
 
   return Object.entries(positiveMap).find(([key]) => normalized.includes(key))?.[1] || "paz e restauração completa";
 }
 
+function buildSomaticCutPhrase(organ: string, emotion: string): string {
+  const cleanEmotion = normalizeText(emotion.split(",")[0] || "").toLowerCase();
+  if (cleanEmotion) {
+    return `${cleanEmotion} em ${organ.toLowerCase()}`;
+  }
+  return `tensão em ${organ.toLowerCase()}`;
+}
+
 export function generateMeditationScript(dr: any): string {
   const blocks = (dr?.blocks || []).map((block: any) => normalizeText(block?.name)).filter(Boolean);
   const sentiments = (dr?.predominant_sentiments || []).map((sentiment: any) => normalizeText(sentiment?.name)).filter(Boolean);
-  const rootWound = normalizeText(dr?.root_wound) || "feridas de origem";
+  const rootWoundRaw = normalizeText(dr?.root_wound) || "feridas de origem";
+  const rootWoundCore = extractCoreWound(rootWoundRaw);
   const somatizationMap = dr?.somatization_map || [];
 
   const bodyParts = somatizationMap
@@ -120,19 +148,26 @@ export function generateMeditationScript(dr: any): string {
   );
 
   const organRelax = uniqueOrgans.length > 0 ? uniqueOrgans.join(", ") : "coração, pulmões, estômago e intestinos";
-  const somatCutPhrases = uniqueOrgans.length > 0
-    ? uniqueOrgans.map((organ) => `problemas em ${organ}`).join(", ")
-    : "desconfortos, dores de cabeça, problemas de intestino e tensões no corpo";
+  const somatCutPhrases = bodyParts.length > 0
+    ? bodyParts.map((part: { organ: string; emotion: string }) => buildSomaticCutPhrase(part.organ, part.emotion)).join(", ")
+    : "desconfortos, tensões e dores acumuladas no corpo";
 
   const negativeFeelings = woundSentiments.length > 0 ? woundSentiments : ["dor guardada"];
   const blockList = blocks.length > 0 ? blocks : ["dores do passado"];
 
+  // Deduplicate activation phrases by tracking used positive states
+  const usedPositiveStates = new Set<string>();
   const activationPhrases = bodyParts.length > 0
     ? bodyParts
         .map((part: { organ: string; emotion: string }) => {
           const mainEmotion = normalizeText(part.emotion.split(",")[0] || "dor").toLowerCase();
-          return `Onde havia ${mainEmotion} em ${part.organ.toLowerCase()}, agora sinto ${mapPositiveState(mainEmotion)}.`;
+          const positiveState = mapPositiveState(mainEmotion);
+          // Skip if we already used this exact positive state to avoid repetition
+          if (usedPositiveStates.has(positiveState)) return null;
+          usedPositiveStates.add(positiveState);
+          return `Onde havia ${mainEmotion} em ${part.organ.toLowerCase()}, agora sinto ${positiveState}.`;
         })
+        .filter(Boolean)
         .join("\n")
     : [
         "Onde havia dor, agora sinto alívio e restauração.",
@@ -151,7 +186,7 @@ export function generateMeditationScript(dr: any): string {
     .map((block) => `Eu me conecto com ${buildBlockReference(block)} e reconheço a dor que isso deixou em mim.`)
     .join("\n\n");
 
-  const rootPainReference = buildPainReference(rootWound);
+  const rootPainReference = buildPainReference(rootWoundCore);
 
   const relaxamento = `Querido(a) (diga seu nome), eu agora me conecto com meu subconsciente e com o meu corpo, e agora em um estado profundo de paz eu relaxo totalmente cada parte do meu ser.\n\nEu falo com cada parte de mim que viveu em estado de alerta. Meu subconsciente se acalma agora. Minha mente se acalma agora. Meu corpo se acalma agora. Coração, acalme-se. Pulmões, deixem o ar entrar e sair de um jeito bem leve, sem pressa, só fluindo. Eu solto as defesas, tiro o peso dos ombros e permito que todo o meu corpo relaxe.\n\nMeus órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax} podem relaxar agora. Eu estou seguro(a) e não preciso mais lutar contra nada.`;
 
