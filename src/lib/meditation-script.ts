@@ -197,7 +197,7 @@ export function generateMeditationScript(dr: any): string {
     }
   }
 
-  const rootPainReference = buildPainReference(rootWoundCore);
+  
 
   const relaxamento = `Querido(a) (diga seu nome), eu agora me conecto com meu subconsciente e com o meu corpo, e agora em um estado profundo de paz eu relaxo totalmente cada parte do meu ser.\n\nEu falo com cada parte de mim que viveu em estado de alerta. Meu subconsciente se acalma agora. Minha mente se acalma agora. Meu corpo se acalma agora. Coração pode relaxar é seguro, pulmões pode relaxar agora estamos seguros, todo comando agora é seguro e para nosso bem. Todos os muros que meu subconsciente levantou caem agora, nós estamos seguros e podemos confiar. Eu solto as defesas, tiro o peso dos ombros e permito que todo o meu corpo relaxe.\n\nMeus órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax} podem relaxar agora. Eu estou seguro(a) e não preciso mais lutar contra nada.`;
 
