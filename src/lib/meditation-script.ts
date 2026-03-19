@@ -73,6 +73,15 @@ function buildBlockReference(block: string): string {
   return cleaned;
 }
 
+function extractCoreWound(rootWound: string): string {
+  // Extract just the core wound name, not the full description
+  const match = rootWound.match(/^([^,.:;]+)/);
+  const core = normalizeText(match?.[1] || rootWound).toLowerCase();
+  // Limit to first ~6 words max to keep it concise
+  const words = core.split(" ");
+  return words.length > 6 ? words.slice(0, 6).join(" ") : core;
+}
+
 function mapPositiveState(emotion: string): string {
   const normalized = normalizeText(emotion).toLowerCase();
 
@@ -85,7 +94,7 @@ function mapPositiveState(emotion: string): string {
     tristeza: "alegria genuína",
     insegurança: "certeza do meu valor",
     rejeição: "acolhimento e pertencimento",
-    abandono: "segurança de que nunca mais estarei sozinho(a)",
+    abandono: "segurança e acolhimento",
     indignidade: "dignidade e merecimento",
     humilhação: "respeito próprio e honra",
     dependência: "autonomia e liberdade",
@@ -93,9 +102,27 @@ function mapPositiveState(emotion: string): string {
     impotência: "poder pessoal restaurado",
     escassez: "abundância e prosperidade plena",
     frustração: "realização e plenitude",
+    peso: "leveza e liberdade",
+    tensão: "fluidez e relaxamento profundo",
+    rigidez: "flexibilidade e entrega",
+    dor: "alívio e restauração",
+    sufocamento: "respiração livre e expansão",
+    aperto: "abertura e acolhimento interno",
+    "falta de suporte": "sustentação e segurança interna",
+    sobrecarga: "equilíbrio e leveza",
+    desamparo: "amparo e proteção",
+    solidão: "conexão e presença",
   };
 
   return Object.entries(positiveMap).find(([key]) => normalized.includes(key))?.[1] || "paz e restauração completa";
+}
+
+function buildSomaticCutPhrase(organ: string, emotion: string): string {
+  const cleanEmotion = normalizeText(emotion.split(",")[0] || "").toLowerCase();
+  if (cleanEmotion) {
+    return `${cleanEmotion} em ${organ.toLowerCase()}`;
+  }
+  return `tensão em ${organ.toLowerCase()}`;
 }
 
 export function generateMeditationScript(dr: any): string {
