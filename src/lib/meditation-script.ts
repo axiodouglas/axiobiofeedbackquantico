@@ -186,7 +186,7 @@ export function generateMeditationScript(dr: any): string {
     .map((block) => `Eu me conecto com ${buildBlockReference(block)} e reconheço a dor que isso deixou em mim.`)
     .join("\n\n");
 
-  const rootPainReference = buildPainReference(rootWound);
+  const rootPainReference = buildPainReference(rootWoundCore);
 
   const relaxamento = `Querido(a) (diga seu nome), eu agora me conecto com meu subconsciente e com o meu corpo, e agora em um estado profundo de paz eu relaxo totalmente cada parte do meu ser.\n\nEu falo com cada parte de mim que viveu em estado de alerta. Meu subconsciente se acalma agora. Minha mente se acalma agora. Meu corpo se acalma agora. Coração, acalme-se. Pulmões, deixem o ar entrar e sair de um jeito bem leve, sem pressa, só fluindo. Eu solto as defesas, tiro o peso dos ombros e permito que todo o meu corpo relaxe.\n\nMeus órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax} podem relaxar agora. Eu estou seguro(a) e não preciso mais lutar contra nada.`;
 
