@@ -175,22 +175,33 @@ export function generateMeditationScript(dr: any): string {
         "Onde havia peso, agora sinto leveza e liberdade.",
       ].join("\n");
 
-  const validacaoIndividual = negativeFeelings
-    .map(
-      (sentiment) =>
-        `Eu acolho e valido a dor da ${sentiment} e entendo que o que eu sentia era a verdade que eu entendia sobre ela naquele momento. Hoje eu não preciso mais ver dessa forma. Eu solto todo o julgamento sobre esse sentimento.`,
-    )
-    .join("\n\n");
-
-  const blocksValidation = blockList
-    .map((block) => `Eu me conecto com ${buildBlockReference(block)} e reconheço a dor que isso deixou em mim.`)
-    .join("\n\n");
+  // Merge blocks + sentiments into combined validation paragraphs
+  // Each block is paired with a sentiment; extras are appended
+  const combinedValidation: string[] = [];
+  const maxLen = Math.max(blockList.length, negativeFeelings.length);
+  for (let i = 0; i < maxLen; i++) {
+    const block = blockList[i];
+    const sentiment = negativeFeelings[i];
+    if (block && sentiment) {
+      combinedValidation.push(
+        `Eu me conecto com ${buildBlockReference(block)} e reconheço a dor que isso deixou em mim. Eu acolho e valido a dor da ${sentiment} e entendo que o que eu sentia era a verdade que eu entendia sobre ela naquele momento. Hoje eu não preciso mais ver dessa forma. Eu solto todo o julgamento sobre esse sentimento.`
+      );
+    } else if (block) {
+      combinedValidation.push(
+        `Eu me conecto com ${buildBlockReference(block)} e reconheço a dor que isso deixou em mim. Eu solto todo o julgamento sobre essa dor.`
+      );
+    } else if (sentiment) {
+      combinedValidation.push(
+        `Eu acolho e valido a dor da ${sentiment} e entendo que o que eu sentia era a verdade que eu entendia sobre ela naquele momento. Hoje eu não preciso mais ver dessa forma. Eu solto todo o julgamento sobre esse sentimento.`
+      );
+    }
+  }
 
   const rootPainReference = buildPainReference(rootWoundCore);
 
   const relaxamento = `Querido(a) (diga seu nome), eu agora me conecto com meu subconsciente e com o meu corpo, e agora em um estado profundo de paz eu relaxo totalmente cada parte do meu ser.\n\nEu falo com cada parte de mim que viveu em estado de alerta. Meu subconsciente se acalma agora. Minha mente se acalma agora. Meu corpo se acalma agora. Coração, acalme-se. Pulmões, deixem o ar entrar e sair de um jeito bem leve, sem pressa, só fluindo. Eu solto as defesas, tiro o peso dos ombros e permito que todo o meu corpo relaxe.\n\nMeus órgãos, que trabalharam tanto, recebem esse descanso agora. ${organRelax} podem relaxar agora. Eu estou seguro(a) e não preciso mais lutar contra nada.`;
 
-  const validacao = `Agora eu me conecto com todas as crenças que eu tenho e reconheço a dor ${rootPainReference}.\n\n${blocksValidation}\n\n${validacaoIndividual}\n\nEnquanto olho para essas lembranças, sinto que essa energia pesada já começa a se descolar de mim. Eu reconheço onde essa dor se instalou no meu corpo e dou permissão para que ela comece a se dissolver agora.`;
+  const validacao = `Agora eu me conecto com todas as crenças que eu tenho e reconheço a dor ${rootPainReference}.\n\n${combinedValidation.join("\n\n")}\n\nEnquanto olho para essas lembranças, sinto que essa energia pesada já começa a se descolar de mim. Eu reconheço onde essa dor se instalou no meu corpo e dou permissão para que ela comece a se dissolver agora.`;
 
   const limpeza = `Tudo o que eu esteja inconscientemente ativando no meu corpo para manter viva a dor ${rootPainReference}, como ${somatCutPhrases}, travando minha prosperidade e o meu crescimento, eu corto, desligo e cancelo agora instantaneamente.\n\nAgora, em cima de mim, surge uma bola de luz perolada. Esta luz é a energia da criação, que tem o poder de criar e desfazer qualquer coisa nesse universo. Ela começa a descer pelo meu corpo, limpando todo sentimento de ${negativeFeelings.join(" e ")}, dissolvendo todo bloqueio que esteja me impedindo de viver plenamente. Essa luz passa por cada órgão, cada nervo e cada parte do meu corpo, desintegrando tudo o que não me pertence. Sinto a limpeza em ${organRelax} e em toda a minha estrutura. Tudo o que estava travado agora se dissolve nessa luz.`;
 
