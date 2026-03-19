@@ -130,6 +130,7 @@ export function generateMeditationScript(dr: any): string {
   const sentiments = (dr?.predominant_sentiments || []).map((sentiment: any) => normalizeText(sentiment?.name)).filter(Boolean);
   const rootWoundRaw = normalizeText(dr?.root_wound) || "feridas de origem";
   const rootWoundCore = extractCoreWound(rootWoundRaw);
+  const somatizationMap = dr?.somatization_map || [];
 
   const bodyParts = somatizationMap
     .map((item: any) => ({
