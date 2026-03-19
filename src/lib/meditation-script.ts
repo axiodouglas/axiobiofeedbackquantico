@@ -147,9 +147,9 @@ export function generateMeditationScript(dr: any): string {
   );
 
   const organRelax = uniqueOrgans.length > 0 ? uniqueOrgans.join(", ") : "coração, pulmões, estômago e intestinos";
-  const somatCutPhrases = uniqueOrgans.length > 0
-    ? uniqueOrgans.map((organ) => `problemas em ${organ}`).join(", ")
-    : "desconfortos, dores de cabeça, problemas de intestino e tensões no corpo";
+  const somatCutPhrases = bodyParts.length > 0
+    ? bodyParts.map((part: { organ: string; emotion: string }) => buildSomaticCutPhrase(part.organ, part.emotion)).join(", ")
+    : "desconfortos, tensões e dores acumuladas no corpo";
 
   const negativeFeelings = woundSentiments.length > 0 ? woundSentiments : ["dor guardada"];
   const blockList = blocks.length > 0 ? blocks : ["dores do passado"];
