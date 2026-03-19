@@ -128,8 +128,8 @@ function buildSomaticCutPhrase(organ: string, emotion: string): string {
 export function generateMeditationScript(dr: any): string {
   const blocks = (dr?.blocks || []).map((block: any) => normalizeText(block?.name)).filter(Boolean);
   const sentiments = (dr?.predominant_sentiments || []).map((sentiment: any) => normalizeText(sentiment?.name)).filter(Boolean);
-  const rootWound = normalizeText(dr?.root_wound) || "feridas de origem";
-  const somatizationMap = dr?.somatization_map || [];
+  const rootWoundRaw = normalizeText(dr?.root_wound) || "feridas de origem";
+  const rootWoundCore = extractCoreWound(rootWoundRaw);
 
   const bodyParts = somatizationMap
     .map((item: any) => ({
