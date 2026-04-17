@@ -28,14 +28,19 @@ const Oracle = () => {
 
   // Check admin role
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setIsAdmin(false);
+      return;
+    }
     supabase
       .from("user_roles")
       .select("role")
       .eq("user_id", user.id)
       .eq("role", "admin")
-      .maybeSingle()
-      .then(({ data }) => setIsAdmin(!!data));
+      .then(({ data, error }) => {
+        if (error) console.error("[Oracle] role check error", error);
+        setIsAdmin((data?.length ?? 0) > 0);
+      });
   }, [user]);
 
   // Track daily usage via localStorage
