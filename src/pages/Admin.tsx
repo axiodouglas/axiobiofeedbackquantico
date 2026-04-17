@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -77,10 +78,10 @@ const COST_TYPE_LABELS: Record<string, string> = {
 
 const Admin = () => {
   const { user, loading: authLoading } = useAuth();
+  const { isAdmin, loading: adminLoading } = useAdminStatus(user?.id);
   const navigate = useNavigate();
   const [profiles, setProfiles] = useState<ProfileRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [selectedReport, setSelectedReport] = useState<any>(null);
   const [reportOpen, setReportOpen] = useState(false);
   const [reportLoading, setReportLoading] = useState(false);
@@ -92,8 +93,10 @@ const Admin = () => {
   useEffect(() => {
     if (authLoading) return;
     if (!user) { navigate("/"); return; }
-    checkAdminAndLoad();
-  }, [user, authLoading]);
+    if (adminLoading) return;
+    if (!isAdmin) { navigate("/"); return; }
+    void loadUsers();
+  }, [user, authLoading, adminLoading, isAdmin]);
 
   // Realtime subscription for AI usage updates
   useEffect(() => {
@@ -124,18 +127,6 @@ const Admin = () => {
 
     return () => { supabase.removeChannel(channel); };
   }, [isAdmin]);
-
-  const checkAdminAndLoad = async () => {
-    try {
-      const { data: roleData, error } = await supabase
-        .from("user_roles").select("role")
-        .eq("user_id", user!.id).eq("role", "admin");
-      if (error) { console.error("[Admin] role check error", error); navigate("/"); return; }
-      if (!roleData || roleData.length === 0) { navigate("/"); return; }
-      setIsAdmin(true);
-      await loadUsers();
-    } catch (e) { console.error("[Admin] load error", e); navigate("/"); }
-  };
 
   const loadUsers = async () => {
     setLoading(true);
