@@ -9,9 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import QuantumCorePanel from "@/components/admin/QuantumCorePanel";
 import {
   Users, Crown, DollarSign, FileText, ArrowLeft, Sparkles,
-  AlertTriangle, Eye, Search, TrendingUp, BarChart3, Percent, Cpu
+  AlertTriangle, Eye, Search, TrendingUp, BarChart3, Percent, Cpu, Atom
 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
