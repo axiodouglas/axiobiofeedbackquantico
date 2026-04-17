@@ -332,9 +332,7 @@ const QuantumCorePanel = () => {
                     <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
                       <span>{fmt(st.current)}</span>
                       <span>
-                        {st.loading && st.progress > 0 && st.progress < 1
-                          ? `Baixando ${Math.round(st.progress * 100)}%`
-                          : fmt(st.duration || 600)}
+                        {st.loading ? "Carregando…" : fmt(st.duration || 600)}
                       </span>
                     </div>
                   </div>
