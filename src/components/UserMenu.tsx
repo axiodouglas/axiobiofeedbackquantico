@@ -1,43 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogIn, LogOut, User, Crown, HelpCircle, Shield, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { supabase } from "@/integrations/supabase/client";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 import BugReportModalSafe from "@/components/BugReportModalSafe";
 
 const UserMenu = () => {
   const { user, profile, loading, signOut } = useAuth();
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false);
   const [bugReportOpen, setBugReportOpen] = useState(false);
+  const { isAdmin, loading: adminLoading } = useAdminStatus(user?.id);
 
-  useEffect(() => {
-    if (!user) {
-      setIsAdmin(false);
-      return;
-    }
-    let cancelled = false;
-    (async () => {
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin");
-      if (cancelled) return;
-      if (error) {
-        console.error("[UserMenu] role check error", error);
-        setIsAdmin(false);
-        return;
-      }
-      setIsAdmin((data?.length ?? 0) > 0);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [user]);
-
-  if (loading) return null;
+  if (loading || adminLoading) return null;
 
   if (!user) {
     return (
