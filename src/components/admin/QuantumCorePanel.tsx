@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause, Loader2, Atom } from "lucide-react";
+import { Play, Pause, Loader2, Atom, Repeat, Headphones, AlertTriangle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -12,6 +12,12 @@ interface Protocol {
   subtitle: string;
   math: string;
   science: string;
+  usage: {
+    how: string;
+    headphones: string;
+    duration: string;
+    warning?: string;
+  };
 }
 
 const PROTOCOLS: Protocol[] = [
@@ -22,6 +28,12 @@ const PROTOCOLS: Protocol[] = [
     math: "Base 174Hz · LFO ±0.03Hz/5s · Pulso isocrônico 3Hz · Pan 8D φ=1.618s",
     science:
       "A frequência 174Hz reduz a atividade do eixo HPA e desacelera a produção de cortisol pela suprarrenal. O pulso isocrônico de 3Hz arrasta o córtex para o estado Delta — onde o sistema nervoso autônomo entra em modo parassimpático profundo (rest & repair), reduzindo PCR, dor crônica e hiperatividade da amígdala associada ao trauma.",
+    usage: {
+      how: "Ouça em posição de repouso (sentado ou deitado). Feche os olhos.",
+      headphones: "Obrigatórios.",
+      duration: "10 a 20 minutos.",
+      warning: "Não utilize enquanto dirige — induz estado Delta profundo (sonolência terapêutica).",
+    },
   },
   {
     file: "02-escudo-confronto.wav",
@@ -30,6 +42,11 @@ const PROTOCOLS: Protocol[] = [
     math: "Base 417Hz · Binaural 40Hz (Gamma) · LFO ±0.03Hz · Espacialização 8D φ",
     science:
       "417Hz dissolve padrões neurais de retraimento social (resposta tônica de imobilização). A batida binaural de 40Hz (Gamma) sincroniza córtex pré-frontal e ínsula — ativa autopercepção, coragem e integração da identidade fragmentada por experiências de humilhação ou rejeição.",
+    usage: {
+      how: "Pode ser ouvido durante o trabalho ou antes de situações sociais desafiadoras. Mantenha os olhos abertos se estiver em atividade.",
+      headphones: "Obrigatórios (efeito EMDR/8D ativo).",
+      duration: "10 a 15 minutos para blindagem imediata.",
+    },
   },
   {
     file: "03-reparo-dna.wav",
@@ -38,6 +55,11 @@ const PROTOCOLS: Protocol[] = [
     math: "528.01Hz exata · AM modulada por φ · LFO ±0.03Hz · Pan 8D",
     science:
       "528Hz é descrita por Horowitz e Rein como a frequência de reparo da hélice do DNA. A modulação de amplitude em proporção áurea (φ) cria um padrão de coerência cardíaca-cerebral: a variabilidade da frequência cardíaca (HRV) entra em ressonância, reduzindo marcadores de inflamação sistêmica e doenças autoimunes ligadas ao estresse oxidativo.",
+    usage: {
+      how: "Ideal para o período pré-sono ou durante sessões de cura. Foque na respiração lenta.",
+      headphones: "Recomendados para máxima eficácia da micro-oscilação quântica.",
+      duration: "20 minutos ou em loop durante o sono.",
+    },
   },
   {
     file: "04-desbloqueio-escassez.wav",
@@ -46,6 +68,11 @@ const PROTOCOLS: Protocol[] = [
     math: "852Hz + Schumann 7.83Hz contínua · LFO ±0.03Hz · Pan 8D φ",
     science:
       "852Hz dissolve crenças subconscientes de carência (programação parental de escassez). A Ressonância de Schumann 7.83Hz é a frequência eletromagnética da Terra: sincroniza os ritmos cerebrais Theta-Alpha, restaurando o senso de pertencimento e segurança existencial — pré-requisito neurobiológico para abertura à abundância.",
+    usage: {
+      how: "Ouça preferencialmente pela manhã, descalço ou com os pés tocando o chão, para potencializar a Ressonância de Schumann.",
+      headphones: "Recomendados.",
+      duration: "10 minutos para setar a frequência de abundância do dia.",
+    },
   },
   {
     file: "05-ponto-zero.wav",
@@ -54,6 +81,11 @@ const PROTOCOLS: Protocol[] = [
     math: "Pink noise (Voss-McCartney) · Binaural 0.5Hz · Gating Planck-derived · 8D φ",
     science:
       "O ruído rosa equilibra o EEG bilateralmente (1/f). A batida binaural de 0.5Hz induz Epsilon — o estado de consciência abaixo do Delta, onde ocorrem reorganizações profundas do campo informacional. Os intervalos de silêncio derivados da constante de Planck criam micro-pausas de coerência quântica que reseta o sistema límbico ao 'ponto zero' antes de qualquer crença ser instalada.",
+    usage: {
+      how: "Use apenas em estado de meditação absoluta. Quando a compulsão ou o pavor surgir, entre neste áudio para resetar a identidade.",
+      headphones: "Estritamente obrigatórios (frequência Epsilon de 0.5Hz).",
+      duration: "5 a 10 minutos (curto e intenso).",
+    },
   },
 ];
 
@@ -63,6 +95,7 @@ interface PlayerState {
   playing: boolean;
   current: number;
   duration: number;
+  loop: boolean;
 }
 
 const initialState = (): PlayerState => ({
@@ -71,6 +104,7 @@ const initialState = (): PlayerState => ({
   playing: false,
   current: 0,
   duration: 0,
+  loop: false,
 });
 
 const QuantumCorePanel = () => {
@@ -78,9 +112,44 @@ const QuantumCorePanel = () => {
     () => Object.fromEntries(PROTOCOLS.map((p) => [p.file, initialState()])),
   );
   const audioRefs = useRef<Record<string, HTMLAudioElement>>({});
+  const urlCache = useRef<Record<string, string>>({});
 
+  // Pre-fetch all signed URLs on mount for instant playback
   useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      await Promise.all(
+        PROTOCOLS.map(async (p) => {
+          try {
+            const { data, error } = await supabase.functions.invoke("quantum-core-url", {
+              body: { file: p.file },
+            });
+            if (cancelled || error || !data?.url) return;
+            urlCache.current[p.file] = data.url;
+            // Pre-create audio element to start buffering
+            const a = new Audio();
+            a.preload = "auto";
+            a.src = data.url;
+            a.addEventListener("loadedmetadata", () =>
+              setStates((s) => ({ ...s, [p.file]: { ...s[p.file], duration: a.duration, url: data.url } })),
+            );
+            a.addEventListener("timeupdate", () =>
+              setStates((s) => ({ ...s, [p.file]: { ...s[p.file], current: a.currentTime } })),
+            );
+            a.addEventListener("ended", () => {
+              if (a.loop) return;
+              setStates((s) => ({ ...s, [p.file]: { ...s[p.file], playing: false, current: 0 } }));
+            });
+            audioRefs.current[p.file] = a;
+            setStates((s) => ({ ...s, [p.file]: { ...s[p.file], url: data.url } }));
+          } catch {
+            /* silent */
+          }
+        }),
+      );
+    })();
     return () => {
+      cancelled = true;
       Object.values(audioRefs.current).forEach((a) => {
         a.pause();
         a.src = "";
@@ -91,28 +160,9 @@ const QuantumCorePanel = () => {
   const update = (file: string, patch: Partial<PlayerState>) =>
     setStates((s) => ({ ...s, [file]: { ...s[file], ...patch } }));
 
-  const ensureUrl = async (file: string): Promise<string | null> => {
-    const cur = states[file];
-    if (cur.url) return cur.url;
-    update(file, { loading: true });
-    try {
-      const { data, error } = await supabase.functions.invoke("quantum-core-url", {
-        body: { file },
-      });
-      if (error || !data?.url) throw new Error(error?.message ?? "Falha ao carregar áudio");
-      update(file, { url: data.url, loading: false });
-      return data.url;
-    } catch (e) {
-      update(file, { loading: false });
-      toast.error(e instanceof Error ? e.message : "Erro ao carregar áudio");
-      return null;
-    }
-  };
-
   const togglePlay = async (file: string) => {
-    // Pause others
     Object.entries(audioRefs.current).forEach(([k, a]) => {
-      if (k !== file) {
+      if (k !== file && !a.paused) {
         a.pause();
         update(k, { playing: false });
       }
@@ -120,20 +170,23 @@ const QuantumCorePanel = () => {
 
     let audio = audioRefs.current[file];
     if (!audio) {
-      const url = await ensureUrl(file);
-      if (!url) return;
-      audio = new Audio(url);
-      audio.preload = "metadata";
-      audio.addEventListener("loadedmetadata", () =>
-        update(file, { duration: audio.duration }),
-      );
-      audio.addEventListener("timeupdate", () =>
-        update(file, { current: audio.currentTime }),
-      );
-      audio.addEventListener("ended", () =>
-        update(file, { playing: false, current: 0 }),
-      );
-      audioRefs.current[file] = audio;
+      // Fallback: URL not cached yet
+      update(file, { loading: true });
+      try {
+        const { data, error } = await supabase.functions.invoke("quantum-core-url", {
+          body: { file },
+        });
+        if (error || !data?.url) throw new Error("Falha ao carregar áudio");
+        audio = new Audio(data.url);
+        audio.preload = "auto";
+        audioRefs.current[file] = audio;
+        urlCache.current[file] = data.url;
+        update(file, { url: data.url, loading: false });
+      } catch (e) {
+        update(file, { loading: false });
+        toast.error(e instanceof Error ? e.message : "Erro ao carregar áudio");
+        return;
+      }
     }
 
     if (audio.paused) {
@@ -147,6 +200,13 @@ const QuantumCorePanel = () => {
       audio.pause();
       update(file, { playing: false });
     }
+  };
+
+  const toggleLoop = (file: string) => {
+    const audio = audioRefs.current[file];
+    const next = !states[file].loop;
+    if (audio) audio.loop = next;
+    update(file, { loop: next });
   };
 
   const seek = (file: string, val: number) => {
@@ -178,6 +238,22 @@ const QuantumCorePanel = () => {
         </div>
       </div>
 
+      <Card className="p-4 border-primary/40 bg-primary/5">
+        <div className="flex items-start gap-3">
+          <Headphones className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+          <div className="text-sm">
+            <p className="font-semibold text-foreground mb-1">
+              ⚠️ IMPORTANTE — Use fones de ouvido
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              Para eficácia de 95% na recalibração do DNA e sistema nervoso, o uso de fones (over-ear ou in-ear) é{" "}
+              <span className="text-primary font-medium">obrigatório</span>. As tecnologias Binaural e EMDR dependem
+              da separação estéreo real para o processamento cerebral.
+            </p>
+          </div>
+        </div>
+      </Card>
+
       <div className="grid gap-4">
         {PROTOCOLS.map((p) => {
           const st = states[p.file];
@@ -201,9 +277,20 @@ const QuantumCorePanel = () => {
                 </Button>
 
                 <div className="flex-1 min-w-0 space-y-2">
-                  <div>
-                    <h3 className="font-semibold text-foreground">{p.title}</h3>
-                    <p className="text-xs text-primary/80">{p.subtitle}</p>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <h3 className="font-semibold text-foreground">{p.title}</h3>
+                      <p className="text-xs text-primary/80">{p.subtitle}</p>
+                    </div>
+                    <Button
+                      size="icon"
+                      variant={st.loop ? "cyan" : "ghost"}
+                      onClick={() => toggleLoop(p.file)}
+                      className="h-8 w-8 shrink-0"
+                      title={st.loop ? "Repetição ativa" : "Repetir"}
+                    >
+                      <Repeat className="h-4 w-4" />
+                    </Button>
                   </div>
 
                   <div className="space-y-1">
@@ -225,6 +312,31 @@ const QuantumCorePanel = () => {
                     {p.math}
                   </p>
                   <p className="text-xs text-muted-foreground leading-relaxed">{p.science}</p>
+
+                  <div className="mt-3 rounded-md border border-primary/20 bg-primary/5 p-3 space-y-1.5">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-primary">
+                      <Headphones className="h-3.5 w-3.5" />
+                      Protocolo de Uso
+                    </div>
+                    <p className="text-xs text-muted-foreground italic leading-relaxed">
+                      <span className="font-medium not-italic text-foreground/80">Como usar: </span>
+                      {p.usage.how}
+                    </p>
+                    <p className="text-xs text-muted-foreground italic leading-relaxed">
+                      <span className="font-medium not-italic text-foreground/80">Fones: </span>
+                      {p.usage.headphones}
+                    </p>
+                    <p className="text-xs text-muted-foreground italic leading-relaxed">
+                      <span className="font-medium not-italic text-foreground/80">Duração: </span>
+                      {p.usage.duration}
+                    </p>
+                    {p.usage.warning && (
+                      <p className="text-xs text-amber-400/90 italic leading-relaxed flex items-start gap-1.5 mt-1">
+                        <AlertTriangle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
+                        <span>{p.usage.warning}</span>
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             </Card>
