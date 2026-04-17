@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User, Session } from "@supabase/supabase-js";
 
@@ -30,79 +30,105 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const mountedRef = useRef(true);
+  const initialSessionResolvedRef = useRef(false);
 
-  const fetchProfile = async (userId: string) => {
+  const fetchProfile = useCallback(async (userId: string): Promise<UserProfile | null> => {
     try {
       const { data } = await supabase
         .from("profiles")
         .select("*")
         .eq("user_id", userId)
         .single();
-      if (data) {
-        // Check if subscription is expired
-        const isExpired = data.is_premium && data.subscription_expires_at && new Date(data.subscription_expires_at) < new Date();
-        if (isExpired) {
-          // Call edge function to properly downgrade and clean up data
-          try {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-              await supabase.functions.invoke("expire-subscription", {
-                headers: { Authorization: `Bearer ${session.access_token}` },
-              });
-            }
-          } catch (e) {
-            console.error("Error calling expire-subscription:", e);
+      if (!data) return null;
+
+      const isExpired = data.is_premium && data.subscription_expires_at && new Date(data.subscription_expires_at) < new Date();
+      if (isExpired) {
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+            await supabase.functions.invoke("expire-subscription", {
+              headers: { Authorization: `Bearer ${session.access_token}` },
+            });
           }
-          setProfile({
-            ...data,
-            is_premium: false,
-            subscription_type: null,
-            subscription_expires_at: null,
-          });
-          // Show expiration toast (import is already available via context)
-          setTimeout(() => {
-            window.dispatchEvent(new CustomEvent("subscription-expired"));
-          }, 500);
-        } else {
-          setProfile({
-            ...data,
-            is_premium: data.is_premium ?? false,
-          });
+        } catch (e) {
+          console.error("Error calling expire-subscription:", e);
         }
+
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent("subscription-expired"));
+        }, 500);
+
+        return {
+          ...data,
+          is_premium: false,
+          subscription_type: null,
+          subscription_expires_at: null,
+        };
       }
+
+      return {
+        ...data,
+        is_premium: data.is_premium ?? false,
+      };
     } catch {
-      // Profile may not exist yet
+      return null;
     }
-  };
+  }, []);
+
+  const syncSessionState = useCallback(async (nextSession: Session | null) => {
+    if (!mountedRef.current) return;
+
+    setSession(nextSession);
+    setUser(nextSession?.user ?? null);
+
+    if (!nextSession?.user) {
+      setProfile(null);
+      if (mountedRef.current) setLoading(false);
+      return;
+    }
+
+    const nextProfile = await fetchProfile(nextSession.user.id);
+    if (!mountedRef.current) return;
+    setProfile(nextProfile);
+    setLoading(false);
+  }, [fetchProfile]);
 
   useEffect(() => {
-    // Set up auth state listener FIRST
+    mountedRef.current = true;
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
-        setSession(newSession);
-        setUser(newSession?.user ?? null);
-        if (newSession?.user) {
-          // Use setTimeout to avoid Supabase client deadlock
-          setTimeout(() => fetchProfile(newSession.user.id), 0);
-        } else {
-          setProfile(null);
+        if (event === "INITIAL_SESSION" && initialSessionResolvedRef.current) {
+          return;
         }
-        setLoading(false);
+
+        if (event === "INITIAL_SESSION") {
+          initialSessionResolvedRef.current = true;
+        }
+
+        await syncSessionState(newSession);
       }
     );
 
-    // THEN check existing session
-    supabase.auth.getSession().then(({ data: { session: existingSession } }) => {
-      setSession(existingSession);
-      setUser(existingSession?.user ?? null);
-      if (existingSession?.user) {
-        fetchProfile(existingSession.user.id);
+    supabase.auth.getSession().then(async ({ data: { session: existingSession } }) => {
+      if (initialSessionResolvedRef.current) return;
+      initialSessionResolvedRef.current = true;
+      await syncSessionState(existingSession);
+    }).catch(() => {
+      if (mountedRef.current) {
+        setProfile(null);
+        setUser(null);
+        setSession(null);
+        setLoading(false);
       }
-      setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => {
+      mountedRef.current = false;
+      subscription.unsubscribe();
+    };
+  }, [syncSessionState]);
 
   const signUp = async (email: string, password: string, fullName?: string) => {
     const { error } = await supabase.auth.signUp({
@@ -131,7 +157,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const refreshProfile = async () => {
-    if (user) await fetchProfile(user.id);
+    if (!user) return;
+    const nextProfile = await fetchProfile(user.id);
+    if (mountedRef.current) setProfile(nextProfile);
   };
 
   return (
