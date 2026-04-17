@@ -10,9 +10,9 @@ const UserMenu = () => {
   const { user, profile, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const [bugReportOpen, setBugReportOpen] = useState(false);
-  const { isAdmin, loading: adminLoading } = useAdminStatus(user?.id);
+  const { isAdmin } = useAdminStatus(user?.id);
 
-  if (loading || adminLoading) return null;
+  if (loading) return null;
 
   if (!user) {
     return (
