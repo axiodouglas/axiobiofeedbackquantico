@@ -127,13 +127,14 @@ const Admin = () => {
 
   const checkAdminAndLoad = async () => {
     try {
-      const { data: roleData } = await supabase
+      const { data: roleData, error } = await supabase
         .from("user_roles").select("role")
-        .eq("user_id", user!.id).eq("role", "admin").single();
-      if (!roleData) { navigate("/"); return; }
+        .eq("user_id", user!.id).eq("role", "admin");
+      if (error) { console.error("[Admin] role check error", error); navigate("/"); return; }
+      if (!roleData || roleData.length === 0) { navigate("/"); return; }
       setIsAdmin(true);
       await loadUsers();
-    } catch { navigate("/"); }
+    } catch (e) { console.error("[Admin] load error", e); navigate("/"); }
   };
 
   const loadUsers = async () => {
