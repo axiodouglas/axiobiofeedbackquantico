@@ -9,9 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import QuantumCorePanel from "@/components/admin/QuantumCorePanel";
 import {
   Users, Crown, DollarSign, FileText, ArrowLeft, Sparkles,
-  AlertTriangle, Eye, Search, TrendingUp, BarChart3, Percent, Cpu
+  AlertTriangle, Eye, Search, TrendingUp, BarChart3, Percent, Cpu, Atom
 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -262,6 +264,18 @@ const Admin = () => {
       </header>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="bg-[hsl(215,14%,9%)] border border-border/40">
+            <TabsTrigger value="overview" className="gap-2">
+              <BarChart3 className="h-4 w-4" /> Visão Geral
+            </TabsTrigger>
+            <TabsTrigger value="quantum" className="gap-2">
+              <Atom className="h-4 w-4" /> Quantum-Core
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-6 mt-6">
 
         {/* ── Top Metrics Row ── */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -519,6 +533,13 @@ const Admin = () => {
             </div>
           </CardContent>
         </Card>
+
+          </TabsContent>
+
+          <TabsContent value="quantum" className="mt-6">
+            <QuantumCorePanel />
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* Report Dialog */}
