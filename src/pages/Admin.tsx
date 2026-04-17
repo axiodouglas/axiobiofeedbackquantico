@@ -533,6 +533,13 @@ const Admin = () => {
             </div>
           </CardContent>
         </Card>
+
+          </TabsContent>
+
+          <TabsContent value="quantum" className="mt-6">
+            <QuantumCorePanel />
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* Report Dialog */}
