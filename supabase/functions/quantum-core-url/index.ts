@@ -71,7 +71,7 @@ Deno.serve(async (req) => {
 
     const { data, error } = await service.storage
       .from("axio-quantum-core")
-      .createSignedUrl(file, 60 * 60);
+      .createSignedUrl(file, 60 * 60 * 24);
 
     if (error || !data) {
       return new Response(JSON.stringify({ error: error?.message ?? "Sign error" }), {
