@@ -265,6 +265,18 @@ const Admin = () => {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
 
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="bg-[hsl(215,14%,9%)] border border-border/40">
+            <TabsTrigger value="overview" className="gap-2">
+              <BarChart3 className="h-4 w-4" /> Visão Geral
+            </TabsTrigger>
+            <TabsTrigger value="quantum" className="gap-2">
+              <Atom className="h-4 w-4" /> Quantum-Core
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-6 mt-6">
+
         {/* ── Top Metrics Row ── */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
