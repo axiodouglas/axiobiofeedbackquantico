@@ -13,14 +13,28 @@ const UserMenu = () => {
   const [bugReportOpen, setBugReportOpen] = useState(false);
 
   useEffect(() => {
-    if (!user) return;
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "admin")
-      .maybeSingle()
-      .then(({ data }) => setIsAdmin(!!data));
+    if (!user) {
+      setIsAdmin(false);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .eq("role", "admin");
+      if (cancelled) return;
+      if (error) {
+        console.error("[UserMenu] role check error", error);
+        setIsAdmin(false);
+        return;
+      }
+      setIsAdmin((data?.length ?? 0) > 0);
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [user]);
 
   if (loading) return null;
