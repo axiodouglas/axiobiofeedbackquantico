@@ -92,6 +92,9 @@ const PROTOCOLS: Protocol[] = [
 interface PlayerState {
   loading: boolean;
   url: string | null;
+  blobUrl: string | null;
+  progress: number;
+  ready: boolean;
   playing: boolean;
   current: number;
   duration: number;
@@ -101,10 +104,13 @@ interface PlayerState {
 const initialState = (): PlayerState => ({
   loading: false,
   url: null,
+  blobUrl: null,
+  progress: 0,
+  ready: false,
   playing: false,
   current: 0,
   duration: 0,
-  loop: false,
+  loop: true,
 });
 
 const QuantumCorePanel = () => {
@@ -112,53 +118,82 @@ const QuantumCorePanel = () => {
     () => Object.fromEntries(PROTOCOLS.map((p) => [p.file, initialState()])),
   );
   const audioRefs = useRef<Record<string, HTMLAudioElement>>({});
-  const urlCache = useRef<Record<string, string>>({});
-
-  // Pre-fetch all signed URLs on mount for instant playback
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      await Promise.all(
-        PROTOCOLS.map(async (p) => {
-          try {
-            const { data, error } = await supabase.functions.invoke("quantum-core-url", {
-              body: { file: p.file },
-            });
-            if (cancelled || error || !data?.url) return;
-            urlCache.current[p.file] = data.url;
-            // Pre-create audio element to start buffering
-            const a = new Audio();
-            a.preload = "auto";
-            a.src = data.url;
-            a.addEventListener("loadedmetadata", () =>
-              setStates((s) => ({ ...s, [p.file]: { ...s[p.file], duration: a.duration, url: data.url } })),
-            );
-            a.addEventListener("timeupdate", () =>
-              setStates((s) => ({ ...s, [p.file]: { ...s[p.file], current: a.currentTime } })),
-            );
-            a.addEventListener("ended", () => {
-              if (a.loop) return;
-              setStates((s) => ({ ...s, [p.file]: { ...s[p.file], playing: false, current: 0 } }));
-            });
-            audioRefs.current[p.file] = a;
-            setStates((s) => ({ ...s, [p.file]: { ...s[p.file], url: data.url } }));
-          } catch {
-            /* silent */
-          }
-        }),
-      );
-    })();
-    return () => {
-      cancelled = true;
-      Object.values(audioRefs.current).forEach((a) => {
-        a.pause();
-        a.src = "";
-      });
-    };
-  }, []);
+  const blobUrlsRef = useRef<Record<string, string>>({});
 
   const update = (file: string, patch: Partial<PlayerState>) =>
     setStates((s) => ({ ...s, [file]: { ...s[file], ...patch } }));
+
+  // Download full WAV as Blob — elimina travamentos de streaming
+  const downloadAsBlob = async (file: string): Promise<string | null> => {
+    try {
+      update(file, { loading: true, progress: 0 });
+      const { data, error } = await supabase.functions.invoke("quantum-core-url", {
+        body: { file },
+      });
+      if (error || !data?.url) throw new Error("Falha ao obter URL");
+      const signedUrl = data.url as string;
+
+      const res = await fetch(signedUrl);
+      if (!res.ok || !res.body) throw new Error("Falha ao baixar áudio");
+      const total = Number(res.headers.get("Content-Length") || 0);
+      const reader = res.body.getReader();
+      const chunks: Uint8Array[] = [];
+      let received = 0;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        if (value) {
+          chunks.push(value);
+          received += value.length;
+          if (total) update(file, { progress: received / total });
+        }
+      }
+      const blob = new Blob(chunks, { type: "audio/wav" });
+      const blobUrl = URL.createObjectURL(blob);
+      blobUrlsRef.current[file] = blobUrl;
+      update(file, { url: signedUrl, blobUrl, ready: true, loading: false, progress: 1 });
+      return blobUrl;
+    } catch (e) {
+      update(file, { loading: false });
+      toast.error(e instanceof Error ? e.message : "Erro ao carregar áudio");
+      return null;
+    }
+  };
+
+  const ensureAudio = (file: string, src: string): HTMLAudioElement => {
+    let audio = audioRefs.current[file];
+    if (!audio) {
+      audio = new Audio();
+      audio.preload = "auto";
+      audio.loop = states[file]?.loop ?? true;
+      audio.addEventListener("loadedmetadata", () =>
+        update(file, { duration: audio!.duration }),
+      );
+      audio.addEventListener("timeupdate", () =>
+        update(file, { current: audio!.currentTime }),
+      );
+      audio.addEventListener("ended", () => {
+        // Loop manual como fallback (audio.loop pode falhar após longo tempo)
+        if (audio!.loop) {
+          try {
+            audio!.currentTime = 0;
+            void audio!.play();
+            return;
+          } catch {
+            /* ignore */
+          }
+        }
+        update(file, { playing: false, current: 0 });
+      });
+      audio.addEventListener("pause", () => {
+        if (!audio!.ended) update(file, { playing: false });
+      });
+      audio.addEventListener("play", () => update(file, { playing: true }));
+      audioRefs.current[file] = audio;
+    }
+    if (audio.src !== src) audio.src = src;
+    return audio;
+  };
 
   const togglePlay = async (file: string) => {
     Object.entries(audioRefs.current).forEach(([k, a]) => {
@@ -168,37 +203,35 @@ const QuantumCorePanel = () => {
       }
     });
 
-    let audio = audioRefs.current[file];
-    if (!audio) {
-      // Fallback: URL not cached yet
-      update(file, { loading: true });
-      try {
-        const { data, error } = await supabase.functions.invoke("quantum-core-url", {
-          body: { file },
-        });
-        if (error || !data?.url) throw new Error("Falha ao carregar áudio");
-        audio = new Audio(data.url);
-        audio.preload = "auto";
-        audioRefs.current[file] = audio;
-        urlCache.current[file] = data.url;
-        update(file, { url: data.url, loading: false });
-      } catch (e) {
-        update(file, { loading: false });
-        toast.error(e instanceof Error ? e.message : "Erro ao carregar áudio");
-        return;
-      }
+    let blobUrl = states[file].blobUrl;
+    if (!blobUrl) {
+      blobUrl = await downloadAsBlob(file);
+      if (!blobUrl) return;
     }
+
+    const audio = ensureAudio(file, blobUrl);
 
     if (audio.paused) {
       try {
         await audio.play();
-        update(file, { playing: true });
+        if ("mediaSession" in navigator) {
+          const proto = PROTOCOLS.find((p) => p.file === file);
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: proto?.title ?? "AXIO Quantum-Core",
+            artist: "AXIO Quantum-Core",
+            album: proto?.subtitle ?? "",
+          });
+          navigator.mediaSession.setActionHandler("play", () => audio.play());
+          navigator.mediaSession.setActionHandler("pause", () => audio.pause());
+          navigator.mediaSession.setActionHandler("seekto", (d) => {
+            if (d.seekTime != null) audio.currentTime = d.seekTime;
+          });
+        }
       } catch {
         toast.error("Não foi possível iniciar a reprodução");
       }
     } else {
       audio.pause();
-      update(file, { playing: false });
     }
   };
 
@@ -216,6 +249,19 @@ const QuantumCorePanel = () => {
       update(file, { current: val });
     }
   };
+
+  // Cleanup APENAS no unmount real do componente (não em troca de aba do SO)
+  useEffect(() => {
+    return () => {
+      Object.values(audioRefs.current).forEach((a) => {
+        a.pause();
+        a.src = "";
+      });
+      Object.values(blobUrlsRef.current).forEach((u) => URL.revokeObjectURL(u));
+      audioRefs.current = {};
+      blobUrlsRef.current = {};
+    };
+  }, []);
 
   const fmt = (s: number) => {
     if (!isFinite(s)) return "0:00";
