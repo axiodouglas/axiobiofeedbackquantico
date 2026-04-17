@@ -17,7 +17,7 @@ const Index = () => {
   const { user, profile, loading, refreshProfile } = useAuth();
   const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
-  const { isAdmin, loading: adminLoading } = useAdminStatus(user?.id);
+  const { isAdmin } = useAdminStatus(user?.id);
 
   useEffect(() => {
     if (user) refreshProfile();
