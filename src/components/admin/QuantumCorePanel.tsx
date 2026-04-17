@@ -345,12 +345,16 @@ const QuantumCorePanel = () => {
                       max={st.duration || 600}
                       step={0.1}
                       onValueChange={(v) => seek(p.file, v[0])}
-                      disabled={!st.url}
+                      disabled={!st.ready}
                       className="w-full"
                     />
                     <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
                       <span>{fmt(st.current)}</span>
-                      <span>{fmt(st.duration || 600)}</span>
+                      <span>
+                        {st.loading && st.progress > 0 && st.progress < 1
+                          ? `Baixando ${Math.round(st.progress * 100)}%`
+                          : fmt(st.duration || 600)}
+                      </span>
                     </div>
                   </div>
 
