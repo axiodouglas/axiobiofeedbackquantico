@@ -17,23 +17,38 @@ export const useAdminStatus = (userId?: string) => {
     setLoading(true);
 
     (async () => {
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId)
-        .eq("role", "admin");
+      try {
+        const roleCheck = supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", userId)
+          .eq("role", "admin");
 
-      if (cancelled) return;
+        const timeout = new Promise<never>((_, reject) => {
+          setTimeout(() => reject(new Error("admin-check-timeout")), 4000);
+        });
 
-      if (error) {
-        console.error("[useAdminStatus] role check error", error);
-        setIsAdmin(false);
-        setLoading(false);
-        return;
+        const { data, error } = await Promise.race([roleCheck, timeout]);
+
+        if (cancelled) return;
+
+        if (error) {
+          console.error("[useAdminStatus] role check error", error);
+          setIsAdmin(false);
+          return;
+        }
+
+        setIsAdmin((data?.length ?? 0) > 0);
+      } catch (error) {
+        if (!cancelled) {
+          console.error("[useAdminStatus] unexpected role check error", error);
+          setIsAdmin(false);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
-
-      setIsAdmin((data?.length ?? 0) > 0);
-      setLoading(false);
     })();
 
     return () => {

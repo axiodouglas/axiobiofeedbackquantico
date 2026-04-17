@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Brain, Mic, MessageSquare, Moon, Eye, Lock, Crown, Sparkles, BarChart3, Clock, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import UserMenu from "@/components/UserMenu";
@@ -67,7 +67,7 @@ const Index = () => {
     navigate("/recording?area=crencas_limitantes");
   };
 
-  if (loading || adminLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Sparkles className="h-8 w-8 text-primary animate-pulse" />
