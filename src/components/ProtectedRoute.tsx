@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
-import { supabase } from "@/integrations/supabase/client";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 import { Sparkles } from "lucide-react";
 
 interface ProtectedRouteProps {
@@ -12,23 +12,10 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children, requirePremium = false, requireFullPlan = false }: ProtectedRouteProps) => {
   const { user, profile, loading } = useAuth();
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const needsAdminCheck = requirePremium || requireFullPlan;
+  const { isAdmin, loading: adminLoading } = useAdminStatus(needsAdminCheck ? user?.id : undefined);
 
-  useEffect(() => {
-    if ((!requirePremium && !requireFullPlan) || !user) { setIsAdmin(false); return; }
-    const check = async () => {
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin")
-        .maybeSingle();
-      setIsAdmin(!!data);
-    };
-    check();
-  }, [user, requirePremium, requireFullPlan]);
-
-  if (loading || ((requirePremium || requireFullPlan) && isAdmin === null)) {
+  if (loading || (needsAdminCheck && adminLoading)) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Sparkles className="h-8 w-8 text-primary animate-pulse" />
