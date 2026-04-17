@@ -9,6 +9,7 @@ import { useAxioAnalysis } from "@/hooks/use-axio-analysis";
 import { useAuth } from "@/hooks/use-auth";
 import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useAreaLock } from "@/hooks/use-area-lock";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -31,19 +32,7 @@ const Recording = () => {
   const { user, profile, loading: authLoading } = useAuth();
   const { freeDiagnosisUsed, loading: freeLoading } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [adminLoading, setAdminLoading] = useState(true);
-
-  useEffect(() => {
-    if (!user) { setIsAdmin(false); setAdminLoading(false); return; }
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "admin")
-      .maybeSingle()
-      .then(({ data }) => { setIsAdmin(!!data); setAdminLoading(false); });
-  }, [user]);
+  const { isAdmin, loading: adminLoading } = useAdminStatus(user?.id);
 
   const { lockedAreas, loading: lockLoading } = useAreaLock(user?.id, isAdmin);
 

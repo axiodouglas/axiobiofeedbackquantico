@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import UserMenu from "@/components/UserMenu";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -16,6 +17,7 @@ const MAX_DAILY_QUESTIONS = 1;
 const Oracle = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { isAdmin } = useAdminStatus(user?.id);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -24,24 +26,6 @@ const Oracle = () => {
   const [userDiagnoses, setUserDiagnoses] = useState<any[]>([]);
   const [todayQuestions, setTodayQuestions] = useState(0);
   const [dailyLimitReached, setDailyLimitReached] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  // Check admin role
-  useEffect(() => {
-    if (!user) {
-      setIsAdmin(false);
-      return;
-    }
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "admin")
-      .then(({ data, error }) => {
-        if (error) console.error("[Oracle] role check error", error);
-        setIsAdmin((data?.length ?? 0) > 0);
-      });
-  }, [user]);
 
   // Track daily usage via localStorage
   useEffect(() => {

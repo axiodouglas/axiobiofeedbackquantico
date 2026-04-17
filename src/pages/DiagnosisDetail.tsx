@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 import { AreaCard } from "@/components/AreaCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -47,28 +48,17 @@ const DiagnosisDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user, profile, loading } = useAuth();
+  const { isAdmin, loading: adminLoading } = useAdminStatus(user?.id);
   const [diagnosis, setDiagnosis] = useState<DiagnosisData | null>(null);
   const [commands, setCommands] = useState<QuantumCommand[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [activeSection, setActiveSection] = useState<"report" | "commands" | "meditation" | "somatization" | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const profilePremium = profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date());
   const isPremium = profilePremium || isAdmin;
 
   useEffect(() => {
-    if (!user) return;
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "admin")
-      .maybeSingle()
-      .then(({ data }) => setIsAdmin(!!data));
-  }, [user]);
-
-  useEffect(() => {
-    if (!loading && !user) {
+    if (!loading && !adminLoading && !user) {
       navigate("/auth");
       return;
     }
@@ -88,9 +78,9 @@ const DiagnosisDetail = () => {
     };
 
     fetchData();
-  }, [user, id, loading, isPremium]);
+  }, [user, id, loading, adminLoading, isPremium]);
 
-  if (loading || loadingData) {
+  if (loading || adminLoading || loadingData) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Sparkles className="h-8 w-8 text-primary animate-pulse" />
