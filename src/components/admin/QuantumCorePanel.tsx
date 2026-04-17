@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause, Loader2, Atom, Repeat, Headphones, AlertTriangle } from "lucide-react";
+import { Play, Pause, Loader2, Atom, Repeat, Headphones, AlertTriangle, Download } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -225,6 +225,33 @@ const QuantumCorePanel = () => {
     update(file, { loop: next });
   };
 
+  const downloadFile = async (file: string) => {
+    let url = states[file].url;
+    if (!url) {
+      update(file, { loading: true });
+      url = await getSignedUrl(file);
+      update(file, { loading: false });
+      if (!url) return;
+      update(file, { url });
+    }
+    try {
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error("Falha no download");
+      const blob = await resp.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = file;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+      toast.success("Download iniciado");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Erro no download");
+    }
+  };
+
   const seek = (file: string, val: number) => {
     const audio = audioRefs.current[file];
     if (audio) {
@@ -309,15 +336,26 @@ const QuantumCorePanel = () => {
                       <h3 className="font-semibold text-foreground">{p.title}</h3>
                       <p className="text-xs text-primary/80">{p.subtitle}</p>
                     </div>
-                    <Button
-                      size="icon"
-                      variant={st.loop ? "cyan" : "ghost"}
-                      onClick={() => toggleLoop(p.file)}
-                      className="h-8 w-8 shrink-0"
-                      title={st.loop ? "Repetição ativa" : "Repetir"}
-                    >
-                      <Repeat className="h-4 w-4" />
-                    </Button>
+                    <div className="flex items-center gap-1 shrink-0">
+                      <Button
+                        size="icon"
+                        variant={st.loop ? "cyan" : "ghost"}
+                        onClick={() => toggleLoop(p.file)}
+                        className="h-8 w-8"
+                        title={st.loop ? "Repetição ativa" : "Repetir"}
+                      >
+                        <Repeat className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => downloadFile(p.file)}
+                        className="h-8 w-8"
+                        title="Baixar WAV"
+                      >
+                        <Download className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
 
                   <div className="space-y-1">
