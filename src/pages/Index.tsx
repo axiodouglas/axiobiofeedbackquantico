@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useFreeDiagnosisUsed } from "@/hooks/use-free-diagnosis";
 import { useAreaLock } from "@/hooks/use-area-lock";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 import neuralWavesCyan from "@/assets/neural-waves-cyan.png";
 import axioLogoX from "@/assets/axio-logo-x.png";
 
@@ -17,7 +17,7 @@ const Index = () => {
   const { user, profile, loading, refreshProfile } = useAuth();
   const { freeDiagnosisUsed } = useFreeDiagnosisUsed(user?.id);
   const { toast } = useToast();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { isAdmin, loading: adminLoading } = useAdminStatus(user?.id);
 
   useEffect(() => {
     if (user) refreshProfile();
@@ -34,21 +34,6 @@ const Index = () => {
     window.addEventListener("subscription-expired", handleExpired);
     return () => window.removeEventListener("subscription-expired", handleExpired);
   }, [toast]);
-
-
-  useEffect(() => {
-    const checkAdmin = async () => {
-      if (!user) { setIsAdmin(false); return; }
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin")
-        .maybeSingle();
-      setIsAdmin(!!data);
-    };
-    checkAdmin();
-  }, [user]);
 
   const isPremium = isAdmin || (profile?.is_premium && (!profile.subscription_expires_at || new Date(profile.subscription_expires_at) > new Date()));
   const isFullAccess = isAdmin || (isPremium && (profile?.subscription_type === "trimestral" || profile?.subscription_type === "semestral"));
@@ -82,7 +67,7 @@ const Index = () => {
     navigate("/recording?area=crencas_limitantes");
   };
 
-  if (loading) {
+  if (loading || adminLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Sparkles className="h-8 w-8 text-primary animate-pulse" />
