@@ -240,9 +240,7 @@ const QuantumCorePanel = () => {
         a.pause();
         a.src = "";
       });
-      Object.values(blobUrlsRef.current).forEach((u) => URL.revokeObjectURL(u));
       audioRefs.current = {};
-      blobUrlsRef.current = {};
     };
   }, []);
 
