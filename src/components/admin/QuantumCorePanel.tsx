@@ -92,8 +92,6 @@ const PROTOCOLS: Protocol[] = [
 interface PlayerState {
   loading: boolean;
   url: string | null;
-  blobUrl: string | null;
-  progress: number;
   ready: boolean;
   playing: boolean;
   current: number;
@@ -104,8 +102,6 @@ interface PlayerState {
 const initialState = (): PlayerState => ({
   loading: false,
   url: null,
-  blobUrl: null,
-  progress: 0,
   ready: false,
   playing: false,
   current: 0,
@@ -118,43 +114,19 @@ const QuantumCorePanel = () => {
     () => Object.fromEntries(PROTOCOLS.map((p) => [p.file, initialState()])),
   );
   const audioRefs = useRef<Record<string, HTMLAudioElement>>({});
-  const blobUrlsRef = useRef<Record<string, string>>({});
 
   const update = (file: string, patch: Partial<PlayerState>) =>
     setStates((s) => ({ ...s, [file]: { ...s[file], ...patch } }));
 
-  // Download full WAV as Blob — elimina travamentos de streaming
-  const downloadAsBlob = async (file: string): Promise<string | null> => {
+  // Obtém apenas a URL assinada — o navegador faz streaming progressivo nativo
+  const getSignedUrl = async (file: string): Promise<string | null> => {
     try {
-      update(file, { loading: true, progress: 0 });
       const { data, error } = await supabase.functions.invoke("quantum-core-url", {
         body: { file },
       });
       if (error || !data?.url) throw new Error("Falha ao obter URL");
-      const signedUrl = data.url as string;
-
-      const res = await fetch(signedUrl);
-      if (!res.ok || !res.body) throw new Error("Falha ao baixar áudio");
-      const total = Number(res.headers.get("Content-Length") || 0);
-      const reader = res.body.getReader();
-      const chunks: Uint8Array[] = [];
-      let received = 0;
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        if (value) {
-          chunks.push(value);
-          received += value.length;
-          if (total) update(file, { progress: received / total });
-        }
-      }
-      const blob = new Blob(chunks, { type: "audio/wav" });
-      const blobUrl = URL.createObjectURL(blob);
-      blobUrlsRef.current[file] = blobUrl;
-      update(file, { url: signedUrl, blobUrl, ready: true, loading: false, progress: 1 });
-      return blobUrl;
+      return data.url as string;
     } catch (e) {
-      update(file, { loading: false });
       toast.error(e instanceof Error ? e.message : "Erro ao carregar áudio");
       return null;
     }
@@ -165,15 +137,20 @@ const QuantumCorePanel = () => {
     if (!audio) {
       audio = new Audio();
       audio.preload = "auto";
+      audio.crossOrigin = "anonymous";
       audio.loop = states[file]?.loop ?? true;
       audio.addEventListener("loadedmetadata", () =>
-        update(file, { duration: audio!.duration }),
+        update(file, { duration: audio!.duration, ready: true }),
       );
+      audio.addEventListener("canplay", () =>
+        update(file, { ready: true, loading: false }),
+      );
+      audio.addEventListener("waiting", () => update(file, { loading: true }));
+      audio.addEventListener("playing", () => update(file, { loading: false, playing: true }));
       audio.addEventListener("timeupdate", () =>
         update(file, { current: audio!.currentTime }),
       );
       audio.addEventListener("ended", () => {
-        // Loop manual como fallback (audio.loop pode falhar após longo tempo)
         if (audio!.loop) {
           try {
             audio!.currentTime = 0;
@@ -203,13 +180,18 @@ const QuantumCorePanel = () => {
       }
     });
 
-    let blobUrl = states[file].blobUrl;
-    if (!blobUrl) {
-      blobUrl = await downloadAsBlob(file);
-      if (!blobUrl) return;
+    let url = states[file].url;
+    if (!url) {
+      update(file, { loading: true });
+      url = await getSignedUrl(file);
+      if (!url) {
+        update(file, { loading: false });
+        return;
+      }
+      update(file, { url });
     }
 
-    const audio = ensureAudio(file, blobUrl);
+    const audio = ensureAudio(file, url);
 
     if (audio.paused) {
       try {
@@ -228,6 +210,7 @@ const QuantumCorePanel = () => {
           });
         }
       } catch {
+        update(file, { loading: false });
         toast.error("Não foi possível iniciar a reprodução");
       }
     } else {
@@ -257,9 +240,7 @@ const QuantumCorePanel = () => {
         a.pause();
         a.src = "";
       });
-      Object.values(blobUrlsRef.current).forEach((u) => URL.revokeObjectURL(u));
       audioRefs.current = {};
-      blobUrlsRef.current = {};
     };
   }, []);
 
@@ -351,9 +332,7 @@ const QuantumCorePanel = () => {
                     <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
                       <span>{fmt(st.current)}</span>
                       <span>
-                        {st.loading && st.progress > 0 && st.progress < 1
-                          ? `Baixando ${Math.round(st.progress * 100)}%`
-                          : fmt(st.duration || 600)}
+                        {st.loading ? "Carregando…" : fmt(st.duration || 600)}
                       </span>
                     </div>
                   </div>
