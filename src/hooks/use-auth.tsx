@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { User, Session } from "@supabase/supabase-js";
 
 const PROFILE_TIMEOUT_MS = 4000;
+const AUTH_BOOTSTRAP_TIMEOUT_MS = 3500;
 
 function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
   return Promise.race([
@@ -120,6 +121,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     mountedRef.current = true;
 
+    const bootstrapTimeout = window.setTimeout(() => {
+      if (!mountedRef.current || initialSessionResolvedRef.current) return;
+      initialSessionResolvedRef.current = true;
+      setProfile(null);
+      setUser(null);
+      setSession(null);
+      setLoading(false);
+      console.error("[useAuth] bootstrap timeout fallback");
+    }, AUTH_BOOTSTRAP_TIMEOUT_MS);
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
         if (event === "INITIAL_SESSION" && initialSessionResolvedRef.current) {
@@ -128,18 +139,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         if (event === "INITIAL_SESSION") {
           initialSessionResolvedRef.current = true;
+          window.clearTimeout(bootstrapTimeout);
         }
 
         await syncSessionState(newSession);
       }
     );
 
-    supabase.auth.getSession().then(async ({ data: { session: existingSession } }) => {
+    withTimeout(supabase.auth.getSession(), AUTH_BOOTSTRAP_TIMEOUT_MS, "auth-session-timeout").then(async ({ data: { session: existingSession } }) => {
       if (initialSessionResolvedRef.current) return;
       initialSessionResolvedRef.current = true;
+      window.clearTimeout(bootstrapTimeout);
       await syncSessionState(existingSession);
     }).catch(() => {
       if (mountedRef.current) {
+        window.clearTimeout(bootstrapTimeout);
+        initialSessionResolvedRef.current = true;
         setProfile(null);
         setUser(null);
         setSession(null);
@@ -149,6 +164,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => {
       mountedRef.current = false;
+      window.clearTimeout(bootstrapTimeout);
       subscription.unsubscribe();
     };
   }, [syncSessionState]);
