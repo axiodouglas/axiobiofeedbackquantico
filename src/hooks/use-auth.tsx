@@ -46,15 +46,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const fetchProfile = useCallback(async (userId: string): Promise<UserProfile | null> => {
     try {
-      const { data } = await withTimeout(
-        supabase
+      const profileResponse = await withTimeout(
+        (async () => await supabase
           .from("profiles")
           .select("*")
           .eq("user_id", userId)
-          .single(),
+          .single())(),
         PROFILE_TIMEOUT_MS,
         "profile-fetch-timeout"
       );
+      const { data } = profileResponse;
       if (!data) return null;
 
       const isExpired = data.is_premium && data.subscription_expires_at && new Date(data.subscription_expires_at) < new Date();
