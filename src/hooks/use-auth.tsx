@@ -2,6 +2,17 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState, ty
 import { supabase } from "@/integrations/supabase/client";
 import type { User, Session } from "@supabase/supabase-js";
 
+const PROFILE_TIMEOUT_MS = 4000;
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => {
+      setTimeout(() => reject(new Error(label)), timeoutMs);
+    }),
+  ]);
+}
+
 interface UserProfile {
   id: string;
   user_id: string;
@@ -35,25 +46,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const fetchProfile = useCallback(async (userId: string): Promise<UserProfile | null> => {
     try {
-      const { data } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", userId)
-        .single();
+      const { data } = await withTimeout(
+        supabase
+          .from("profiles")
+          .select("*")
+          .eq("user_id", userId)
+          .single(),
+        PROFILE_TIMEOUT_MS,
+        "profile-fetch-timeout"
+      );
       if (!data) return null;
 
       const isExpired = data.is_premium && data.subscription_expires_at && new Date(data.subscription_expires_at) < new Date();
       if (isExpired) {
-        try {
-          const { data: { session } } = await supabase.auth.getSession();
-          if (session) {
-            await supabase.functions.invoke("expire-subscription", {
-              headers: { Authorization: `Bearer ${session.access_token}` },
-            });
+        supabase.auth.getSession().then(async ({ data: { session } }) => {
+          if (!session) return;
+          try {
+            await withTimeout(
+              supabase.functions.invoke("expire-subscription", {
+                headers: { Authorization: `Bearer ${session.access_token}` },
+              }),
+              PROFILE_TIMEOUT_MS,
+              "expire-subscription-timeout"
+            );
+          } catch (e) {
+            console.error("Error calling expire-subscription:", e);
           }
-        } catch (e) {
-          console.error("Error calling expire-subscription:", e);
-        }
+        }).catch((e) => {
+          console.error("Error loading session for expire-subscription:", e);
+        });
 
         setTimeout(() => {
           window.dispatchEvent(new CustomEvent("subscription-expired"));
@@ -71,7 +92,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         ...data,
         is_premium: data.is_premium ?? false,
       };
-    } catch {
+    } catch (error) {
+      console.error("[useAuth] profile fetch fallback", error);
       return null;
     }
   }, []);
