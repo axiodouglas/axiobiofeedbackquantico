@@ -119,10 +119,10 @@ const QuantumCorePanel = () => {
     setStates((s) => ({ ...s, [file]: { ...s[file], ...patch } }));
 
   // Obtém apenas a URL assinada — o navegador faz streaming progressivo nativo
-  const getSignedUrl = async (file: string): Promise<string | null> => {
+  const getSignedUrl = async (file: string, download = false): Promise<string | null> => {
     try {
       const { data, error } = await supabase.functions.invoke("quantum-core-url", {
-        body: { file },
+        body: { file, download },
       });
       if (error || !data?.url) throw new Error("Falha ao obter URL");
       return data.url as string;
@@ -226,29 +226,23 @@ const QuantumCorePanel = () => {
   };
 
   const downloadFile = async (file: string) => {
-    let url = states[file].url;
-    if (!url) {
-      update(file, { loading: true });
-      url = await getSignedUrl(file);
-      update(file, { loading: false });
-      if (!url) return;
-      update(file, { url });
-    }
     try {
-      const resp = await fetch(url);
-      if (!resp.ok) throw new Error("Falha no download");
-      const blob = await resp.blob();
-      const blobUrl = URL.createObjectURL(blob);
+      update(file, { loading: true });
+      const url = await getSignedUrl(file, true);
+      if (!url) return;
+
       const a = document.createElement("a");
-      a.href = blobUrl;
+      a.href = url;
       a.download = file;
+      a.rel = "noopener noreferrer";
       document.body.appendChild(a);
       a.click();
       a.remove();
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
       toast.success("Download iniciado");
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Erro no download");
+    } finally {
+      update(file, { loading: false });
     }
   };
 

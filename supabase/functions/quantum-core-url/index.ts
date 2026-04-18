@@ -61,7 +61,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    const { file } = await req.json();
+    const { file, download } = await req.json();
     if (!file || !ALLOWED.has(file)) {
       return new Response(JSON.stringify({ error: "Invalid file" }), {
         status: 400,
@@ -71,7 +71,7 @@ Deno.serve(async (req) => {
 
     const { data, error } = await service.storage
       .from("axio-quantum-core")
-      .createSignedUrl(file, 60 * 60 * 24);
+      .createSignedUrl(file, 60 * 60 * 24, download ? { download: file } : undefined);
 
     if (error || !data) {
       return new Response(JSON.stringify({ error: error?.message ?? "Sign error" }), {
